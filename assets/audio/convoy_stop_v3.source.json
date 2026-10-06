@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/convoy_stop_v3.wav",
+  "generator": "tools/generate_convoy_audio_v3.py",
+  "generator_sha256": "0a6f56839a8ae0ddb7e28bfdabda39d05bf93a741f55837959713889903f1683",
+  "base_generator": "tools/generate_convoy_audio.py",
+  "base_generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic physical multigrain foley; no external samples or music.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "stop",
+  "layers": "Compression rundown, engine block settling and air-valve release",
+  "seed": 606928,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 50400,
+  "seconds": 1.05,
+  "loop": false,
+  "sha256": "b479fa068a822665362de904ae4845d360e1e8c4f9077666f32ecf942a83bf94",
+  "loop_method": "Silent edges and55ms final fade",
+  "playback": "Existing positional SFX voices and user50% baseline gains; separate fit/lower impact at actual work contact."
+}

@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_dart_01.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_dart",
+  "layers": "Sharp pneumatic needle launch, short valve contact and displaced air",
+  "seed": 935271,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 9600,
+  "seconds": 0.2,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -2.047732234352862,
+  "rms_dbfs": -19.226316175113837,
+  "sha256": "9310ab73ae38644095e2e02485839d1157330130aa2bdd9702059716b4a602c8",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

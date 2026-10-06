@@ -1,0 +1,21 @@
+{
+  "generator": "built-in image_gen",
+  "generated_at": "2026-10-01",
+  "asset": "water_effects.png",
+  "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-ca53425b-cb11-4506-ac52-44350c8f52af.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "grid": [
+    4,
+    3
+  ],
+  "rows": [
+    "breaking wave crest and foam",
+    "outlet splash",
+    "expanding rain ripple"
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: transparent RGBA animated water-effect sprite atlas for a gritty hand-painted industrial 2D pixel game. One landscape image 1536x1024, exact regular grid FOUR columns by THREE rows, no visible grid lines, no text, no background. Each of the 12 cells contains one centered isolated effect with generous transparent margins and identical camera/scale across its row. Row1: four consecutive phases of a small broken horizontal wave crest/shore foam, seen nearly side-on, long thin ragged pale green-grey froth with dark teal water underside, curling then breaking and dissolving; sparse specks. Row2: four consecutive phases of a compact splash where a dam outlet hits water, low spreading crown and a few individual upward droplets, rising then falling, pale jade grey-white froth and dark slate teal shadows; mostly horizontal footprint, NOT a fountain. Row3: four successive expansion stages of a raindrop ripple on water viewed at a shallow angle: very flat broken elliptical ring with a few tiny ripple fragments, expanding and fading; NO complete smooth vector ellipses. All water confined to effect shapes; the rest of EACH cell must have real transparent alpha, no colored wash. Crisp detailed restrained pixel clusters at roughly 2px scale, 10-16 muted cold grey/teal tones, realistic industrial pixel-art mood, no cute cartoon shapes, no antialiased vector outlines, no glow, no photo textures, no baked dark background, no shadows outside the shape. Art must be readable when each effect is drawn small in a game. Do not let effects touch cell edges or overlap adjacent cells. Consistent perspective and material for all 12 frames.",
+  "processing": "Original RGBA bytes preserved. Godot selects sprite regions; no offline image modifications."
+}

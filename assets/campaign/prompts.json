@@ -1,0 +1,12 @@
+{
+  "generation": "Built-in image_gen.imagegen. Reference images inspected: reference/konzept.jpg and assets/environments/ash_foundry.png. Original output copied unchanged.",
+  "assets": [
+    {
+      "id": "world_map",
+      "tool": "built-in image_gen.imagegen",
+      "prompt": "Use case: stylized-concept. Asset type: production WORLD MAP background for LETZTE SCHICHT, an existing grounded industrial 2D pixel-art survival game. Generate ONE NEW complete world-map bitmap, landscape16:9 preferably2560x1440. Treat the two viewed images as STYLE references only: their painstaking crisp pixel clusters, dark concrete/steel materials, muted slateblue, charcoal, worn olive and dusty rust with small warm amber lights. This is a straight-down regional map viewed as if on a civil-defense planning table, NOT a 3D perspective landscape and NOT a UI mockup. Show a large devastated industrial region: jagged coast and dark sea on the lower-left/west, a branching river from upper-right mountain foothills through central ruinedindustrialplains to the coast, broken reservoir/dam in uppermiddle, derelict rail corridors and roads connecting widely separated concretefactory districts, a quarry, ports, refinery tankfields, radar hills and a buried megafactory toward east. Geographical depth with pixel reliefshadows, tiny concretefacilities/bridges and tightly clustered trees, readable ridgelines and topographic forms, carefully limited sober palette. Western lowlands flatter; mountains across north and far right. Leave broad calm darker land patches between landmarks because selectable nodes, route lines, radar scans and labels will be drawn and animated by the game later. Sparse warm industrial lights, no magicalfantasy structures, no oversizedicons. Every pixel contributes to one coherent region, detailed but lowcontrast behind UI. Top-downorthographic; handmade pixel map rendering with sharp smallpixel clusters and steppededges, NO glossy3D, no smoothpainterlybrush, no comic outlines. Canvas fillededge-toedge with map, no surroundingtable/frame/border. NO baked labels, text, letters, numbering, compass, routepaths/dottedlines, nodecircles, selectionrings, logos, HUD, people, enemies, screenshotoverlays or watermark. Clouds, smoke and effects will be animated independently so do NOT bake those into the map.",
+      "source_path": "local-archive:generated_images/01a0f3ae-3024-7b22-8aab-2b2fb652859c/exec-089fd98a-7081-4675-b206-e2eaa8693436.png",
+      "path": "res://assets/campaign/world_map.png"
+    }
+  ]
+}

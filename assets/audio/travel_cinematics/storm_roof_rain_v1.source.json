@@ -1,0 +1,27 @@
+{
+  "asset": "assets/audio/travel_cinematics/storm_roof_rain_v1.wav",
+  "generator": "tools/generate_travel_cinematic_audio.py",
+  "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+  "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "bed",
+  "layers": "Irregular rain on the shelter roof, diffuse wet wind and restrained tin resonances",
+  "seed": 842191,
+  "sample_rate": 48000,
+  "channels": 2,
+  "pcm_bits": 16,
+  "frames": 376800,
+  "seconds": 7.85,
+  "loop": false,
+  "screen_pan": 0.0,
+  "mix": {
+    "bus": "SFX",
+    "additional_dialogue_duck_db": -7.0,
+    "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+  },
+  "measurements": {
+    "peak_dbfs": -11.277027892111594,
+    "rms_dbfs": -25.0
+  },
+  "sha256": "e77ed03d5a72ece25f5d6024eaac3dd9da51286a8f333147d11c8a53a37c477f"
+}

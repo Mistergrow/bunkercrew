@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen.imagegen (built-in)",
+  "date": "2026-10-02",
+  "prompt": "Use case: stylized-concept. Asset type: wide 3:1 painted pixel-art landscape background for a 2D side-view bunker-defense game, 2880x960 preferred. Create an ORIGINAL buried megafactory excavation, no text. Massive abandoned industrial halls and broken gantries half swallowed by red-brown earth, gigantic circular turbine opening in a collapsed factory facade at right third, enormous broken overhead crane at left third, rusted ventilation shafts emerging from sediment terraces, torn roof trusses, subtle tiny molten-orange emergency lamps in the exposed buried machinery. Geological layers cross the low canyon walls; not a modern working refinery, no snowy peaks, no dams. Muted dusty plum sky and copper dusk horizon with layered ash clouds. Distant landscape in side elevation with limited top planes, middle open and readable behind player-built bunker; lower20% dark rubble terraces. Hand-painted gritty pixel-art with crisp2\u20134px clusters, limited-color industrial shading consistent with a Godot side-scroller. No characters, no vehicles, no foreground platform, no photorealism, no blurry gradients, no isometric view, no text/borders/watermarks. Opaque full panorama, crisp land silhouettes for later sky occlusion.",
+  "original": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-16c440fe-7b83-47da-9a67-f25a9f550add.png",
+  "license": "Generated for this project; no external source art",
+  "size": [
+    2172,
+    724
+  ]
+}

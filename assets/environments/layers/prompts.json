@@ -1,0 +1,294 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "purpose": "Extend the mountain_pass depth-layer prototype to all thirteen locations, using each existing v3 panorama as style and composition reference.",
+  "jobs": [
+    {
+      "id": "sector07",
+      "plate": "sky",
+      "reference": "assets/environments/v3/sector07.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in purple slate sunset clouds, coral orange horizon and small low sun on the right. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/sector07_v1/sky.png"
+    },
+    {
+      "id": "sector07",
+      "plate": "distance",
+      "reference": "assets/environments/v3/sector07.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant desaturated industrial skyline and forested hills behind the main factories, skyline around y=.60-.75; no foreground factories, large chimneys, bridge, lake, near trees. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/sector07_v1/distance.png"
+    },
+    {
+      "id": "sector07",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/sector07.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main weathered factories and chimney stacks, railway bridge and water tower across y=.52-.85, autumn birches and conifers and small reflective pond across bottom. Retain approximate positions and side-on silhouettes. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/sector07_v1/landmarks.png"
+    },
+    {
+      "id": "ash_foundry",
+      "plate": "sky",
+      "reference": "assets/environments/v3/ash_foundry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in deep indigo night clouds and a small cold moon in the upper right. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/ash_foundry_v1/sky.png"
+    },
+    {
+      "id": "ash_foundry",
+      "plate": "distance",
+      "reference": "assets/environments/v3/ash_foundry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant blue mountain and wooded ridge silhouettes, crest around y=.47-.65, muted atmospheric perspective. No industrial buildings, chimneys, trees in near distance or lake. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/ash_foundry_v1/distance.png"
+    },
+    {
+      "id": "ash_foundry",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/ash_foundry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main foundry complexes and cooling towers with restrained orange furnace windows across y=.40-.73; foreground rocky pine islands and reflective blue lake at y=.80-1.0. Remove every smoke plume so exhaust can be animated separately. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/ash_foundry_v1/landmarks.png"
+    },
+    {
+      "id": "abandoned_harbor",
+      "plate": "sky",
+      "reference": "assets/environments/v3/abandoned_harbor.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in storm-blue evening clouds with soft pale peach light at the low horizon. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/abandoned_harbor_v1/sky.png"
+    },
+    {
+      "id": "abandoned_harbor",
+      "plate": "distance",
+      "reference": "assets/environments/v3/abandoned_harbor.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only far blue alpine mountains and wooded islands across y=.49-.72, rebuild everything formerly obscured by harbor cranes and warehouses. No docks, ships, cranes, beacons, near cliffs or sea in this layer. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/abandoned_harbor_v1/distance.png"
+    },
+    {
+      "id": "abandoned_harbor",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/abandoned_harbor.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main harbor cranes, warehouses, piers, the distant ship and small beacons around y=.60-.80; near rocky shores at both edges, turquoise harbor water across y=.75-1.0. Preserve the large open central shipping channel. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/abandoned_harbor_v1/landmarks.png"
+    },
+    {
+      "id": "basalt_quarry",
+      "plate": "sky",
+      "reference": "assets/environments/v3/basalt_quarry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in soft violet and mauve dawn clouds with warm peach and golden horizon. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/basalt_quarry_v1/sky.png"
+    },
+    {
+      "id": "basalt_quarry",
+      "plate": "distance",
+      "reference": "assets/environments/v3/basalt_quarry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant successive basalt quarry terraces and faint industrial mining silhouettes around y=.54-.77, quiet atmospheric depth. No near columns, large excavator, trees or quarry pond. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/basalt_quarry_v1/distance.png"
+    },
+    {
+      "id": "basalt_quarry",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/basalt_quarry.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main basalt column benches, mining conveyors and bucket-wheel excavator around y=.58-.82; near dark rock terraces and sparse pines frame the bottom, small pale quarry pond around x=.57-.84,y=.85-.94. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/basalt_quarry_v1/landmarks.png"
+    },
+    {
+      "id": "overgrown_steelworks",
+      "plate": "sky",
+      "reference": "assets/environments/v3/overgrown_steelworks.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in muted cream grey daytime cloud canopy with softly warm sunlight. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/overgrown_steelworks_v1/sky.png"
+    },
+    {
+      "id": "overgrown_steelworks",
+      "plate": "distance",
+      "reference": "assets/environments/v3/overgrown_steelworks.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant moss-green forested hills and small far ruined factory outlines at y=.55-.74; no main chimney, nearer ruined halls, trees or pond. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/overgrown_steelworks_v1/distance.png"
+    },
+    {
+      "id": "overgrown_steelworks",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/overgrown_steelworks.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main ivy-covered blast furnace on the left, tall brick chimney left of center, broken steel hall in the center, ruined brick workshop on right, viaduct behind them; retain positions around y=.35-.83. Detailed green birches, shrubs and reeds across bottom with calm pond at y=.87-1.0. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/overgrown_steelworks_v1/landmarks.png"
+    },
+    {
+      "id": "frozen_rail_yard",
+      "plate": "sky",
+      "reference": "assets/environments/v3/frozen_rail_yard.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in cold bright pale-blue winter sky with detailed white cloud banks. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/frozen_rail_yard_v1/sky.png"
+    },
+    {
+      "id": "frozen_rail_yard",
+      "plate": "distance",
+      "reference": "assets/environments/v3/frozen_rail_yard.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only far snowy alpine mountains and blue snowy forested foothills across y=.43-.70. No locomotives, yard buildings, crane, light towers or near pine trees. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/frozen_rail_yard_v1/distance.png"
+    },
+    {
+      "id": "frozen_rail_yard",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/frozen_rail_yard.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Snow-covered railway depot buildings on left and right, crane, water tower and yard lights near y=.61-.80; black locomotives and rail sidings at y=.77-.91. Near snowy firs and snow drifts frame the bottom. No distant mountains. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/frozen_rail_yard_v1/landmarks.png"
+    },
+    {
+      "id": "iron_canyon",
+      "plate": "sky",
+      "reference": "assets/environments/v3/iron_canyon.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in warm vermilion dusk clouds, peach-orange horizon and low right sun. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/iron_canyon_v1/sky.png"
+    },
+    {
+      "id": "iron_canyon",
+      "plate": "distance",
+      "reference": "assets/environments/v3/iron_canyon.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant rust-red mesas and canyon terraces fading into copper atmospheric haze at y=.48-.76. No close rim, mine buildings, rail trestles or near shrubs. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/iron_canyon_v1/distance.png"
+    },
+    {
+      "id": "iron_canyon",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/iron_canyon.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main copper sandstone canyon rims left and right, narrow mining trestles and shaft houses matching the reference around y=.38-.77. Stepped near canyon rock and sparse dry shrubs to the bottom, preserve the open canyon depth at center. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/iron_canyon_v1/landmarks.png"
+    },
+    {
+      "id": "flooded_power_station",
+      "plate": "sky",
+      "reference": "assets/environments/v3/flooded_power_station.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in grey-green overcast cloud canopy with soft bright openings, rain-free plate. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/flooded_power_station_v1/sky.png"
+    },
+    {
+      "id": "flooded_power_station",
+      "plate": "distance",
+      "reference": "assets/environments/v3/flooded_power_station.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only far dark-green forested hills and misty rocky mountains at y=.38-.73; no power-station buildings, near trees or water. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/flooded_power_station_v1/distance.png"
+    },
+    {
+      "id": "flooded_power_station",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/flooded_power_station.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main submerged concrete power station near center-right around y=.57-.82, right spillway with visibly descending white water around x=.75-.87,y=.65-.82; ruined pipe bridge on left. Flooded lake starts y=.80 and fills bottom; green banks, reeds, overgrown ruins at edges. No rain or drifting mist baked in. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/flooded_power_station_v1/landmarks.png"
+    },
+    {
+      "id": "storm_dam",
+      "plate": "sky",
+      "reference": "assets/environments/v3/storm_dam.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in heavy slate-grey storm clouds with subtle cold bright openings, rain-free plate. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/storm_dam_v1/sky.png"
+    },
+    {
+      "id": "storm_dam",
+      "plate": "distance",
+      "reference": "assets/environments/v3/storm_dam.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant snowy alpine mountain chain and forested foothills at y=.36-.61. No dam, pylons, nearby cliffs, power buildings or water. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/storm_dam_v1/distance.png"
+    },
+    {
+      "id": "storm_dam",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/storm_dam.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Huge weathered hydroelectric dam stretching across y=.55-.80, broad spillways with white cascading water, amber maintenance lamps; power house left of center. Near forested rocky banks and churning blue-grey water below y=.81. Preserve main side-on composition, no mountains or sky. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/storm_dam_v1/landmarks.png"
+    },
+    {
+      "id": "sulfur_refinery",
+      "plate": "sky",
+      "reference": "assets/environments/v3/sulfur_refinery.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in dusty olive yellow cloud canopy, subdued sulfur-gold horizon light. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/sulfur_refinery_v1/sky.png"
+    },
+    {
+      "id": "sulfur_refinery",
+      "plate": "distance",
+      "reference": "assets/environments/v3/sulfur_refinery.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant arid mesas and far tiny refinery silhouettes in yellow-grey atmospheric distance around y=.52-.74. No foreground tanks, pipes, main towers or sulfur mounds. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/sulfur_refinery_v1/distance.png"
+    },
+    {
+      "id": "sulfur_refinery",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/sulfur_refinery.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main rusted refinery columns and tall chimneys predominantly center and right around y=.44-.79, pipes and spherical tanks, sulfur-yellow mounds and pale toxic pools across y=.81-1.0; sparse black scrub and near rubble. Remove all baked chimney smoke and steam. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/sulfur_refinery_v1/landmarks.png"
+    },
+    {
+      "id": "radar_highlands",
+      "plate": "sky",
+      "reference": "assets/environments/v3/radar_highlands.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in deep blue violet twilight cloud canopy with restrained pink low horizon and tiny sparse stars. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/radar_highlands_v1/sky.png"
+    },
+    {
+      "id": "radar_highlands",
+      "plate": "distance",
+      "reference": "assets/environments/v3/radar_highlands.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only far snowy blue-violet alpine peaks and layered forested valleys around y=.49-.72. No dishes, antenna masts, near cliffs, buildings or lake. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/radar_highlands_v1/distance.png"
+    },
+    {
+      "id": "radar_highlands",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/radar_highlands.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Snow-dusted rocky radar cliffs on left and right around y=.49-.78, satellite dishes and slender antenna towers matching original positions and scale, tiny warm station windows, near pines and snowy valley lake at y=.82-1.0. No far mountains or sky. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/radar_highlands_v1/landmarks.png"
+    },
+    {
+      "id": "buried_megafactory",
+      "plate": "sky",
+      "reference": "assets/environments/v3/buried_megafactory.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY a completely opaque clean sky-and-cloud plate in dark dusty plum clouds lit from a copper-orange sunset horizon. Remove ALL ground, ridges, trees, buildings, cranes, towers, water and smoke, and reconstruct the entire hidden sky down to the bottom edge. Detailed canopy above and quiet matching atmospheric horizon below. Entire canvas must be sky.",
+      "transparent_background": false,
+      "destination": "assets/environments/layers/buried_megafactory_v1/sky.png"
+    },
+    {
+      "id": "buried_megafactory",
+      "plate": "distance",
+      "reference": "assets/environments/v3/buried_megafactory.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only far ruined industrial towers and ochre mountains softly fading in atmospheric depth around y=.56-.77. No main huge gear, near ruined arches, near mining structures or rubble. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/buried_megafactory_v1/distance.png"
+    },
+    {
+      "id": "buried_megafactory",
+      "plate": "landmarks",
+      "reference": "assets/environments/v3/buried_megafactory.png",
+      "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main broken factory hall on upper left, ruined skeletal towers and gantries, giant circular steel gear near center-right around x=.58-.67,y=.61-.75; rusted conveyors, extensive buried rubble slopes and sparse black scrub filling lower part. Match weathered silhouettes and positions. No smoke or airborne dust baked in. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+      "transparent_background": true,
+      "destination": "assets/environments/layers/buried_megafactory_v1/landmarks.png"
+    }
+  ]
+}

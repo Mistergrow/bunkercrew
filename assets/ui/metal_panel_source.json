@@ -1,0 +1,10 @@
+{
+  "asset": "metal_panel.png",
+  "tool": "Built-in imagegen",
+  "mode": "generate",
+  "prompt": "Use case: stylized-concept. Asset type: a reusable game UI nine-slice panel texture, NOT a mockup or screenshot. Create a square, flat front-facing worn industrial blackened steel panel occupying the entire image. Intended as a rugged pixel-art bunker game's inventory/menu frame. Reference visual language: weathered concrete bunker cutaway, warm industrial work lamps, gray steel and black earth, classic richly textured late-1990s pixel art. The panel must have a uniform very dark charcoal, almost black, gently mottled empty center taking 85 percent of width and height. Narrow thick beveled edges on all four sides: double steel lip with chipped desaturated graphite-gray metal highlights, deep black groove, occasional tiny rust-brown flecks and dust. Four compact flathead rivets, one near each corner, completely inside the border. All edges must be straight and symmetrically aligned; border width consistent. Restrained small pixel clusters and discrete color steps; crisp hard pixel edges; controlled contrast and limited gray/charcoal/rust palette. The center remains calm and dark for legible ivory lettering drawn later by the game engine. Material must look solid and tactile, never plastic, glossy, neon, futuristic holographic or web-dashboard styled. No text, no symbols, no icons, no lettering, no buttons inside, no scene, no drop shadow outside, no perspective, no transparency. Full-bleed square panel texture only.",
+  "source": "Original generated texture, no external stock assets",
+  "date": "2026-09-30",
+  "status": "retired",
+  "usage": "Not installed in the game; current plates, sliders and title are drawn by UiArt. Original generation prompt is retained for provenance."
+}

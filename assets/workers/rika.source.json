@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "rika",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Narrow springy electrical-service stride, headset and cable checks",
+    "walk_rate": 1.07,
+    "idle_rate": 0.98,
+    "gestures": [
+      "headset_check",
+      "cable_check"
+    ]
+  },
+  "palette": {
+    "width": 0.86,
+    "hat": [
+      "#38464a",
+      "#687d82",
+      "#9fb3b3",
+      "#c5cebd"
+    ],
+    "palette": {
+      "deep": "#3e3029",
+      "shadow": "#66503d",
+      "olive": "#96724f",
+      "cloth": "#b88d5b",
+      "light": "#d8b07b",
+      "edge": "#edcf9c",
+      "trouser": "#514c47",
+      "trouser_light": "#77736a",
+      "skin_shadow": "#815245",
+      "skin": "#b68065",
+      "skin_light": "#dbad87",
+      "red": "#c6a66e"
+    },
+    "visual_signature": {
+      "head": "dark beanie with cropped hair and copper headset",
+      "outfit": "short ochre insulated electrician jacket",
+      "equipment": "round copper cable reel and handheld-meter pouch"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "rika_body.png",
+    "rika_arms.png",
+    "rika_torso.png",
+    "rika_head.png",
+    "rika_back_torso.png",
+    "rika_back_head.png"
+  ],
+  "sha256": {
+    "rika_body.png": "0ffe2954c283831580bb23de3f3e97d10c89db0b52f4cc9afe0c27f4bcd298f5",
+    "rika_arms.png": "7e8235b0f2793c3bce29e7af7b2100dabe55759853f43a3da01d4497ba5368f1",
+    "rika_torso.png": "f5be276904a67f6ba8501fb438af36b6a2dce93b002f591751c0f5f6ca86e544",
+    "rika_head.png": "07bf49093df8c98ce75e4d993ad9028a91bc3177ce1106e42bd382c343ba7c91",
+    "rika_back_torso.png": "e9ac526b9c59370171e3335b90e5cbbf49f72072f2f864484ce59d0595c1fb8f",
+    "rika_back_head.png": "332052455e57fde1518d71415c938aa80235aafbea1967514a14d3df5d671300"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "27dc195501fa9202872a1df73c446bf17464afabffc52b8e2505833d3662fbd7"
+}

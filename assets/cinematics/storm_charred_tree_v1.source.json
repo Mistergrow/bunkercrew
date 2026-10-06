@@ -1,0 +1,28 @@
+{
+  "asset": "assets/cinematics/storm_charred_tree_v1.png",
+  "source": "Original image edit generated with the built-in image_gen.imagegen tool from the project's dead-tree sprite; output PNG copied unchanged.",
+  "tool": "image_gen.imagegen",
+  "use_case": "precise-object-edit",
+  "prompt": "Use case: precise-object-edit. Asset type: transparent PNG sprite for a side-view pixel-art bunker-defense game cutscene. Edit the supplied original dead tree into a lightning-scorched variant. Keep the EXACT same full-tree upright silhouette, outermost twig tips, root location, framing and dimensions of this original sprite. Preserve its crisp detailed pixel-art stippling, bark grain and restrained weathered game-art style. Change only the bark/material: a narrow blackened lightning scar running down the upper trunk to the right fork, charcoal-dark bark and subtle burnt ash edges around that scar. The tree remains upright and recognizable; no branches removed. The original muted brown-grey wood stays visible away from the scar. Actual fully transparent background. No flames, no smoke, no glow, no sparks, no ground, no sky, no lettering, no shadow outside the tree; animation adds those separately in-engine. This sprite will blend into its exact unburnt original after a lightning strike; edge alignment and root alignment are essential.",
+  "generated_utc": "2026-10-04",
+  "reference": {
+    "asset": "assets/environments/props/dead_tree.png",
+    "sha256": "a143f4d2ed48c16a7f63a228e78be7d211b0157b3cc00da5689ec3ea7c05976e",
+    "provenance": [
+      "assets/environments/props/prompts.json",
+      "assets/environments/props/prompts_variants.json"
+    ]
+  },
+  "original_output": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-c9df9f30-40ee-471a-b991-cf2b42e1cefc.png",
+  "sha256": "bfeadab283fc3b636d09a82fe4b59d22154f658fbe9506f5f855bb8947ea519f",
+  "width": 1254,
+  "height": 1254,
+  "format": "RGBA PNG",
+  "transparent_background": true,
+  "runtime": {
+    "use": "After the lightning strike in the existing storm travel vignette",
+    "crop_anchor_source": "scripts/scenario_prop_catalog.gd:TREE_REGIONS/TREE_ROOTS.dead",
+    "animated_by": "scripts/travel_cinematic_art.gd",
+    "note": "Flames, smoke, lighting and wind remain engine animation. Original unburnt tree is retained."
+  }
+}

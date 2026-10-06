@@ -1,0 +1,15 @@
+Audiote / Tessel — Bunkercrew distribution license
+
+Copyright: Audiote contributors. Each contributor retains rights in their work.
+
+The rights holder has authorized use, modification, reproduction, and distribution
+of the Audiote/Tessel first-party engine solely as part of the Bunkercrew project,
+including its game binaries, source distributions, updates, and build tooling.
+Standalone distribution, sublicensing, or reuse in unrelated products is not granted.
+This notice and the provenance notices must accompany authorized distributions.
+
+This grant applies only to first-party Audiote/Tessel code. Third-party components,
+including JUCE and godot-cpp, remain governed by their own licenses. JUCE is not
+included in Bunkercrew's native engine integration. godot-cpp retains its MIT license.
+
+The software is provided "as is", without warranties, to the extent permitted by law.

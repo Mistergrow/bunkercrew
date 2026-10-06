@@ -1,0 +1,77 @@
+{
+  "title": "Industrial enemy salvage",
+  "created": "2026-10-02",
+  "generator": "OpenAI built-in image_gen",
+  "file": "salvage_atlas.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "layout": "3 columns by 2 rows; top scrap, bottom recovered technology",
+  "references": [
+    "assets/supplies/industrial_crate.png",
+    "assets/machinery/components.png"
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: production sprite atlas for Bunkercrew, a gritty side-view industrial pixel-art bunker-defense game. Generate a NEW transparent atlas of six SMALL grounded enemy salvage items. The two supplied images are STYLE REFERENCES ONLY: match their weathered gunmetal, rusty brown, dull olive, copper, brass, chipped metal edge highlights, crisp pixel clusters and dark outlines. Do not copy whole machines or crates. Layout: landscape canvas 1536x1024, exactly 3 columns by 2 rows of equal 512x512 cells. Each isolated object entirely inside its own cell with at least 80px transparent padding on every side; object baseline around 420px into its cell. No objects between cells, no text/labels/grid. Row 1, left to right: compact low heap of a broken gear and bent riveted armor plate with two bolts; compact low heap of damaged motor winding with short disconnected cable and bent metal bracket; compact low heap of broken machine track link, steel coupling and rusty plate. These are small handful-sized scrap salvage piles, recognizable simple silhouettes, not huge garbage mountains. Row 2, left to right: salvaged flat field relay module with copper coil, ribbed steel casing and small unlit inset rectangular indicator; salvaged compact armored control module with two ceramic terminals and cut wiring, one unlit square status indicator; salvaged cylindrical electromechanical regulator laid horizontally in a broken protective metal cradle, copper ends and one unlit rectangular indicator. The technology modules are practical worn equipment, not gems, not energy crystals, not magical artifacts. Orthographic SIDE-ON elevation suitable for objects lying on a 2D platform, horizontal baseline, no isometric inventory view, only a tiny visible top bevel. All items read clearly when displayed at 36-42 pixels wide and about 22-30 pixels high, like the reference game's tiny detailed machinery; chunky readable pixel clusters, clean silhouettes and selected highlights, not photographic noise. Same scale across all six items; technology modules slightly taller than scrap. Lighting from upper left, restrained amber/brass highlights, opaque solid objects. Fully transparent surroundings and gaps including holes, NO baked floor, cast-shadow backdrop, colored plate, fog, aura, glow rings, sparkles, UI borders, text, watermarks or additional objects. Preserve clean alpha without transparent rectangular fringes.",
+  "edits": [
+    "Use case: background-extraction. Edit target is the supplied six-object industrial pixel-art sprite atlas. KEEP all six objects, all artwork, exactly the same locations and sizes, same1536x1024 canvas and3columns×2rows layout unchanged. Change ONLY the alpha cutout. Remove every bit of background haze, soft amber halos, tinted dark fog, floor/shadow backdrop, gradients and transparent rectangular fringes. Every space around and between the six solid objects must have alpha exactly0 (fully transparent). Every solid metal/copper/ceramic/cable pixel must be fully opaque, alpha255. Preserve small natural transparent holes between gearteeth, cables and underbrackets. Hard clean pixel edges, no soft feathering, no antialiasing fringe, no drop shadow, no glow. These isolated game sprites will be drawn over both white snow and blackrock, so absolutely clean transparent surroundings are essential. Do not repaint, redesign, rearrange, resize, add outlines, labels or other objects. Preserve original weathered metal colors."
+  ],
+  "rendering": "Nearest sampling of tight source regions. World drops use pickup_cutout.gdshader to reject residual low-alpha haze and make solid metal opaque.",
+  "sprites": [
+    {
+      "id": "scrap_gear",
+      "rect": [
+        70,
+        196,
+        385,
+        253
+      ]
+    },
+    {
+      "id": "scrap_motor",
+      "rect": [
+        564,
+        210,
+        408,
+        230
+      ]
+    },
+    {
+      "id": "scrap_track",
+      "rect": [
+        1079,
+        205,
+        401,
+        244
+      ]
+    },
+    {
+      "id": "tech_relay",
+      "rect": [
+        53,
+        654,
+        411,
+        213
+      ]
+    },
+    {
+      "id": "tech_terminals",
+      "rect": [
+        590,
+        587,
+        357,
+        280
+      ]
+    },
+    {
+      "id": "tech_regulator",
+      "rect": [
+        1080,
+        672,
+        401,
+        194
+      ]
+    }
+  ],
+  "sha256": "49bc474fd81b91d12b7f89605a13b896f2e8fe7c869430934f633e5d939361d3"
+}

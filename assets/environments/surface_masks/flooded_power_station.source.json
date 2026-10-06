@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/flooded_power_station_v1/landmarks.png",
+  "source_sha256": "e5f070c0d17fe66cb1dda2047ed1371b84eb96ce92c9afa8832e27407b917a56",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    1664,
+    371
+  ],
+  "bounds": [
+    0.0029904306220095694,
+    0.6036131774707758,
+    0.9952153110047847,
+    0.3942614240170032
+  ],
+  "crop_pixels": [
+    5,
+    568,
+    1664,
+    371
+  ],
+  "occupied_pixels": {
+    "water": 284243,
+    "flow": 5047,
+    "ice": 0
+  },
+  "sha256": "1de503a3596ec553ac8e28def67328cfe150a49f1b9351a69eef9c4fa9b53466"
+}

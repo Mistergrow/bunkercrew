@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/sector07_v1/landmarks.png",
+  "source_sha256": "56df25a19b6b5e6f6b26697e4e14ed4c3dd294b806aaa0e2d772da2242deebe3",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    231,
+    76
+  ],
+  "bounds": [
+    0.6381578947368421,
+    0.8639744952178533,
+    0.13815789473684212,
+    0.08076514346439957
+  ],
+  "crop_pixels": [
+    1067,
+    813,
+    231,
+    76
+  ],
+  "occupied_pixels": {
+    "water": 3862,
+    "flow": 0,
+    "ice": 0
+  },
+  "sha256": "37d13c98dd5b11ebc14ed27dbea16ed3a35ba5a3256eda836789adfbaec45d9b"
+}

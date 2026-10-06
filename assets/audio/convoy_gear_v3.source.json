@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/convoy_gear_v3.wav",
+  "generator": "tools/generate_convoy_audio_v3.py",
+  "generator_sha256": "0a6f56839a8ae0ddb7e28bfdabda39d05bf93a741f55837959713889903f1683",
+  "base_generator": "tools/generate_convoy_audio.py",
+  "base_generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic physical multigrain foley; no external samples or music.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "gear",
+  "layers": "Mechanical linkage travel, detent and low transmission contact",
+  "seed": 609919,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 16320,
+  "seconds": 0.34,
+  "loop": false,
+  "sha256": "5418d95d972c6c631ec4e941e2d60cabb1a7b830da4968a757902fa54ec88d86",
+  "loop_method": "Silent edges and55ms final fade",
+  "playback": "Existing positional SFX voices and user50% baseline gains; separate fit/lower impact at actual work contact."
+}

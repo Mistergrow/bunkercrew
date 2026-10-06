@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_bolt_success_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "bolt_success",
+  "layers": "Firm bolt seating, socket lift and short restrained steel resonance",
+  "seed": 616895,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 18240,
+  "seconds": 0.38,
+  "loop": false,
+  "loop_method": "Silent one-shot edges with 65 ms terminal fade",
+  "sha256": "00fa08efcad4fd98f60a4457cbe256ebe3cf25783013d9a8c12302ebb23bc693",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

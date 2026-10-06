@@ -1,0 +1,10 @@
+{
+  "asset": "assets/audio/convoy_gear_v1.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "source": "Original deterministic procedural synthesis; no external recordings",
+  "role": "gear",
+  "seconds": 0.22,
+  "rate": 22050,
+  "channels": 1,
+  "mix": "Bounded two-voice spatial vehicle effects, SFX bus, -17 dB"
+}

@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_rocket_02.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_rocket",
+  "layers": "Igniter snap, nonmusical motor pressure and fin/rail release",
+  "seed": 938874,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 35520,
+  "seconds": 0.74,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -2.0474713746299096,
+  "rms_dbfs": -17.396369069631984,
+  "sha256": "45e25c99eb5f90e8ab71b2e6c7e1063e8ad9d58270c4d262989b8954fd6c3b1c",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

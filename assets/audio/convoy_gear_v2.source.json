@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_gear_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "gear",
+  "layers": "Mechanical linkage travel, detent and low transmission contact",
+  "seed": 609916,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 16320,
+  "seconds": 0.34,
+  "loop": false,
+  "loop_method": "Silent one-shot edges with 65 ms terminal fade",
+  "sha256": "b3f649f5c165a8ba2d456f607054044ca2d9d31d3c694b2c243f51f2eb6c626d",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

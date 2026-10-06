@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_charge_02.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_charge",
+  "layers": "Rising field pressure and irregular electrical crackle before pulse discharge",
+  "seed": 944073,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 34560,
+  "seconds": 0.72,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -5.866928632945329,
+  "rms_dbfs": -19.000773756249675,
+  "sha256": "36c6b867ff99e69232e6c01b9f8be1cbcf245c1c2166b8dfaee0f71ff2ce14f0",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

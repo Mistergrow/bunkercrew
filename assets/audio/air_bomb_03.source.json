@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_bomb_03.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_bomb",
+  "layers": "Bomb-rack latch, heavy release contact and falling fin airflow; no premature detonation",
+  "seed": 940744,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 32640,
+  "seconds": 0.68,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -2.04936026119444,
+  "rms_dbfs": -21.07149920443291,
+  "sha256": "03f83ed2ab5b66d54f20a24c8ed544ccf86976abc076ee623c8fd63c4af9c152",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

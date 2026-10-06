@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/convoy_road_v3.wav",
+  "generator": "tools/generate_convoy_audio_v3.py",
+  "generator_sha256": "0a6f56839a8ae0ddb7e28bfdabda39d05bf93a741f55837959713889903f1683",
+  "base_generator": "tools/generate_convoy_audio.py",
+  "base_generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic physical multigrain foley; no external samples or music.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "road",
+  "layers": "Rubber contact, granular road hiss and irregular small suspension impacts",
+  "seed": 603937,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 384000,
+  "seconds": 8.0,
+  "loop": true,
+  "sha256": "176f13cacd0ec7011a5a8b3f390b2f2a9b98bd77302f69ebb16e7318c5fa2f38",
+  "loop_method": "Periodic FFT and circular mechanical envelopes",
+  "playback": "Existing positional SFX voices and user50% baseline gains; separate fit/lower impact at actual work contact."
+}

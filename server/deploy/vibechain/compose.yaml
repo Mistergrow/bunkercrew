@@ -1,0 +1,40 @@
+name: bunkercrew
+services:
+  relay:
+    build: ../..
+    image: bunkercrew-relay:net20
+    restart: unless-stopped
+    init: true
+    environment:
+      RELAY_ALLOWED_ORIGINS: https://bunkercrew.vibechain.rocks
+      RELAY_MAX_ROOMS: "256"
+      RELAY_MAX_CONNECTIONS: "768"
+      RELAY_TRUSTED_PROXIES: 172.31.247.1/32
+      SOCIAL_DB: /data/social.sqlite3
+    volumes:
+      - social_data:/data
+    networks:
+      relay_private:
+        ipv4_address: 172.31.247.2
+    ports:
+      - "127.0.0.1:18765:8765"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    cpus: 1.5
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+networks:
+  relay_private:
+    ipam:
+      config:
+        - subnet: 172.31.247.0/29
+          gateway: 172.31.247.1
+volumes:
+  social_data:
+    name: bunkercrew_social_data

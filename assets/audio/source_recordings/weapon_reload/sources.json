@@ -1,0 +1,59 @@
+{
+  "retrieved": "2026-10-01",
+  "recordings": [
+    {
+      "file": "gunreload1.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/gunreload1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "685cac6a184e3cc3ec09a25b6ddb1d6feffd86d469778f339aa423d384035c50"
+    },
+    {
+      "file": "assaultriflereload1.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/assaultriflereload1_0.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "efb2d724d634eabe6ba8d3065686abca848bb7497d4d43a5e4aed5e5ea23016f"
+    },
+    {
+      "file": "shotguncock.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/shotguncock_0.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "33e007321ba83301c861aef573f2c40b70bc62f8f24c0164877e6dd123e24371"
+    },
+    {
+      "file": "clipload1.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/clipload1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "1cdc10c50a26834ce7562a5f2925b9aa1118e3bb58a86fea80f34558bf2c5101"
+    },
+    {
+      "file": "clipload2.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/clipload2.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "a5441641e7e9ede24f3ac311642e06265c6f480e3b1ba4b92c19c81c3a5e4d86"
+    },
+    {
+      "file": "singlebullet1.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/singlebullet1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "422bb2b92072cf8ecb77fda83e70d27bdcb7fa8cee33415ef66985a8cc14dde2"
+    }
+  ]
+}

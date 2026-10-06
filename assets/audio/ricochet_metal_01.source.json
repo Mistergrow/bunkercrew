@@ -1,0 +1,77 @@
+{
+  "generator": "tools/generate_ricochet_audio.py",
+  "generator_revision": 1,
+  "authored_at": "2026-10-05",
+  "asset": "ricochet_metal_01",
+  "material": "metal",
+  "description": "Short steel contact with a fast, airy deflection zip.",
+  "origin": "Kenney CC0 contact recordings layered with original deterministic DSP deflection resonances and air trails. These are authored effects, not recordings of actual bullet ricochets. No AI audio model used.",
+  "source_author": "Kenney",
+  "source_pack": "Impact Sounds",
+  "source_page": "https://kenney.nl/assets/impact-sounds",
+  "source_archive_sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+  "source_license": "CC0-1.0",
+  "source_license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source_recordings": {
+    "impactMetal_light_002.ogg": "25a96f90a9a1f88a531e824e126f0519504625e5635e65a72e4f31611428db29",
+    "impactPlate_light_003.ogg": "dbfb7c1d002576696df3e9a43d6639ee3f342068398b5e7b55bc2389d20508a9"
+  },
+  "derivative_license": "CC0-1.0",
+  "sha256": "02a9d455ef8f1ed3183268c69ddf9fff125fc7635bcc287406f74c8a937d275b",
+  "seconds": 0.3,
+  "sample_rate": 48000,
+  "channels": 1,
+  "format": "PCM16 WAV",
+  "peak": 0.55999755859375,
+  "reconstructed_peak_4x": 0.5738893574640832,
+  "rms": 0.06334531503978295,
+  "dc": 2.755059136284722e-08,
+  "processing": {
+    "recorded_layers": [
+      {
+        "file": "impactMetal_light_002.ogg",
+        "gain": 0.65,
+        "at": 0.001,
+        "speed": 1.54,
+        "low": 720,
+        "high": 8000,
+        "decay": 0.04
+      },
+      {
+        "file": "impactPlate_light_003.ogg",
+        "gain": 0.14,
+        "at": 0.004,
+        "speed": 1.91,
+        "low": 1400,
+        "high": 7400,
+        "decay": 0.02
+      }
+    ],
+    "original_dsp_glance": {
+      "at": 0.01,
+      "start_hz": 4350,
+      "end_hz": 1480,
+      "decay": 0.061,
+      "pitch_decay": 0.037,
+      "gain": 0.21,
+      "roughness": 0.12
+    },
+    "original_dsp_air": {
+      "at": 0.012,
+      "low": 2100,
+      "high": 7200,
+      "decay": 0.039,
+      "gain": 0.041
+    },
+    "seed": 501039,
+    "reverb": false,
+    "musical_layers": false,
+    "output_bandpass_hz": [
+      360,
+      8300
+    ],
+    "peak_target": 0.56,
+    "release_seconds": 0.03
+  },
+  "review": "Objective decoded-PCM and source verification only; browser samples provided for human listening."
+}

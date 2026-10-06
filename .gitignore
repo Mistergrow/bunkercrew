@@ -1,0 +1,28 @@
+.godot/
+# Generated builds and private test evidence stay out of the source repository.
+/beta/
+/artifacts/
+.ruff_cache/
+native/bunkercrew_audio/build-linux/
+native/bunkercrew_audio/build-windows/
+*.tmp
+artifacts/*.log
+artifacts/**/*.log
+__pycache__/
+*.py[cod]
+server/.venv/
+server/.env
+
+# Publication exclusions; preserve these files locally.
+/artifacts/
+/beta/
+/reference/
+/.vscode/
+/CLAUDE.md
+/docs/beta-0.5-plan.md
+.env
+.env.*
+!.env.example
+*.log
+*.bak
+*~

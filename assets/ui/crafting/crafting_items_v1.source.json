@@ -1,0 +1,56 @@
+{
+  "generator": "OpenAI built-in image_gen",
+  "generated_at": "2026-10-05",
+  "asset": "crafting_items_v1.png",
+  "prompt": "Use case: stylized-concept. Asset type: production game UI item sprite atlas for Bunkercrew, a detailed side-view industrial pixel-art bunker defense game. Generate one clean transparent sprite atlas, landscape 3:2 composition, exactly 3 columns by 2 rows with six equally sized cells, no visible grid, no borders, no text, no labels, no backdrop. Five separated inventory object illustrations, consistent scale, pixel outlines and lighting, perfectly centered inside each cell, large transparent padding. Row 1 from left: a rugged steel mechanical jaw trap with square toothed clamp jaws and spring; a compact improvised blast mine with dark olive casing, yellow caution stripe and copper fuse; a worn olive steel protective vest with leather straps and riveted chest plate. Row 2 from left: a heavier armored vest with layered rusty grey steel plates and brown leather harness, visibly stronger than the first vest; a small deployable manually operated field cannon/turret kit with short barrel, gears, folded steel support legs, dark olive and warm brass materials; an open worn blueprint booklet with a small wrench resting on it (spare workshop detail). Match sophisticated 2D pixel art: crisp square pixel clusters, dark charcoal outlines, muted olive/brown/steel greys, warm brass and rust-orange highlights, worn scratches and chipped paint, no smooth gradients or blur, no polished plastic, no glowing sci-fi neon, no photorealism. Objects themselves are full pixel art, orthographic three-quarter inventory presentation with same subtle warm upper-left light. Keep every silhouette fully within its assigned cell and entirely separated by generous transparent gutters. The rest of the game menu will be drawn in code; output only the transparent item pictures, no UI frame and no typography.",
+  "source_image": "01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-0445dd3d-6556-4103-b920-313dddb973c9.png",
+  "purpose": "Original Bunkercrew crafting recipe pictures, matching weathered steel/olive/brass pixel art.",
+  "atlas_size": [
+    1536,
+    1024
+  ],
+  "cell_size": [
+    512,
+    512
+  ],
+  "regions": {
+    "jaw_trap": [
+      0,
+      0,
+      512,
+      512
+    ],
+    "blast_trap": [
+      512,
+      0,
+      512,
+      512
+    ],
+    "armor_1": [
+      1024,
+      0,
+      512,
+      512
+    ],
+    "armor_2": [
+      0,
+      512,
+      512,
+      512
+    ],
+    "sentry_kit": [
+      512,
+      512,
+      512,
+      512
+    ],
+    "blueprints": [
+      1024,
+      512,
+      512,
+      512
+    ]
+  },
+  "references": "No third-party artwork used. UI structure was researched from official PlayStation/Naughty Dog documentation; all pictured assets are original.",
+  "postprocessing": "None. Original generated RGBA PNG preserved; cell regions sampled at runtime."
+}

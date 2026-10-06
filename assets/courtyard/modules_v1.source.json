@@ -1,0 +1,70 @@
+{
+  "prompt": "Use case: stylized-concept.\nAsset type: production modular transparent sprite atlas for Bunkercrew, a side-view 2D industrial bunker defense game.\nPrimary request: create one cohesive courtyard extension kit matching the supplied existing Bunkercrew mechanical sprite atlas exactly: crisp weathered pixel art, dark olive charcoal steel, restrained bronze rust and bolts, coarse chipped gray concrete, sharp hard pixel edges, no smooth paint.\nInput images: image 1 is the reference for material, palette, pixel grain and orthographic viewpoint; it is not an edit target.\nOutput composition: a single square transparent sprite sheet with SIX separate standalone modules, arranged in a precise 2-column by 3-row grid, ample fully transparent gaps. Every module completely contained in its own grid cell. No cell borders, no labels.\nTop left: a wide low horizontal BACK fence field, rectangular steel diamond chain-link mesh, slim upper/lower rails, two narrow side uprights, rusty olive metal, mesh holes genuinely transparent. Front-facing 2D side-view with no perspective depth, width about 3 times height.\nTop right: matching damaged fence field, same dimensions, bent/torn mesh with a large ragged central hole and broken low rail. Mesh holes and missing material genuinely transparent. Keep the frame upright.\nMiddle left: a worn service-yard concrete paving strip, a wide shallow rectangle viewed in the same strict side-view, rough pale-gray lip and darker chipped underside, hairline slab cracks, recessed thin drainage grate. Width about 5 times height. No large perspective floor area.\nMiddle right: matching rubble strip, a low pile of torn mesh, small broken rail and a few coarse concrete chips, width about 4 times height. Debris touches one flat bottom baseline.\nBottom left: a narrow industrial fence post with two bolt plates, modest concrete foot, small amber shielded work lamp at the top. Clearly readable simple hard-edged silhouette, full height 3 times width.\nBottom right: a short rusty steel bollard pair and one coiled black utility cable, low courtyard edge dressing, on one flat baseline, compact shapes.\nAll six pieces share the existing atlas's texture scale, rust color, practical industrial design and restrained light from upper left. No characters, trees, grass, buildings or scenery. Real alpha transparency outside each object and through fence mesh, no checkerboard, no colored background, no global cast shadows or atmosphere, no glow fog, no lettering, no watermark. Industrial game pixel sprites, never photorealistic, no isometric perspective, no thin vector outlines. Keep source objects sharp and contiguous so they can be cropped and downscaled with nearest sampling.",
+  "tool": "Built-in image_gen.imagegen",
+  "reference": "assets/perimeter/components_v2.png",
+  "original": "local-archive:generated_images/01a108bc-7b2e-79a0-a516-8e9d24022a93/exec-e1d08ed6-93a0-4b08-9c81-3b105b43eb2c.png",
+  "output": "assets/courtyard/modules_v1.png",
+  "sha256": "20dd8df74f86a535e4008fb8d9c91b1a2a9b42ac218ab0dae2bed22b423608e2",
+  "pixels": [
+    1254,
+    1254
+  ],
+  "alpha": [
+    0,
+    255
+  ],
+  "modules": {
+    "fence": [
+      20,
+      129,
+      590,
+      281
+    ],
+    "damaged_fence": [
+      648,
+      129,
+      590,
+      281
+    ],
+    "paving": [
+      35,
+      592,
+      570,
+      93
+    ],
+    "rubble": [
+      639,
+      546,
+      591,
+      140
+    ],
+    "lamp": [
+      240,
+      754,
+      151,
+      424
+    ],
+    "bollards": [
+      648,
+      958,
+      558,
+      220
+    ]
+  },
+  "usage": "Saved PNG consumed unchanged. The rear mesh and rails tile using measured subregions at fixed pixel pitch and clipped final fields; single shared posts join it continuously to bunker and outer gate. Existing perimeter service-case atlas supplies stored gear. Source regions use nearest-filtered aspect-preserving draws and shared alpha-coverage shader; separate work lamp animation runs only on the GPU.",
+  "license": "Distribute only with Bunkercrew. Existing repository licenses and author notices remain unchanged.",
+  "runtime_subregions": {
+    "continuous_fence_field": [
+      98,
+      159,
+      446,
+      238
+    ],
+    "shared_fence_post": [
+      543,
+      129,
+      67,
+      281
+    ]
+  }
+}

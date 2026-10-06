@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/field_defense.gd" id="1"]
+
+[node name="FieldDefense" type="StaticBody2D"]
+script = ExtResource("1")

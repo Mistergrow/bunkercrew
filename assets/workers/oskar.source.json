@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "oskar",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Broad dustcoat stance, short weighty stride, lamp and pack checks",
+    "walk_rate": 0.9,
+    "idle_rate": 0.76,
+    "gestures": [
+      "lamp_check",
+      "pack_tighten"
+    ]
+  },
+  "palette": {
+    "width": 1.16,
+    "hat": [
+      "#4a422e",
+      "#8b7946",
+      "#bda669",
+      "#e0cf95"
+    ],
+    "palette": {
+      "deep": "#332f29",
+      "shadow": "#4c473b",
+      "olive": "#696451",
+      "cloth": "#858168",
+      "light": "#a8a58a",
+      "edge": "#c7c1a0",
+      "trouser": "#393e39",
+      "trouser_light": "#61675c",
+      "skin_shadow": "#724b3a",
+      "skin": "#aa7957",
+      "skin_light": "#c9a17b",
+      "red": "#baa263"
+    },
+    "visual_signature": {
+      "head": "raised headlamp on a dust helmet and short moustache",
+      "outfit": "heavy work overalls with long leather miner apron",
+      "equipment": "tall squared dust pack and tool strap"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "oskar_body.png",
+    "oskar_arms.png",
+    "oskar_torso.png",
+    "oskar_head.png",
+    "oskar_back_torso.png",
+    "oskar_back_head.png"
+  ],
+  "sha256": {
+    "oskar_body.png": "2e4d9f3af04bfc5ae5c7192f382840e0315eb2da7839b6b5ee4c7bad1c795768",
+    "oskar_arms.png": "b7fecd73cb854d47e636d92fa0817ecebb0bda611cfc5a18d40f88a8a51da9a2",
+    "oskar_torso.png": "b3c21682a727e3cb40fd983a0c355c9c9640da9bfc115d9bc286ccefc9d2795e",
+    "oskar_head.png": "bd5c3969beb4e607e83ce355ebd9df0c3952f0eec33c85081bef0531232ebba8",
+    "oskar_back_torso.png": "2bb53c2d7eff5ea1d75cf4b5d75559b214b9016137303380fbc3276b52ffd9d8",
+    "oskar_back_head.png": "e3e1687c64dedd1babf9a30cc04c5640effd323e13de2c2c5c4c238467b593a0"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "cfbfb2b8b4509b311da5e50c8a7192481438522dcb22a8d1d17afecf0afb2e30"
+}

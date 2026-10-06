@@ -1,0 +1,87 @@
+{
+  "generator": "tools/generate_ricochet_audio.py",
+  "generator_revision": 1,
+  "authored_at": "2026-10-05",
+  "asset": "ricochet_stone_01",
+  "material": "stone",
+  "description": "A dry concrete chip, scattered grit and a brief deflection whistle.",
+  "origin": "Kenney CC0 contact recordings layered with original deterministic DSP deflection resonances and air trails. These are authored effects, not recordings of actual bullet ricochets. No AI audio model used.",
+  "source_author": "Kenney",
+  "source_pack": "Impact Sounds",
+  "source_page": "https://kenney.nl/assets/impact-sounds",
+  "source_archive_sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+  "source_license": "CC0-1.0",
+  "source_license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source_recordings": {
+    "footstep_concrete_003.ogg": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+    "impactWood_light_004.ogg": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+    "footstep_concrete_001.ogg": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d"
+  },
+  "derivative_license": "CC0-1.0",
+  "sha256": "f4d94d1017a2deafcdcea79c085f102d0b17b93e927ae93c1a06ba77da46a72b",
+  "seconds": 0.24,
+  "sample_rate": 48000,
+  "channels": 1,
+  "format": "PCM16 WAV",
+  "peak": 0.519989013671875,
+  "reconstructed_peak_4x": 0.5203200205247003,
+  "rms": 0.03125334037723895,
+  "dc": -4.76837158203125e-08,
+  "processing": {
+    "recorded_layers": [
+      {
+        "file": "footstep_concrete_003.ogg",
+        "gain": 0.69,
+        "at": 0.001,
+        "speed": 2.28,
+        "low": 850,
+        "high": 7700,
+        "decay": 0.016
+      },
+      {
+        "file": "impactWood_light_004.ogg",
+        "gain": 0.24,
+        "at": 0.004,
+        "speed": 2.61,
+        "low": 1900,
+        "high": 7500,
+        "decay": 0.012
+      },
+      {
+        "file": "footstep_concrete_001.ogg",
+        "gain": 0.075,
+        "at": 0.024,
+        "speed": 2.46,
+        "low": 1700,
+        "high": 6600,
+        "decay": 0.013
+      }
+    ],
+    "original_dsp_glance": {
+      "at": 0.008,
+      "start_hz": 3280,
+      "end_hz": 1820,
+      "decay": 0.026,
+      "pitch_decay": 0.023,
+      "gain": 0.085,
+      "roughness": 0.23
+    },
+    "original_dsp_air": {
+      "at": 0.013,
+      "low": 2000,
+      "high": 6900,
+      "decay": 0.025,
+      "gain": 0.056
+    },
+    "seed": 501047,
+    "reverb": false,
+    "musical_layers": false,
+    "output_bandpass_hz": [
+      360,
+      8300
+    ],
+    "peak_target": 0.52,
+    "release_seconds": 0.03
+  },
+  "review": "Objective decoded-PCM and source verification only; browser samples provided for human listening."
+}

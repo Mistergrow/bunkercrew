@@ -1,0 +1,8 @@
+Bunkercrew core impact variant
+
+Source: Kenney, Impact Sounds (1.0), https://kenney.nl/assets/impact-sounds
+License: Creative Commons Zero, CC0-1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Audio processing and layered derivative are also released under CC0-1.0.
+Original license: assets/audio/source_recordings/enemy_foley/License.txt

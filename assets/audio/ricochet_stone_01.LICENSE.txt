@@ -1,0 +1,36 @@
+Bunkercrew authored bullet ricochet effect
+
+Recorded contacts: Kenney, Impact Sounds (1.0)
+https://kenney.nl/assets/impact-sounds
+Source license: Creative Commons Zero, CC0-1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+Original source license: assets/audio/source_recordings/enemy_foley/License.txt
+
+The original DSP deflection/air layers, audio processing and mixed derivative
+are also released under CC0-1.0. No actual gunfire recording or AI audio
+model was used. Exact contact inputs and hashes are in the adjacent source JSON.
+
+	
+
+	Impact Sounds (1.0)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 19-12-2019
+
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	This content is free to use in personal, educational and commercial projects.
+
+	Support us by crediting Kenney or www.kenney.nl (this is not mandatory)
+
+			------------------------------
+
+	Donate:   http://support.kenney.nl
+	Request:  http://request.kenney.nl
+	Patreon:  http://patreon.com/kenney/
+
+	Follow on Twitter for updates:
+	http://twitter.com/KenneyNL

@@ -1,0 +1,338 @@
+{
+  "source": "generate_character_workers.py",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored geometry; no imported image edits",
+  "art_direction_references": "identities/prompts.json",
+  "original_assets": "worker_1_body.png, worker_1_arms.png, worker_2_body.png and worker_2_arms.png are preserved",
+  "animation_contract": {
+    "cell": 112,
+    "feet_anchor": [
+      48,
+      90
+    ],
+    "states": 19,
+    "frames": 110,
+    "metadata": "worker_frames.json"
+  },
+  "motion_profiles": {
+    "mara": {
+      "label": "Controlled stride, deliberate gear checks",
+      "walk_rate": 1.0,
+      "idle_rate": 0.9,
+      "gestures": [
+        "radio_check",
+        "strap_check"
+      ]
+    },
+    "branko": {
+      "label": "Wide planted gait, heavy settling shoulders",
+      "walk_rate": 0.82,
+      "idle_rate": 0.72,
+      "gestures": [
+        "shoulder_roll",
+        "beard_check"
+      ]
+    },
+    "ivo": {
+      "label": "Quick light steps, restless head and tools",
+      "walk_rate": 1.18,
+      "idle_rate": 1.15,
+      "gestures": [
+        "goggles_check",
+        "tool_check"
+      ]
+    },
+    "nora": {
+      "label": "Planted working stance and measured inspection",
+      "walk_rate": 0.96,
+      "idle_rate": 0.85,
+      "gestures": [
+        "blueprint_check",
+        "gauge_check"
+      ]
+    },
+    "levin": {
+      "label": "Light scouting stride with frequent radio checks",
+      "walk_rate": 1.16,
+      "idle_rate": 1.02,
+      "gestures": [
+        "radio_listen",
+        "scout_watch"
+      ]
+    },
+    "selma": {
+      "label": "Balanced medical kit carry and deliberate equipment checks",
+      "walk_rate": 1.02,
+      "idle_rate": 0.88,
+      "gestures": [
+        "kit_check",
+        "bandage_check"
+      ]
+    },
+    "oskar": {
+      "label": "Broad dustcoat stance, short weighty stride, lamp and pack checks",
+      "walk_rate": 0.9,
+      "idle_rate": 0.76,
+      "gestures": [
+        "lamp_check",
+        "pack_tighten"
+      ]
+    },
+    "rika": {
+      "label": "Narrow springy electrical-service stride, headset and cable checks",
+      "walk_rate": 1.07,
+      "idle_rate": 0.98,
+      "gestures": [
+        "headset_check",
+        "cable_check"
+      ]
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "identities": {
+    "mara": {
+      "width": 0.92,
+      "hat": [
+        "#82542e",
+        "#cb943a",
+        "#edc566",
+        "#ffe4a5"
+      ],
+      "palette": {
+        "deep": "#382b29",
+        "shadow": "#673c32",
+        "olive": "#a6533b",
+        "cloth": "#bf6e49",
+        "light": "#df9664",
+        "edge": "#f1bb80",
+        "trouser": "#46555a",
+        "trouser_light": "#697a7c",
+        "skin_shadow": "#8e5845",
+        "skin": "#c28a67",
+        "skin_light": "#e4b48a",
+        "red": "#d8b56c"
+      },
+      "visual_signature": {
+        "head": "amber hardhat and long dark braid",
+        "outfit": "short rust work jacket with reflective shoulder bands",
+        "equipment": "small belt satchel"
+      }
+    },
+    "branko": {
+      "width": 1.32,
+      "hat": [
+        "#6b7778",
+        "#abb6b1",
+        "#d9ddc7",
+        "#f4ead2"
+      ],
+      "palette": {
+        "deep": "#202b35",
+        "shadow": "#2c3e4c",
+        "olive": "#445e70",
+        "cloth": "#627e8e",
+        "light": "#8ea9b4",
+        "edge": "#b9c6c5",
+        "trouser": "#303e4a",
+        "trouser_light": "#526476",
+        "skin_shadow": "#855342",
+        "skin": "#b58261",
+        "skin_light": "#d8ad83",
+        "red": "#ad6b4e"
+      },
+      "visual_signature": {
+        "head": "ivory hardhat and full dark beard",
+        "outfit": "broad navy guard coat with split hem and padded shoulders",
+        "equipment": "squared heavy guard pack"
+      }
+    },
+    "ivo": {
+      "width": 0.8,
+      "hat": [
+        "#3f3a2c",
+        "#726745",
+        "#a5965e",
+        "#d2c08a"
+      ],
+      "palette": {
+        "deep": "#253c38",
+        "shadow": "#305652",
+        "olive": "#48827a",
+        "cloth": "#65a79b",
+        "light": "#94c5ad",
+        "edge": "#c3dbc0",
+        "trouser": "#4e4e3c",
+        "trouser_light": "#72745a",
+        "skin_shadow": "#805438",
+        "skin": "#b48a58",
+        "skin_light": "#dbb67c",
+        "red": "#a2794c"
+      },
+      "visual_signature": {
+        "head": "low olive cloth cap and large welding goggles",
+        "outfit": "narrow leather tool vest over teal sleeves",
+        "equipment": "three visible tools and rolled tool pouch"
+      }
+    },
+    "nora": {
+      "width": 1.02,
+      "hat": [
+        "#504338",
+        "#8c7455",
+        "#c0a173",
+        "#e4ca98"
+      ],
+      "palette": {
+        "deep": "#26343b",
+        "shadow": "#374c53",
+        "olive": "#547078",
+        "cloth": "#6b8b90",
+        "light": "#91b1ac",
+        "edge": "#b8cec0",
+        "trouser": "#424944",
+        "trouser_light": "#697567",
+        "skin_shadow": "#8e5845",
+        "skin": "#c28a67",
+        "skin_light": "#e4b48a",
+        "red": "#baa171"
+      },
+      "visual_signature": {
+        "head": "wide bronze helmet brim and short dark bob",
+        "outfit": "slate engineer vest with high collar and measuring gauge",
+        "equipment": "long blueprint tube and rectangular folio"
+      }
+    },
+    "levin": {
+      "width": 0.84,
+      "hat": [
+        "#333c2d",
+        "#5c6c47",
+        "#90a06c",
+        "#bbca8e"
+      ],
+      "palette": {
+        "deep": "#2e362c",
+        "shadow": "#414c36",
+        "olive": "#64734c",
+        "cloth": "#809260",
+        "light": "#a5b57d",
+        "edge": "#c9d49d",
+        "trouser": "#344449",
+        "trouser_light": "#586d70",
+        "skin_shadow": "#805438",
+        "skin": "#b48a58",
+        "skin_light": "#dbb67c",
+        "red": "#b3a67a"
+      },
+      "visual_signature": {
+        "head": "pointed olive hood with exposed side face",
+        "outfit": "short asymmetric field poncho and neck scarf",
+        "equipment": "radio pack with long aerial"
+      }
+    },
+    "selma": {
+      "width": 0.91,
+      "hat": [
+        "#606b62",
+        "#aab8a4",
+        "#d1dbc2",
+        "#e9ead2"
+      ],
+      "palette": {
+        "deep": "#2e3434",
+        "shadow": "#43594f",
+        "olive": "#647f6d",
+        "cloth": "#86a28b",
+        "light": "#aec6a7",
+        "edge": "#d1dfbc",
+        "trouser": "#4a464c",
+        "trouser_light": "#746a76",
+        "skin_shadow": "#795241",
+        "skin": "#ad8263",
+        "skin_light": "#d4aa84",
+        "red": "#c9d1b1"
+      },
+      "visual_signature": {
+        "head": "soft ivory medical cap and short auburn bob",
+        "outfit": "long sage field jacket with pale medical insignia",
+        "equipment": "large cream cross-marked medical bag"
+      }
+    },
+    "oskar": {
+      "width": 1.16,
+      "hat": [
+        "#4a422e",
+        "#8b7946",
+        "#bda669",
+        "#e0cf95"
+      ],
+      "palette": {
+        "deep": "#332f29",
+        "shadow": "#4c473b",
+        "olive": "#696451",
+        "cloth": "#858168",
+        "light": "#a8a58a",
+        "edge": "#c7c1a0",
+        "trouser": "#393e39",
+        "trouser_light": "#61675c",
+        "skin_shadow": "#724b3a",
+        "skin": "#aa7957",
+        "skin_light": "#c9a17b",
+        "red": "#baa263"
+      },
+      "visual_signature": {
+        "head": "raised headlamp on a dust helmet and short moustache",
+        "outfit": "heavy work overalls with long leather miner apron",
+        "equipment": "tall squared dust pack and tool strap"
+      }
+    },
+    "rika": {
+      "width": 0.86,
+      "hat": [
+        "#38464a",
+        "#687d82",
+        "#9fb3b3",
+        "#c5cebd"
+      ],
+      "palette": {
+        "deep": "#3e3029",
+        "shadow": "#66503d",
+        "olive": "#96724f",
+        "cloth": "#b88d5b",
+        "light": "#d8b07b",
+        "edge": "#edcf9c",
+        "trouser": "#514c47",
+        "trouser_light": "#77736a",
+        "skin_shadow": "#815245",
+        "skin": "#b68065",
+        "skin_light": "#dbad87",
+        "red": "#c6a66e"
+      },
+      "visual_signature": {
+        "head": "dark beanie with cropped hair and copper headset",
+        "outfit": "short ochre insulated electrician jacket",
+        "equipment": "round copper cable reel and handheld-meter pouch"
+      }
+    }
+  },
+  "visual_contract": {
+    "view": "side and rear only",
+    "head_origin": [
+      49,
+      33
+    ],
+    "torso_origin": [
+      48,
+      48
+    ],
+    "parts": [
+      "body",
+      "arms",
+      "torso",
+      "head",
+      "back_torso",
+      "back_head"
+    ]
+  },
+  "source_history": "identities/source-history-20261005.json"
+}

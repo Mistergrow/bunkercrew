@@ -1,0 +1,102 @@
+{
+  "engine": "Tessel",
+  "version": 2,
+  "composition_versions": [
+    1,
+    2
+  ],
+  "godot_api": "4.7.2",
+  "godot_cpp_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+  "tessel_source": "native/bunkercrew_audio/third_party/tessel/SOURCE.json",
+  "license": "Distribution only together with Bunkercrew",
+  "genres": [
+    "minimal_techno",
+    "schranz",
+    "hip_hop",
+    "breakbeat"
+  ],
+  "normalization_source": "assets/audio/live/normalization.json",
+  "profile_settings_sha256": "255cae0567bfa19aaeb33d322f97f44f26e64fc49a6f4c9ff6eee039e5e4e2da",
+  "native_source_sha256": {
+    "native/bunkercrew_audio/src/live_music.cpp": "e6bc90e21566a8a9405842eea10942619022f5b10658baccf9600b63157e1d78",
+    "native/bunkercrew_audio/src/live_music.h": "b2a4bab8c9a60b1ed9b7798ec07b2bf82d7ac86f4d2480c75c059b2e6cc5cc56",
+    "native/bunkercrew_audio/src/register_types.cpp": "6029dc472f7ea9f4ae36fe9307c7c60b9ef9c5ddb12beee5bad540cc98590af7",
+    "native/bunkercrew_audio/src/tessel_stream.cpp": "0c453c8ee5c60188e544f6b1d2c3c2162fc35a0a713ac135c12a7a7cf3d98fc2",
+    "native/bunkercrew_audio/src/tessel_stream.h": "8414f25b83897d2a252e06e88ebf4136102caa9ba3e92a51a190968866e07587"
+  },
+  "binaries": {
+    "libbunkercrew_audio.linux.x86_64.so": {
+      "bytes": 2159952,
+      "sha256": "cfa5ee20325e2484abcec2086b5c0f7f0571a4665f0d125d3f11722a538c198b"
+    },
+    "bunkercrew_audio.windows.x86_64.dll": {
+      "bytes": 1503232,
+      "sha256": "93528f38c3ba85db5af2c97f30aca2383f232d57040e9e03f8732851633d8e7f"
+    }
+  },
+  "runtime_history": [
+    {
+      "record": "Runtime before generation-safe seek hardening",
+      "native_source_sha256": {
+        "native/bunkercrew_audio/src/live_music.cpp": "2837d0d2e128ca14c525a79bee47f1ef3eacd4e97afd7d4a7d6b4b550c4cd171",
+        "native/bunkercrew_audio/src/live_music.h": "e468b9d737f84ac43e6be0936a3314459e00f0a70af1bdc54eb6970edc2e000a",
+        "native/bunkercrew_audio/src/register_types.cpp": "6029dc472f7ea9f4ae36fe9307c7c60b9ef9c5ddb12beee5bad540cc98590af7",
+        "native/bunkercrew_audio/src/tessel_stream.cpp": "0c453c8ee5c60188e544f6b1d2c3c2162fc35a0a713ac135c12a7a7cf3d98fc2",
+        "native/bunkercrew_audio/src/tessel_stream.h": "8414f25b83897d2a252e06e88ebf4136102caa9ba3e92a51a190968866e07587"
+      },
+      "binaries": {
+        "libbunkercrew_audio.linux.x86_64.so": {
+          "bytes": 2155856,
+          "sha256": "2050640ecbd15b443ee7c3aeb1f2dfe36f8a314e8d60d94e5e2884a601dd88b4"
+        },
+        "bunkercrew_audio.windows.x86_64.dll": {
+          "bytes": 1502720,
+          "sha256": "dbbd12b3ccd93a57b26a1a18d454b0ebd526e1add832cb8103492bb2ca81e272"
+        }
+      },
+      "profile_settings_sha256": "255cae0567bfa19aaeb33d322f97f44f26e64fc49a6f4c9ff6eee039e5e4e2da"
+    },
+    {
+      "record": "Native runtime before path-neutral publication rebuild",
+      "native_source_sha256": {
+        "native/bunkercrew_audio/src/live_music.cpp": "e6bc90e21566a8a9405842eea10942619022f5b10658baccf9600b63157e1d78",
+        "native/bunkercrew_audio/src/live_music.h": "b2a4bab8c9a60b1ed9b7798ec07b2bf82d7ac86f4d2480c75c059b2e6cc5cc56",
+        "native/bunkercrew_audio/src/register_types.cpp": "6029dc472f7ea9f4ae36fe9307c7c60b9ef9c5ddb12beee5bad540cc98590af7",
+        "native/bunkercrew_audio/src/tessel_stream.cpp": "0c453c8ee5c60188e544f6b1d2c3c2162fc35a0a713ac135c12a7a7cf3d98fc2",
+        "native/bunkercrew_audio/src/tessel_stream.h": "8414f25b83897d2a252e06e88ebf4136102caa9ba3e92a51a190968866e07587"
+      },
+      "binaries": {
+        "libbunkercrew_audio.linux.x86_64.so": {
+          "bytes": 2159952,
+          "sha256": "cfa5ee20325e2484abcec2086b5c0f7f0571a4665f0d125d3f11722a538c198b"
+        },
+        "bunkercrew_audio.windows.x86_64.dll": {
+          "bytes": 1503232,
+          "sha256": "93528f38c3ba85db5af2c97f30aca2383f232d57040e9e03f8732851633d8e7f"
+        }
+      },
+      "profile_settings_sha256": "255cae0567bfa19aaeb33d322f97f44f26e64fc49a6f4c9ff6eee039e5e4e2da"
+    }
+  ],
+  "runtime_hardening": {
+    "change": "Generation-safe seek, rewind and same-core restart; source and bank ownership preserved on SPSC producer/consumer threads",
+    "verification": "artifacts/code-hardening/native-seek-after-sanitizer.log",
+    "normal_start": "Precompiled opening is reused; ordinary audio/event hashes unchanged",
+    "transport_wait": "A discontinuity keeps target sample fixed and produces silence until the next main-thread poll composes its phrase; obsolete events are filtered",
+    "build_inputs_sha256": {
+      "native/bunkercrew_audio/CMakeLists.txt": "24eeaeb35a60078036382a0b66735ed560f698599c9944fad0e85e8318ec5472",
+      "native/bunkercrew_audio/tests/music_tests.cpp": "b9b0217873c841f28a9048c464d02b5e87cd31836ff36dcb0d8dd0f4bac59951"
+    }
+  },
+  "publication_rebuild": {
+    "purpose": "Remove private compiler paths without audio or API changes",
+    "method": "GCC file/debug/macro prefix mappings, Release, -g0; Windows linker timestamp disabled",
+    "documentation": "native/bunkercrew_audio/PATH_NEUTRAL_BUILD.md",
+    "godot_cpp_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+    "same_source_render_signatures": true,
+    "separate_neutral_rebuild_bit_identical": true,
+    "linux_exported_symbol_count": 4499,
+    "windows_exported_symbol_count": 1,
+    "windows_native_hardware_tested": false
+  }
+}

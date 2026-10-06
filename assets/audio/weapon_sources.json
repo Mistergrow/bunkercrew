@@ -1,0 +1,399 @@
+{
+  "origin": "Reload revision 2: deterministic edits of CC0 airsoft/mechanical recordings by SpringySpringo and Brian MacIntosh (BMacZero). Mount/switch retain original procedural synthesis. No paid APIs.",
+  "generator": "tools/generate_weapon_audio.py",
+  "dependencies": [
+    "numpy",
+    "scipy"
+  ],
+  "sample_rate": 32000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "variants": {
+    "reload_rifle_open": 3,
+    "reload_rifle_load": 3,
+    "reload_rifle_close": 3,
+    "reload_shotgun_open": 3,
+    "reload_shotgun_load": 3,
+    "reload_shotgun_close": 3,
+    "reload_arc_open": 3,
+    "reload_arc_load": 3,
+    "reload_arc_close": 3,
+    "reload_cannon_open": 3,
+    "reload_cannon_load": 3,
+    "reload_cannon_close": 3,
+    "reload_flak_open": 3,
+    "reload_flak_load": 3,
+    "reload_flak_close": 3,
+    "weapon_mount": 3,
+    "weapon_switch": 3
+  },
+  "profiles": {
+    "rifle": {
+      "seed": 410711,
+      "modes": [
+        337,
+        721,
+        1219,
+        2101
+      ],
+      "weight": 0.46,
+      "description": "Magazine catch, sliding magazine and spring-loaded rifle bolt."
+    },
+    "shotgun": {
+      "seed": 518903,
+      "modes": [
+        183,
+        389,
+        853,
+        1409
+      ],
+      "weight": 0.65,
+      "description": "Hollow receiver, brass cartridge contacts and a short pump closure."
+    },
+    "arc": {
+      "seed": 635227,
+      "modes": [
+        243,
+        557,
+        997,
+        1777
+      ],
+      "weight": 0.38,
+      "description": "Recorded cell latch, magazine contacts and a dry slide closure; no electrical tone."
+    },
+    "cannon": {
+      "seed": 741719,
+      "modes": [
+        119,
+        263,
+        491,
+        1031
+      ],
+      "weight": 0.9,
+      "description": "Heavy feed cover, linked ammunition ratchets and a damped bolt lock."
+    },
+    "flak": {
+      "seed": 882491,
+      "modes": [
+        83,
+        173,
+        367,
+        691
+      ],
+      "weight": 1.15,
+      "description": "Large breech latch, staggered shell-clip contacts and a heavy spring lock."
+    }
+  },
+  "events": {
+    "reload_rifle_open": {
+      "family": "rifle",
+      "phase": "open",
+      "seconds": 0.25,
+      "seed": 410711,
+      "peak": 0.68
+    },
+    "reload_rifle_load": {
+      "family": "rifle",
+      "phase": "load",
+      "seconds": 0.32,
+      "seed": 411720,
+      "peak": 0.68
+    },
+    "reload_rifle_close": {
+      "family": "rifle",
+      "phase": "close",
+      "seconds": 0.29,
+      "seed": 412738,
+      "peak": 0.68
+    },
+    "reload_shotgun_open": {
+      "family": "shotgun",
+      "phase": "open",
+      "seconds": 0.25,
+      "seed": 518903,
+      "peak": 0.68
+    },
+    "reload_shotgun_load": {
+      "family": "shotgun",
+      "phase": "load",
+      "seconds": 0.32,
+      "seed": 519912,
+      "peak": 0.68
+    },
+    "reload_shotgun_close": {
+      "family": "shotgun",
+      "phase": "close",
+      "seconds": 0.29,
+      "seed": 520930,
+      "peak": 0.68
+    },
+    "reload_arc_open": {
+      "family": "arc",
+      "phase": "open",
+      "seconds": 0.25,
+      "seed": 635227,
+      "peak": 0.68
+    },
+    "reload_arc_load": {
+      "family": "arc",
+      "phase": "load",
+      "seconds": 0.32,
+      "seed": 636236,
+      "peak": 0.68
+    },
+    "reload_arc_close": {
+      "family": "arc",
+      "phase": "close",
+      "seconds": 0.29,
+      "seed": 637254,
+      "peak": 0.68
+    },
+    "reload_cannon_open": {
+      "family": "cannon",
+      "phase": "open",
+      "seconds": 0.25,
+      "seed": 741719,
+      "peak": 0.68
+    },
+    "reload_cannon_load": {
+      "family": "cannon",
+      "phase": "load",
+      "seconds": 0.32,
+      "seed": 742728,
+      "peak": 0.68
+    },
+    "reload_cannon_close": {
+      "family": "cannon",
+      "phase": "close",
+      "seconds": 0.29,
+      "seed": 743746,
+      "peak": 0.68
+    },
+    "reload_flak_open": {
+      "family": "flak",
+      "phase": "open",
+      "seconds": 0.25,
+      "seed": 882491,
+      "peak": 0.68
+    },
+    "reload_flak_load": {
+      "family": "flak",
+      "phase": "load",
+      "seconds": 0.32,
+      "seed": 883500,
+      "peak": 0.68
+    },
+    "reload_flak_close": {
+      "family": "flak",
+      "phase": "close",
+      "seconds": 0.29,
+      "seed": 884518,
+      "peak": 0.68
+    },
+    "weapon_mount": {
+      "family": "cannon",
+      "phase": "mount",
+      "seconds": 0.29,
+      "seed": 994951,
+      "peak": 0.57
+    },
+    "weapon_switch": {
+      "family": "rifle",
+      "phase": "switch",
+      "seconds": 0.27,
+      "seed": 1093711,
+      "peak": 0.55
+    }
+  },
+  "preserved_sha256": {
+    "ambience_wind.ogg": "233af8fbf069ced575eba835895ff5a143db32cb3dfce736b2ecada4569ada42",
+    "arc_01.wav": "fd63f0fb7a5e05e4fc37066066489df075b4c1c127a0ebc2d4a3199999475747",
+    "arc_02.wav": "cc6bbcdbf3433f0764e6c619a8ee70a9c23707fe18833e11c4b035083c7f27ac",
+    "arc_03.wav": "d1313e895c3686544103988130392717e5fa767650ebacc464c13051a2626495",
+    "build_01.wav": "1a79936ede0e9d3781efe41e046c3ced652a3d8477a6f0f7c8e474596aa25349",
+    "build_02.wav": "f172ad96af1988186947126ceb5f8b5936337560cf3ff6db05c736b46a193641",
+    "build_03.wav": "67f484ead5cfbb4437b641583b0d43e30084d634cf42e77e71c3857ab02ccd88",
+    "cannon_01.wav": "a91234c1cdb433a28a38bdffb9ca107299ae8de51ff0701971141cd4fb71dcfe",
+    "cannon_02.wav": "ff38202cae55e56f1df709a272f1b106a13deac97a0f994893ac5ba8a2d40f95",
+    "cannon_03.wav": "09687b3d601450839055d068afa858fc128a2c82b0d7b53fc90770019bffd7c9",
+    "empty_01.wav": "509d03afc548b6587c85c1a86f8af23a0ee99780918667c11f4870869afbc100",
+    "empty_02.wav": "6136f093d94f806342bd6cf2ea61c50dfe0d1cc841e8e1b1b87ca09bb078c6c7",
+    "enemy_shot_01.wav": "f2064a070482f9e563e1796cf11d5a439fc3e8ac5faade20110fdca742231d31",
+    "enemy_shot_02.wav": "06cd8c6712d7a0e573e532025a53568d3b68730591dbf4bbaaa533a4d3ed67f1",
+    "enemy_shot_03.wav": "99ed5662a213175f03bbd0922e6e513653746e421216a2ea67ad51421d600944",
+    "explosion_01.wav": "6b3d0e68033315ccceabbc00f07c0a1fb0826fc6121eeeb6e13ac05bf7043e8e",
+    "explosion_02.wav": "d069b554b9cf56f0075c224f45a0494ef0a439734669f243906ac2705b5b91c6",
+    "glass_break_01.wav": "080541b0ab54b7bc1709d3605d0dded7efffc3cddce96b03c066c8d78e497e93",
+    "glass_break_02.wav": "1950f2aee9d397d34facfaa25546e26ec04ba38d829623870dca2a664865d8cc",
+    "glass_break_03.wav": "57f1fcfa8194e3b61a56f59b11f55d9bbec87c80356d60743bdd77be994860bb",
+    "hit_01.wav": "7bd379f862cdb4d62f9ba611b96561598d73f7e5e65dd1feeafe674bd1f018af",
+    "hit_02.wav": "aa2ad58a29e10ce75971688223837d6382d4dc73463328e8aef46f47a3c58ca9",
+    "hit_03.wav": "78fc2437e0ee760c8c4092e5742370fbf247637b88c25c27c6115b222df63cf6",
+    "impact_metal_01.wav": "0c73bcf80b27d7228fa56772b608a6fb99b87a43c1519d49372a77d1bbd6ee4e",
+    "impact_metal_02.wav": "44fc94b6b3ba86994081a5f8fd7382b81e95032a02db63596a5327502cf3c594",
+    "impact_metal_03.wav": "09e878f1fc4f6833359a20a4a4e799bac1d35f6e01b0c7754384279bb9ce9195",
+    "impact_stone_01.wav": "1c0dbbfade460c8b26835a427f0e08d3516fc4ab015e9f758f5131732baa41b1",
+    "impact_stone_02.wav": "774866554ab57c6e1936bf6e083c0e4c01311472077cdca610604f46601167d4",
+    "impact_stone_03.wav": "d4aca26af768c8e4e2bb75194fed82dd7a82cfa215db5b05137ee74e6b02d7da",
+    "impact_wood_01.wav": "ca94314b69d5a4f23c47c2f6587665b57501012d4b079eb9ab79924fb12b7da7",
+    "impact_wood_02.wav": "ea91ade7ed8dbf0ed6dec19cacd5b7a8b0ff68f431eb9dfef210242e5f1a77bc",
+    "impact_wood_03.wav": "0f87b8f768fe44a762fd22028034da5087a1be65e0ff094e5bc8e5aa303a3bf4",
+    "mine_01.wav": "8a69a6781e7f456a8bf4530b1d0dc28edf88a873caafda07a40723829cd2ddd4",
+    "mine_02.wav": "89c2094b2c92db04914f9ba1b7d201ab0ea0f27003cb31858b6493c5c41bffbd",
+    "mine_03.wav": "ff3df337917462638dae0556b7750e7d51d74e023ca2214cda8c9ca487c262dc",
+    "movement_sources.json": "865e9a7d2d1f9cd86c5b0caee6ae4a9e6f28eb27bd3ba835dbb7e95a3901f6eb",
+    "music_calm.ogg": "b1f457510bfbde1df19cd961668042b32ce9e698199618a5800207ced3a546b8",
+    "music_combat.ogg": "9346817f63f3b3a9dd2bcfbad9d69ec91be18a8cd8d8554891e8a2e6fc520a70",
+    "music_foundry_calm.ogg": "8fa35a1d9184ac396dcd10fea52af9aec8065d2fe265bb0e9d641dd8bbba5d1a",
+    "music_foundry_combat.ogg": "74d82e7d2e5df3b4e951d795a263fc86bf50e6479df4b0217a93f18cb31f705e",
+    "music_frost_calm.ogg": "4b8f81c52377e7b5777e7be3667459f9108eb5e13260724a49b986281441bdab",
+    "music_frost_combat.ogg": "37c0e048b10d1bbf3330f782eaf8abc708fda35f6816bcc14889308dc4b4e700",
+    "music_tidal_calm.ogg": "1f859b3e1aa5eb1a97dc1acecd51d035760677c6be49a4ea25ea27cfa57be00a",
+    "music_tidal_combat.ogg": "768d3172fd0f01504523d114a37648bc72b5eb05c964ebcd9a179529f25ad541",
+    "pickup_01.wav": "4a74e7ed9ba5e59e0f18fb17caea4a437e171a5eab18fdb8a68f577bd48ec52b",
+    "pickup_02.wav": "edd7630a6420b0101f43447e42b3f5928758a216d91fa23fc34e6e3d4cfdda42",
+    "pickup_03.wav": "d23e6f57d81998b6c44abd81be5d89ec96be57fe57260fdb78cc85e2faa5ef25",
+    "produce_01.wav": "5821578092e4792ffe577a94358074461ee0ca7c96a42ffb16e2e5476c595a69",
+    "produce_02.wav": "3aa0f04cfdaa528626b8bf4cf346d4271cc6c75d4f855fc1210142dc4c4d818b",
+    "reload_01.wav": "03eb8aeca47f684fa51c5000adf62c12f76c1b30327bd3a906add9a9a5f5662d",
+    "reload_02.wav": "3673f37fd345eda916aeaa22420f96185e27806d7ed89ccb1666ee7298b24346",
+    "shot_01.wav": "17356d789fe1cadb62e158cd56c5d90dba0cf00e37182411d36d29357bbba27b",
+    "shot_02.wav": "be3eba27dc7b8c98ceeb28e9e1eff99108f455d0cc93382f6dd0f03109b3a9a6",
+    "shot_03.wav": "5aed088616cba9ccc5d300d2d7b3333aa334e9301d09bb248666cb7a06077e52",
+    "shotgun_01.wav": "104b4b9be95762425aa9fe943e36b7840a79f545bf2c9d67583eef647e54a55b",
+    "shotgun_02.wav": "b258b19afbefd23c4e77e872735f50825cb2758e3f0c0cf7cda07bc14c5ff45d",
+    "shotgun_03.wav": "d4bb09b721beb61b024f6f238523fcdb8283ed4b845054ee1d11ae89a9543436",
+    "sources.json": "66fcf66c119d1df89532a4bfa3f25fea4855ec1dff8cb02e5eae6b852ceb77f9",
+    "start_01.wav": "02b7c7ea4bf568acf5823000e38e7aad33532763312a0ddb3299b1db6eb680a0",
+    "step_dry_01.wav": "619c1677e75825e68ee5b2e4aa393356d49573ad07c1fc3e59e83a9385357b7c",
+    "step_dry_02.wav": "c3ec3192a35a7ec834c10ab195e6a5ace84ce0958d0ad462dfa15c9d9de959a3",
+    "step_dry_03.wav": "b9224e85bd40626de9e2cc7c9246768bbfd3fc33d3c7183ae526b07013d890a1",
+    "step_heavy_01.wav": "3087625e6b3a27da57d6c6a7c585f685dc115140ca252c8025b081e4fc5875f5",
+    "step_heavy_02.wav": "f8b1536001a3b4ab8ae36c1b0b527f27ec3880be3ad0c06de37eaa9f6b49e9b8",
+    "step_heavy_03.wav": "444979205e76ca0e79a8dd6a4eb06fc6f14b271e884cc07a4976f03cff6667b1",
+    "step_ice_01.wav": "00bb16ec39e27c36a108141fd69545165f3a9ea772b0fafa2f1b9a77a8f0f2ad",
+    "step_ice_02.wav": "3085d877b68ed229cb5b7238f653d9a645477de402205403dc2db2be373c103b",
+    "step_ice_03.wav": "e960093437a098b026e15d2debd01468703e926fa043d8fb9211774fc68b5d62",
+    "step_metal_01.wav": "f27f322f1d1fc0387201b81f6fb050e5821975783a63bd5a7973df5f9ef60c76",
+    "step_metal_02.wav": "31280546a4ab3bf4678b2e1b35be4fec2160f295f00e03d3aaf95a4022d35673",
+    "step_metal_03.wav": "89b7db7e550f9d4565a128103b48ed16aaba1e0eecd0d1a4684a939cb908b4ff",
+    "step_water_01.wav": "1805434e0ea317fb970be84c83879a1374e4d7cca730f096a5e76f31052d5501",
+    "step_water_02.wav": "c29554eb5ecc70bacc0b38b13cf0d83541decb2d47d9d9abce2d05a2df1799a3",
+    "step_water_03.wav": "9cedfb9e1ceefe9d06a120081f04c75e98206406c0dcd3d11a04aa21a696fe0c",
+    "thunder_01.wav": "2aa05d2b77f795625d4c4bd3c5ff4b53813b1bf47710a5d68ec5d9df0f1fb5e0",
+    "warning_01.wav": "b1bc61352c91a4f9a4bc0e56bb859a8f0b2adb2c9f1b3f5342866c072ae4b1bc"
+  },
+  "revision": 2,
+  "recordings": [
+    {
+      "file": "gunreload1.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/gunreload1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "685cac6a184e3cc3ec09a25b6ddb1d6feffd86d469778f339aa423d384035c50"
+    },
+    {
+      "file": "assaultriflereload1.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/assaultriflereload1_0.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "efb2d724d634eabe6ba8d3065686abca848bb7497d4d43a5e4aed5e5ea23016f"
+    },
+    {
+      "file": "shotguncock.wav",
+      "author": "SpringySpringo",
+      "page": "https://opengameart.org/content/gun-reload-sounds",
+      "download": "https://opengameart.org/sites/default/files/shotguncock_0.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "33e007321ba83301c861aef573f2c40b70bc62f8f24c0164877e6dd123e24371"
+    },
+    {
+      "file": "clipload1.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/clipload1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "1cdc10c50a26834ce7562a5f2925b9aa1118e3bb58a86fea80f34558bf2c5101"
+    },
+    {
+      "file": "clipload2.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/clipload2.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "a5441641e7e9ede24f3ac311642e06265c6f480e3b1ba4b92c19c81c3a5e4d86"
+    },
+    {
+      "file": "singlebullet1.wav",
+      "author": "Brian MacIntosh (BMacZero)",
+      "page": "https://opengameart.org/content/gun-reload-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/singlebullet1.wav",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "422bb2b92072cf8ecb77fda83e70d27bdcb7fa8cee33415ef66985a8cc14dde2"
+    }
+  ],
+  "source_cuts": {
+    "rifle_catch": [
+      "assaultriflereload1.wav",
+      0.16,
+      0.39
+    ],
+    "rifle_seat": [
+      "assaultriflereload1.wav",
+      1.005,
+      1.17
+    ],
+    "rifle_bolt": [
+      "assaultriflereload1.wav",
+      1.175,
+      1.44
+    ],
+    "pistol_catch": [
+      "gunreload1.wav",
+      0.105,
+      0.315
+    ],
+    "pistol_slide": [
+      "gunreload1.wav",
+      1.245,
+      1.46
+    ],
+    "pump_back": [
+      "shotguncock.wav",
+      0.01,
+      0.169
+    ],
+    "pump_forward": [
+      "shotguncock.wav",
+      0.188,
+      0.371
+    ],
+    "magazine_a": [
+      "clipload1.wav",
+      0.01,
+      0.235
+    ],
+    "magazine_b": [
+      "clipload2.wav",
+      0.009,
+      0.195
+    ],
+    "cartridge": [
+      "singlebullet1.wav",
+      0.05,
+      0.24
+    ]
+  },
+  "processing": "Mono selection, 32 kHz resampling, fixed-speed short source cuts, low noise gate, dry contact layering, mild soft compression, edge fades. No pitch sweep, oscillator or continuous synthetic noise in reloads.",
+  "timing": "Open at accepted reload start, load at 48% elapsed, close after ammunition transfers. Cancelled actions omit future phases.",
+  "validation": "python3 tests/weapon_audio_assets_test.py",
+  "review": "Signal and runtime measurements; no subjective listening assessment performed."
+}

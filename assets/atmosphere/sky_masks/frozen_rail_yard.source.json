@@ -1,0 +1,13 @@
+{
+  "kind": "single-channel sky visibility; white sky, black solid landscape",
+  "source": "assets/environments/v3/frozen_rail_yard.png",
+  "source_sha256": "131cb20dd3c3182810d5170b62e03164da8942b782c1bc235c2912317678dd6f",
+  "generator": "tools/generate_cloud_masks.py",
+  "outline_source": "assets/environments/v3/landmarks.json",
+  "method": "v3 source-pixel contour seeds and local source-color graph cut within 12 pixels; verified independent sky/land probes",
+  "license": "Same as the source environment asset; provenance remains with that source",
+  "size": [
+    1672,
+    941
+  ]
+}

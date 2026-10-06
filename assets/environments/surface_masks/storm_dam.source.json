@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/storm_dam_v1/landmarks.png",
+  "source_sha256": "6d97a8a28bc83b81e70c47a6dbd560f6f2129c9df666e44f556efeeeb3455f05",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    1224,
+    372
+  ],
+  "bounds": [
+    0.2661483253588517,
+    0.6025504782146652,
+    0.7320574162679426,
+    0.3953241232731137
+  ],
+  "crop_pixels": [
+    445,
+    567,
+    1224,
+    372
+  ],
+  "occupied_pixels": {
+    "water": 126560,
+    "flow": 23440,
+    "ice": 0
+  },
+  "sha256": "5a66cf438f768783221e8b5d58d9c52f444e99c24f38e65a61156ee8b469ca57"
+}

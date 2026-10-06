@@ -1,0 +1,35 @@
+{
+  "title": "Concrete mixer rotation materials",
+  "tool": "Built-in imagegen",
+  "created": "2026-10-02",
+  "reference": "assets/machinery/components.png, original top-center mixer drum",
+  "assets": [
+    {
+      "file": "mixer_shell.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "purpose": "Worn orange cylindrical shell material; UV motion keeps original silhouette and lighting",
+      "prompt": "Use case: stylized-concept. Generate a NEW reusable flat cylindrical material unwrap for the ORANGE CONCRETE MIXER DRUM in the TOP CENTER of the supplied industrial component atlas. Reference is style and color ONLY, do not draw an object, mixer or environment. Output one square1024x1024 opaque seamless pixel-art texture filling the entire canvas edge to edge. This will be cylindrically wrapped by a Godot shader on the existing drum silhouette, with the vertical V direction going continuously around the circumference. Thus top and bottom must join seamlessly, and left/right must be tileable too. EXACT same worn orange painted steel, concrete-grey abrasion, dark rust, small cream/silver chips and clustered pixel texture as that existing drum. Rust-orange overall (#bd511a-ish), dark rust around small chipped patches, restrained grey bare-steel chips. Coarse readable hand-clustered pixel surfaces, not high frequency photographic grain. Paint intact on about70percent; several distinctive irregular palm-sized grey abrasion patches spread apart will let the player clearly see rotation. Fine scratches and a few small dark rivet heads. No uniform crosshatch, no checkerboard, no rectangular tiles, no regular brick/border pattern. Flat albedo without any gradient, highlights, shadow, shine or baked lighting; the existing drum supplies its own shading in the shader. No embossed three-dimensional object, no perspective, no frame, no drum mouth, no text, no floor, no glow, no transparent background. Small palette matching the orange drum reference and crisp pixel clusters, not smooth vector or cartoon.",
+      "sha256": "4afead5d65460d52c023e79696781a6f97250e0f75500792705616f80f66a60d"
+    },
+    {
+      "file": "mixer_paddle.png",
+      "size": [
+        1235,
+        1274
+      ],
+      "opaque_bounds": [
+        468,
+        90,
+        310,
+        1071
+      ],
+      "purpose": "Internal steel/concrete-coated mixing blade",
+      "prompt": "Use case: stylized-concept. Generate a NEW isolated internal mixing blade sprite for the orange concrete mixer in the top center of the supplied machinery atlas. Reference is exact industrial pixel-art material/style reference ONLY. One narrow slightly bent steel mixing paddle, shown straight-on, upright with attachment at bottom and rounded broad blade at top, suitable for rotating inside a dark tilted cylindrical drum. Worn dark charcoal steel, scraped dull grey exposed edges, small irregular dry pale-grey concrete deposits along one edge, two bolt holes near the mounting end. Modest flat pixel highlight from upper-left, restrained contrast since this sits inside the shadowed drum. Match the supplied game's dense crisp industrial pixel clusters and chipped metal rendering EXACTLY. Canvas1024x1024, single blade centered, roughly240pixels wide and650pixels tall with generous fully transparent margins. Clean bounded silhouette, no handle like a shovel, no equipment around it, no mixer housing, no scenery, no floor, no cast backdrop shadow, no glow, no labels or borders. True transparent background, hard pixel cutout edges, entirely opaque solid metal with genuinely empty mounting holes. Do not paint black or a transparency-checker pattern as background.",
+      "sha256": "5443e682e182ca2dae37de902af1818d2e223be8de15aa8ebdcd608fe908fa17"
+    }
+  ],
+  "integration": "Existing mixer frame, mouth, rim, position and production rules remain authored from original machinery atlas."
+}

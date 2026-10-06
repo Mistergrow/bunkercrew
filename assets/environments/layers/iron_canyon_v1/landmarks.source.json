@@ -1,0 +1,18 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main copper sandstone canyon rims left and right, narrow mining trestles and shaft houses matching the reference around y=.38-.77. Stepped near canyon rock and sparse dry shrubs to the bottom, preserve the open canyon depth at center. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+  "reference": "assets/environments/v3/iron_canyon.png",
+  "reference_sha256": "f0bc35a17bd1e71350c9084bfd2edcc8bab16a4194bf0f0dcba7f27e3fb6571d",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-19187b0e-d395-4fb2-879e-28ce96424268.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "9ead8e2db8978e59ce20c7cba8b092d4eba0b585e2bab5afca93c2840cbef75e",
+  "transparent_background": true,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "usage": "Bunkercrew gameplay depth plate. Original generated pixels and alpha preserved."
+}

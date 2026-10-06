@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image_gen",
+  "generated_at": "2026-10-02",
+  "asset": "frozen_rail_outskirts_v1.png",
+  "source": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-ba8f36b4-4ef4-47e7-9901-74d309d6e165.png",
+  "prompt": "Use case: stylized-concept. Asset type: production side-view background extension for a Godot pixel-art bunker defense game. Input image: the viewed frozen railway panorama is a STYLE and CONTINUITY REFERENCE only. Generate a NEW wide panoramic transparent RGBA landscape strip, about 3:1. Extend the outskirts of this abandoned snowy railway yard: low derelict rail sidings, rusty wire fences, broken telegraph poles, small abandoned trackside maintenance sheds, sparse empty freight wagons, snow-covered embankments, clusters of frosty conifers and leafless birches, low wooded foothills behind them. Keep architecture low, trees varied and sparse, generous gaps so the mountain background remains visible. Near scenery fills bottom 35 percent, highest trees reach about middle of canvas. All ground joins one FLAT horizontal baseline at the very bottom edge; transparent sky above the uneven treeline and buildings, no colored sky, no clouds, no sun, no opaque rectangular background. Full landscape reaches both left and right edges at bottom; no floating islands. Match reference's detailed crisp clustered pixel-art textures, cold desaturated blue snow, dark slate-blue steel, restrained rust, tiny weathered highlights, clear side-on game elevation. Same cold daylight as reference. No huge roundhouse, no hero locomotive, no mountains taller than trees, no bunker, people, enemies, UI, text, signs, logos, borders. This must blend behind the existing unique railway panorama and extend its world horizontally. Genuine transparent alpha. No smooth photographic rendering.",
+  "processing": "Original RGBA preserved. Godot samples the baseline region and uses a luminance-based winter palette to suppress chromatic alpha-edge artifacts.",
+  "region": [
+    0,
+    125,
+    2172,
+    525
+  ],
+  "license": "Generated for Bunkercrew / LETZTE SCHICHT; no third-party asset license attached."
+}

@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "bunkercrew.core",
+  "version": "1",
+  "requires": [],
+  "catalogs": {
+    "characters": {
+      "path": "res://assets/content/core/characters.json",
+      "field": "characters"
+    },
+    "items": {
+      "path": "res://assets/content/core/items.json",
+      "field": "items"
+    },
+    "workshop_recipes": {
+      "path": "res://assets/content/core/workshop_recipes.json",
+      "field": "workshop_recipes"
+    },
+    "station_recipes": {
+      "path": "res://assets/content/core/station_recipes.json",
+      "field": "station_recipes"
+    },
+    "environments": {
+      "path": "res://assets/environments/catalog.json",
+      "field": "environments"
+    }
+  }
+}

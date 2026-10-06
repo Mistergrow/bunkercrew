@@ -1,0 +1,27 @@
+{
+  "asset": "air_clouds_top_v1.png",
+  "generated_at": "2026-10-02",
+  "generator": "image_gen.imagegen",
+  "transparent_background": true,
+  "prompt": "Use case: stylized-concept. Asset type: transparent cloud sprite atlas for a TOP-DOWN flight introduction in a gritty, detailed industrial pixel-art game. Create a new square1024x1024 raster atlas with exactly FOUR separate cloud masses arranged on a precise2x2grid (each cell512x512). Each cloud completely contained within its own cell, with at least48pixels of truly transparent padding from EVERY cell edge. Viewpoint looking straight DOWN onto high clouds. Four distinct organic silhouettes: top-left broad broken horseshoe, top-right elongated curled bank, bottom-left loose three-lobed mass, bottom-right torn crescent with small wispy fingers. Their center volumes should be opaque or dense and their perimeter very softly dissolving in hand-crafted pixel clusters, never a rectangular fade. Medium: high-quality painted pixel art matching the attached industrial landscape's detail, clustered shading and restrained palette. Colors cold desaturated steel-blue/gray, brighter mist-gray upper edges and slate undersides; no brightwhitecartoonoutlines and no saturatedblue. Broadbillowyvolumes withfinesmallpixeldetail, no repetitive circles, cloudshapeskeepdistinctgaps. Genuine transparent background, no sky, no scenery, no aircraft, no symbols, no numbers, no text, no borders, no checkerboard. Reference is ONLY for pixel-art treatment and mutedpalette, do not recreate the landscape. The sprite atlas will be shader-deformed and scrolled in separate depths, so keep cloud forms centered and cleanly isolated.",
+  "references": [
+    "res://assets/environments/v2/ash_foundry.png"
+  ],
+  "usage": "Original Bunkercrew solo air raid introduction. Reference attachment guides composition only; no attachment pixels shipped.",
+  "processing": "Original generated RGBA image copied without raster edits; runtime atlas regions and shaders animate it.",
+  "sha256": "38384a819cbe05cc031a956660f1fc224c15112cf8866a4349e794ad435162d4",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "alpha_mode": "RGBA",
+  "version": 1,
+  "atlas": {
+    "columns": 2,
+    "rows": 2,
+    "cell_size": [
+      627,
+      627
+    ]
+  }
+}

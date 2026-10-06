@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_repair_done_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "repair_done",
+  "layers": "Jack release, solid tire/body return, tools packed; no victory melody",
+  "seed": 620883,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 66240,
+  "seconds": 1.38,
+  "loop": false,
+  "loop_method": "Silent one-shot edges with 65 ms terminal fade",
+  "sha256": "a9ee0152783c0c117bdbdb6851a4993ebfc1a433fc390cdedca08c13c29e599e",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

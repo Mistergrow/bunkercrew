@@ -1,0 +1,3189 @@
+{
+  "schema_version": 1,
+  "coordinate_space": "normalized_source_uv",
+  "authorship": "Hand-authored vector annotations after visual review of every active source foreground plate. Original bitmap pixels unchanged.",
+  "material_channels": {
+    "water": "Liquid horizontal source-pixel ripple; source-safe sampling only.",
+    "flow": "Vertical local source-pixel displacement in painted falls; no UV wrapping.",
+    "ice": "Stationary ice, faint glints; zero source-pixel displacement."
+  },
+  "edge_policy": "Feather inward by feather_texels and only sample a displaced UV when source and target both remain inside the same material mask. Do not read or stretch a shore, tree, gate or rock into water.",
+  "environments": {
+    "sector07": {
+      "source_path": "res://assets/environments/layers/sector07_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "56df25a19b6b5e6f6b26697e4e14ed4c3dd294b806aaa0e2d772da2242deebe3",
+      "reference_path": "res://assets/environments/v3/sector07.png",
+      "reference_sha256": "0eaded14e2623a0b7e9d848982a09f15c35360b389235aefbf69d80d04bf82cc",
+      "review": "Two conservative industrial pond patches; the orange reflection is liquid water. Trees and autumn shoreline remain static.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1126,
+              864
+            ],
+            "uv": [
+              0.673445,
+              0.918172
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              550,
+              700
+            ],
+            "uv": [
+              0.328947,
+              0.743889
+            ]
+          },
+          {
+            "source_pixel": [
+              1163,
+              895
+            ],
+            "uv": [
+              0.695574,
+              0.951116
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "far_channel",
+          "material": "water",
+          "polygon": [
+            [
+              0.639952,
+              0.867163
+            ],
+            [
+              0.751196,
+              0.867163
+            ],
+            [
+              0.773923,
+              0.872476
+            ],
+            [
+              0.758971,
+              0.88204
+            ],
+            [
+              0.66866,
+              0.878852
+            ],
+            [
+              0.645933,
+              0.876727
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.4,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "sunset_reflection",
+          "material": "water",
+          "polygon": [
+            [
+              0.647727,
+              0.904357
+            ],
+            [
+              0.666866,
+              0.904357
+            ],
+            [
+              0.678828,
+              0.904357
+            ],
+            [
+              0.68122,
+              0.920298
+            ],
+            [
+              0.676435,
+              0.940489
+            ],
+            [
+              0.669856,
+              0.940489
+            ],
+            [
+              0.66567,
+              0.93305
+            ],
+            [
+              0.666866,
+              0.922423
+            ],
+            [
+              0.651914,
+              0.922423
+            ],
+            [
+              0.648325,
+              0.914984
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.6,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "ash_foundry": {
+      "source_path": "res://assets/environments/layers/ash_foundry_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "a17c6981d90549eb57a10b7d61204e127b12946ea3e455c58a1f947637e96412",
+      "reference_path": "res://assets/environments/v3/ash_foundry.png",
+      "reference_sha256": "1d176db1ba2c8667c3742ad46773888c2d802aa2c66d68b9e329e99eba57bbc4",
+      "review": "Cooling basins between forested banks. Conservative interior patches avoid conifers, pylons and refinery buildings.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              872,
+              783
+            ],
+            "uv": [
+              0.521531,
+              0.832094
+            ]
+          },
+          {
+            "source_pixel": [
+              864,
+              829
+            ],
+            "uv": [
+              0.516746,
+              0.880978
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              450,
+              610
+            ],
+            "uv": [
+              0.269139,
+              0.648247
+            ]
+          },
+          {
+            "source_pixel": [
+              710,
+              790
+            ],
+            "uv": [
+              0.424641,
+              0.839532
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "far_cooling_basin",
+          "material": "water",
+          "polygon": [
+            [
+              0.461722,
+              0.825717
+            ],
+            [
+              0.51256,
+              0.823592
+            ],
+            [
+              0.549043,
+              0.823592
+            ],
+            [
+              0.602871,
+              0.828905
+            ],
+            [
+              0.590311,
+              0.843783
+            ],
+            [
+              0.539474,
+              0.845909
+            ],
+            [
+              0.514952,
+              0.841658
+            ],
+            [
+              0.5,
+              0.841658
+            ],
+            [
+              0.48744,
+              0.842721
+            ],
+            [
+              0.473086,
+              0.836344
+            ],
+            [
+              0.463517,
+              0.834219
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.6,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "east_cooling_basin",
+          "material": "water",
+          "polygon": [
+            [
+              0.772727,
+              0.817216
+            ],
+            [
+              0.785885,
+              0.817216
+            ],
+            [
+              0.789474,
+              0.822529
+            ],
+            [
+              0.785885,
+              0.83847
+            ],
+            [
+              0.774522,
+              0.840595
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.6,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "near_cooling_channel",
+          "material": "water",
+          "polygon": [
+            [
+              0.456938,
+              0.876727
+            ],
+            [
+              0.485048,
+              0.875664
+            ],
+            [
+              0.492823,
+              0.876727
+            ],
+            [
+              0.514354,
+              0.873539
+            ],
+            [
+              0.528708,
+              0.874601
+            ],
+            [
+              0.532297,
+              0.879915
+            ],
+            [
+              0.532895,
+              0.889479
+            ],
+            [
+              0.507775,
+              0.889479
+            ],
+            [
+              0.501794,
+              0.886291
+            ],
+            [
+              0.475478,
+              0.886291
+            ],
+            [
+              0.462321,
+              0.880978
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.55,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "abandoned_harbor": {
+      "source_path": "res://assets/environments/layers/abandoned_harbor_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "7569028611ab32f91aafdfbc684b1d82c85448c1157de8eb75cfb937baa2d9fc",
+      "reference_path": "res://assets/environments/v3/abandoned_harbor.png",
+      "reference_sha256": "300e50bf01137fa93954a396769690c6f7df1ab4cd19c613db457ee78e25195b",
+      "review": "Large shipping channel and near water. Rocks, west pier posts, ship and warehouse silhouettes are excluded.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              850,
+              820
+            ],
+            "uv": [
+              0.508373,
+              0.871413
+            ]
+          },
+          {
+            "source_pixel": [
+              240,
+              835
+            ],
+            "uv": [
+              0.143541,
+              0.887354
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              431,
+              689
+            ],
+            "uv": [
+              0.257775,
+              0.7322
+            ]
+          },
+          {
+            "source_pixel": [
+              1244,
+              784
+            ],
+            "uv": [
+              0.744019,
+              0.833156
+            ]
+          },
+          {
+            "source_pixel": [
+              265,
+              757
+            ],
+            "uv": [
+              0.158493,
+              0.804463
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "shipping_channel",
+          "material": "water",
+          "polygon": [
+            [
+              0.273923,
+              0.760893
+            ],
+            [
+              0.41866,
+              0.74814
+            ],
+            [
+              0.549641,
+              0.755579
+            ],
+            [
+              0.598086,
+              0.764081
+            ],
+            [
+              0.706938,
+              0.766206
+            ],
+            [
+              0.836124,
+              0.773645
+            ],
+            [
+              0.849282,
+              0.793836
+            ],
+            [
+              0.83134,
+              0.81084
+            ],
+            [
+              0.808014,
+              0.835282
+            ],
+            [
+              0.777512,
+              0.842721
+            ],
+            [
+              0.746411,
+              0.849097
+            ],
+            [
+              0.717703,
+              0.843783
+            ],
+            [
+              0.694976,
+              0.839532
+            ],
+            [
+              0.690191,
+              0.856536
+            ],
+            [
+              0.759569,
+              0.872476
+            ],
+            [
+              0.798445,
+              0.868225
+            ],
+            [
+              0.819378,
+              0.880978
+            ],
+            [
+              0.848684,
+              0.896918
+            ],
+            [
+              0.891148,
+              0.891605
+            ],
+            [
+              0.936603,
+              0.914984
+            ],
+            [
+              0.995813,
+              0.93305
+            ],
+            [
+              0.995813,
+              0.993624
+            ],
+            [
+              0.287081,
+              0.993624
+            ],
+            [
+              0.282297,
+              0.969182
+            ],
+            [
+              0.254785,
+              0.957492
+            ],
+            [
+              0.244617,
+              0.923486
+            ],
+            [
+              0.266148,
+              0.870351
+            ],
+            [
+              0.272129,
+              0.846971
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.701555,
+                0.82678
+              ],
+              [
+                0.727273,
+                0.82678
+              ],
+              [
+                0.727273,
+                0.853348
+              ],
+              [
+                0.701555,
+                0.853348
+              ]
+            ],
+            [
+              [
+                0.73445,
+                0.822529
+              ],
+              [
+                0.759569,
+                0.822529
+              ],
+              [
+                0.759569,
+                0.850159
+              ],
+              [
+                0.73445,
+                0.850159
+              ]
+            ],
+            [
+              [
+                0.779904,
+                0.818278
+              ],
+              [
+                0.802632,
+                0.818278
+              ],
+              [
+                0.802632,
+                0.850159
+              ],
+              [
+                0.779904,
+                0.850159
+              ]
+            ],
+            [
+              [
+                0.867225,
+                0.92136
+              ],
+              [
+                0.88756,
+                0.911796
+              ],
+              [
+                0.905502,
+                0.919235
+              ],
+              [
+                0.912679,
+                0.93305
+              ],
+              [
+                0.895933,
+                0.943677
+              ],
+              [
+                0.876794,
+                0.939426
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 0.85,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "west_harbor_water",
+          "material": "water",
+          "polygon": [
+            [
+              0.005383,
+              0.857598
+            ],
+            [
+              0.058612,
+              0.860786
+            ],
+            [
+              0.101077,
+              0.852285
+            ],
+            [
+              0.159091,
+              0.857598
+            ],
+            [
+              0.217703,
+              0.858661
+            ],
+            [
+              0.247608,
+              0.85441
+            ],
+            [
+              0.247608,
+              0.889479
+            ],
+            [
+              0.212321,
+              0.912859
+            ],
+            [
+              0.178828,
+              0.927736
+            ],
+            [
+              0.159091,
+              0.937301
+            ],
+            [
+              0.122608,
+              0.93305
+            ],
+            [
+              0.091507,
+              0.929862
+            ],
+            [
+              0.065191,
+              0.928799
+            ],
+            [
+              0.028708,
+              0.935175
+            ],
+            [
+              0.005383,
+              0.926674
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.65,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "basalt_quarry": {
+      "source_path": "res://assets/environments/layers/basalt_quarry_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "716aac3f5ab48abc0e5f1763ee1239389ee38ccdd4c20fed6422307fdd391890",
+      "reference_path": "res://assets/environments/v3/basalt_quarry.png",
+      "reference_sha256": "6d38e662af893b8ff6ddebbc0950ab1b36a7c252595a0b089775e21d2d641369",
+      "review": "Quiet quarry pools on the right; avoid basalt terraces, rock islands and foreground trees.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1430,
+              829
+            ],
+            "uv": [
+              0.855263,
+              0.880978
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              1002,
+              814
+            ],
+            "uv": [
+              0.599282,
+              0.865037
+            ]
+          },
+          {
+            "source_pixel": [
+              1195,
+              838
+            ],
+            "uv": [
+              0.714713,
+              0.890542
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "quarry_pool",
+          "material": "water",
+          "polygon": [
+            [
+              0.744617,
+              0.871413
+            ],
+            [
+              0.855263,
+              0.870351
+            ],
+            [
+              0.883971,
+              0.873539
+            ],
+            [
+              0.891746,
+              0.886291
+            ],
+            [
+              0.873206,
+              0.901169
+            ],
+            [
+              0.850478,
+              0.904357
+            ],
+            [
+              0.825359,
+              0.903294
+            ],
+            [
+              0.825359,
+              0.894793
+            ],
+            [
+              0.799641,
+              0.890542
+            ],
+            [
+              0.782297,
+              0.883103
+            ],
+            [
+              0.754187,
+              0.883103
+            ],
+            [
+              0.74701,
+              0.876727
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.6,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "upper_quarry_pool",
+          "material": "water",
+          "polygon": [
+            [
+              0.646531,
+              0.814028
+            ],
+            [
+              0.699761,
+              0.814028
+            ],
+            [
+              0.735048,
+              0.822529
+            ],
+            [
+              0.776914,
+              0.825717
+            ],
+            [
+              0.789474,
+              0.835282
+            ],
+            [
+              0.769139,
+              0.842721
+            ],
+            [
+              0.738038,
+              0.840595
+            ],
+            [
+              0.705742,
+              0.841658
+            ],
+            [
+              0.676435,
+              0.83847
+            ],
+            [
+              0.657895,
+              0.832094
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.45,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "overgrown_steelworks": {
+      "source_path": "res://assets/environments/layers/overgrown_steelworks_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "ef0a5969bc5c0b5221cf14d1820cc69cc7b1c7a1ffc62906c2bcae0dc526e473",
+      "reference_path": "res://assets/environments/v3/overgrown_steelworks.png",
+      "reference_sha256": "4215a7c401362dcd5af231ba3932ccc33504631ac271e5063ad04348c490e5fe",
+      "review": "Shallow marsh channels between reeds, wooded banks and concrete ruins; conservative masks do not sway the trees.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1375,
+              827
+            ],
+            "uv": [
+              0.822368,
+              0.878852
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              950,
+              730
+            ],
+            "uv": [
+              0.568182,
+              0.77577
+            ]
+          },
+          {
+            "source_pixel": [
+              1265,
+              842
+            ],
+            "uv": [
+              0.756579,
+              0.894793
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "east_marsh",
+          "material": "water",
+          "polygon": [
+            [
+              0.79366,
+              0.869288
+            ],
+            [
+              0.855263,
+              0.869288
+            ],
+            [
+              0.852273,
+              0.880978
+            ],
+            [
+              0.845694,
+              0.889479
+            ],
+            [
+              0.802033,
+              0.889479
+            ],
+            [
+              0.79366,
+              0.880978
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.55,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "central_marsh_channel",
+          "material": "water",
+          "polygon": [
+            [
+              0.233254,
+              0.93305
+            ],
+            [
+              0.277512,
+              0.930925
+            ],
+            [
+              0.30323,
+              0.931987
+            ],
+            [
+              0.333134,
+              0.926674
+            ],
+            [
+              0.380383,
+              0.928799
+            ],
+            [
+              0.395335,
+              0.936238
+            ],
+            [
+              0.383971,
+              0.946865
+            ],
+            [
+              0.352273,
+              0.947928
+            ],
+            [
+              0.339115,
+              0.942614
+            ],
+            [
+              0.315789,
+              0.947928
+            ],
+            [
+              0.30323,
+              0.956429
+            ],
+            [
+              0.279306,
+              0.956429
+            ],
+            [
+              0.267344,
+              0.94899
+            ],
+            [
+              0.239833,
+              0.951116
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.328947,
+                0.924548
+              ],
+              [
+                0.363636,
+                0.924548
+              ],
+              [
+                0.363636,
+                0.957492
+              ],
+              [
+                0.328947,
+                0.957492
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 0.55,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "east_foreground_channel",
+          "material": "water",
+          "polygon": [
+            [
+              0.699761,
+              0.98406
+            ],
+            [
+              0.735646,
+              0.982997
+            ],
+            [
+              0.759569,
+              0.979809
+            ],
+            [
+              0.783493,
+              0.973433
+            ],
+            [
+              0.832536,
+              0.967056
+            ],
+            [
+              0.841507,
+              0.974495
+            ],
+            [
+              0.828947,
+              0.987248
+            ],
+            [
+              0.799641,
+              0.993624
+            ],
+            [
+              0.735646,
+              0.992561
+            ],
+            [
+              0.699761,
+              0.992561
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.5,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "frozen_rail_yard": {
+      "source_path": "res://assets/environments/layers/frozen_rail_yard_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "1ac84fef513d5e9dbc7db4c032c250cba2b35802ebf28c7ce1e3ccd242773a21",
+      "reference_path": "res://assets/environments/v3/frozen_rail_yard.png",
+      "reference_sha256": "131cb20dd3c3182810d5170b62e03164da8942b782c1bc235c2912317678dd6f",
+      "review": "No reliable exposed water or ice. Visible white areas are snow over tracks, ballast, trees and rocks; keep static.",
+      "probes": {
+        "protected": [
+          {
+            "source_pixel": [
+              880,
+              755
+            ],
+            "uv": [
+              0.526316,
+              0.802338
+            ]
+          },
+          {
+            "source_pixel": [
+              1090,
+              866
+            ],
+            "uv": [
+              0.651914,
+              0.920298
+            ]
+          },
+          {
+            "source_pixel": [
+              1190,
+              896
+            ],
+            "uv": [
+              0.711722,
+              0.952179
+            ]
+          }
+        ]
+      },
+      "regions": []
+    },
+    "iron_canyon": {
+      "source_path": "res://assets/environments/layers/iron_canyon_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "9ead8e2db8978e59ce20c7cba8b092d4eba0b585e2bab5afca93c2840cbef75e",
+      "reference_path": "res://assets/environments/v3/iron_canyon.png",
+      "reference_sha256": "f0bc35a17bd1e71350c9084bfd2edcc8bab16a4194bf0f0dcba7f27e3fb6571d",
+      "review": "Dry rock, scrub and dust; no visually justified water or exposed ice target.",
+      "probes": {
+        "protected": [
+          {
+            "source_pixel": [
+              800,
+              825
+            ],
+            "uv": [
+              0.478469,
+              0.876727
+            ]
+          },
+          {
+            "source_pixel": [
+              950,
+              750
+            ],
+            "uv": [
+              0.568182,
+              0.797024
+            ]
+          }
+        ]
+      },
+      "regions": []
+    },
+    "flooded_power_station": {
+      "source_path": "res://assets/environments/layers/flooded_power_station_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "e5f070c0d17fe66cb1dda2047ed1371b84eb96ce92c9afa8832e27407b917a56",
+      "reference_path": "res://assets/environments/v3/flooded_power_station.png",
+      "reference_sha256": "eb4853c831337ddb1deef0e1f6b3e090de93b341d02961a2511f41e4c82abed9",
+      "review": "Broad reservoir, five local spillway/outlet streams. Reeds, island plants, concrete supports and gates stay static.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              840,
+              750
+            ],
+            "uv": [
+              0.502392,
+              0.797024
+            ]
+          }
+        ],
+        "flow": [
+          {
+            "source_pixel": [
+              1240,
+              610
+            ],
+            "uv": [
+              0.741627,
+              0.648247
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              900,
+              600
+            ],
+            "uv": [
+              0.538278,
+              0.63762
+            ]
+          },
+          {
+            "source_pixel": [
+              1450,
+              825
+            ],
+            "uv": [
+              0.867225,
+              0.876727
+            ]
+          },
+          {
+            "source_pixel": [
+              1163,
+              659
+            ],
+            "uv": [
+              0.695574,
+              0.700319
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "reservoir",
+          "material": "water",
+          "polygon": [
+            [
+              0.2811,
+              0.723698
+            ],
+            [
+              0.352273,
+              0.722635
+            ],
+            [
+              0.409689,
+              0.727949
+            ],
+            [
+              0.496411,
+              0.726886
+            ],
+            [
+              0.669856,
+              0.727949
+            ],
+            [
+              0.717105,
+              0.730074
+            ],
+            [
+              0.83134,
+              0.7322
+            ],
+            [
+              0.844498,
+              0.740701
+            ],
+            [
+              0.870215,
+              0.747078
+            ],
+            [
+              0.860646,
+              0.760893
+            ],
+            [
+              0.883971,
+              0.770457
+            ],
+            [
+              0.916268,
+              0.77152
+            ],
+            [
+              0.995813,
+              0.781084
+            ],
+            [
+              0.995813,
+              0.82678
+            ],
+            [
+              0.985646,
+              0.835282
+            ],
+            [
+              0.97189,
+              0.856536
+            ],
+            [
+              0.962321,
+              0.878852
+            ],
+            [
+              0.94378,
+              0.891605
+            ],
+            [
+              0.93122,
+              0.907545
+            ],
+            [
+              0.899522,
+              0.903294
+            ],
+            [
+              0.879187,
+              0.906482
+            ],
+            [
+              0.87201,
+              0.919235
+            ],
+            [
+              0.89055,
+              0.940489
+            ],
+            [
+              0.913278,
+              0.94474
+            ],
+            [
+              0.929426,
+              0.971307
+            ],
+            [
+              0.976675,
+              0.97237
+            ],
+            [
+              0.995813,
+              0.989373
+            ],
+            [
+              0.995813,
+              0.993624
+            ],
+            [
+              0.297249,
+              0.993624
+            ],
+            [
+              0.296651,
+              0.959617
+            ],
+            [
+              0.302033,
+              0.935175
+            ],
+            [
+              0.310407,
+              0.92136
+            ],
+            [
+              0.381579,
+              0.914984
+            ],
+            [
+              0.394737,
+              0.902232
+            ],
+            [
+              0.391148,
+              0.886291
+            ],
+            [
+              0.36244,
+              0.869288
+            ],
+            [
+              0.312799,
+              0.867163
+            ],
+            [
+              0.297249,
+              0.859724
+            ],
+            [
+              0.251794,
+              0.85441
+            ],
+            [
+              0.207536,
+              0.85441
+            ],
+            [
+              0.197967,
+              0.845909
+            ],
+            [
+              0.138158,
+              0.852285
+            ],
+            [
+              0.119019,
+              0.833156
+            ],
+            [
+              0.056818,
+              0.824655
+            ],
+            [
+              0.004785,
+              0.814028
+            ],
+            [
+              0.004785,
+              0.75983
+            ],
+            [
+              0.044856,
+              0.754516
+            ],
+            [
+              0.089713,
+              0.74814
+            ],
+            [
+              0.136364,
+              0.74814
+            ],
+            [
+              0.180622,
+              0.744952
+            ],
+            [
+              0.211722,
+              0.740701
+            ],
+            [
+              0.244617,
+              0.741764
+            ],
+            [
+              0.2811,
+              0.735388
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.007177,
+                0.798087
+              ],
+              [
+                0.066388,
+                0.802338
+              ],
+              [
+                0.096292,
+                0.818278
+              ],
+              [
+                0.132775,
+                0.819341
+              ],
+              [
+                0.159689,
+                0.829968
+              ],
+              [
+                0.166268,
+                0.844846
+              ],
+              [
+                0.192584,
+                0.843783
+              ],
+              [
+                0.217105,
+                0.837407
+              ],
+              [
+                0.226675,
+                0.845909
+              ],
+              [
+                0.216507,
+                0.860786
+              ],
+              [
+                0.157895,
+                0.860786
+              ],
+              [
+                0.144139,
+                0.851222
+              ],
+              [
+                0.098684,
+                0.858661
+              ],
+              [
+                0.049043,
+                0.842721
+              ],
+              [
+                0.005383,
+                0.837407
+              ]
+            ],
+            [
+              [
+                0.185407,
+                0.889479
+              ],
+              [
+                0.206938,
+                0.876727
+              ],
+              [
+                0.226675,
+                0.878852
+              ],
+              [
+                0.258971,
+                0.886291
+              ],
+              [
+                0.278708,
+                0.876727
+              ],
+              [
+                0.30323,
+                0.890542
+              ],
+              [
+                0.327751,
+                0.87779
+              ],
+              [
+                0.342105,
+                0.884166
+              ],
+              [
+                0.364234,
+                0.878852
+              ],
+              [
+                0.379187,
+                0.890542
+              ],
+              [
+                0.403708,
+                0.890542
+              ],
+              [
+                0.41567,
+                0.904357
+              ],
+              [
+                0.40012,
+                0.916047
+              ],
+              [
+                0.366029,
+                0.920298
+              ],
+              [
+                0.3439,
+                0.912859
+              ],
+              [
+                0.319378,
+                0.92136
+              ],
+              [
+                0.296053,
+                0.911796
+              ],
+              [
+                0.272129,
+                0.917109
+              ],
+              [
+                0.255383,
+                0.907545
+              ],
+              [
+                0.226675,
+                0.909671
+              ],
+              [
+                0.201555,
+                0.904357
+              ]
+            ],
+            [
+              [
+                0.76555,
+                0.886291
+              ],
+              [
+                0.815789,
+                0.872476
+              ],
+              [
+                0.827751,
+                0.855473
+              ],
+              [
+                0.8439,
+                0.863974
+              ],
+              [
+                0.853469,
+                0.852285
+              ],
+              [
+                0.867225,
+                0.865037
+              ],
+              [
+                0.87201,
+                0.855473
+              ],
+              [
+                0.885766,
+                0.863974
+              ],
+              [
+                0.904306,
+                0.858661
+              ],
+              [
+                0.907297,
+                0.848034
+              ],
+              [
+                0.925239,
+                0.855473
+              ],
+              [
+                0.927632,
+                0.841658
+              ],
+              [
+                0.944976,
+                0.850159
+              ],
+              [
+                0.955742,
+                0.845909
+              ],
+              [
+                0.969498,
+                0.855473
+              ],
+              [
+                0.980263,
+                0.878852
+              ],
+              [
+                0.963517,
+                0.894793
+              ],
+              [
+                0.938995,
+                0.901169
+              ],
+              [
+                0.941986,
+                0.916047
+              ],
+              [
+                0.914474,
+                0.912859
+              ],
+              [
+                0.895933,
+                0.906482
+              ],
+              [
+                0.870813,
+                0.910733
+              ],
+              [
+                0.855263,
+                0.902232
+              ],
+              [
+                0.828349,
+                0.908608
+              ],
+              [
+                0.808014,
+                0.899044
+              ],
+              [
+                0.779306,
+                0.900106
+              ]
+            ],
+            [
+              [
+                0.883373,
+                0.958555
+              ],
+              [
+                0.911483,
+                0.953241
+              ],
+              [
+                0.927033,
+                0.959617
+              ],
+              [
+                0.940789,
+                0.950053
+              ],
+              [
+                0.950957,
+                0.964931
+              ],
+              [
+                0.968301,
+                0.970244
+              ],
+              [
+                0.967105,
+                0.98406
+              ],
+              [
+                0.935407,
+                0.979809
+              ],
+              [
+                0.911483,
+                0.978746
+              ],
+              [
+                0.886962,
+                0.97237
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 0.75,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "west_spillway",
+          "material": "flow",
+          "polygon": [
+            [
+              0.715909,
+              0.612115
+            ],
+            [
+              0.724282,
+              0.613177
+            ],
+            [
+              0.722488,
+              0.629118
+            ],
+            [
+              0.717105,
+              0.652497
+            ],
+            [
+              0.709928,
+              0.670563
+            ],
+            [
+              0.702153,
+              0.676939
+            ],
+            [
+              0.694378,
+              0.678002
+            ],
+            [
+              0.701555,
+              0.660999
+            ],
+            [
+              0.708732,
+              0.639745
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.8,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "central_spillway",
+          "material": "flow",
+          "polygon": [
+            [
+              0.744617,
+              0.606801
+            ],
+            [
+              0.754187,
+              0.609989
+            ],
+            [
+              0.751196,
+              0.631243
+            ],
+            [
+              0.744617,
+              0.654623
+            ],
+            [
+              0.736244,
+              0.670563
+            ],
+            [
+              0.727871,
+              0.679065
+            ],
+            [
+              0.720096,
+              0.679065
+            ],
+            [
+              0.727871,
+              0.662062
+            ],
+            [
+              0.736244,
+              0.632306
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.8,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "east_spillway",
+          "material": "flow",
+          "polygon": [
+            [
+              0.774522,
+              0.607864
+            ],
+            [
+              0.783493,
+              0.611052
+            ],
+            [
+              0.781699,
+              0.634431
+            ],
+            [
+              0.775718,
+              0.657811
+            ],
+            [
+              0.769737,
+              0.674814
+            ],
+            [
+              0.757775,
+              0.682253
+            ],
+            [
+              0.748206,
+              0.68119
+            ],
+            [
+              0.757177,
+              0.66525
+            ],
+            [
+              0.766746,
+              0.638682
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.8,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "west_low_outlet",
+          "material": "flow",
+          "polygon": [
+            [
+              0.677632,
+              0.686504
+            ],
+            [
+              0.684809,
+              0.686504
+            ],
+            [
+              0.683612,
+              0.697131
+            ],
+            [
+              0.680024,
+              0.70882
+            ],
+            [
+              0.672847,
+              0.712009
+            ],
+            [
+              0.672847,
+              0.699256
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.75,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "east_low_outlet",
+          "material": "flow",
+          "polygon": [
+            [
+              0.757177,
+              0.691817
+            ],
+            [
+              0.763158,
+              0.691817
+            ],
+            [
+              0.76256,
+              0.706695
+            ],
+            [
+              0.757775,
+              0.716259
+            ],
+            [
+              0.751794,
+              0.716259
+            ],
+            [
+              0.754785,
+              0.701382
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.75,
+          "max_displacement_texels": 1.0
+        }
+      ]
+    },
+    "mountain_pass": {
+      "source_path": "res://assets/environments/layers/mountain_pass_v1/valley.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "8dc45352ea06e0490423473b08bae0afc42a8b65aefec18602742d5f57a3da77",
+      "reference_path": "res://assets/environments/v3/mountain_pass.png",
+      "reference_sha256": "2f39b860317ecea4f4fa56a93e99fcbf1cd56d06aecdcc3efbc36860bd30d33f",
+      "review": "Small meandering river glimpses in the valley; the viaduct, cliff faces and conifers stay static.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1108,
+              829
+            ],
+            "uv": [
+              0.662679,
+              0.880978
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              1100,
+              660
+            ],
+            "uv": [
+              0.657895,
+              0.701382
+            ]
+          },
+          {
+            "source_pixel": [
+              1048,
+              804
+            ],
+            "uv": [
+              0.626794,
+              0.85441
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "far_river",
+          "material": "water",
+          "polygon": [
+            [
+              0.690789,
+              0.824655
+            ],
+            [
+              0.705742,
+              0.824655
+            ],
+            [
+              0.713517,
+              0.828905
+            ],
+            [
+              0.709928,
+              0.839532
+            ],
+            [
+              0.69378,
+              0.83847
+            ],
+            [
+              0.690789,
+              0.832094
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.4,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "middle_river",
+          "material": "water",
+          "polygon": [
+            [
+              0.641148,
+              0.868225
+            ],
+            [
+              0.659689,
+              0.8661
+            ],
+            [
+              0.677632,
+              0.8661
+            ],
+            [
+              0.688995,
+              0.8661
+            ],
+            [
+              0.700957,
+              0.867163
+            ],
+            [
+              0.698565,
+              0.872476
+            ],
+            [
+              0.680622,
+              0.872476
+            ],
+            [
+              0.671651,
+              0.870351
+            ],
+            [
+              0.653708,
+              0.871413
+            ],
+            [
+              0.645933,
+              0.871413
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.5,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "lower_river_sliver",
+          "material": "water",
+          "polygon": [
+            [
+              0.592105,
+              0.862912
+            ],
+            [
+              0.614234,
+              0.861849
+            ],
+            [
+              0.622608,
+              0.865037
+            ],
+            [
+              0.619617,
+              0.871413
+            ],
+            [
+              0.605861,
+              0.869288
+            ],
+            [
+              0.592703,
+              0.869288
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.4,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "east_river_sliver",
+          "material": "water",
+          "polygon": [
+            [
+              0.65311,
+              0.876727
+            ],
+            [
+              0.666866,
+              0.875664
+            ],
+            [
+              0.672249,
+              0.878852
+            ],
+            [
+              0.671053,
+              0.888417
+            ],
+            [
+              0.663278,
+              0.892667
+            ],
+            [
+              0.6561,
+              0.888417
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.4,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "storm_dam": {
+      "source_path": "res://assets/environments/layers/storm_dam_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "6d97a8a28bc83b81e70c47a6dbd560f6f2129c9df666e44f556efeeeb3455f05",
+      "reference_path": "res://assets/environments/v3/storm_dam.png",
+      "reference_sha256": "ff5e11d0b2870e3829483137da7302b7630441ddaa3b067e409009acc77f2ec9",
+      "review": "Turbulent tailwater plus six independently masked falls. Dam wall, buttresses, power buildings, rocks and pines remain static.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1000,
+              854
+            ],
+            "uv": [
+              0.598086,
+              0.907545
+            ]
+          }
+        ],
+        "flow": [
+          {
+            "source_pixel": [
+              915,
+              620
+            ],
+            "uv": [
+              0.547249,
+              0.658874
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              999,
+              545
+            ],
+            "uv": [
+              0.597488,
+              0.579171
+            ]
+          },
+          {
+            "source_pixel": [
+              815,
+              851
+            ],
+            "uv": [
+              0.48744,
+              0.904357
+            ]
+          },
+          {
+            "source_pixel": [
+              1125,
+              701
+            ],
+            "uv": [
+              0.672847,
+              0.744952
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "tailwater",
+          "material": "water",
+          "polygon": [
+            [
+              0.507177,
+              0.829968
+            ],
+            [
+              0.558014,
+              0.831031
+            ],
+            [
+              0.586722,
+              0.821467
+            ],
+            [
+              0.602871,
+              0.824655
+            ],
+            [
+              0.639952,
+              0.827843
+            ],
+            [
+              0.691986,
+              0.82678
+            ],
+            [
+              0.758373,
+              0.829968
+            ],
+            [
+              0.772727,
+              0.834219
+            ],
+            [
+              0.772129,
+              0.843783
+            ],
+            [
+              0.816388,
+              0.850159
+            ],
+            [
+              0.842703,
+              0.848034
+            ],
+            [
+              0.867823,
+              0.853348
+            ],
+            [
+              0.882775,
+              0.851222
+            ],
+            [
+              0.925837,
+              0.857598
+            ],
+            [
+              0.995813,
+              0.868225
+            ],
+            [
+              0.995813,
+              0.918172
+            ],
+            [
+              0.979665,
+              0.923486
+            ],
+            [
+              0.97488,
+              0.939426
+            ],
+            [
+              0.961722,
+              0.954304
+            ],
+            [
+              0.950957,
+              0.971307
+            ],
+            [
+              0.934809,
+              0.980871
+            ],
+            [
+              0.930622,
+              0.993624
+            ],
+            [
+              0.406699,
+              0.993624
+            ],
+            [
+              0.402512,
+              0.977683
+            ],
+            [
+              0.39055,
+              0.963868
+            ],
+            [
+              0.37201,
+              0.955367
+            ],
+            [
+              0.360048,
+              0.939426
+            ],
+            [
+              0.353469,
+              0.926674
+            ],
+            [
+              0.369019,
+              0.920298
+            ],
+            [
+              0.425837,
+              0.920298
+            ],
+            [
+              0.450957,
+              0.92136
+            ],
+            [
+              0.469498,
+              0.930925
+            ],
+            [
+              0.494617,
+              0.929862
+            ],
+            [
+              0.525718,
+              0.938363
+            ],
+            [
+              0.546053,
+              0.929862
+            ],
+            [
+              0.568182,
+              0.914984
+            ],
+            [
+              0.564593,
+              0.895855
+            ],
+            [
+              0.551435,
+              0.883103
+            ],
+            [
+              0.525718,
+              0.87779
+            ],
+            [
+              0.501794,
+              0.878852
+            ],
+            [
+              0.486244,
+              0.870351
+            ],
+            [
+              0.492225,
+              0.852285
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.465311,
+                0.916047
+              ],
+              [
+                0.473086,
+                0.895855
+              ],
+              [
+                0.485646,
+                0.887354
+              ],
+              [
+                0.500598,
+                0.887354
+              ],
+              [
+                0.507177,
+                0.897981
+              ],
+              [
+                0.516746,
+                0.901169
+              ],
+              [
+                0.525718,
+                0.916047
+              ],
+              [
+                0.516746,
+                0.927736
+              ],
+              [
+                0.494019,
+                0.928799
+              ],
+              [
+                0.481459,
+                0.924548
+              ]
+            ],
+            [
+              [
+                0.65012,
+                0.836344
+              ],
+              [
+                0.663876,
+                0.831031
+              ],
+              [
+                0.674641,
+                0.837407
+              ],
+              [
+                0.683014,
+                0.845909
+              ],
+              [
+                0.670455,
+                0.849097
+              ],
+              [
+                0.6561,
+                0.846971
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 0.95,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "west_tailwater_sliver",
+          "material": "water",
+          "polygon": [
+            [
+              0.270933,
+              0.924548
+            ],
+            [
+              0.292464,
+              0.92136
+            ],
+            [
+              0.312201,
+              0.924548
+            ],
+            [
+              0.322368,
+              0.930925
+            ],
+            [
+              0.321172,
+              0.939426
+            ],
+            [
+              0.309809,
+              0.945802
+            ],
+            [
+              0.301435,
+              0.957492
+            ],
+            [
+              0.282895,
+              0.958555
+            ],
+            [
+              0.267943,
+              0.950053
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.75,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "spillway_1",
+          "material": "flow",
+          "polygon": [
+            [
+              0.433014,
+              0.606801
+            ],
+            [
+              0.447368,
+              0.605739
+            ],
+            [
+              0.460526,
+              0.647184
+            ],
+            [
+              0.465909,
+              0.691817
+            ],
+            [
+              0.470096,
+              0.712009
+            ],
+            [
+              0.463517,
+              0.717322
+            ],
+            [
+              0.45933,
+              0.693943
+            ],
+            [
+              0.449761,
+              0.656748
+            ],
+            [
+              0.441388,
+              0.628055
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.442584,
+                0.686504
+              ],
+              [
+                0.450359,
+                0.68119
+              ],
+              [
+                0.458134,
+                0.70882
+              ],
+              [
+                0.462919,
+                0.72051
+              ],
+              [
+                0.438397,
+                0.72051
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "spillway_2",
+          "material": "flow",
+          "polygon": [
+            [
+              0.476077,
+              0.609989
+            ],
+            [
+              0.492823,
+              0.609989
+            ],
+            [
+              0.501794,
+              0.645058
+            ],
+            [
+              0.508373,
+              0.690755
+            ],
+            [
+              0.513158,
+              0.731137
+            ],
+            [
+              0.50299,
+              0.743889
+            ],
+            [
+              0.49701,
+              0.709883
+            ],
+            [
+              0.490431,
+              0.668438
+            ],
+            [
+              0.482057,
+              0.63762
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "spillway_3",
+          "material": "flow",
+          "polygon": [
+            [
+              0.529904,
+              0.608927
+            ],
+            [
+              0.554426,
+              0.608927
+            ],
+            [
+              0.562201,
+              0.649309
+            ],
+            [
+              0.567584,
+              0.697131
+            ],
+            [
+              0.574761,
+              0.740701
+            ],
+            [
+              0.562799,
+              0.756642
+            ],
+            [
+              0.55323,
+              0.730074
+            ],
+            [
+              0.544258,
+              0.68119
+            ],
+            [
+              0.535287,
+              0.64187
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "spillway_4",
+          "material": "flow",
+          "polygon": [
+            [
+              0.595694,
+              0.611052
+            ],
+            [
+              0.619617,
+              0.611052
+            ],
+            [
+              0.624402,
+              0.655685
+            ],
+            [
+              0.629187,
+              0.70457
+            ],
+            [
+              0.635167,
+              0.740701
+            ],
+            [
+              0.624402,
+              0.753454
+            ],
+            [
+              0.613038,
+              0.723698
+            ],
+            [
+              0.605861,
+              0.66525
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "spillway_5",
+          "material": "flow",
+          "polygon": [
+            [
+              0.646531,
+              0.611052
+            ],
+            [
+              0.670455,
+              0.611052
+            ],
+            [
+              0.674641,
+              0.650372
+            ],
+            [
+              0.681818,
+              0.699256
+            ],
+            [
+              0.689593,
+              0.735388
+            ],
+            [
+              0.675239,
+              0.752391
+            ],
+            [
+              0.664474,
+              0.72051
+            ],
+            [
+              0.6561,
+              0.671626
+            ]
+          ],
+          "exclusions": [
+            [
+              [
+                0.645933,
+                0.753454
+              ],
+              [
+                0.669856,
+                0.727949
+              ],
+              [
+                0.692584,
+                0.754516
+              ],
+              [
+                0.684809,
+                0.778959
+              ],
+              [
+                0.65311,
+                0.777896
+              ]
+            ]
+          ],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        },
+        {
+          "id": "spillway_6",
+          "material": "flow",
+          "polygon": [
+            [
+              0.708134,
+              0.612115
+            ],
+            [
+              0.732656,
+              0.615303
+            ],
+            [
+              0.739833,
+              0.674814
+            ],
+            [
+              0.74701,
+              0.727949
+            ],
+            [
+              0.738038,
+              0.743889
+            ],
+            [
+              0.723684,
+              0.722635
+            ],
+            [
+              0.715909,
+              0.662062
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 1,
+          "max_displacement_texels": 1.0
+        }
+      ]
+    },
+    "sulfur_refinery": {
+      "source_path": "res://assets/environments/layers/sulfur_refinery_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "ba3d4d2a68318a17430bcd1275c3f07ce19a8e635bf32b7e799b3e63c5b80b1a",
+      "reference_path": "res://assets/environments/v3/sulfur_refinery.png",
+      "reference_sha256": "95d2b979794a3bd25d7d0eb33102fdc8a8ca424a7844d6a35f1f18ed9286f37b",
+      "review": "Shallow reflective yellow-green chemical ponds, not the yellow rock banks; very subdued liquid motion.",
+      "probes": {
+        "water": [
+          {
+            "source_pixel": [
+              1100,
+              850
+            ],
+            "uv": [
+              0.657895,
+              0.903294
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              1150,
+              823
+            ],
+            "uv": [
+              0.687799,
+              0.874601
+            ]
+          },
+          {
+            "source_pixel": [
+              1350,
+              665
+            ],
+            "uv": [
+              0.807416,
+              0.706695
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "chemical_west_pool",
+          "material": "water",
+          "polygon": [
+            [
+              0.285885,
+              0.827843
+            ],
+            [
+              0.308612,
+              0.827843
+            ],
+            [
+              0.324761,
+              0.831031
+            ],
+            [
+              0.324163,
+              0.837407
+            ],
+            [
+              0.305622,
+              0.83847
+            ],
+            [
+              0.293062,
+              0.835282
+            ],
+            [
+              0.285885,
+              0.833156
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.35,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "chemical_middle_pool",
+          "material": "water",
+          "polygon": [
+            [
+              0.401914,
+              0.857598
+            ],
+            [
+              0.454545,
+              0.856536
+            ],
+            [
+              0.493421,
+              0.856536
+            ],
+            [
+              0.517344,
+              0.860786
+            ],
+            [
+              0.511962,
+              0.874601
+            ],
+            [
+              0.48744,
+              0.88204
+            ],
+            [
+              0.464115,
+              0.883103
+            ],
+            [
+              0.454545,
+              0.891605
+            ],
+            [
+              0.424043,
+              0.888417
+            ],
+            [
+              0.406699,
+              0.876727
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.45,
+          "max_displacement_texels": 1.5
+        },
+        {
+          "id": "chemical_east_pool",
+          "material": "water",
+          "polygon": [
+            [
+              0.626794,
+              0.89373
+            ],
+            [
+              0.658493,
+              0.892667
+            ],
+            [
+              0.672847,
+              0.891605
+            ],
+            [
+              0.683612,
+              0.894793
+            ],
+            [
+              0.683014,
+              0.907545
+            ],
+            [
+              0.67823,
+              0.917109
+            ],
+            [
+              0.652512,
+              0.919235
+            ],
+            [
+              0.636962,
+              0.919235
+            ],
+            [
+              0.62799,
+              0.912859
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.45,
+          "max_displacement_texels": 1.5
+        }
+      ]
+    },
+    "radar_highlands": {
+      "source_path": "res://assets/environments/layers/radar_highlands_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "0be532dd1e3e1268bb7824dae9e7f5984213eb3d88fc1082b8abd800cf363e3e",
+      "reference_path": "res://assets/environments/v3/radar_highlands.png",
+      "reference_sha256": "52bd92004d55265f2ea89916f93207b25bcf107d2b8870d60c5037d496aee7af",
+      "review": "Two conservative smooth blue frozen-basin patches. Static ice with faint glint only; surrounding snow is excluded and no liquid displacement is permitted.",
+      "probes": {
+        "ice": [
+          {
+            "source_pixel": [
+              1190,
+              780
+            ],
+            "uv": [
+              0.711722,
+              0.828905
+            ]
+          }
+        ],
+        "protected": [
+          {
+            "source_pixel": [
+              950,
+              746
+            ],
+            "uv": [
+              0.568182,
+              0.792774
+            ]
+          },
+          {
+            "source_pixel": [
+              1040,
+              825
+            ],
+            "uv": [
+              0.62201,
+              0.876727
+            ]
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "frozen_basin",
+          "material": "ice",
+          "polygon": [
+            [
+              0.604665,
+              0.820404
+            ],
+            [
+              0.63756,
+              0.818278
+            ],
+            [
+              0.661483,
+              0.820404
+            ],
+            [
+              0.702751,
+              0.820404
+            ],
+            [
+              0.730861,
+              0.823592
+            ],
+            [
+              0.758373,
+              0.823592
+            ],
+            [
+              0.754785,
+              0.834219
+            ],
+            [
+              0.735646,
+              0.83847
+            ],
+            [
+              0.700359,
+              0.842721
+            ],
+            [
+              0.678828,
+              0.839532
+            ],
+            [
+              0.660885,
+              0.836344
+            ],
+            [
+              0.636962,
+              0.833156
+            ],
+            [
+              0.616627,
+              0.833156
+            ],
+            [
+              0.606459,
+              0.829968
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.18,
+          "max_displacement_texels": 0
+        },
+        {
+          "id": "west_ice_sliver",
+          "material": "ice",
+          "polygon": [
+            [
+              0.436603,
+              0.818278
+            ],
+            [
+              0.458134,
+              0.818278
+            ],
+            [
+              0.476675,
+              0.821467
+            ],
+            [
+              0.493421,
+              0.821467
+            ],
+            [
+              0.501196,
+              0.828905
+            ],
+            [
+              0.485048,
+              0.832094
+            ],
+            [
+              0.465909,
+              0.829968
+            ],
+            [
+              0.454545,
+              0.833156
+            ],
+            [
+              0.440789,
+              0.828905
+            ]
+          ],
+          "exclusions": [],
+          "feather_texels": 2,
+          "strength": 0.15,
+          "max_displacement_texels": 0
+        }
+      ]
+    },
+    "buried_megafactory": {
+      "source_path": "res://assets/environments/layers/buried_megafactory_v1/landmarks.png",
+      "source_dimensions": [
+        1672,
+        941
+      ],
+      "source_sha256": "1631a9547597a07a75d834d25e00217fedbb4fa4efead2c1d0e0e2866f583823",
+      "reference_path": "res://assets/environments/v3/buried_megafactory.png",
+      "reference_sha256": "edf5a1200dcdf501ab9b2f11a395077280c32357327f74d4cda783eb5fc9f540",
+      "review": "Dry red ruins, rubble, machines and terrain; no visually justified water or ice target.",
+      "probes": {
+        "protected": [
+          {
+            "source_pixel": [
+              870,
+              734
+            ],
+            "uv": [
+              0.520335,
+              0.780021
+            ]
+          },
+          {
+            "source_pixel": [
+              1030,
+              846
+            ],
+            "uv": [
+              0.616029,
+              0.899044
+            ]
+          }
+        ]
+      },
+      "regions": []
+    }
+  }
+}

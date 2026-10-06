@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/frozen_rail_yard_v1/landmarks.png",
+  "source_sha256": "1ac84fef513d5e9dbc7db4c032c250cba2b35802ebf28c7ce1e3ccd242773a21",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    1,
+    1
+  ],
+  "bounds": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "crop_pixels": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "occupied_pixels": {
+    "water": 0,
+    "flow": 0,
+    "ice": 0
+  },
+  "sha256": "1280e8de649805526731cc11672b0479f5ca25d9bd7ebf7a3375f8a9c966205e"
+}

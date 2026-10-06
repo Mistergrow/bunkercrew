@@ -1,0 +1,2 @@
+Original Bunkercrew sound design; distribution only together with Bunkercrew.
+Original deterministic procedural mechanical foley; no external samples, recordings or melodies.

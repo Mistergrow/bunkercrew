@@ -1,0 +1,25 @@
+{
+  "asset": "assets/vehicles/convoy_hull_v2.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-04",
+  "prompt": "Use case: precise-object-edit. Asset type: production transparent game sprite for Bunkercrew, a detailed 2D pixel-art bunker defense game. Input image 1 is the existing vehicle hull to redesign; preserve its strict flat side-view orientation facing RIGHT, three empty wheel arches, modular nature, no occupants or wheels. Primary request: redesign this transport to look like a mobile Bunkercrew workshop/bunker, more recognizably handmade industrial construction equipment than a generic military jeep. Keep its long low profile and front cab on the right, same approximate silhouette/proportions and three empty wheel sockets. Thick worn olive steel, inset gritty concrete panels, brass/copper rivets and hydraulic tubing, warm amber practical lamps, one orange concrete-mixer service drum strapped low on the rear cargo deck, useful small tool lockers, lashed industrial supply cases, modest weathering matching the reference pixel art. Cab aperture must be a clean readable dark blue window, door panel under it. Crisp individual pixel clusters, hard edges, restrained muted palette, readable when rendered 196 pixels wide, absolutely no soft brushwork. Flat orthographic side elevation only; no three-quarter/top view. Wheels, jack, MG and characters are separate game objects: DO NOT draw any wheels, MG, roof soldiers, driver, shadows or scenery. No text or logos, no ornamental frame. Entire complete vehicle with comfortable transparent padding. Genuinely transparent background, preserve alpha. Use the existing hull only as the geometry/style reference; replace aesthetic with more bunker construction crew character.",
+  "reference": "assets/vehicles/convoy_hull_v1.png",
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-3f4349c5-63c7-4bc8-8870-2c4c4af29dfb.png",
+  "size": [
+    1798,
+    875
+  ],
+  "alpha_bounds": [
+    29,
+    136,
+    1772,
+    687
+  ],
+  "sha256": "627df9ce799c1ae58cb91dd9adadaeeaedff11aeec2997bfa70e5d01fa090fef",
+  "notes": [
+    "Copied without raster modification; native alpha preserved.",
+    "Mobile olive steel/concrete workshop with service mixer, independent wheels and seated crew.",
+    "Runtime articulated door, suspension, running gear and gun retain gameplay anchors."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

@@ -1,0 +1,27 @@
+{
+  "asset": "assets/audio/travel_cinematics/supply_shutter_v1.wav",
+  "generator": "tools/generate_travel_cinematic_audio.py",
+  "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+  "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "cue",
+  "layers": "Rolling steel shutter, guide-wheel chatter, granular sliding friction and final upper stop",
+  "seed": 845218,
+  "sample_rate": 48000,
+  "channels": 2,
+  "pcm_bits": 16,
+  "frames": 78000,
+  "seconds": 1.625,
+  "loop": false,
+  "screen_pan": 0.48,
+  "mix": {
+    "bus": "SFX",
+    "additional_dialogue_duck_db": -7.0,
+    "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+  },
+  "measurements": {
+    "peak_dbfs": -7.496487748491582,
+    "rms_dbfs": -22.0
+  },
+  "sha256": "dc4adc9f9785dc52bf8e4363fd2d4bbb6e4e9d2a77b3e38a6c1b7939cbb63801"
+}

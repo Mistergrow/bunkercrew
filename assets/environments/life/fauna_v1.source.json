@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "asset": "fauna_v1.png",
+  "tool": "built-in image_gen.imagegen",
+  "generated_utc": "2026-10-03",
+  "prompt": "Use case: stylized-concept. Asset type: production alpha-transparent wildlife animation sprite sheet for side-view Godot bunker defense game Bunkercrew. Primary request: EXACT grid FOUR columns by EIGHT rows, 32 small full-body animal sprites, each row one consistent species in FOUR successive coherent animation poses. Square canvas preferably 2048x2048; equal cells width one quarter canvas, height one eighth canvas. Every animal centered in its cell with a consistent body center and generous fully transparent gutters; all animals face RIGHT, side-on orthographic profile, same scale within a row. Rows from top to bottom: 1 brown field mouse four scurrying leg poses with thin curved tail; 2 dark charcoal crow four wingbeat poses (up, halfway, down, folded); 3 grey white coastal gull four wingbeat poses; 4 small muted brown sparrow four wingbeat poses; 5 olive marsh frog four hopping poses (crouch, compress, extend, land); 6 grey-brown wild rabbit four running leg poses; 7 muted tan moth four wing poses; 8 tiny charcoal bat four wingbeat poses. Mouse/frog/rabbit share a stable ground baseline near 80% of each cell; flying species share body center halfway down each cell. Detailed gritty hand-crafted pixel-art raster, discrete sharply defined pixel clusters, realistic restrained silhouettes and proportions, readable bird feathers but no giant eyes, muted weathered industrial game palette matching olive-brown realistic pixel-art trees and dark bunker metal. No cartoon style, no white outlines, no vector shading, no gradients, no blur. Texture enough to remain readable at tiny game sizes. Flat diffuse upper-left lighting. EXACT four poses per species in aligned equal cells, no overlapping cells. Genuine transparent alpha background, no drawn checkerboard or backing rectangles. No grid lines, labels, text or watermark. Not a landscape illustration; a clean sprite sheet ready for Rect2 animation sampling.",
+  "reference_style": "Existing assets/environments/props/oak_tree.png inspected; existing trees retained.",
+  "size": [
+    1254,
+    1254
+  ],
+  "alpha": "Genuine RGBA transparent original, copied without bitmap modification.",
+  "species": {
+    "mouse": {
+      "frames": [
+        [
+          42,
+          60,
+          233,
+          72
+        ],
+        [
+          352,
+          61,
+          229,
+          70
+        ],
+        [
+          659,
+          59,
+          243,
+          73
+        ],
+        [
+          982,
+          60,
+          227,
+          72
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.6909871244635193,
+          0.9444444444444444
+        ],
+        [
+          0.6855895196506551,
+          0.9428571428571428
+        ],
+        [
+          0.6748971193415638,
+          0.9452054794520548
+        ],
+        [
+          0.6475770925110133,
+          0.9444444444444444
+        ]
+      ],
+      "anchor": [
+        0.5,
+        1
+      ],
+      "canvas_size": [
+        243,
+        73
+      ]
+    },
+    "crow": {
+      "frames": [
+        [
+          81,
+          147,
+          192,
+          179
+        ],
+        [
+          387,
+          162,
+          198,
+          150
+        ],
+        [
+          701,
+          176,
+          198,
+          155
+        ],
+        [
+          1009,
+          210,
+          181,
+          106
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.578125,
+          0.7262569832402235
+        ],
+        [
+          0.5959595959595959,
+          0.72
+        ],
+        [
+          0.5757575757575758,
+          0.7161290322580646
+        ],
+        [
+          0.5027624309392266,
+          0.5471698113207547
+        ]
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "canvas_size": [
+        198,
+        179
+      ]
+    },
+    "gull": {
+      "frames": [
+        [
+          80,
+          329,
+          208,
+          175
+        ],
+        [
+          385,
+          336,
+          210,
+          167
+        ],
+        [
+          690,
+          354,
+          215,
+          161
+        ],
+        [
+          1002,
+          383,
+          188,
+          116
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.5192307692307693,
+          0.7542857142857143
+        ],
+        [
+          0.5285714285714286,
+          0.7664670658682635
+        ],
+        [
+          0.5116279069767442,
+          0.7639751552795031
+        ],
+        [
+          0.4734042553191489,
+          0.5431034482758621
+        ]
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "canvas_size": [
+        215,
+        175
+      ]
+    },
+    "sparrow": {
+      "frames": [
+        [
+          118,
+          513,
+          158,
+          148
+        ],
+        [
+          409,
+          519,
+          159,
+          143
+        ],
+        [
+          714,
+          536,
+          158,
+          126
+        ],
+        [
+          1006,
+          563,
+          149,
+          96
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.5443037974683544,
+          0.7094594594594594
+        ],
+        [
+          0.5723270440251572,
+          0.7132867132867133
+        ],
+        [
+          0.5759493670886076,
+          0.6904761904761905
+        ],
+        [
+          0.5771812080536913,
+          0.5520833333333334
+        ]
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "canvas_size": [
+        159,
+        148
+      ]
+    },
+    "frog": {
+      "frames": [
+        [
+          100,
+          722,
+          149,
+          75
+        ],
+        [
+          408,
+          704,
+          148,
+          90
+        ],
+        [
+          667,
+          678,
+          236,
+          117
+        ],
+        [
+          1034,
+          713,
+          134,
+          82
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.5033557046979866,
+          0.92
+        ],
+        [
+          0.5135135135135135,
+          0.9444444444444444
+        ],
+        [
+          0.5423728813559322,
+          0.9572649572649573
+        ],
+        [
+          0.48507462686567165,
+          0.9390243902439024
+        ]
+      ],
+      "anchor": [
+        0.5,
+        1
+      ],
+      "canvas_size": [
+        236,
+        117
+      ]
+    },
+    "rabbit": {
+      "frames": [
+        [
+          81,
+          815,
+          182,
+          136
+        ],
+        [
+          368,
+          810,
+          208,
+          136
+        ],
+        [
+          659,
+          801,
+          271,
+          135
+        ],
+        [
+          1015,
+          807,
+          184,
+          144
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.42857142857142855,
+          0.9632352941176471
+        ],
+        [
+          0.41346153846153844,
+          0.9632352941176471
+        ],
+        [
+          0.46494464944649444,
+          0.9703703703703703
+        ],
+        [
+          0.42391304347826086,
+          0.9652777777777778
+        ]
+      ],
+      "anchor": [
+        0.5,
+        1
+      ],
+      "canvas_size": [
+        271,
+        144
+      ]
+    },
+    "moth": {
+      "frames": [
+        [
+          96,
+          973,
+          152,
+          119
+        ],
+        [
+          402,
+          981,
+          160,
+          115
+        ],
+        [
+          720,
+          970,
+          155,
+          126
+        ],
+        [
+          1017,
+          995,
+          172,
+          101
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.743421052631579,
+          0.6302521008403361
+        ],
+        [
+          0.7125,
+          0.6434782608695652
+        ],
+        [
+          0.7354838709677419,
+          0.6507936507936508
+        ],
+        [
+          0.6395348837209303,
+          0.7029702970297029
+        ]
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "canvas_size": [
+        172,
+        126
+      ]
+    },
+    "bat": {
+      "frames": [
+        [
+          78,
+          1103,
+          182,
+          131
+        ],
+        [
+          378,
+          1119,
+          199,
+          106
+        ],
+        [
+          659,
+          1119,
+          249,
+          109
+        ],
+        [
+          1006,
+          1139,
+          172,
+          81
+        ]
+      ],
+      "frame_anchors": [
+        [
+          0.46153846153846156,
+          0.6183206106870229
+        ],
+        [
+          0.48743718592964824,
+          0.6320754716981132
+        ],
+        [
+          0.5903614457831325,
+          0.6146788990825688
+        ],
+        [
+          0.5523255813953488,
+          0.5925925925925926
+        ]
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "canvas_size": [
+        249,
+        131
+      ]
+    }
+  }
+}

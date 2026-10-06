@@ -1,0 +1,109 @@
+{
+  "workshop_recipes": [
+    {
+      "id": "jaw_trap",
+      "kind": "jaw_trap",
+      "label": "KLEMMFALLE",
+      "cost": {
+        "steel": 2
+      },
+      "time": 2.0,
+      "note": "3 Auslösungen · bremst Maschinen",
+      "amount": 1,
+      "art": {
+        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "region": [
+          0,
+          0,
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "id": "blast_trap",
+      "kind": "blast_trap",
+      "label": "SPRENGMINE",
+      "cost": {
+        "steel": 2,
+        "ammo": 1
+      },
+      "time": 2.5,
+      "note": "Einmalig · Explosion gegen Maschinen",
+      "amount": 1,
+      "art": {
+        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "region": [
+          512,
+          0,
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "id": "armor_1",
+      "kind": "armor_1",
+      "label": "STAHLWESTE I",
+      "cost": {
+        "steel": 3
+      },
+      "time": 3.0,
+      "armor": 1,
+      "note": "Persönlicher Schutz · dauerhaft für diese Runde",
+      "amount": 1,
+      "art": {
+        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "region": [
+          1024,
+          0,
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "id": "armor_2",
+      "kind": "armor_2",
+      "label": "PANZERWESTE II",
+      "cost": {
+        "alloy": 3,
+        "steel": 2
+      },
+      "time": 4.0,
+      "armor": 2,
+      "note": "Benötigt Stahlweste I · stärkerer Schutz",
+      "amount": 1,
+      "art": {
+        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "region": [
+          0,
+          512,
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "id": "sentry_kit",
+      "kind": "sentry_kit",
+      "label": "FELDGESCHÜTZ",
+      "cost": {
+        "steel": 4,
+        "concrete": 2
+      },
+      "time": 4.0,
+      "note": "Manuell bedienen · Munition separat mitnehmen",
+      "amount": 1,
+      "art": {
+        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "region": [
+          512,
+          512,
+          512,
+          512
+        ]
+      }
+    }
+  ]
+}

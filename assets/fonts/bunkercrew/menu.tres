@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=3 format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/bunkercrew/BunkercrewField-Medium.ttf" id="1"]
+[ext_resource type="FontFile" path="res://assets/mono.ttf" id="2"]
+
+[resource]
+base_font = ExtResource("1")
+fallbacks = [ExtResource("2")]

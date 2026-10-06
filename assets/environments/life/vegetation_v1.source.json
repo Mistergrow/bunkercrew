@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "asset": "vegetation_v1.png",
+  "tool": "built-in image_gen.imagegen",
+  "generated_utc": "2026-10-03",
+  "prompt": "Use case: stylized-concept. Asset type: production transparent sprite atlas for the side-view Godot game Bunkercrew. Primary request: sixteen distinct grounded vegetation sprites on a genuine alpha-transparent background, aligned in an EXACT regular 4-column by 4-row square atlas. Each of the sixteen equal cells contains exactly one separate complete plant clump centered horizontally, with its roots at 88% of that cell's height and generous transparent gutters. Read left to right, top to bottom: row1 bracken fern, dense leafy low bush, tangled bramble bush, meadow grass tuft; row2 marsh reeds, cattails, low moss-covered roots, trailing ivy mound; row3 dry straw grass, drought scrub bush, thorn bush, lichen-covered small stones; row4 frost-tipped grass, small snow-dusted bush, hardy alpine tussock, tiny woodland mushrooms on moss. Plants above ground, no floating leaves, no soil cross section or rectangle. Style: detailed hand-crafted gritty pixel-art raster sprites matching muted weathered industrial bunker graphics and realistic gnarled pixel-art trees. Crisp deliberate clustered pixels, angular natural leaves, irregular silhouettes, readable moss, tiny bark details. Olive, sage, dark forest green, rusty brown, desaturated ochre; frost pale slate. Not cute, no vector look, no cartoon outline, no smooth painterly blur, no glow. Flat side-on orthographic view, coherent diffuse upper-left lighting, no cast shadow outside the sprite. Technical constraints: prefer 2048 by 2048 square resolution, exactly four equal columns and four equal rows occupying the entire image, centered separate objects within each cell with generous transparent margins; actual fully transparent alpha between all sprites; no gridlines, no labels, no text, no watermark, no solid or checkerboard background. Runtime will sample each cell independently and animate anchored stems.",
+  "reference_style": "Existing assets/environments/props/oak_tree.png inspected; existing trees retained.",
+  "size": [
+    1254,
+    1254
+  ],
+  "alpha": "Genuine RGBA transparent original, copied without bitmap modification.",
+  "regions": {
+    "fern": {
+      "rect": [
+        20,
+        58,
+        280,
+        236
+      ],
+      "root": [
+        160,
+        291
+      ]
+    },
+    "leafy_bush": {
+      "rect": [
+        343,
+        62,
+        274,
+        225
+      ],
+      "root": [
+        480,
+        284
+      ]
+    },
+    "bramble": {
+      "rect": [
+        653,
+        55,
+        273,
+        243
+      ],
+      "root": [
+        789.5,
+        295
+      ]
+    },
+    "meadow_grass": {
+      "rect": [
+        981,
+        61,
+        240,
+        236
+      ],
+      "root": [
+        1101,
+        294
+      ]
+    },
+    "reeds": {
+      "rect": [
+        17,
+        333,
+        283,
+        266
+      ],
+      "root": [
+        158.5,
+        596
+      ]
+    },
+    "cattails": {
+      "rect": [
+        355,
+        329,
+        238,
+        270
+      ],
+      "root": [
+        474,
+        596
+      ]
+    },
+    "moss_patch": {
+      "rect": [
+        626,
+        402,
+        312,
+        197
+      ],
+      "root": [
+        782,
+        596
+      ]
+    },
+    "ivy": {
+      "rect": [
+        949,
+        428,
+        289,
+        186
+      ],
+      "root": [
+        1093.5,
+        611
+      ]
+    },
+    "dry_grass": {
+      "rect": [
+        24,
+        646,
+        266,
+        256
+      ],
+      "root": [
+        157,
+        899
+      ]
+    },
+    "dry_bush": {
+      "rect": [
+        351,
+        675,
+        243,
+        225
+      ],
+      "root": [
+        472.5,
+        897
+      ]
+    },
+    "thorn_bush": {
+      "rect": [
+        642,
+        632,
+        298,
+        277
+      ],
+      "root": [
+        791,
+        906
+      ]
+    },
+    "lichen": {
+      "rect": [
+        949,
+        758,
+        289,
+        153
+      ],
+      "root": [
+        1093.5,
+        908
+      ]
+    },
+    "frost_grass": {
+      "rect": [
+        24,
+        951,
+        270,
+        261
+      ],
+      "root": [
+        159,
+        1209
+      ]
+    },
+    "snow_bush": {
+      "rect": [
+        339,
+        970,
+        261,
+        238
+      ],
+      "root": [
+        469.5,
+        1205
+      ]
+    },
+    "alpine_tuft": {
+      "rect": [
+        649,
+        967,
+        277,
+        246
+      ],
+      "root": [
+        787.5,
+        1210
+      ]
+    },
+    "mushrooms": {
+      "rect": [
+        964,
+        1036,
+        264,
+        167
+      ],
+      "root": [
+        1096,
+        1200
+      ]
+    }
+  }
+}

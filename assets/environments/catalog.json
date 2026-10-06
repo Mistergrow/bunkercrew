@@ -1,0 +1,450 @@
+{
+  "version": 3,
+  "wall_materials": {
+    "bastion": "res://assets/environments/wall_bastion.png",
+    "workshop": "res://assets/environments/wall_workshop.png",
+    "stronghold": "res://assets/environments/wall_stronghold.png"
+  },
+  "cloud_layer": "res://assets/environments/cloud_wisps.png",
+  "description": "Dreizehn zusammenhängende Imagegen-Hintergründe für Menü und Spiel. Kamerabhängige Bildfüllung ohne angestückelte Landschaft.",
+  "environments": [
+    {
+      "id": "sector07",
+      "title": "SEKTOR 07",
+      "detail": "Die ursprüngliche Industriestadt",
+      "sky_color": "#25303d",
+      "earth_tint": "#868d82",
+      "path": "res://assets/environments/v3/sector07.png",
+      "size": [
+        1672,
+        941
+      ],
+      "continuous_background": true,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "light_anchors": [],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "water_extend": false
+    },
+    {
+      "id": "ash_foundry",
+      "title": "Aschewerk",
+      "detail": "Monumentale Hochöfen im blauen Nachtlicht; lokale Glut, Asche und warme Rauchfahnen.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#23394F",
+      "earth_tint": "#252C32",
+      "palette": [
+        "#101924",
+        "#273A4A",
+        "#46637A",
+        "#ED8A26"
+      ],
+      "path": "res://assets/environments/v3/ash_foundry.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "ash",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "abandoned_harbor",
+      "title": "Verlassener Hafen",
+      "detail": "Ein verlassener Frachter im kalten Mondlicht; bewegte Wasserreflexe und Hafennebel.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#123D50",
+      "earth_tint": "#20383D",
+      "palette": [
+        "#08222E",
+        "#164B5C",
+        "#3D7788",
+        "#86BDC6"
+      ],
+      "path": "res://assets/environments/v3/abandoned_harbor.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "mist",
+      "animated_sky": true,
+      "water_regions": [
+        [
+          0,
+          0.8,
+          1,
+          0.2
+        ]
+      ],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "basalt_quarry",
+      "title": "Basaltbruch",
+      "detail": "Lavendelgraue Basaltterrassen und ein stiller Schaufelradbagger über treibendem Gesteinsstaub.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#AAA0C9",
+      "earth_tint": "#4C4B60",
+      "palette": [
+        "#282F42",
+        "#565876",
+        "#9590B5",
+        "#D5AA88"
+      ],
+      "path": "res://assets/environments/v3/basalt_quarry.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "dust",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "overgrown_steelworks",
+      "title": "Verwachsenes Stahlwerk",
+      "detail": "Grüne, efeubewachsene Fachwerkhallen im Tageslicht; Blätter und flache Nebelbänder.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#D5D3BD",
+      "earth_tint": "#334738",
+      "palette": [
+        "#192F2B",
+        "#4D624C",
+        "#9AAB8E",
+        "#8B784F"
+      ],
+      "path": "res://assets/environments/v3/overgrown_steelworks.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "clear",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "frozen_rail_yard",
+      "title": "Frostbahnhof",
+      "detail": "Eisblaue Ringlokhallen im Polarmorgen; leichte Schneeflocken und kalter Bodennebel.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#9BCDE0",
+      "earth_tint": "#34546B",
+      "palette": [
+        "#203449",
+        "#B4DEEE",
+        "#C38B39"
+      ],
+      "path": "res://assets/environments/v3/frozen_rail_yard.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "snow",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "iron_canyon",
+      "title": "Eisenschlucht",
+      "detail": "Rote Tafelberge und abgerissene Erzförderer unter trockenem, warmem Wüstenlicht.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#E9C49A",
+      "earth_tint": "#784241",
+      "palette": [
+        "#523441",
+        "#BE978D",
+        "#CA713A"
+      ],
+      "path": "res://assets/environments/v3/iron_canyon.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "dust",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.0,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "flooded_power_station",
+      "title": "Versunkenes Kraftwerk",
+      "detail": "Eine versunkene Staumauer über jadegrünem Wasser; feiner Regen und bewegte Reflexe.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#ABC0B2",
+      "earth_tint": "#435E58",
+      "palette": [
+        "#123C40",
+        "#8EB6A4",
+        "#CBB16E"
+      ],
+      "path": "res://assets/environments/v3/flooded_power_station.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "rain",
+      "animated_sky": true,
+      "water_regions": [
+        [
+          0,
+          0.8,
+          1,
+          0.2
+        ]
+      ],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.32,
+      "lightning": false,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "water_outlets": [
+        [
+          0.697,
+          0.82,
+          0.019
+        ],
+        [
+          0.726,
+          0.82,
+          0.019
+        ],
+        [
+          0.751,
+          0.82,
+          0.019
+        ],
+        [
+          0.773,
+          0.82,
+          0.019
+        ]
+      ],
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "mountain_pass",
+      "title": "Gewitterpass",
+      "detail": "Violette Alpengipfel und ein zerbrochener Viadukt; Wind, Sturmnebel und Gewitter.",
+      "sky_cutoff": 0.58,
+      "smoke_anchors": [],
+      "sky_color": "#2B345D",
+      "earth_tint": "#383F63",
+      "palette": [
+        "#212E51",
+        "#7785AD",
+        "#BA935F"
+      ],
+      "path": "res://assets/environments/v3/mountain_pass.png",
+      "size": [
+        1672,
+        941
+      ],
+      "weather": "storm",
+      "animated_sky": true,
+      "water_regions": [],
+      "waterfall_regions": [],
+      "light_anchors": [],
+      "rain_strength": 0.8,
+      "lightning": true,
+      "framing_width": 3000,
+      "framing_bottom": 430,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "storm_dam",
+      "title": "Gewitterdamm",
+      "detail": "Tosende Überläufe unter schweren Gewitterwolken.",
+      "weather": "storm",
+      "sky_color": "#394855",
+      "earth_tint": "#46545A",
+      "palette": [
+        "#243442",
+        "#83999F",
+        "#D3AF85"
+      ],
+      "water_regions": [
+        [
+          0,
+          0.8,
+          1,
+          0.2
+        ]
+      ],
+      "waterfall_regions": [],
+      "water_outlets": [],
+      "rain_strength": 0.8,
+      "lightning": true,
+      "sky_cutoff": 0.58,
+      "framing_bottom": 430,
+      "path": "res://assets/environments/v3/storm_dam.png",
+      "size": [
+        1672,
+        941
+      ],
+      "campaign_only": true,
+      "animated_sky": true,
+      "smoke_anchors": [],
+      "light_anchors": [],
+      "framing_width": 3000,
+      "water_extend": false,
+      "continuous_background": true
+    },
+    {
+      "id": "sulfur_refinery",
+      "title": "Schwefelraffinerie",
+      "detail": "Korrodierte Destillationstürme über schwefelgelben Ablagerungen.",
+      "weather": "dust",
+      "sky_color": "#92815A",
+      "earth_tint": "#7E7046",
+      "palette": [
+        "#514834",
+        "#BDA65C",
+        "#E4C35F"
+      ],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "rain_strength": 0,
+      "lightning": false,
+      "sky_cutoff": 0.58,
+      "framing_bottom": 430,
+      "path": "res://assets/environments/v3/sulfur_refinery.png",
+      "size": [
+        1672,
+        941
+      ],
+      "campaign_only": true,
+      "animated_sky": true,
+      "smoke_anchors": [],
+      "light_anchors": [],
+      "framing_width": 3000,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "radar_highlands",
+      "title": "Radarhöhen",
+      "detail": "Verlassene Radarschüsseln auf kalten Felsgraten.",
+      "weather": "snow",
+      "sky_color": "#333A64",
+      "earth_tint": "#4D5573",
+      "palette": [
+        "#29334E",
+        "#929BB8",
+        "#C5BED5"
+      ],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "rain_strength": 0,
+      "lightning": false,
+      "sky_cutoff": 0.58,
+      "framing_bottom": 430,
+      "path": "res://assets/environments/v3/radar_highlands.png",
+      "size": [
+        1672,
+        941
+      ],
+      "campaign_only": true,
+      "animated_sky": true,
+      "smoke_anchors": [],
+      "light_anchors": [],
+      "framing_width": 3000,
+      "continuous_background": true,
+      "water_extend": false
+    },
+    {
+      "id": "buried_megafactory",
+      "title": "Verschüttete Megafabrik",
+      "detail": "Ein riesiger Turbinenring zwischen verschütteten Hallen und gebrochenen Kränen.",
+      "weather": "dust",
+      "sky_color": "#62454F",
+      "earth_tint": "#754D43",
+      "palette": [
+        "#422C30",
+        "#B27459",
+        "#D89364"
+      ],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "rain_strength": 0,
+      "lightning": false,
+      "sky_cutoff": 0.58,
+      "framing_bottom": 430,
+      "path": "res://assets/environments/v3/buried_megafactory.png",
+      "size": [
+        1672,
+        941
+      ],
+      "campaign_only": true,
+      "animated_sky": true,
+      "smoke_anchors": [],
+      "light_anchors": [],
+      "framing_width": 3000,
+      "continuous_background": true,
+      "water_extend": false
+    }
+  ],
+  "generation_manifests": [
+    "res://assets/environments/v3/prompts.json",
+    "res://assets/environments/layers/prompts.json"
+  ],
+  "surface_annotations": "res://assets/environments/background_surface_regions.json"
+}

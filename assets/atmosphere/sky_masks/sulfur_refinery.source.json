@@ -1,0 +1,13 @@
+{
+  "kind": "single-channel sky visibility; white sky, black solid landscape",
+  "source": "assets/environments/v3/sulfur_refinery.png",
+  "source_sha256": "95d2b979794a3bd25d7d0eb33102fdc8a8ca424a7844d6a35f1f18ed9286f37b",
+  "generator": "tools/generate_cloud_masks.py",
+  "outline_source": "assets/environments/v3/landmarks.json",
+  "method": "v3 source-pixel contour seeds and local source-color graph cut within 12 pixels; verified independent sky/land probes",
+  "license": "Same as the source environment asset; provenance remains with that source",
+  "size": [
+    1672,
+    941
+  ]
+}

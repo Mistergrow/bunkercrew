@@ -1,0 +1,175 @@
+{
+  "generator": "tools/generate_travel_cinematic_audio.py",
+  "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "assets": {
+    "signal_receiver_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/signal_receiver_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "bed",
+      "layers": "Quiet verge wind, restrained receiver static fading as the right-hand relay acquires power",
+      "seed": 840173,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 360000,
+      "seconds": 7.5,
+      "loop": false,
+      "screen_pan": 0.48,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -7.1309464702762515,
+        "rms_dbfs": -25.907150496895884
+      },
+      "sha256": "0f5fe68cdad2b935a8f5bcdf8c45a1eaddd814f58a8a0f928c0cd36cdcd1e65b"
+    },
+    "signal_relay_lock_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/signal_relay_lock_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "cue",
+      "layers": "Physical electrical contact, two receiver detents and a muted relay housing resonance",
+      "seed": 841182,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 43200,
+      "seconds": 0.9,
+      "loop": false,
+      "screen_pan": 0.49,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -7.1309464702762515,
+        "rms_dbfs": -25.49224307433156
+      },
+      "sha256": "3c0a940c0cff48575a9cc04ef65d46e9cd8aff0bbd8f10586556c42a57331b7d"
+    },
+    "storm_roof_rain_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/storm_roof_rain_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "bed",
+      "layers": "Irregular rain on the shelter roof, diffuse wet wind and restrained tin resonances",
+      "seed": 842191,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 376800,
+      "seconds": 7.85,
+      "loop": false,
+      "screen_pan": 0.0,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -11.277027892111594,
+        "rms_dbfs": -25.0
+      },
+      "sha256": "e77ed03d5a72ece25f5d6024eaac3dd9da51286a8f333147d11c8a53a37c477f"
+    },
+    "storm_branch_snap_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/storm_branch_snap_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "cue",
+      "layers": "Dry branch fracture, layered small splinters and the struck tree's damped wooden body",
+      "seed": 843200,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 37440,
+      "seconds": 0.78,
+      "loop": false,
+      "screen_pan": 0.64,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -7.1309464702762515,
+        "rms_dbfs": -29.462621562818757
+      },
+      "sha256": "d365a0e5161679c9abd5f626db0d1cf68cadc8a5f56d222202e0f129b58f13f3"
+    },
+    "supply_generator_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/supply_generator_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "bed",
+      "layers": "Wind on the verge, a small loaded diesel generator catching as its pictured fan starts",
+      "seed": 844209,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 300000,
+      "seconds": 6.25,
+      "loop": false,
+      "screen_pan": 0.088,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -11.86305970378983,
+        "rms_dbfs": -24.999999999999996
+      },
+      "sha256": "106cd2bffd04076c052c52805aa18c92de04f7d7a7fcf1cabf6e73bf17e4aab4"
+    },
+    "supply_shutter_v1.wav": {
+      "asset": "assets/audio/travel_cinematics/supply_shutter_v1.wav",
+      "generator": "tools/generate_travel_cinematic_audio.py",
+      "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+      "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+      "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+      "role": "cue",
+      "layers": "Rolling steel shutter, guide-wheel chatter, granular sliding friction and final upper stop",
+      "seed": 845218,
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "frames": 78000,
+      "seconds": 1.625,
+      "loop": false,
+      "screen_pan": 0.48,
+      "mix": {
+        "bus": "SFX",
+        "additional_dialogue_duck_db": -7.0,
+        "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+      },
+      "measurements": {
+        "peak_dbfs": -7.496487748491582,
+        "rms_dbfs": -22.0
+      },
+      "sha256": "dc4adc9f9785dc52bf8e4363fd2d4bbb6e4e9d2a77b3e38a6c1b7939cbb63801"
+    }
+  },
+  "reuse": {
+    "storm_thunder": "assets/audio/thunder_01.wav",
+    "air_raid_flyover": "assets/audio/air_raid_flyover_v1.wav",
+    "dialogue": "Existing identity-matched German/English story_voices_v2 recordings"
+  },
+  "validation": "python3 tests/travel_cinematic_audio_assets_test.py; Godot tests/travel_cinematic_audio_test.gd"
+}

@@ -1,0 +1,28 @@
+{
+  "asset": "vehicle_hulls_v1.png",
+  "tool": "Built-in imagegen",
+  "mode": "reference-based generation",
+  "reference": "assets/enemies/chassis_atlas.png",
+  "date": "2026-10-02",
+  "prompt": "Create a NEW transparent game sprite atlas by reworking the supplied industrial enemy chassis reference. The reference establishes the small clustered pixel-art rendering, aged olive-gray armor, dark iron, tarnished brass joints, rivets, chipped paint, restrained amber highlights and tiny red sensor lenses. Keep this material density and warm upper-left light. This is a single production sprite atlas for a side-scrolling 2D bunker defense game, NOT an illustration. Strict orthographic SIDE VIEW, front points LEFT, no visible front-facing 3D perspective, no floor, no shadows or glow behind the sprites, NO text, labels, borders or UI. True clean alpha transparency everywhere outside solid parts. Exactly TWO complete separated HULL sprites on a wide 1536x1024 canvas: top half centered at x768 y256: a nimble armored reconnaissance car UPPER BODY ONLY, long low wedge nose facing left, small two-pane sloped armored cab centered, exposed compact rear engine with vents and one short exhaust to right, angular wheel arches/open lower underside. Compact elongated silhouette width about1040 height300 pixels. Bottom half centered at x768 y768: a noticeably broader HEAVY MORTAR CARRIER UPPER BODY ONLY, low long cast-steel armored box hull with sloped left nose, layered side plates, bolts, rear engine louvres and a squat open circular mortar turret ring/recess on roof; width about1200 height300 pixels. Leave transparent 100px spacing between bodies. CRITICAL animation separation: NO wheels, NO tracks, NO legs, NO long antennae, NO gun barrels, NO mortar tube, NO detached loose parts. The game draws and animates wheels, continuous tracks, gun, mortar and suspension independently underneath/on these hulls. Do include recognizable continuous LOWER SILL on each hull so moving undercarriage can meet it. Both objects must be completely in their own half, no clipping. Paint crisp readable pixel clusters with fine scratches and panel shading matching the reference rather than smooth vector gradients. Distinct construction: the top car is light, narrow, fast reconnaissance; the bottom hull is broad, heavily armoured industrial tracked artillery. Neither should resemble the animal-like six reference robot heads. Deliver only the transparent atlas.",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "regions": {
+    "scout_car": [
+      265,
+      130,
+      1055,
+      330
+    ],
+    "mortar_carrier": [
+      103,
+      556,
+      1393,
+      361
+    ]
+  },
+  "notes": "Original generated RGBA preserved without raster edits. Native engine geometry animates undercarriage and weapons separately; vehicle hull shader rejects faint alpha export noise.",
+  "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-f22290b2-3fd1-47e1-bfc8-56410faf31e1.png"
+}

@@ -1,0 +1,11 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: production background for Bunkercrew, a detailed industrial 2D side-view pixel-art bunker-defense game. Create ONE continuous, full-bleed WIDE landscape image, aspect ratio 16:9, ideally 2560x1440. Crisp, carefully placed small pixel clusters, restrained atmospheric depth, professional hand-painted pixel-art look, no smoothing, no 3D render. This is a distant background behind separately rendered playable terrain and actors. Composition: rich naturally varying cloud sky fills the upper 58 percent; distant landmark silhouettes around y=60 to 82 percent; a layered landscape with atmospheric vegetation, industrial details and landscape depth runs CONTINUOUSLY across the entire width in the lower 42 percent. Ground/base of distant scene reaches the bottom edge. Keep landmark structures sufficiently distant/small to read behind tiny 50-pixel characters. All areas are painted; no cutouts, no empty colored bands, no rectangular panels or seams. Flat side-on camera, landscape runs left-to-right; avoid strong road perspective or large foreground objects. Give left AND right edges naturally continuing landscape and sky. No game UI, letters, frames, people, enemies, tanks, bunker cutaway, solid underground rock cross-section, foreground floor/platform or logo. Scene/backdrop: A vast lavender-gray basalt quarry at pale late-afternoon light. Stepped dark hexagonal basalt cliffs, distant abandoned bucket-wheel excavator, conveyors and small industrial sheds, dusty strata, sparse hardy shrubs and dark conifers along the far rim. Soft purple-gray clouds and amber-lit wisps; muted lilac stone, slate shadows and dusty warm highlights. Continuous quarry landscape across the full frame.",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-8f3e427e-3ef0-4232-b607-a42170d9cadc.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "6d38e662af893b8ff6ddebbc0950ab1b36a7c252595a0b089775e21d2d641369",
+  "usage": "Continuous full-screen background for gameplay and menus; original generated PNG preserved."
+}

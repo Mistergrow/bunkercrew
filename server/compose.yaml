@@ -1,0 +1,54 @@
+services:
+  relay:
+    build: .
+    restart: unless-stopped
+    init: true
+    environment:
+      RELAY_ALLOWED_ORIGINS: ${RELAY_ALLOWED_ORIGINS:-}
+      RELAY_MAX_ROOMS: ${RELAY_MAX_ROOMS:-256}
+      RELAY_MAX_CONNECTIONS: ${RELAY_MAX_CONNECTIONS:-768}
+      RELAY_TRUSTED_PROXIES: ${RELAY_TRUSTED_PROXIES:-${RELAY_CADDY_IP:-172.30.247.3}/32}
+      SOCIAL_DB: /data/social.sqlite3
+    volumes:
+      - social_data:/data
+    networks:
+      relay_private:
+    ports:
+      - "127.0.0.1:8765:8765"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 64
+  caddy:
+    image: caddy:2.10-alpine
+    profiles: [public]
+    restart: unless-stopped
+    environment:
+      RELAY_DOMAIN: ${RELAY_DOMAIN:-localhost}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      relay:
+        condition: service_healthy
+    networks:
+      relay_private:
+        ipv4_address: ${RELAY_CADDY_IP:-172.30.247.3}
+
+networks:
+  relay_private:
+    ipam:
+      config:
+        - subnet: ${RELAY_PROXY_SUBNET:-172.30.247.0/29}
+
+volumes:
+  social_data:
+  caddy_data:
+  caddy_config:

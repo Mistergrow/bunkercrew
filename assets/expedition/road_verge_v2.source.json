@@ -1,0 +1,23 @@
+{
+  "asset": "assets/expedition/road_verge_v2.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-04",
+  "prompt": "Use case: stylized-concept. Asset type: genuinely transparent horizontal parallax foreground strip for Bunkercrew, a gritty industrial 2D pixel-art game. Primary request: one continuous wide landscape of low overgrown industrial roadside embankment silhouettes to scroll behind a separately rendered side-view vehicle road. Composition 16:9 wide canvas. Keep the entire upper half genuinely alpha transparent; the lower half contains a sparse uneven band of worn olive shrubs, dry tussocks, cracked low concrete retaining blocks, one bent metal gantry support and fragmentary low rusty pipes. Maximum object height less than one third canvas; no dominant tall trees or towers. The strip remains visually continuous across the bottom, medium sparse with gaps showing through; similar dark silhouettes at left and right edges make a quiet horizontal tile join. Strict side elevation, no road surface or vanishing-point perspective; the game will place it slightly behind the road at native pixel scale. Hand-authored crisp pixel clusters, restrained desaturated olive, slate, concrete charcoal and copper rust. Darker and more crisply contrasted than a distant background. No smoothing or soft brushwork. No people, animals, vehicle, sky, ground plane, cast shadow, labels, glow, text, poster border or UI. Genuinely transparent sky and object gaps, preserve alpha.",
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-27626dfb-53ab-49aa-a6e5-a00b6bc65a09.png",
+  "size": [
+    1672,
+    941
+  ],
+  "alpha_bounds": [
+    0,
+    497,
+    1672,
+    813
+  ],
+  "sha256": "8b85077e32d440d47bbfe9e42916a27df664e19213bd5187479bb5f560140b79",
+  "notes": [
+    "Copied without raster modification; native alpha preserved.",
+    "Runtime native region draws the embankment behind the playable road; world-distance scroll pauses with travel."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

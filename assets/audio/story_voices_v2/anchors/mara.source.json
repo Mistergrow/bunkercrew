@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 1299,
+  "prompt": "Native German woman in her late thirties, distinct deep smoky alto, slightly rough dry vocal texture. A practical confident forewoman talking directly to her work crew. Relaxed everyday conversational German, firm grounded energy, natural connected words and breath pauses. No announcer cadence, no whispering, no exaggerated drama.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "2574fcd65a238964d50d8d8b210669da511d7901f12b75470659ea69e928da30",
+  "sample_rate": 24000,
+  "duration": 9.76
+}

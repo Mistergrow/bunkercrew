@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 718,
+  "prompt": "Native German woman in her late forties, mature low mezzo voice. An experienced calm emergency radio dispatcher. Clear factual spoken dialogue, composed reassurance, even compact phrasing. Natural standard German articulation, intimate close microphone, no announcer performance, no whispering, no theatrical emphasis.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "0c3923bd89150f030f9c9c307a38ee6f183caf7d347ef2d2644325296c83da2d",
+  "sample_rate": 24000,
+  "duration": 10.24
+}

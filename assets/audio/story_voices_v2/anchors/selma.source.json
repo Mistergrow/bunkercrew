@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 7331,
+  "prompt": "Native German woman in her early fifties. Warm rounded middle register, full gentle chest resonance, velvety softly textured voice. An experienced field medic speaking to someone nearby. Patient reassuring conversational German, steady natural breath groups, clear unforced consonants. Dry close microphone, no announcer delivery, no whispering or exaggerated softness.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "a886daa225a87cf3792f089569e7a9c16459072016480fbe4f45abf0bf68871e",
+  "sample_rate": 24000,
+  "duration": 10.08
+}

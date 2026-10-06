@@ -1,0 +1,13 @@
+{
+  "kind": "single-channel sky visibility; white sky, black solid landscape",
+  "source": "assets/environments/v3/buried_megafactory.png",
+  "source_sha256": "edf5a1200dcdf501ab9b2f11a395077280c32357327f74d4cda783eb5fc9f540",
+  "generator": "tools/generate_cloud_masks.py",
+  "outline_source": "assets/environments/v3/landmarks.json",
+  "method": "v3 source-pixel contour seeds and local source-color graph cut within 12 pixels; verified independent sky/land probes",
+  "license": "Same as the source environment asset; provenance remains with that source",
+  "size": [
+    1672,
+    941
+  ]
+}

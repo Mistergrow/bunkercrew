@@ -1,0 +1,1455 @@
+{
+  "generator": "tools/generate_enemy_tech_audio.py",
+  "generated_at": "2026-10-02",
+  "origin": "Layered Kenney CC0 recorded foley with original modal bodies, servo textures, shallow splashes and research motifs. No AI audio model used.",
+  "source_pack": {
+    "author": "Kenney",
+    "pack": "Impact Sounds",
+    "page": "https://kenney.nl/assets/impact-sounds",
+    "download": "https://kenney.nl/media/pages/assets/impact-sounds/87b4ddecda-1677589768/kenney_impact-sounds.zip",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "downloaded_at": "2026-10-02",
+    "archive_sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+    "files": {
+      "footstep_carpet_000.ogg": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+      "footstep_carpet_001.ogg": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+      "footstep_carpet_002.ogg": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+      "footstep_carpet_003.ogg": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+      "footstep_carpet_004.ogg": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+      "footstep_concrete_000.ogg": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+      "footstep_concrete_001.ogg": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+      "footstep_concrete_002.ogg": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+      "footstep_concrete_003.ogg": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+      "footstep_concrete_004.ogg": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+      "footstep_grass_000.ogg": "9d49497777405d78d7cf7f2888e28277f3a23192300cfd1d79d54876b20f479f",
+      "footstep_grass_001.ogg": "fb28781bd22b2eefdc14077f1adf5c94d7fe9c3a130194633b55f3e0d39d9f04",
+      "footstep_grass_002.ogg": "73a520139f5be716a403bfe9c80e0e94d1e61d8e9de04a354b336392164b53dc",
+      "footstep_grass_003.ogg": "0546e1d8ab2def714425701a18bd34c5ee2794b12e858e5b595aabcf38a34137",
+      "footstep_grass_004.ogg": "086fd4ab3546a507ea5f5c759a9a10e535c95ade13705c238bc0eeffd7d4e8ba",
+      "footstep_snow_000.ogg": "c05fa4a9dc9a7aabc04996466fb589537e49af76de9998d8f9e6270ec92dcef7",
+      "footstep_snow_001.ogg": "980fb9a1c9227aed7995067b0357f373053337f2416316db8ea0438418542fb4",
+      "footstep_snow_002.ogg": "db52bafdc66304f3b999f2c29227826c65993916e630ac2ffbca17d07b263178",
+      "footstep_snow_003.ogg": "68272e3f1cabcabd02d328fd344454d7c04cb58b5a86972fcdd858f845e3d007",
+      "footstep_snow_004.ogg": "7fe9ce5f5732aaa0a50ef02bb1ac162c27f6bd85214e86aaea6e13e7a41dbc00",
+      "impactMetal_heavy_000.ogg": "e07045693e4a2b3d165c424e3dab4c781d9ff8880a386880ac89a51315d7f831",
+      "impactMetal_heavy_001.ogg": "83554049f81f4db9209379e103c30bfa63f65c42189a03f300b045c2c82e23ae",
+      "impactMetal_heavy_002.ogg": "b914c8f1eb7c0f34bb165d7c77f4be0351f6be0660c13c53e65424e262e2c093",
+      "impactMetal_heavy_003.ogg": "b0f2ba4dabde9a87eb9c188a19d31e0c2300fd321adeba08d3b9b8aa011d7037",
+      "impactMetal_heavy_004.ogg": "6d65b463c0555dd5be16b8db6d2cbe23a94e07a4637779b8ad17d0db3e500a87",
+      "impactMetal_light_000.ogg": "33b5e6e37c6e9d54e07bf5a89b12c76e879f40c1ea83cdd82714df1d6f9fec6d",
+      "impactMetal_light_001.ogg": "fba69c467ddd85da7b1d82e259f936b876d9ba6a3d6f1b24bdd10468e46bfe08",
+      "impactMetal_light_002.ogg": "25a96f90a9a1f88a531e824e126f0519504625e5635e65a72e4f31611428db29",
+      "impactMetal_light_003.ogg": "92d5db6bfc672d9dc1b4f390b2900504f013187fa36335472554fafefa9050b1",
+      "impactMetal_light_004.ogg": "9b1c35820fba507081261f19ab5f461f69a5e2627a7d91acdb73ca3cfc997979",
+      "impactMetal_medium_000.ogg": "a96f879fec0864a8938e0c745b6996a6c5679c16a234ce31a01cc995e8401003",
+      "impactMetal_medium_001.ogg": "e8a9eaba7c4d27422e4eeb3e6c7100d5d7dc0f83e005efc98c960adcc5265337",
+      "impactMetal_medium_002.ogg": "7e89ce2ca0dbda95ea2b78d4b50791cab35c10d20e9f5ccd45dd0b00e99ff548",
+      "impactMetal_medium_003.ogg": "2a185e2e57211d02c1bdd33b872d6b6a2fe83e6c14f4e56f426a95e717acf08e",
+      "impactMetal_medium_004.ogg": "03e10f800199c7166208e41c11cf4acfac6cc265467f02357da71972bc967295",
+      "impactPlate_heavy_000.ogg": "112d4f93ddcc370b410630f971c0f5d991856102da9c76bc5c5540d388e75aaa",
+      "impactPlate_heavy_001.ogg": "142fd6c77f13d25f318265901163f70f8dfe12f87829169a570025be43de7011",
+      "impactPlate_heavy_002.ogg": "b0cab75d1befa32b4cf215d8ee7e1c400a39182e8b105963b8e310f825b198a1",
+      "impactPlate_heavy_003.ogg": "59775f8979a396c8a793b0a1db206d5bdc651eae808d858e9acaee8ebda5bc6d",
+      "impactPlate_heavy_004.ogg": "e31bfec90630155bcc6af541d1d14ae8202c435c52b42e6b6183fdb6ffb248b0",
+      "impactPlate_light_000.ogg": "6e797cf8a5bfc52d7ed5eb47c227974c1cf2a674954fec5b539cea7d62c7282c",
+      "impactPlate_light_001.ogg": "947915c2eb6ac57ee08fd3a48b297fd108d69abc72076e79882c21cad0eef56e",
+      "impactPlate_light_002.ogg": "8ac5869ea434cf0d364872774efe70b2d666a4f02ba35ddfc1e051d336721be8",
+      "impactPlate_light_003.ogg": "dbfb7c1d002576696df3e9a43d6639ee3f342068398b5e7b55bc2389d20508a9",
+      "impactPlate_light_004.ogg": "9cb33b0c0cce948313f078b60769d2f8e4075472494fc8f8129aa4a23c951897",
+      "impactSoft_heavy_000.ogg": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1",
+      "impactSoft_heavy_001.ogg": "4d0096364ba9e46119d2ff6df493fdc101bd2e1efae061da5e5f77a53b3fdcb6",
+      "impactSoft_heavy_002.ogg": "d130ae541951243d3f6ed963d0057450a445ffe117fbf9a084d34eb1635cb563",
+      "impactSoft_heavy_003.ogg": "d00286a2dc62ee5cb4d42bf56120e7050a855f69e655fc1294410aadd337eba3",
+      "impactSoft_heavy_004.ogg": "e008f0b6b14f62339c8fe9f9b45cbd6317ba4f66604c4899053b8017020a36f0",
+      "impactTin_medium_000.ogg": "f4bbee66ca191ec744b84fc07ac9ed2a6fda955d51cfed8360f12b62815d3cbd",
+      "impactTin_medium_001.ogg": "84253095543c094d83cd749f42ecfbc96e356b60385f18a192c18eafb25b3cc6",
+      "impactTin_medium_002.ogg": "c1d2c4f9910d4529581ae56a9a9a01454c4619fbb7d6da7616221d8ec58cc0c4",
+      "impactTin_medium_003.ogg": "0d18737d93ba7aa0669f751094cbc1671bbebac4fe207783922938ce75e24334",
+      "impactTin_medium_004.ogg": "fd53e24efec3d5c1cee5a46fee70f97efd4bd01e53ac5d9b5f3b6719dfe9f5aa",
+      "impactWood_light_000.ogg": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "impactWood_light_001.ogg": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+      "impactWood_light_002.ogg": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+      "impactWood_light_003.ogg": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+      "impactWood_light_004.ogg": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c"
+    }
+  },
+  "sample_rate": 48000,
+  "format": "PCM16 WAV",
+  "enemy_families": {
+    "runner": "mech_light",
+    "lancer": "mech_light",
+    "strider": "mech_quad",
+    "shield_guard": "mech_quad",
+    "repair_crawler": "mech_quad",
+    "assault": "mech_assault",
+    "sniper": "mech_assault",
+    "breaker": "mech_heavy",
+    "demolisher": "mech_heavy",
+    "siege": "mech_heavy",
+    "colossus": "mech_colossus",
+    "bastion": "mech_colossus",
+    "scout": "boot_light",
+    "marksman": "boot_light",
+    "rifle_guard": "boot_standard",
+    "grenadier": "boot_standard",
+    "combat_medic": "boot_standard",
+    "heavy_gunner": "boot_heavy"
+  },
+  "surfaces": [
+    "dry",
+    "metal",
+    "ice",
+    "water"
+  ],
+  "variants_per_contact": 5,
+  "upgrade_branches": [
+    "base",
+    "weapons",
+    "crew",
+    "vehicle"
+  ],
+  "variants_per_upgrade": 3,
+  "preserved_files": 132,
+  "preserved_sha256": {
+    "reload_shotgun_load_03.wav": "5c5fcc4de14a72f0820bdc07e4c5dce493418af2d71414bc994a38e6f87251d1",
+    "impact_stone_01.wav": "1c0dbbfade460c8b26835a427f0e08d3516fc4ab015e9f758f5131732baa41b1",
+    "mine_02.wav": "89c2094b2c92db04914f9ba1b7d201ab0ea0f27003cb31858b6493c5c41bffbd",
+    "mine_03.wav": "ff3df337917462638dae0556b7750e7d51d74e023ca2214cda8c9ca487c262dc",
+    "shot_01.wav": "17356d789fe1cadb62e158cd56c5d90dba0cf00e37182411d36d29357bbba27b",
+    "reload_shotgun_close_03.wav": "072d9dbcfecfaab2d1eda480df824b5de3e163134f02d73271d9d123a691d554",
+    "music_calm.ogg": "b1f457510bfbde1df19cd961668042b32ce9e698199618a5800207ced3a546b8",
+    "reload_rifle_open_01.wav": "b4affb744113f00ba924c7921d453ca3feb757051b07cfcf2a212e4edd0f4403",
+    "reload_flak_open_03.wav": "6bb144448799463620e83c6556ed68f365ffc91d746753ed13e2ff7f48722bf8",
+    "enemy_shot_03.wav": "99ed5662a213175f03bbd0922e6e513653746e421216a2ea67ad51421d600944",
+    "pickup_01.wav": "4a74e7ed9ba5e59e0f18fb17caea4a437e171a5eab18fdb8a68f577bd48ec52b",
+    "reload_cannon_close_03.wav": "c65db761bee5560a93787c2ccd628dbf807b004bdeefca6607daac59b45d64ba",
+    "pickup_03.wav": "d23e6f57d81998b6c44abd81be5d89ec96be57fe57260fdb78cc85e2faa5ef25",
+    "shot_03.wav": "5aed088616cba9ccc5d300d2d7b3333aa334e9301d09bb248666cb7a06077e52",
+    "step_heavy_01.wav": "3087625e6b3a27da57d6c6a7c585f685dc115140ca252c8025b081e4fc5875f5",
+    "air_raid_flyover_v1.wav": "0534e7f5201a42be9a3c97bc974af3ae909b3b8b1cf5d15cc619270d72332446",
+    "weapon_mount_03.wav": "e300b7acdc0e132066d5d164cb96c0295e8008aabd938b1f4b2d20fd6dbae35b",
+    "hit_03.wav": "78fc2437e0ee760c8c4092e5742370fbf247637b88c25c27c6115b222df63cf6",
+    "reload_shotgun_load_02.wav": "c4daeae0a6425c3b6884ca23f3d5e0608e6d7e97a11b0edc8521c78ca7c822c6",
+    "glass_break_03.wav": "57f1fcfa8194e3b61a56f59b11f55d9bbec87c80356d60743bdd77be994860bb",
+    "reload_arc_open_01.wav": "610b02e5de846e86386758f76d4c4268f3277af6b0d321e97eb8ab9ba05808be",
+    "reload_shotgun_close_01.wav": "96be22cac251ecd74785f947f42bb7bd5e6b74f8b5b43e394a1de341beebd74b",
+    "weapon_switch_03.wav": "214605249a51334e02564fdaca4cdf40f491009babf2b8efe833f65ebac60017",
+    "reload_arc_load_03.wav": "9d99c9c62ccd858bff7e313b46bd097dfa6d502143f47b2014469054ff109298",
+    "step_metal_03.wav": "89b7db7e550f9d4565a128103b48ed16aaba1e0eecd0d1a4684a939cb908b4ff",
+    "step_heavy_03.wav": "444979205e76ca0e79a8dd6a4eb06fc6f14b271e884cc07a4976f03cff6667b1",
+    "mine_01.wav": "8a69a6781e7f456a8bf4530b1d0dc28edf88a873caafda07a40723829cd2ddd4",
+    "step_dry_02.wav": "c3ec3192a35a7ec834c10ab195e6a5ace84ce0958d0ad462dfa15c9d9de959a3",
+    "convoy_start_v1.wav": "1e6ce08f028b70bf128256464f303c9295c0a80d51119aa924ba2bc8f9a15bbe",
+    "reload_arc_load_01.wav": "bbe512f4255626c63fcc930580be323afea1f2a711ed8f60f0206c3aca7e4a12",
+    "impact_metal_02.wav": "44fc94b6b3ba86994081a5f8fd7382b81e95032a02db63596a5327502cf3c594",
+    "reload_01.wav": "03eb8aeca47f684fa51c5000adf62c12f76c1b30327bd3a906add9a9a5f5662d",
+    "reload_arc_close_03.wav": "9767b97bd5e9c2a7eb74049151988233239f6d012105f8a9c7774489b8270a41",
+    "reload_shotgun_open_03.wav": "f914dbc1af7e3f5847e98f870bd0a812c205bd3aeef546e9c3a2fce3606a8612",
+    "step_water_03.wav": "9cedfb9e1ceefe9d06a120081f04c75e98206406c0dcd3d11a04aa21a696fe0c",
+    "step_ice_01.wav": "00bb16ec39e27c36a108141fd69545165f3a9ea772b0fafa2f1b9a77a8f0f2ad",
+    "music_tidal_calm.ogg": "1f859b3e1aa5eb1a97dc1acecd51d035760677c6be49a4ea25ea27cfa57be00a",
+    "reload_cannon_load_02.wav": "bae577879391d1d74904fdcf4534aab5b51b139d4a8251706c6ed71337524a89",
+    "music_frost_combat.ogg": "37c0e048b10d1bbf3330f782eaf8abc708fda35f6816bcc14889308dc4b4e700",
+    "arc_01.wav": "fd63f0fb7a5e05e4fc37066066489df075b4c1c127a0ebc2d4a3199999475747",
+    "hit_01.wav": "7bd379f862cdb4d62f9ba611b96561598d73f7e5e65dd1feeafe674bd1f018af",
+    "reload_shotgun_load_01.wav": "51c81835bdad72f4fb1e76ebc0fc27ba94a9553f2486a27c3552100f2cfc9ae1",
+    "reload_rifle_close_01.wav": "e608a8db7fb4655e03c25dc75dae391121ce37dde585ff92bd4ee34db9508c27",
+    "warning_01.wav": "b1bc61352c91a4f9a4bc0e56bb859a8f0b2adb2c9f1b3f5342866c072ae4b1bc",
+    "impact_wood_02.wav": "ea91ade7ed8dbf0ed6dec19cacd5b7a8b0ff68f431eb9dfef210242e5f1a77bc",
+    "convoy_gear_v1.wav": "e48061f1eefbc8ded17c96340aa94704084ffb7c1667f0d7b78ad37ffa29adce",
+    "impact_stone_02.wav": "774866554ab57c6e1936bf6e083c0e4c01311472077cdca610604f46601167d4",
+    "weapon_switch_02.wav": "a85a12d40da7ec6759f92c7a30c3e54c48fa80d4e358252bb024dcf7bdad5490",
+    "convoy_stop_v1.wav": "13faf2c5b3ed25009cae82964a83f3cb0ccc103aa51db8e9c4db41bf3e8bef6c",
+    "shotgun_03.wav": "d4bb09b721beb61b024f6f238523fcdb8283ed4b845054ee1d11ae89a9543436",
+    "arc_03.wav": "d1313e895c3686544103988130392717e5fa767650ebacc464c13051a2626495",
+    "reload_cannon_load_01.wav": "5bb624239a373c372f66be0b75feb5e6964ff2049688576b259c107b1c6286d9",
+    "reload_rifle_load_02.wav": "53ce0081ef3cf53a3c99720b3da8862c318441d4eb6135c61d6daa3c71ec9f95",
+    "build_03.wav": "67f484ead5cfbb4437b641583b0d43e30084d634cf42e77e71c3857ab02ccd88",
+    "reload_flak_close_02.wav": "3ba373e86419ab44004419e521b232cbd1317cfd3eda2bd9e4c7e7482ec82a4e",
+    "step_water_02.wav": "c29554eb5ecc70bacc0b38b13cf0d83541decb2d47d9d9abce2d05a2df1799a3",
+    "empty_01.wav": "509d03afc548b6587c85c1a86f8af23a0ee99780918667c11f4870869afbc100",
+    "reload_arc_close_01.wav": "c9b1e592b352bd3258246fe4c06c061c097dcd3b1b6ad1f1669ac3f70838bdd1",
+    "music_tidal_combat.ogg": "768d3172fd0f01504523d114a37648bc72b5eb05c964ebcd9a179529f25ad541",
+    "enemy_shot_01.wav": "f2064a070482f9e563e1796cf11d5a439fc3e8ac5faade20110fdca742231d31",
+    "reload_rifle_load_01.wav": "f7331eefc69e31febd2352e18a2cd38e0da2c0bb41f365cc0988070ec3f38ab8",
+    "glass_break_02.wav": "1950f2aee9d397d34facfaa25546e26ec04ba38d829623870dca2a664865d8cc",
+    "reload_rifle_open_02.wav": "c4dafaedd76f481a891a6779b73be24d050e0290f18ad93cc8a5533e03cd1bec",
+    "glass_break_01.wav": "080541b0ab54b7bc1709d3605d0dded7efffc3cddce96b03c066c8d78e497e93",
+    "reload_flak_load_03.wav": "0c89fade454f6ccbc9266c4b9c4d3e6acbc2bcd2f2762773997ac6be9ea69421",
+    "reload_arc_open_02.wav": "b12a64d4b01094d4e5437ad43f4e872f5c69507c768190adc1ca22858a3652b2",
+    "hit_02.wav": "aa2ad58a29e10ce75971688223837d6382d4dc73463328e8aef46f47a3c58ca9",
+    "step_ice_03.wav": "e960093437a098b026e15d2debd01468703e926fa043d8fb9211774fc68b5d62",
+    "convoy_refuel_v1.wav": "8d337ac5e847359cb75648f52dd315b62beecbc6a15965e72ed822119100ad40",
+    "impact_wood_01.wav": "ca94314b69d5a4f23c47c2f6587665b57501012d4b079eb9ab79924fb12b7da7",
+    "reload_arc_open_03.wav": "6561aff6c572720a565cce42c4858c639d5d111a98e4f64f43d990fbeff7f285",
+    "build_02.wav": "f172ad96af1988186947126ceb5f8b5936337560cf3ff6db05c736b46a193641",
+    "music_frost_calm.ogg": "4b8f81c52377e7b5777e7be3667459f9108eb5e13260724a49b986281441bdab",
+    "explosion_02.wav": "d069b554b9cf56f0075c224f45a0494ef0a439734669f243906ac2705b5b91c6",
+    "shot_02.wav": "be3eba27dc7b8c98ceeb28e9e1eff99108f455d0cc93382f6dd0f03109b3a9a6",
+    "reload_rifle_open_03.wav": "47a6d56285778684d74569a3eea2a3b0ee98517a3b207e4490cb37ab66c46eff",
+    "music_foundry_combat.ogg": "74d82e7d2e5df3b4e951d795a263fc86bf50e6479df4b0217a93f18cb31f705e",
+    "pickup_02.wav": "edd7630a6420b0101f43447e42b3f5928758a216d91fa23fc34e6e3d4cfdda42",
+    "reload_flak_open_02.wav": "1c3214f74ac0cc115460d321a47b42a2fab910536696dcc62c41828e180e9eaf",
+    "reload_cannon_load_03.wav": "1b9c41753dcbf097026ed8273d916e9080265884e8b62781f32099b4f5435c7b",
+    "step_water_01.wav": "1805434e0ea317fb970be84c83879a1374e4d7cca730f096a5e76f31052d5501",
+    "produce_02.wav": "3aa0f04cfdaa528626b8bf4cf346d4271cc6c75d4f855fc1210142dc4c4d818b",
+    "reload_flak_load_01.wav": "146a795c8b160e8e88e4de1eaf4b04f53ea3605b7b3fd3b915ad3227b5b014d6",
+    "thunder_01.wav": "2aa05d2b77f795625d4c4bd3c5ff4b53813b1bf47710a5d68ec5d9df0f1fb5e0",
+    "shotgun_01.wav": "104b4b9be95762425aa9fe943e36b7840a79f545bf2c9d67583eef647e54a55b",
+    "convoy_door_v1.wav": "29d99ccafbfa7709bdb69b2ece34effa9e0b21a71de0c8b346666398a61dcc6b",
+    "explosion_01.wav": "6b3d0e68033315ccceabbc00f07c0a1fb0826fc6121eeeb6e13ac05bf7043e8e",
+    "reload_rifle_load_03.wav": "2f369aa3cf9dac01a2bf7995dbd7a1b57b2b1c15f915d4cc8dc36ad9959ba755",
+    "reload_arc_close_02.wav": "552407871deaa5f84c1f5c2fef05e215c1325707e81a8547cb339dc96c8c4c2e",
+    "reload_arc_load_02.wav": "b39b7ba41fbad2de7bba9a941f4504b98cead8be0c6762b2aad4043a36880002",
+    "weapon_mount_01.wav": "235af4d635aa4298690cf6354d0a97e593006d76a1c69768e58d6a74de9711b7",
+    "arc_02.wav": "cc6bbcdbf3433f0764e6c619a8ee70a9c23707fe18833e11c4b035083c7f27ac",
+    "start_01.wav": "02b7c7ea4bf568acf5823000e38e7aad33532763312a0ddb3299b1db6eb680a0",
+    "reload_flak_open_01.wav": "94b09f21f18a92231238f1e7371a8963d52d1884f4cc53b3c1b12532df78b27b",
+    "step_ice_02.wav": "3085d877b68ed229cb5b7238f653d9a645477de402205403dc2db2be373c103b",
+    "step_dry_01.wav": "619c1677e75825e68ee5b2e4aa393356d49573ad07c1fc3e59e83a9385357b7c",
+    "music_foundry_calm.ogg": "8fa35a1d9184ac396dcd10fea52af9aec8065d2fe265bb0e9d641dd8bbba5d1a",
+    "build_01.wav": "1a79936ede0e9d3781efe41e046c3ced652a3d8477a6f0f7c8e474596aa25349",
+    "reload_cannon_open_03.wav": "3dc8abb28a997ee77ec2894db3a5bbd1108ac2aa964446a88ba1d4601bd8fab5",
+    "reload_cannon_close_02.wav": "7548f8573d22a90fffcb2f4dcc5456b3e0d2952e511af930ebf8b57fb00f2804",
+    "enemy_shot_02.wav": "06cd8c6712d7a0e573e532025a53568d3b68730591dbf4bbaaa533a4d3ed67f1",
+    "impact_metal_03.wav": "09e878f1fc4f6833359a20a4a4e799bac1d35f6e01b0c7754384279bb9ce9195",
+    "reload_cannon_close_01.wav": "054b2ec7b420bf046b6376294d7ea24de0bde92a78a82e2bb5a89ad666021cfb",
+    "cannon_02.wav": "ff38202cae55e56f1df709a272f1b106a13deac97a0f994893ac5ba8a2d40f95",
+    "reload_cannon_open_02.wav": "ecad84bb7be52fab1f3f6da9529b972a47d81660e34a86ef0f52462e0557570d",
+    "weapon_mount_02.wav": "76239d7f01fd292c08e4a5227a28cd15439157717a0ff10f10b2f09847c3edc1",
+    "shotgun_02.wav": "b258b19afbefd23c4e77e872735f50825cb2758e3f0c0cf7cda07bc14c5ff45d",
+    "impact_wood_03.wav": "0f87b8f768fe44a762fd22028034da5087a1be65e0ff094e5bc8e5aa303a3bf4",
+    "convoy_engine_v1.wav": "e10ac75940681ece304bf837ea32600198c61ad05d035a8560ea0e0e120e5ea5",
+    "music_combat.ogg": "9346817f63f3b3a9dd2bcfbad9d69ec91be18a8cd8d8554891e8a2e6fc520a70",
+    "reload_flak_close_01.wav": "625575f8206b117f9dd0869d065cc1644241109f17398895ab9f4b0c325ee956",
+    "cannon_01.wav": "a91234c1cdb433a28a38bdffb9ca107299ae8de51ff0701971141cd4fb71dcfe",
+    "reload_flak_close_03.wav": "9f26604b0a6f27db257d6566c9900cf27f43c88fd2d70479e638e4bd97d93eb7",
+    "produce_01.wav": "5821578092e4792ffe577a94358074461ee0ca7c96a42ffb16e2e5476c595a69",
+    "reload_rifle_close_02.wav": "e024b6538961942f4cfa228ae1ad70900b08bcb0d65e1910131123fbdc259583",
+    "step_metal_02.wav": "31280546a4ab3bf4678b2e1b35be4fec2160f295f00e03d3aaf95a4022d35673",
+    "step_dry_03.wav": "b9224e85bd40626de9e2cc7c9246768bbfd3fc33d3c7183ae526b07013d890a1",
+    "cannon_03.wav": "09687b3d601450839055d068afa858fc128a2c82b0d7b53fc90770019bffd7c9",
+    "reload_shotgun_close_02.wav": "9feb7caffd1f7d8c16cd3f0b35245b88455d48fc13dad72fd3fcb311d8cec298",
+    "step_metal_01.wav": "f27f322f1d1fc0387201b81f6fb050e5821975783a63bd5a7973df5f9ef60c76",
+    "reload_flak_load_02.wav": "a9ac7cf5bfa4d1303e22095065463a992f882e78861beec6c0f909aa841c31e0",
+    "reload_shotgun_open_01.wav": "54e9dd6c4bed03d5fec44bbb54731be46c9f84ec82dd0f1969245b4793a6299f",
+    "weapon_switch_01.wav": "a563389ecac97ce7aced4c605f56d196831537e2696fece859f1f47cb125dc7e",
+    "step_heavy_02.wav": "f8b1536001a3b4ab8ae36c1b0b527f27ec3880be3ad0c06de37eaa9f6b49e9b8",
+    "reload_rifle_close_03.wav": "093826ed68fad02f519e439f88479b4a5d40774c12b56ee4bd8ac94f51828055",
+    "reload_02.wav": "3673f37fd345eda916aeaa22420f96185e27806d7ed89ccb1666ee7298b24346",
+    "ambience_wind.ogg": "233af8fbf069ced575eba835895ff5a143db32cb3dfce736b2ecada4569ada42",
+    "empty_02.wav": "6136f093d94f806342bd6cf2ea61c50dfe0d1cc841e8e1b1b87ca09bb078c6c7",
+    "reload_cannon_open_01.wav": "d37deb3ef60421fefcd92b2f3015434f221dcc726d1413def59f4f95f4accd42",
+    "impact_metal_01.wav": "0c73bcf80b27d7228fa56772b608a6fb99b87a43c1519d49372a77d1bbd6ee4e",
+    "reload_shotgun_open_02.wav": "ab09586809b576f5c8e434d65ebadd23ace528a7f4be6319a58dabd6341fa82f",
+    "impact_stone_03.wav": "d4aca26af768c8e4e2bb75194fed82dd7a82cfa215db5b05137ee74e6b02d7da"
+  },
+  "assets": {
+    "enemy_step_mech_light_dry_01.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0499,
+      "sha256": "79671bd085490c9efa43206d3f2ff8521b22f3ad0c1636a1706bea06ed58daff"
+    },
+    "enemy_step_mech_light_dry_02.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05046,
+      "sha256": "7210e85cee0a331ec8356d855c1ef192025f3f9eb9bb7db96953fbe20f55112e"
+    },
+    "enemy_step_mech_light_dry_03.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04672,
+      "sha256": "36a536133b2ebe9af8add9c96d7a4c9a54412cbe6ce74c44f32a94c12a7e14ca"
+    },
+    "enemy_step_mech_light_dry_04.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05868,
+      "sha256": "593408a8978020cba85322349885a59492d3d2fe2f9b37fa2eda29b70daa62ab"
+    },
+    "enemy_step_mech_light_dry_05.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04604,
+      "sha256": "1b0c6e732d9a6317011418bb0947eaff80375a231b0e31a4501d4454d02f5b89"
+    },
+    "enemy_step_mech_light_metal_01.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05032,
+      "sha256": "2c07c82274de15cde67be82f7acbba50e97d0f2bbe545c489dbdf8130cd00879"
+    },
+    "enemy_step_mech_light_metal_02.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0486,
+      "sha256": "8f242bd61932897bcf753994983218ac19afa6b5e31faf33763c7b2c4077713f"
+    },
+    "enemy_step_mech_light_metal_03.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0485,
+      "sha256": "174cb6034426429ddd3cdeb0cc3c40b1f36241d5a5079c3e955d322ad4985de3"
+    },
+    "enemy_step_mech_light_metal_04.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05637,
+      "sha256": "aa17d6f7a197764a1b025093952cc8d2cc8a7b7c036a77abd56712b94073ecde"
+    },
+    "enemy_step_mech_light_metal_05.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05026,
+      "sha256": "2735d73e9ab8dcc5d529dfb1e4a2d129e2bd8025b1e9a9314bc4549d35fbfd74"
+    },
+    "enemy_step_mech_light_ice_01.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05536,
+      "sha256": "d4a7bf13817a9e2ef3079b5ec07bae481eb55eb491557ae89a880919483d6ffd"
+    },
+    "enemy_step_mech_light_ice_02.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05133,
+      "sha256": "1b9f916a5e8c95f7c36aac8da8d6fe4dcb30e5ce76c43a6f975a3f271145e9a9"
+    },
+    "enemy_step_mech_light_ice_03.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04906,
+      "sha256": "c6113745d4e8650208a824f8692c6c182658f938f2d160e711cbe776c8651476"
+    },
+    "enemy_step_mech_light_ice_04.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06125,
+      "sha256": "702b8ac2a23253081206bf1034e98f835ac7e63446653bb6153dd2f2a2315a59"
+    },
+    "enemy_step_mech_light_ice_05.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0631,
+      "sha256": "92b6a30d1d022b4c189166ca3e1d5bf16bf9aaae39cf5985fb156b51300f059f"
+    },
+    "enemy_step_mech_light_water_01.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05191,
+      "sha256": "69c9fd3c8b11dc895160eab95938b55d6b6f2c224b4e3b4eb9ae4166dc706e00"
+    },
+    "enemy_step_mech_light_water_02.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05524,
+      "sha256": "6623484f891efc94d3be53244da23981afd3c4c011f4196be7c699ec72faee94"
+    },
+    "enemy_step_mech_light_water_03.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05171,
+      "sha256": "324ae7100f4cd9838954fb815729011f2ba4f29e5b030b4c3d959295258e1f02"
+    },
+    "enemy_step_mech_light_water_04.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06242,
+      "sha256": "1d77a69b08005e4b6a04456167ec6baab86b87fa0bc4fb63ba07a181a2f9bc10"
+    },
+    "enemy_step_mech_light_water_05.wav": {
+      "seconds": 0.28,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05128,
+      "sha256": "3b51a1bead6bb46d9a00fb5ea2a8645d7567f0418367a4132afa409b176512cb"
+    },
+    "enemy_step_mech_quad_dry_01.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03987,
+      "sha256": "8c6aa0b20d6cb18bbd608b2a4a76351e53ab7f26b8a18706c20e156692e7e7d8"
+    },
+    "enemy_step_mech_quad_dry_02.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04447,
+      "sha256": "0cf36fd287ad766ccfdabcd4171c2d4b4b8cc006140ddcc83fb77718f6729e60"
+    },
+    "enemy_step_mech_quad_dry_03.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04566,
+      "sha256": "55b180d9fc85bd46863f6042bbe9fcb15a8c3c2c3f9a6ddc6230a94090798a5f"
+    },
+    "enemy_step_mech_quad_dry_04.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04526,
+      "sha256": "e3380fefb3fd4b00396461b209f48926ed00ffea53ed37917ecd6dcaa7fc2b1b"
+    },
+    "enemy_step_mech_quad_dry_05.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03746,
+      "sha256": "b32cfe31e353643707bb2068fe33e53efd098316853f7b15ea2989899b7071ce"
+    },
+    "enemy_step_mech_quad_metal_01.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04088,
+      "sha256": "6454732aad4618f4f9e5d53f3be04950ff042d31861affaa02df2d6f088916ab"
+    },
+    "enemy_step_mech_quad_metal_02.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04011,
+      "sha256": "7d0bd4872a6c3bdb83a6f2334ce4c78f43e4d8e74f994bd266f3a9deb06fb7c8"
+    },
+    "enemy_step_mech_quad_metal_03.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04289,
+      "sha256": "84126cc71ef6322ef72da893e7f5f1623a585ed09b26a72d0b923645a10a791a"
+    },
+    "enemy_step_mech_quad_metal_04.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04709,
+      "sha256": "8a7db4d56d96914a2c3450cb0465edd498a7b5758feada5a5bcca78b8eef463c"
+    },
+    "enemy_step_mech_quad_metal_05.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03503,
+      "sha256": "44956d843565ca41737331502dc9edd570c1001a449e0054f3ad54a50e18c370"
+    },
+    "enemy_step_mech_quad_ice_01.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0496,
+      "sha256": "f5b72e768571cf67b0e98a164a1c97129e2d284658077f978e822e3356ba5c6e"
+    },
+    "enemy_step_mech_quad_ice_02.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05905,
+      "sha256": "effbf5e97b102b816ca41776c0e090ce043ed55a6399ab8a796090a2105c8f6a"
+    },
+    "enemy_step_mech_quad_ice_03.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05574,
+      "sha256": "c271302ab1d883378b757323513b4f6bd7c76e41f001e19ea5637ca39a4ced3d"
+    },
+    "enemy_step_mech_quad_ice_04.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05333,
+      "sha256": "b817b8f486bf0638e42e731cf95c09958f5b43882f21adb67eb2ba9179288370"
+    },
+    "enemy_step_mech_quad_ice_05.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0537,
+      "sha256": "e4ca6b0b0b1cd2e16cb5bc766f0285a8556c0ceb35262be17ca97be84dd1a47e"
+    },
+    "enemy_step_mech_quad_water_01.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04283,
+      "sha256": "e4cff878fcd6489aec2b0c6db2b727ac327fa73372883ca727ba1df0cf4fee43"
+    },
+    "enemy_step_mech_quad_water_02.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0478,
+      "sha256": "612fc643bf93d102592fd68c137f4adb86824dd0f32b020ecb57aac014ec4628"
+    },
+    "enemy_step_mech_quad_water_03.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04965,
+      "sha256": "297f9188bb547289394cfe1fe0189b72a995ead353891fe54a4c59bbcba5b760"
+    },
+    "enemy_step_mech_quad_water_04.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05391,
+      "sha256": "0704ca648a33afcdd359fa0be2b2ad503a00490bf630ea116659fea601f127f6"
+    },
+    "enemy_step_mech_quad_water_05.wav": {
+      "seconds": 0.34,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04062,
+      "sha256": "85b29148bb8e236c00ecdf3369402621ddebe3358a2f7de5a20ee08c91a22440"
+    },
+    "enemy_step_mech_assault_dry_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05662,
+      "sha256": "4771cc88114a3ad9dbfc8be217ba68ebf3b635a1cb1011cafaaba4c77cbd0f9b"
+    },
+    "enemy_step_mech_assault_dry_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05208,
+      "sha256": "f9c986fb23a312d856fe586e330a9950d51d6082328eae2ee3f30375892444db"
+    },
+    "enemy_step_mech_assault_dry_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04723,
+      "sha256": "12dbd3d18ec4951606820855181919b80713f6311a0637d2d1c516b7ea5a77b0"
+    },
+    "enemy_step_mech_assault_dry_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05532,
+      "sha256": "b099250f61724774b85d5f48c34721e54e1b7ca8c924b781dde241f731f235d6"
+    },
+    "enemy_step_mech_assault_dry_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04545,
+      "sha256": "231bb67f8a25dadf4bfc4e43dfde6947f8fe2e48af7549392ebf4c23ed8323ff"
+    },
+    "enemy_step_mech_assault_metal_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05909,
+      "sha256": "bb305133618051bc479bbcf76d7e74adfb89c136e7154981b8e0073772460ebf"
+    },
+    "enemy_step_mech_assault_metal_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05096,
+      "sha256": "136a575096fcd1abf3a36a12aebbdf7a53df5c07d7a94aec1ca7b01eaf76442b"
+    },
+    "enemy_step_mech_assault_metal_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04567,
+      "sha256": "e95c690da048e7ae230b547442215018d21725025c410401389f1fcf1246f3e2"
+    },
+    "enemy_step_mech_assault_metal_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05329,
+      "sha256": "5c0f370e020fcda590b993f63fb90fec818c01550940b5864c59b9726c7dd0ef"
+    },
+    "enemy_step_mech_assault_metal_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.055,
+      "sha256": "2f6a25b719fb7c276c51fb6a153b81b20953b59acdad35f003941a3dda417405"
+    },
+    "enemy_step_mech_assault_ice_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06246,
+      "sha256": "6aa59a1fa7d4b55faac9f47b07ab876d009e594c07863434c9f7551727ee6905"
+    },
+    "enemy_step_mech_assault_ice_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05945,
+      "sha256": "1aa949fe36efa2bed9727cdeb93d8e9d8b47e08adfaff45014bbfe00e4200a71"
+    },
+    "enemy_step_mech_assault_ice_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06445,
+      "sha256": "eff2abe60b8a45da010cfcdb3fad2560f1665383dff3888e7204a0f699e98333"
+    },
+    "enemy_step_mech_assault_ice_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06536,
+      "sha256": "912b3bdc73dc076d767ea6b3436bad147f233951fde6f632413b42c2f7c09bbd"
+    },
+    "enemy_step_mech_assault_ice_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0671,
+      "sha256": "9b217308c819edda09bb9e159a8ec48c3a5db98a3d554c5a913a8a18310308cb"
+    },
+    "enemy_step_mech_assault_water_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06003,
+      "sha256": "22095b3d0c1aef9b01972288ce238c6f35fa90c21dd1fb0fa6f058711dd96b4e"
+    },
+    "enemy_step_mech_assault_water_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0601,
+      "sha256": "887bfa0440cb178319258c4d2f021aecec658545adea6287f37753bbd0db474b"
+    },
+    "enemy_step_mech_assault_water_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05063,
+      "sha256": "a231b6d3f20ee3555ca202e0849a0c78cc9b4d200556a769ca6d55c67dc3823d"
+    },
+    "enemy_step_mech_assault_water_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05856,
+      "sha256": "55c05c77129d57c91659d029bff71359a83254209212dba2d98bfa2a606d371b"
+    },
+    "enemy_step_mech_assault_water_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05125,
+      "sha256": "8562a4316788db0d9368973db09d173038c1df29013aa70acb86abd552e00455"
+    },
+    "enemy_step_mech_heavy_dry_01.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06101,
+      "sha256": "f276bb0c087c3bbfff46fd8321fb9bc01b3dde47c829d183549c398885b4faef"
+    },
+    "enemy_step_mech_heavy_dry_02.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05637,
+      "sha256": "0ca1b8537b7daa8b2e55b3262c6430f51061cabc13eda532e82d9934b6cc6062"
+    },
+    "enemy_step_mech_heavy_dry_03.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05333,
+      "sha256": "ee2b82a34dbd410982d940df90ed62f768108d25f16cc1303e4976b6188ac393"
+    },
+    "enemy_step_mech_heavy_dry_04.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.062,
+      "sha256": "8cf051cacf262938e1ad9e56d06ffacb40e71af7d78dfd85e6170c0ff0a7449f"
+    },
+    "enemy_step_mech_heavy_dry_05.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.04702,
+      "sha256": "c1f33b124d12dd791ad6444773339e67fa4619a523928919e87409ae5cb05bff"
+    },
+    "enemy_step_mech_heavy_metal_01.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05864,
+      "sha256": "6b07fd0424004e395eae0cce2e19cd05a1cbf4245f84ae3fa7dc3e5c6ca8fb97"
+    },
+    "enemy_step_mech_heavy_metal_02.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05343,
+      "sha256": "bdb54b2bb6271b050b3b244f51114c475589296d6e897af110ae3721b6ac8cf7"
+    },
+    "enemy_step_mech_heavy_metal_03.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05701,
+      "sha256": "53d860516785f982717c12fcc4ddd8ab474bad3e25e9aadc2adc5ee1a23d4453"
+    },
+    "enemy_step_mech_heavy_metal_04.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05753,
+      "sha256": "8a340e99bda7a6fa647ae2411d50ade7e0ee8724fc47864aec9040be9740ebc3"
+    },
+    "enemy_step_mech_heavy_metal_05.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05461,
+      "sha256": "a08b285220c1b0df304635054c3a9c9307bf9168372f1dfee7bfd01d72ab16a6"
+    },
+    "enemy_step_mech_heavy_ice_01.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.07279,
+      "sha256": "c5169eecc4085ec31ed0640ecf2b68c057bb77b6d40856670088a94f36b93158"
+    },
+    "enemy_step_mech_heavy_ice_02.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06404,
+      "sha256": "b58f5d574133e0bea4e05d2aa3fc256c3b669e6ee75e4814a18cd8abced184e4"
+    },
+    "enemy_step_mech_heavy_ice_03.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06108,
+      "sha256": "90b5803f194e3b0be6784b2ada39c8bdfe866c512329db99be85c36ce0323170"
+    },
+    "enemy_step_mech_heavy_ice_04.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.0688,
+      "sha256": "a878808bf93c72169273e02bda25f845ae945664b2161a81745f778eb9129f16"
+    },
+    "enemy_step_mech_heavy_ice_05.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06382,
+      "sha256": "0451104cf8a3b3a4ea0e77a366a43cf8b8cccdcad0963e87c48442f881fe0d3d"
+    },
+    "enemy_step_mech_heavy_water_01.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06903,
+      "sha256": "48c21d8ade49abc9e75c20c67e8eb0741b2c203517e7fbfaafaaaf666f6e1842"
+    },
+    "enemy_step_mech_heavy_water_02.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06046,
+      "sha256": "04a28079d56eeb897487a4251bad88fcee849bfade035d2f434bc2e92ebfc1b6"
+    },
+    "enemy_step_mech_heavy_water_03.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05516,
+      "sha256": "3de2f5afeb1905f4f3e67e99b36ee46afcd69cfb44a132b5ec2c134e5f9dc601"
+    },
+    "enemy_step_mech_heavy_water_04.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06852,
+      "sha256": "75a7781688d0b3b45782f3d604c4807e42030e9d4ebb3022915b13bab0ea8501"
+    },
+    "enemy_step_mech_heavy_water_05.wav": {
+      "seconds": 0.44,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05781,
+      "sha256": "e463c3646179de7cd66f28b16acd2c90eec9b7cb563ed2e4a92e77dbd8b6f09f"
+    },
+    "enemy_step_mech_colossus_dry_01.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05479,
+      "sha256": "009c339f3af0a007ce36f225d515d65facf29df60a902d87c4ad57baf21a5743"
+    },
+    "enemy_step_mech_colossus_dry_02.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05001,
+      "sha256": "44f302f8a8df080eee92aa011485759d6002b220eb196a15d109f12f9da90d75"
+    },
+    "enemy_step_mech_colossus_dry_03.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05353,
+      "sha256": "868932a7bb465fc16c3749c7f9abdbcd7c5f2942ac46e1d1e0b268679d222a7a"
+    },
+    "enemy_step_mech_colossus_dry_04.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05657,
+      "sha256": "564668302d6a1b54bfc6f37750bbebdf8dee3679e2e50797d0a4c5cdedf90e33"
+    },
+    "enemy_step_mech_colossus_dry_05.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05212,
+      "sha256": "93de1786d8512421cb895a1c4de07a9e52e818927fdbbe7cee7a83ff095f6262"
+    },
+    "enemy_step_mech_colossus_metal_01.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05265,
+      "sha256": "dff5805f22620323e050551db54779d263fd0afeb5dde54de11cfbf969678d60"
+    },
+    "enemy_step_mech_colossus_metal_02.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05086,
+      "sha256": "8523165693c338c10626b89596a2a0272d0cc0d11365a3c839eab76477ff7947"
+    },
+    "enemy_step_mech_colossus_metal_03.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05257,
+      "sha256": "6dff95a616c5c4977103cd944cf395781a3f6317fe6589358d3f0f263fd8cad0"
+    },
+    "enemy_step_mech_colossus_metal_04.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05377,
+      "sha256": "464d077e4b06ae2148b3ccd97d4cac9d1cb123371ed5a851161395b2ab9b033f"
+    },
+    "enemy_step_mech_colossus_metal_05.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05026,
+      "sha256": "9f5db59873638aa9eb70d8df237f2f515a943e94919ea25416950cacf423c149"
+    },
+    "enemy_step_mech_colossus_ice_01.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05358,
+      "sha256": "42c14a048e6c7d25b518690c532df5136f09a2473f92e54e95449b65c6fb3fda"
+    },
+    "enemy_step_mech_colossus_ice_02.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.07277,
+      "sha256": "3d4ea295af4019a5a2a5f214dfc8d049b502c04a74ee08f9866169e5b17aa0bc"
+    },
+    "enemy_step_mech_colossus_ice_03.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05925,
+      "sha256": "705edc6d7900093676f7e8e6222e4f897a1709658b4f089fc1f488091a850c83"
+    },
+    "enemy_step_mech_colossus_ice_04.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05453,
+      "sha256": "fd1dcc54e01165e914e19fd1713ab59117781bb5e3ba65b1156cbefb86c3a52e"
+    },
+    "enemy_step_mech_colossus_ice_05.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.06354,
+      "sha256": "11cccbc3cf039d9f575ad35cef194cffe31929f912b8455359d3f02223e2f95e"
+    },
+    "enemy_step_mech_colossus_water_01.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05293,
+      "sha256": "7cf8fca6e4e33ed21f0366b09bc8d884c36c0fdb30edbdc5fdc8c3074ec0ab15"
+    },
+    "enemy_step_mech_colossus_water_02.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.0592,
+      "sha256": "7dcb2e2e16bf2f51c55a807d4d1612a100647bb2c702aed8c0ac6480f84d940d"
+    },
+    "enemy_step_mech_colossus_water_03.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05122,
+      "sha256": "00bff6725ebd9b298888105bca8cbb568869b65453c30f4fcce5c77fbd0b4597"
+    },
+    "enemy_step_mech_colossus_water_04.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05556,
+      "sha256": "2b791417e6f680eca104df3ec70f5a0e62defc592bf9f10f30853d08fc9c6f84"
+    },
+    "enemy_step_mech_colossus_water_05.wav": {
+      "seconds": 0.54,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.05514,
+      "sha256": "4360d8b0d783ab6f01c62445dd8fe3dcb70db5f8bc2c5d508f1081f8ae7d2ad8"
+    },
+    "enemy_step_boot_light_dry_01.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04354,
+      "sha256": "96998ed0d104df0b5e914e649a51f71f5b2c347e507e31b06b8c6f996213d818"
+    },
+    "enemy_step_boot_light_dry_02.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03752,
+      "sha256": "fb1186001acfae2b1131aafbf62e726cb4372ad1b23ce90becd0383d17e9fff0"
+    },
+    "enemy_step_boot_light_dry_03.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03603,
+      "sha256": "ee35acd62e80542dff0709504efc324b92de5aabf6eb3eed6ef00d6f5f3f4063"
+    },
+    "enemy_step_boot_light_dry_04.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03822,
+      "sha256": "f780dc89edeb59772526c040b4bec1798bf56caba07ec17949df362b164749bc"
+    },
+    "enemy_step_boot_light_dry_05.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04198,
+      "sha256": "8f6bebe44443d531f16e3441264d20997f52c0c65f687bfe49cb3df8db44f974"
+    },
+    "enemy_step_boot_light_metal_01.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04409,
+      "sha256": "0224a0b95338beb12daaacfe6fa86d8b9087e43473abfa65d1d4dcbdbd84abbf"
+    },
+    "enemy_step_boot_light_metal_02.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03824,
+      "sha256": "43b9a0b7c86a929ec4dd97b8a0e4b119a03c4ac699dd52792010588db06e96dd"
+    },
+    "enemy_step_boot_light_metal_03.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03711,
+      "sha256": "d9723b935cc365b6d5f6ee6c929ce947981de3ce9357ae1944ca953bcd985db1"
+    },
+    "enemy_step_boot_light_metal_04.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03778,
+      "sha256": "035487cf417bbe9fa023f1c6516e7d270f52afae0b9c2007983f8b1033def836"
+    },
+    "enemy_step_boot_light_metal_05.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04124,
+      "sha256": "3fbbedab78bcfb56a59370c962d5810c37caba1fe7165da4d61218fe1e55a4da"
+    },
+    "enemy_step_boot_light_ice_01.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0633,
+      "sha256": "3fe76c7e877aaad31ec1b12d0f0c8c4cfbad6694ff1eb0c8a5f23c8f6a872acd"
+    },
+    "enemy_step_boot_light_ice_02.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.07304,
+      "sha256": "6df551edad4071c1d871f6714d466b51711569c7a6cc19c02334ee5e1ef3835a"
+    },
+    "enemy_step_boot_light_ice_03.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.07269,
+      "sha256": "92d5f7ed687a131c926211775a70070f9ce376a623bc0285e7589e9821b2a898"
+    },
+    "enemy_step_boot_light_ice_04.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05351,
+      "sha256": "304724610c6ba662a48e5b04733da6034f20d512300f2fd09ce84fcf4515f358"
+    },
+    "enemy_step_boot_light_ice_05.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06891,
+      "sha256": "7b8b28090ec996e8f6f3e6e1ae6e957e404d6d32dc1c7a02558f4a45f304dced"
+    },
+    "enemy_step_boot_light_water_01.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04784,
+      "sha256": "c6a242ab873b7688d000188b19d838f8a59a236ded81dd6f05f69eacdc90cb76"
+    },
+    "enemy_step_boot_light_water_02.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04267,
+      "sha256": "2d0e2573c22ccdc9405577b56b1e0aae9607cfccb4ce6897a1fd6161f9329e31"
+    },
+    "enemy_step_boot_light_water_03.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0422,
+      "sha256": "f0854e84556e926f9973006db8e5c3bdce8fbd27df2112818b9838327fe75a6c"
+    },
+    "enemy_step_boot_light_water_04.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0439,
+      "sha256": "a498b57418175a3607bb20ea616ec2112af5ce173afcdc08bb018c5797d07e37"
+    },
+    "enemy_step_boot_light_water_05.wav": {
+      "seconds": 0.27,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04683,
+      "sha256": "cd99c8c87b8e3c42e3b6b8bf70ff6a3368b3056b7bac8d52d711b12178bb2b7c"
+    },
+    "enemy_step_boot_standard_dry_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04305,
+      "sha256": "53c7c46c33319287f9f5ec2179521d6c09e616fe0c4c79e58480ce5b38ba643c"
+    },
+    "enemy_step_boot_standard_dry_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03637,
+      "sha256": "8e7889ea0428287351b8a7f069d8e8be0bdc229fa34c9623471a9455f31130a5"
+    },
+    "enemy_step_boot_standard_dry_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03633,
+      "sha256": "50f1d160933cfcd238f38be2781a3e4e2b638e56196cd78d58f393f66eb0b660"
+    },
+    "enemy_step_boot_standard_dry_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03805,
+      "sha256": "9c09a4b6827048cf1c6bf2a52f9f3c44e4ec029f3388bc5735cb8a6dfb1b8fc3"
+    },
+    "enemy_step_boot_standard_dry_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04123,
+      "sha256": "e8b24e64a57c5c16529ca14afbbdb9e9c51951e30270a44cd0575a8e6ce90caa"
+    },
+    "enemy_step_boot_standard_metal_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04385,
+      "sha256": "9dc984ae80e0a9b30004c9ad326f3e9ff36f7e3b7e856659aed7c45e95f6e2c9"
+    },
+    "enemy_step_boot_standard_metal_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03588,
+      "sha256": "e2131560267c37d04b3ad472f43aee9a791f432a1952d8d41000a6e32bb9abf3"
+    },
+    "enemy_step_boot_standard_metal_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03719,
+      "sha256": "356b655f7aa468d1b61a70f2ae6561278b2d411a2bd79c7095d1d5ef7e6a187f"
+    },
+    "enemy_step_boot_standard_metal_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03932,
+      "sha256": "9e4a4ae22ff0d8486fb69b979ff4913a1b3e0f5f086004edc9f3d3a05722f40d"
+    },
+    "enemy_step_boot_standard_metal_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04207,
+      "sha256": "f1f412517d0a99cbb79995a2a5fa39569e9e4febbf2806bac14624f9698d2851"
+    },
+    "enemy_step_boot_standard_ice_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06189,
+      "sha256": "0f656c841358916a72ad9e25437db05c65c039c819c67151bb99753aed6caa31"
+    },
+    "enemy_step_boot_standard_ice_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06795,
+      "sha256": "df74bd9773c0d5ec822a8e1a914144542a5ecbbbcd063afeddf5e64f741daba2"
+    },
+    "enemy_step_boot_standard_ice_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06494,
+      "sha256": "82adec016f217bbb8596f8e4aaeb508615190e2fe113f39d066606b05e7248a3"
+    },
+    "enemy_step_boot_standard_ice_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05573,
+      "sha256": "09b97d60a91b5d5901987681bcdcb4da88e0dda52c7ed45212e3b26cf407492b"
+    },
+    "enemy_step_boot_standard_ice_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06722,
+      "sha256": "c6b51f0ca7b03fa4921be3575e21b36fd2a4e29941e8ef4aec5cba79d08b588a"
+    },
+    "enemy_step_boot_standard_water_01.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0483,
+      "sha256": "e389b20acba7c49c2b1420cb75c7dee5852606042a19dab0a96c103513aa3b0f"
+    },
+    "enemy_step_boot_standard_water_02.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04172,
+      "sha256": "383f182efc9a29f97b5ea6d9e80d323d99817216f19408fec4e9a96af8b5ce81"
+    },
+    "enemy_step_boot_standard_water_03.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04173,
+      "sha256": "e4cf58b1069aec78a33e88eb8861bb6006dcb63f2ddbc129bec0dca0aab0067e"
+    },
+    "enemy_step_boot_standard_water_04.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04303,
+      "sha256": "d7b27e88cead19f83fbe9edbc25c177a5f58110758388c45a46eaa1972e3b4f3"
+    },
+    "enemy_step_boot_standard_water_05.wav": {
+      "seconds": 0.33,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04592,
+      "sha256": "454eb46f8cbd3591194c5296acc98e85f9e9f87fe72ef99a221942e50be4fb8d"
+    },
+    "enemy_step_boot_heavy_dry_01.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04415,
+      "sha256": "3164f924f4b9c827e6ea1dc3b2ba0b4b64a5b71ae2215185287eb07e704a03e0"
+    },
+    "enemy_step_boot_heavy_dry_02.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03568,
+      "sha256": "7ad44b47a30ddaeb4047e436136137c06ae51f0253aa86def516be89abc06f27"
+    },
+    "enemy_step_boot_heavy_dry_03.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03571,
+      "sha256": "3655fb472ca27895912d666c8c14dfc3ebb926996c65f7dc29912c79d7d308b1"
+    },
+    "enemy_step_boot_heavy_dry_04.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03773,
+      "sha256": "82612a01fc5edc65328fc5488be61c7219065f83c09b19db1e9c8ccc4e3e504b"
+    },
+    "enemy_step_boot_heavy_dry_05.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04161,
+      "sha256": "fe68b5e5db74c002678c3079263d71c76323e99c8aa17b8ae9018981e81e6bd4"
+    },
+    "enemy_step_boot_heavy_metal_01.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04271,
+      "sha256": "408f193fab2ffd3ab4898edbd4f5610990339400b81247d094f638f3234417f7"
+    },
+    "enemy_step_boot_heavy_metal_02.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03532,
+      "sha256": "0bf587923a3453e0db23db8dc922dbf37b9117abce8dccfad0b0c1693a84d2f7"
+    },
+    "enemy_step_boot_heavy_metal_03.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0361,
+      "sha256": "3f90d7d93c629cd6907b19fb3bd79d4fd084552d8891ba8ca69f7bb1905e6b71"
+    },
+    "enemy_step_boot_heavy_metal_04.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03818,
+      "sha256": "c3ee11abdfc86cd38f1202da63cd754a2a411de4307189c12e83e72c2612c6c0"
+    },
+    "enemy_step_boot_heavy_metal_05.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04084,
+      "sha256": "021d948a73e274742a0a15f4ac6916f502f042658c1a9dd31adaf8fcf652d517"
+    },
+    "enemy_step_boot_heavy_ice_01.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0586,
+      "sha256": "9c608112dd49a50c0da9529b43e2c79ef5e2f97c3de3a930ac5496eb958ba02e"
+    },
+    "enemy_step_boot_heavy_ice_02.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06466,
+      "sha256": "c4289ccf74398e04afee6a1d75413dd14876a634cfdda9ded8e1e71f36b8af66"
+    },
+    "enemy_step_boot_heavy_ice_03.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0636,
+      "sha256": "5da77dc924026914b33425b3c185de2e2f6d9eda6fe62b306e07ee39d79b32b1"
+    },
+    "enemy_step_boot_heavy_ice_04.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.05473,
+      "sha256": "754074a679aa3943ef28035dd5d71bd92a7c7168ecfc6ab4da1b5b866deea965"
+    },
+    "enemy_step_boot_heavy_ice_05.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.06338,
+      "sha256": "cb6a52c4bfd34452a71d31f5a16fefda90c3bfd2932e8d410ab6b69154fca54f"
+    },
+    "enemy_step_boot_heavy_water_01.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04681,
+      "sha256": "ebd3474a1b3afc2ddfe0931935caf0c19aafab0236531f210bd4282377d63d03"
+    },
+    "enemy_step_boot_heavy_water_02.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.03952,
+      "sha256": "a35f1a56f07ebf8e52182ce1dadcc6ca2e7af658f9cf76664189b4101a716e9d"
+    },
+    "enemy_step_boot_heavy_water_03.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04053,
+      "sha256": "7e9066530c9d47583d3a176ff8ee24cf1184b8d47641dbc866502b82f7d128af"
+    },
+    "enemy_step_boot_heavy_water_04.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.04128,
+      "sha256": "472e92508d015a6103d27ca0fe50c080ae33531e2b5a75884bdf221b13d153e9"
+    },
+    "enemy_step_boot_heavy_water_05.wav": {
+      "seconds": 0.4,
+      "channels": 1,
+      "peak": 0.52,
+      "rms": 0.0445,
+      "sha256": "08ae53ad3b97fc9a8417ecfc852d584d4b8ce1c3a7896f76ed8bd7559f23331a"
+    },
+    "tech_upgrade_base_01.wav": {
+      "seconds": 1.05,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.08583,
+      "sha256": "c99105b4eaa2f7960b3631d2af27755831d82db8626825301471a33b209f048f"
+    },
+    "tech_upgrade_base_02.wav": {
+      "seconds": 1.05,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.08041,
+      "sha256": "4a30da49e0d346cee3c7825c0cb77ddfa8819048efe2ffb9dce6efd3e87230ce"
+    },
+    "tech_upgrade_base_03.wav": {
+      "seconds": 1.05,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.0818,
+      "sha256": "e5de528087b0c5e8624deae827a4dee51a6970d1d2152779d15ee578bbe2e381"
+    },
+    "tech_upgrade_weapons_01.wav": {
+      "seconds": 0.86,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.08306,
+      "sha256": "a0230908d7ddd94e5f29daad53bc13e610bf4cda5cce6260fc86fcb270c81706"
+    },
+    "tech_upgrade_weapons_02.wav": {
+      "seconds": 0.86,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.07769,
+      "sha256": "a298561609ba94430efe95dcacb5cb63b4eeb586107d06898f4f727283f1c0ca"
+    },
+    "tech_upgrade_weapons_03.wav": {
+      "seconds": 0.86,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.08619,
+      "sha256": "ee0abdb85cec00943445353db45ede8c87d64bdb3fe4f81791ccf655bfac0c50"
+    },
+    "tech_upgrade_crew_01.wav": {
+      "seconds": 0.98,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.09784,
+      "sha256": "0c05e6688941c0bc8b49329239ace89df250d07a89d8c12b50cbb3f9aed14907"
+    },
+    "tech_upgrade_crew_02.wav": {
+      "seconds": 0.98,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.07346,
+      "sha256": "0f98894af3e3fa432cc5bc5f1b5c56fdf2bfe3a05a01c0b012374a8c1e212b34"
+    },
+    "tech_upgrade_crew_03.wav": {
+      "seconds": 0.98,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.10116,
+      "sha256": "67a523b34d0a81523774cd9fd6fd1284b08bba8d9dfa7097e7f821b7394541bd"
+    },
+    "tech_upgrade_vehicle_01.wav": {
+      "seconds": 1.16,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.09214,
+      "sha256": "a23ad8fffd3ea28e7747ad4e5677c7baf108d1eda51c6a75eaf9392a37e69ab9"
+    },
+    "tech_upgrade_vehicle_02.wav": {
+      "seconds": 1.16,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.09198,
+      "sha256": "70ea719e40a1502d0f57f3c297fd6e2137bb0286a9c0cd37618cc7cc954ee654"
+    },
+    "tech_upgrade_vehicle_03.wav": {
+      "seconds": 1.16,
+      "channels": 2,
+      "peak": 0.5,
+      "rms": 0.08824,
+      "sha256": "363877c855aaad2ee49f98ce628daff5ea66179356a62fb40dc9d864cf90a506"
+    }
+  },
+  "review": "Objective signal checks and in-engine mixer capture; listening gallery provided for human review."
+}

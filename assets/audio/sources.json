@@ -1,0 +1,260 @@
+{
+  "origin": "Original procedural compositions and modal/noise sound design. No third-party samples or recordings.",
+  "generator": "tools/generate_audio_expansion.py",
+  "dependencies": [
+    "numpy",
+    "scipy",
+    "ffmpeg/libvorbis"
+  ],
+  "generation": "Deterministic PCM synthesis; Vorbis bitstream serials may differ between encodes.",
+  "sample_rate": 32000,
+  "variants": {
+    "shot": 3,
+    "enemy_shot": 3,
+    "hit": 3,
+    "mine": 3,
+    "pickup": 3,
+    "build": 3,
+    "reload": 2,
+    "produce": 2,
+    "empty": 2,
+    "explosion": 2,
+    "warning": 1,
+    "start": 1,
+    "thunder": 1,
+    "shotgun": 3,
+    "cannon": 3,
+    "arc": 3,
+    "impact_metal": 3,
+    "impact_stone": 3,
+    "impact_wood": 3,
+    "glass_break": 3
+  },
+  "music": {
+    "tempo": 80,
+    "bars": 16,
+    "seconds": 48,
+    "channels": 2,
+    "stems": "Each combat arrangement contains its matching calm recording at identical gain and phase, plus percussion and ostinato.",
+    "sets": {
+      "foundry": {
+        "seed": 915203,
+        "title": "Glut unter Stahl",
+        "key": "D minor",
+        "chords": [
+          [
+            50,
+            57,
+            60,
+            64
+          ],
+          [
+            46,
+            53,
+            57,
+            60
+          ],
+          [
+            43,
+            50,
+            53,
+            57
+          ],
+          [
+            45,
+            52,
+            55,
+            62
+          ]
+        ],
+        "melody": [
+          [
+            74,
+            72,
+            69,
+            65,
+            69
+          ],
+          [
+            69,
+            65,
+            62,
+            60,
+            65
+          ],
+          [
+            67,
+            69,
+            70,
+            65,
+            62
+          ],
+          [
+            64,
+            67,
+            69,
+            67,
+            64
+          ]
+        ],
+        "instruments": "bowed low strings, muted felt motif, metal ostinato, deep toms"
+      },
+      "tidal": {
+        "seed": 421019,
+        "title": "Schwarzes Wasser",
+        "key": "E minor with Dorian inflections",
+        "chords": [
+          [
+            52,
+            59,
+            62,
+            66
+          ],
+          [
+            45,
+            52,
+            57,
+            61
+          ],
+          [
+            48,
+            55,
+            59,
+            62
+          ],
+          [
+            47,
+            54,
+            57,
+            61
+          ]
+        ],
+        "melody": [
+          [
+            71,
+            74,
+            78,
+            76,
+            74
+          ],
+          [
+            73,
+            76,
+            73,
+            69,
+            71
+          ],
+          [
+            71,
+            74,
+            79,
+            78,
+            74
+          ],
+          [
+            73,
+            71,
+            69,
+            66,
+            71
+          ]
+        ],
+        "instruments": "damped plucked strings, airy chamber pads, suspended bells, brushed drums"
+      },
+      "frost": {
+        "seed": 742183,
+        "title": "Licht hinter dem Eis",
+        "key": "B minor",
+        "chords": [
+          [
+            47,
+            54,
+            59,
+            61
+          ],
+          [
+            43,
+            50,
+            54,
+            59
+          ],
+          [
+            50,
+            57,
+            62,
+            64
+          ],
+          [
+            42,
+            49,
+            54,
+            59
+          ]
+        ],
+        "melody": [
+          [
+            78,
+            74,
+            73,
+            71,
+            66
+          ],
+          [
+            74,
+            71,
+            69,
+            66,
+            71
+          ],
+          [
+            78,
+            81,
+            78,
+            76,
+            74
+          ],
+          [
+            73,
+            71,
+            66,
+            69,
+            73
+          ]
+        ],
+        "instruments": "breathy choir-like pads, soft struck glass, low bowed strings, restrained toms"
+      }
+    }
+  },
+  "original_score": {
+    "generator": "tools/generate_audio.py",
+    "music": {
+      "tempo": 80,
+      "bars": 16,
+      "seconds": 48,
+      "chords": [
+        "A minor",
+        "F major",
+        "D minor",
+        "E minor"
+      ],
+      "stems": "Calm score and synchronized combat arrangement; shared harmonic recording."
+    },
+    "sha256": {
+      "music_calm.ogg": "b1f457510bfbde1df19cd961668042b32ce9e698199618a5800207ced3a546b8",
+      "music_combat.ogg": "9346817f63f3b3a9dd2bcfbad9d69ec91be18a8cd8d8554891e8a2e6fc520a70"
+    }
+  },
+  "mix": {
+    "sfx_peak_ceiling": 0.76,
+    "music_pcm_peak_ceiling": 0.62,
+    "sfx_high_cut_hz": 7100,
+    "music_high_cut_hz": 6500,
+    "sfx_variation": "Independent seeded transients, modal pitch, noise, reflection tails and microtiming.",
+    "seams": "Music events and room tails wrap around a periodic 48-second timeline; no silence or fade-out at loop boundary."
+  },
+  "review": "The validation command measures decoded output and builds an HTML gallery. No listening test claimed by the coding agent.",
+  "validation": {
+    "command": "python3 tests/audio_assets_test.py",
+    "report": "artifacts/audio-refresh/measurements.json"
+  }
+}

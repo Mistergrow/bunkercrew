@@ -1,0 +1,23 @@
+{
+  "asset": "assets/audio/machinery_mixer_v1.wav",
+  "version": 1,
+  "generator": "tools/generate_machinery_medical_audio.py",
+  "generator_sha256": "917712d6ddd3d6a025daa1afe7fba8e182f8db5b76d5dd229d5d00f98dbbada3",
+  "helper_generator": "tools/generate_aircraft_audio.py",
+  "helper_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic mechanism, fabric and airflow design; no borrowed recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "mixer",
+  "layers": "Uneven drum/gear pressure, restrained motor bearings and circular gravel/contact texture",
+  "seed": 720391,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 384000,
+  "seconds": 8.0,
+  "loop": true,
+  "sha256": "faa4f6c8c0a982c76de9870ed4772ea688f7325db08cb12bc7a187c9877389df",
+  "rms_dbfs": -22.0,
+  "peak_dbfs": -9.36459611142614,
+  "playback": "Mono SFX source, runtime spatial gain and bounded pooling. Machinery audible only during real production; treatment at successful completion, replacing the old build cue. Existing 50% preferences remain unchanged."
+}

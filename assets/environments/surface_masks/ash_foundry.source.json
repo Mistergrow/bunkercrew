@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/ash_foundry_v1/landmarks.png",
+  "source_sha256": "a17c6981d90549eb57a10b7d61204e127b12946ea3e455c58a1f947637e96412",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    563,
+    75
+  ],
+  "bounds": [
+    0.45514354066985646,
+    0.8140276301806588,
+    0.33672248803827753,
+    0.07970244420828905
+  ],
+  "crop_pixels": [
+    761,
+    766,
+    563,
+    75
+  ],
+  "occupied_pixels": {
+    "water": 5712,
+    "flow": 0,
+    "ice": 0
+  },
+  "sha256": "d1954ac63d67ea88c71cd8fa4727d1ccea045f19992ecaeea246eda2826b9f47"
+}

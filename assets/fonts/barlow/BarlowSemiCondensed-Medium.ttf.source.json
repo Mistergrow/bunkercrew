@@ -1,0 +1,12 @@
+{
+  "family": "Barlow",
+  "designer": "Jeremy Tribby / The Barlow Project Authors",
+  "license": "SIL Open Font License 1.1",
+  "license_file": "OFL.txt",
+  "source_project": "https://github.com/jpt/barlow",
+  "source_url": "https://raw.githubusercontent.com/google/fonts/60824dce48f7dd28fe7d65559f2da1f6e04e585b/ofl/barlowsemicondensed/BarlowSemiCondensed-Medium.ttf",
+  "source_revision": "60824dce48f7dd28fe7d65559f2da1f6e04e585b",
+  "downloaded": "2026-10-02",
+  "sha256": "4998b693a190b76f2b11315844345a8546c1e2e6a320905507a9eed04edf8b48",
+  "modifications": "None; original static TTF embedded locally."
+}

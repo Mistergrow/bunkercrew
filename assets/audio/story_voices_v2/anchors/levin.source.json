@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 6217,
+  "prompt": "Native German man in his mid thirties. Distinct medium baritone, dry lean edged timbre, slightly raspy forward voice. An observant scout speaking quietly but fully voiced, alert and economical. Brisk confident everyday spoken German, restrained urgency, dry close microphone. No bass rumble, no whisper, no theatrical narration.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "9d9195ab6774ff85e7e7f06b36269691b00e568a1e6f3b9fb0c395f684e44ba9",
+  "sample_rate": 24000,
+  "duration": 7.84
+}

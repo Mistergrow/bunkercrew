@@ -1,0 +1,27 @@
+{
+  "method": "Original editable Godot pixel geometry with articulated moving parts; painted metal sampled from the existing machinery atlas.",
+  "code": [
+    "res://scripts/scenery_fixture_art.gd",
+    "res://scripts/scenario_prop_art.gd",
+    "res://scripts/station_surface_art.gd"
+  ],
+  "painted_material_source": "res://assets/machinery/components.png",
+  "source_provenance": "res://assets/machinery/source.json",
+  "new_fixtures": {
+    "generator": "Fixed cabinet, revolving drive, exhaust, needle and status lamp",
+    "pump": "Fixed foundation and piping, revolving flywheel, gauge and drops",
+    "transformer": "Fixed fins and porcelain insulators, changing status lamp",
+    "relay_antenna": "Fixed mast, slowly scanning dish, moving slack cable",
+    "crane_hook": "Fixed gantry, wind-driven chain and hook",
+    "cargo_beacon": "Fixed crate, changing amber beacon"
+  },
+  "revised": [
+    "signal",
+    "ore_cart",
+    "bollard",
+    "tape supports",
+    "vines supports and leaf clusters"
+  ],
+  "original_trees": "All six original source textures and anchored wind shaders retained.",
+  "date": "2026-10-02"
+}

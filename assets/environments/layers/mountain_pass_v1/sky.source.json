@@ -1,0 +1,14 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Production parallax layer for Bunkercrew, a 2D industrial bunker defense game. Input image is the precise STYLE, PALETTE, CAMERA and COMPOSITION reference: mountain_pass. Match its fine hand-painted pixel clusters, indigo violet storm light, restrained amber lights, alpine setting and readable distant scale. Wide 16:9 canvas matching reference; full-bleed width; no text, labels, UI, characters, borders, panels or watermark. Preserve the same side-on view, no top-down/isometric camera. This layer will be stacked with independently generated aligned layers. Do not bake rain streaks, foreground lightning bolts, fog sheets or motion blur into any layer. Create ONLY an opaque complete storm sky plate extending behind all former objects: regenerate the dense dark slate/violet clouds and the softly illuminated bluish sky from the reference, removing ALL mountains, trees, buildings, rocks, bridges and water. Fill the entire canvas with sky and cloud texture, including previously occluded bottom. Upper two thirds detailed cloud canopy, bottom third calm blue-violet atmospheric horizon. No landscape silhouettes. This is the furthest background layer, not a composite scene.",
+  "reference": "assets/environments/v3/mountain_pass.png",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-bcd4507d-f41f-41b5-b2b3-eb84c47f73d4.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "93cf169cf1f22dbbb588f93eb6908e58254c4d4d79eddb6a57fec27f4c1843cf",
+  "transparent_background": false,
+  "usage": "Experimental mountain_pass gameplay parallax layer; original alpha and pixels preserved.",
+  "reference_sha256": "2f39b860317ecea4f4fa56a93e99fcbf1cd56d06aecdcc3efbc36860bd30d33f"
+}

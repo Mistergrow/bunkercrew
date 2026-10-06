@@ -1,0 +1,273 @@
+{
+  "generation_tool": "OpenAI built-in image_gen for decorative backgrounds and industrial props; original project-authored pixel sprite, GDScript animation and audio generators for gameplay assets.",
+  "usage": "Backgrounds and industrial props are decorative layers. Workers use independent transparent body/foreground-arm pixel atlases. Gameplay entities, collision shapes, interaction logic and animated parts remain separate Godot nodes/scripts.",
+  "reference": "../reference/konzept.jpg — supplied by the user as style and composition reference; not used as the game background",
+  "assets": [
+    {
+      "path": "skyline.png",
+      "prompt": "Use case: stylized-concept. Asset type: a single seamless-looking wide distant background layer for an orthographic 2D pixel art industrial bunker defense videogame. Create ONLY the distant outdoor skyline and sky: smoky dark blue-gray cloud banks above a subdued dusty coral sunset horizon, distant ruined industrial towers and smokestacks, layers of tiny dark city silhouettes fading into haze. Gritty detailed late-1990s hand-painted pixel-art appearance with visible crisp pixels, limited desaturated charcoal, navy, slate, dull muted rust palette. Wide landscape 3:1 composition, skyline along bottom quarter, cloud sky fills upper three quarters. Front-most bottom silhouettes nearly black. Deliberately subdued, dark enough that warm lights in foreground gameplay will stand out. No bunker, no interior, no foreground platforms, no ground cross-section, no characters, no machines, no robots, no vehicles, no weapons, no text, no interface, no logos. This will sit behind real separately animated gameplay geometry."
+    },
+    {
+      "path": "bunker_wall.png",
+      "prompt": "Use case stylized-concept. Create a production game asset: ONLY the recessed background wall of an old underground concrete bunker, for a gritty orthographic 2D side-view pixel art game. Wide panoramic horizontal image 3:1. Rich detailed hand-crafted late-1990s pixel-art aesthetics, crisp small pixel clusters, weathered gray concrete blocks, chipped corners, dark fissures, tiny rust stains, industrial olive-gray electrical conduit and a few thin copper pipes, subtly stained panels. Warm amber low work-light washing the upper wall and faint light cones downwards, very dark lower corners. Entire image is flat straight-on elevation of one continuous empty back wall. A thin pipe bundle along the upper edge, some vertically down left edge. Keep the center and bottom empty of objects so real separately drawn animated workers and machines can be placed in front. Muted desaturated charcoal, gray, olive, dull brown, subtle amber light. No text, no UI, no characters, no machines, no floor, no ceiling, no doors, no furniture, no windows, no perspective, no exterior view. Detailed environment wall material, dramatic but readable, no flat vector shapes. This is a background material layer for a separately built playable bunker, not a complete game scene."
+    },
+    {
+      "path": "rock.png",
+      "prompt": "Use case: stylized-concept. Asset type: seamless repeating 2D tile material for a gritty underground bunker pixel art game. Square texture, completely filled with tightly interlocking dark irregular basalt rubble and almost-black soil, coarse rounded fractured stones outlined with deep shadows, occasional tiny brown seams of earth. Side-view subterranean rock cross-section wall, flat surface with no perspective. Detailed classic hand-pixeled game aesthetic, crisp restrained pixel clusters, charcoal and very dark muted brown palette with sparse gray edge highlights. The rocks vary from small pebbles to fist sized, consistent natural dense geology. Dark enough as background around lit bunker cutaways. No isolated objects, no gaps, no crystals, no ores, no text, no UI, no characters, no cave openings, no buildings, no machinery. Material texture only, uniform lighting, edges should tile seamlessly."
+    },
+    {
+      "path": "mono.ttf",
+      "source": "Locally installed DejaVu Sans Mono Bold",
+      "license": "font-license.txt"
+    },
+    {
+      "path": "icon.svg",
+      "source": "Original project-authored vector icon"
+    },
+    {
+      "path": "industrial_props.png",
+      "source": "OpenAI built-in image_gen; full prompt and placement provenance in props/source.json",
+      "usage": "16 transparent, individually replaceable environmental sprites; 28 placements via scripts/level_dressing.gd. No gameplay collision is baked into the image."
+    },
+    {
+      "path": "workers/",
+      "files": [
+        "worker_1_body.png",
+        "worker_1_arms.png",
+        "worker_2_body.png",
+        "worker_2_arms.png",
+        "material_props.png",
+        "worker_frames.json",
+        "worker_contact_sheet.png"
+      ],
+      "source": "Original project-authored pixel poses, palette and raster drawing in workers/generate_workers.py (Pillow). Checked-in PNG files require no Python dependency at runtime.",
+      "usage": "19 animation states and 110 poses per player palette. Separate body/foreground-arm layers show selected cargo or braced weapon arms while retaining moving legs. Dedicated rear-view ladder poses follow actual height relative to 14-pixel rungs, freeze at rest and reverse during descent. The contact sheet is a review artifact.",
+      "reference": "Industrial workwear, helmet, palette and character proportions follow the user-supplied bunker reference. No character art, animation frames or other assets were copied from Owlboy or Metal Slug. These are code-authored prototype pixel sprites, not a claim of AAA production quality."
+    },
+    {
+      "path": "audio/",
+      "source": "Original mathematical synthesis and seeded noise in ../tools/generate_audio.py; detailed provenance and measurements in audio/sources.json. No third-party musical material or sampled sound recordings.",
+      "music": [
+        "audio/music_calm.ogg",
+        "audio/music_combat.ogg"
+      ],
+      "usage": "Two synchronized 48-second stereo loops at 80 BPM for preparation and combat, plus 29 generated layered sound-effect WAV variants. Audio runtime provides separate music/effect buses and volume settings.",
+      "validation_note": "No human listening test was performed in this environment."
+    },
+    {
+      "path": "enemies/chassis_atlas.png",
+      "source": "OpenAI built-in imagegen; full reference and prompt in enemies/source.json",
+      "usage": "Six separate transparent chassis; hydraulic legs and rotating/recoiling guns remain independent."
+    },
+    {
+      "path": "machinery/components.png",
+      "source": "OpenAI built-in imagegen; prompt and reference in machinery/source.json",
+      "usage": "Separate mixer frame/drum, smelter housing, gun barrel/mount and core cabinet. Fire, progress, recoil and mixer motion are animated by independent scripts."
+    },
+    {
+      "path": "ui/metal_panel.png",
+      "source": "OpenAI built-in imagegen; prompt and reference in ui/metal_panel_source.json",
+      "usage": "Nine-slice steel plate behind independently rendered menu, inventory and technology controls."
+    },
+    {
+      "path": "atmosphere/",
+      "source": "Built-in imagegen split the original generated skyline into transparent clouds and fixed city. Prompts in atmosphere/source.json.",
+      "usage": "Cloud layers drift at separate speeds while chimney-anchored smoke rises in slate pixel clusters. Original skyline.png retained for provenance."
+    },
+    {
+      "path": "environments/ash_foundry.png",
+      "title": "Aschewerk",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/abandoned_harbor.png",
+      "title": "Verlassener Hafen",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/basalt_quarry.png",
+      "title": "Basaltbruch",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/overgrown_steelworks.png",
+      "title": "Verwachsenes Stahlwerk",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/frozen_rail_yard.png",
+      "title": "Frostbahnhof",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/iron_canyon.png",
+      "title": "Eisenschlucht",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/flooded_power_station.png",
+      "title": "Versunkenes Kraftwerk",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/mountain_pass.png",
+      "title": "Gewitterpass",
+      "source": "OpenAI built-in image_gen; separately generated complete panorama, copied unchanged from the selected output. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Distant scenery behind independent bunker geometry and actors. Per-environment safe sky mask and normalized chimney anchors are in environments/catalog.json.",
+      "reference": "User reference/konzept.jpg and original skyline.png inspected as style references; no gameplay objects flattened into this background."
+    },
+    {
+      "path": "environments/wall_bastion.png",
+      "source": "OpenAI built-in image_gen; one independently generated rear-wall material. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        1774,
+        887
+      ],
+      "usage": "Flat rear-wall material for the bastion construction type. No baked floor, lamp, room perspective or gameplay collision. Actual beams, platforms, work lamps and shadows are separately drawn by scenario_bunker_art.gd."
+    },
+    {
+      "path": "environments/wall_workshop.png",
+      "source": "OpenAI built-in image_gen; one independently generated rear-wall material. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        1774,
+        887
+      ],
+      "usage": "Flat rear-wall material for the workshop construction type. No baked floor, lamp, room perspective or gameplay collision. Actual beams, platforms, work lamps and shadows are separately drawn by scenario_bunker_art.gd."
+    },
+    {
+      "path": "environments/wall_stronghold.png",
+      "source": "OpenAI built-in image_gen; one independently generated rear-wall material. Full prompt and source path: environments/prompts.json.",
+      "size": [
+        1774,
+        887
+      ],
+      "usage": "Flat rear-wall material for the stronghold construction type. No baked floor, lamp, room perspective or gameplay collision. Actual beams, platforms, work lamps and shadows are separately drawn by scenario_bunker_art.gd."
+    },
+    {
+      "path": "environments/cloud_wisps.png",
+      "source": "OpenAI built-in image_gen with transparent_background=true; one targeted image-tool revision simplified clusters and edge coloration. Both prompts and selected source path are in environments/prompts.json.",
+      "size": [
+        2172,
+        724
+      ],
+      "usage": "Independent alpha cloud layer drifting at two depths. Runtime shader uses cloud luminance, environment tint and low-alpha discard. Selected raster is unchanged; actual alpha was verified."
+    }
+  ],
+  "animation_and_sounds": "Original worker pixel pose atlases (19 states, 110 poses per palette), distance-synchronized ladder animation and separate GDScript animation for eighteen enemy classes, weapons, modular production machinery, expansion rooms, effects and weather. Generated enemy and machinery components remain separately replaceable. Original synthesized music and layered sounds; no third-party game assets.",
+  "runtime_art": [
+    {
+      "source": "../scripts/enemy.gd and ../scripts/enemy_catalog.gd",
+      "usage": "Six separately animated mechanical chassis, hydraulic legs and weapons: runner, strider, breaker, assault, colossus and siege. Generated body art is documented in enemies/source.json; behavior, gait, recoil and telegraph timing are original GDScript."
+    },
+    {
+      "source": "../scripts/worker_weapon.gd and ../scripts/worker_projectile.gd",
+      "usage": "Original drawn rifle, shotgun and impulse weapon, projectiles, muzzle flashes and recoil. Gameplay collision remains separate from art."
+    },
+    {
+      "source": "../scripts/resource_pickup.gd and ../scripts/upgrade_system.gd",
+      "usage": "Original cold-glowing machine-core pickups are automatically absorbed as shared upgrade points. They do not occupy worker inventory or use the held-material sprite atlas."
+    },
+    {
+      "source": "../scripts/wall.gd, ../scripts/expansion_site.gd and ../scripts/expansion_controller.gd",
+      "usage": "Four physical front-wall tiers remain available. The previous fixed-layout underground shafts, six rooms and separately paid wall lining are retained for legacy fixtures through game.start(). They are not the room flow of the normal menu start; the scenario architecture below supplies that flow."
+    },
+    {
+      "source": "../scripts/field_workshop.gd, ../scripts/field_defense.gd and ../scripts/material_art.gd",
+      "usage": "Original GDScript pixel silhouettes for the field workbench, articulated steel jaws, explosive mine, kit cargo and placement previews. Crafted manual guns reuse the existing independently animated RoofTurret assets."
+    },
+    {
+      "source": "../scripts/worker_visual.gd and workers/armor_anchors.json",
+      "usage": "Original steel/composite armor plates and muted character patches follow anchor positions for the existing 110 worker poses. Existing body and foreground arm textures are unchanged."
+    },
+    {
+      "source": "../scripts/boss_machine.gd and ../scripts/combat_overlay.gd",
+      "usage": "Mother Machine reuses the documented siege chassis, adding original animated drive, riveted crown and antennae. Character selection, XP, achievements and boss transmissions reuse the existing UI texture/font and worker/enemy atlases; no third-party game assets."
+    },
+    {
+      "source": "../scripts/ground_variant_visual.gd and ../scripts/ground_machine_abilities.gd",
+      "usage": "Original code-drawn shields, lance, long barrel, demolition hammer, repair equipment and cooling armor on six new ground variants. Reuses the documented original six generated chassis; no new third-party assets."
+    },
+    {
+      "source": "../scripts/air_machine.gd and ../scripts/hostile_air_projectile.gd",
+      "usage": "Six original airborne mechanical assemblies reuse small documented chassis-atlas regions with separately drawn animated rotors, wings, thrusters, shields, weapons and swept projectiles. Original GDScript geometry, not six new hand-painted raster atlases."
+    },
+    {
+      "source": "../scripts/flak_station.gd, ../scripts/flak_turret.gd and ../scripts/flak_projectile.gd",
+      "usage": "Original riveted tower, bunker console, ladder and three upgrade-stage details; reuses existing turret components and separate recoil/muzzle animation. Dome service opening is rendered from the same polygons used for collision."
+    },
+    {
+      "source": "../scripts/worker_pose_art.gd, ../scripts/worker_idle_clock.gd and ../scripts/worker_visual.gd",
+      "usage": "Four original idle gestures and articulated wounded, treatment, collapse and rising poses. Runtime GDScript reuses unmodified head/helmet and jacket atlas regions; limbs use the exact original worker palette and anatomy. Persistent dressing/splint marks and bounded blood drops follow actual medical state. No new raster assets or third-party game artwork."
+    },
+    {
+      "source": "../scripts/field_medic.gd and ../scripts/medical_hud.gd",
+      "usage": "Original separately animated olive/steel rescue automaton, articulated medical tool, tread and ladder motion, and small pixel dressing/splint HUD marks. Native Godot drawing, separate navigation and medical logic; not a painted sprite sheet."
+    },
+    {
+      "source": "../scripts/weather.gd, ../scripts/rain_catalog.gd, ../scripts/rain_collision.gd and ../scripts/weather_prop_surfaces.gd",
+      "usage": "Original three-layer pixel rain with swept first-contact physics. Existing texture alpha is read-only sampled for weather outlines that follow props, gun recoil, animated flag and actor equipment. No raster file edits, new third-party graphics, or gameplay collision changes."
+    },
+    {
+      "source": "../scripts/actor_wetness.gd, ../scripts/actor_weather_geometry.gd, ../shaders/actor_wet.gdshader and ../scripts/surface_weather.gd",
+      "usage": "Original runtime damp-material shader, articulated dripping, supported damp strips, material-aware rain splashes and muddy footprints. Uses existing atlas colors/transparency and actual animation anchors. Dry/wet preview states are arranged in Godot; main-scene preview uses real rain accumulation and normal InputMap movement."
+    },
+    {
+      "source": "../scripts/scenario_bunker.gd, ../scripts/scenario_bunker_art.gd, ../scripts/scenario_room_site.gd and ../scripts/scenario_room_catalog.gd",
+      "usage": "Original modular Godot architecture: one inhabited starting room, one raw mining gallery and four individually paid, curing expansions. Three construction types combine the generated wall materials with separately drawn structural frames, platforms, warm lamps, contacts and shafts. Shared room definitions determine costs, wave unlocks, stations and one-time core bonuses. Game geometry, actor paths and collisions remain independent of the images."
+    },
+    {
+      "source": "../scripts/scenario_scenery.gd, ../shaders/scenario_sky.gdshader and ../shaders/scenario_cloud.gdshader",
+      "usage": "Original runtime panorama composition, individually masked sky motion, two drifting transparent cloud depths and chimney-anchored smoke. Buildings, cranes and mountains remain stationary. Background image palette and anchor data are environment-specific."
+    },
+    {
+      "source": "../scripts/scenario_select_panel.gd, ../scripts/scenario_catalog.gd and ../scripts/scenario_combat.gd",
+      "usage": "Original pre-game selection uses the documented generated panorama thumbnails, existing metal UI texture and font. West, center and east layouts use actual world-space geometry and directed enemy routes; centered placement splits the same enemy total across two fronts. No external game assets."
+    }
+  ]
+}

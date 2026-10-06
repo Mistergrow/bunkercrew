@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "ivo",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Quick light steps, restless head and tools",
+    "walk_rate": 1.18,
+    "idle_rate": 1.15,
+    "gestures": [
+      "goggles_check",
+      "tool_check"
+    ]
+  },
+  "palette": {
+    "width": 0.8,
+    "hat": [
+      "#3f3a2c",
+      "#726745",
+      "#a5965e",
+      "#d2c08a"
+    ],
+    "palette": {
+      "deep": "#253c38",
+      "shadow": "#305652",
+      "olive": "#48827a",
+      "cloth": "#65a79b",
+      "light": "#94c5ad",
+      "edge": "#c3dbc0",
+      "trouser": "#4e4e3c",
+      "trouser_light": "#72745a",
+      "skin_shadow": "#805438",
+      "skin": "#b48a58",
+      "skin_light": "#dbb67c",
+      "red": "#a2794c"
+    },
+    "visual_signature": {
+      "head": "low olive cloth cap and large welding goggles",
+      "outfit": "narrow leather tool vest over teal sleeves",
+      "equipment": "three visible tools and rolled tool pouch"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "ivo_body.png",
+    "ivo_arms.png",
+    "ivo_torso.png",
+    "ivo_head.png",
+    "ivo_back_torso.png",
+    "ivo_back_head.png"
+  ],
+  "sha256": {
+    "ivo_body.png": "fb25a9fe73cebcceca855d54a6aa5cab02e815d65f2853f71543fff30652f5a0",
+    "ivo_arms.png": "3be56a67c1f1c72ec815e877e5f500f85b316a35ab1f698aa5ef555c8ad48b99",
+    "ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
+    "ivo_head.png": "76a3a7e61d7a16466b57e9ba8b745219be284f7103bf0912bb9bbd8c4890c14a",
+    "ivo_back_torso.png": "3ed8f164e6aff20873c3835f4a83290de928311ea1da444fa6a361b583c28fcb",
+    "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "89ef04743c247d0dde2ee7eee6c965475a042885c0929c8714a0c4d94c24eaec"
+}

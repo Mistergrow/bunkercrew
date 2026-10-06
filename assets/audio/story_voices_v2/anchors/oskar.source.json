@@ -1,0 +1,13 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 8453,
+  "prompt": "Native German man in his early forties. Broad rounded chesty mid-low baritone, warm open vowels, solid friendly miner with relaxed good humor. Distinct full-bodied resonant speaking voice, naturally a little breathy at phrase ends, not a gravelly bass or thin nasal tenor. Unhurried grounded everyday German, short practical sentences, clear consonants. Dry close microphone, no presenter cadence, no caricature, no singing or whispering.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "129b358672a168bd810d9f77b0394497a10ed4cf36c51852f4e8fff20daa25b2",
+  "sample_rate": 24000,
+  "duration": 9.04,
+  "device": "cpu",
+  "dtype": "float32"
+}

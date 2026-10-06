@@ -1,0 +1,10 @@
+{
+  "asset": "assets/audio/convoy_engine_v1.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "source": "Original procedural harmonic diesel/valve synthesis; no external samples",
+  "sample_rate": 22050,
+  "seconds": 4,
+  "channels": 1,
+  "loop": "All oscillators complete whole cycles over four seconds",
+  "mix": "One spatial SFX voice; -24 to -20 dB, speed-controlled pitch"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Noto Sans Bold",
+  "source": "Unmodified system font from /usr/share/fonts/truetype/noto, Ubuntu fonts-noto-core package",
+  "upstream": "https://github.com/notofonts/noto-fonts",
+  "copyright": "Copyright 2015 Google LLC. All Rights Reserved.",
+  "license": "SIL Open Font License 1.1",
+  "license_file": "OFL.txt",
+  "sha256": "e83493c945848ecd4a9ad0f6d19164541a0d3e23a9c952304a00a46e00272ac5"
+}

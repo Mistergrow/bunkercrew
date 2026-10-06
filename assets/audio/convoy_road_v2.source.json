@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_road_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "road",
+  "layers": "Rubber contact, granular road hiss and irregular small suspension impacts",
+  "seed": 603934,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 384000,
+  "seconds": 8.0,
+  "loop": true,
+  "loop_method": "Periodic FFT textures and integer-period harmonics; no fades or seam crossfade",
+  "sha256": "30f21c5ab0a0596f8d8af6955b9da83234fac897e467375e30f5b0f79e6dd621",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

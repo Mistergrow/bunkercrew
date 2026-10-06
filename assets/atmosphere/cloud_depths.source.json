@@ -1,0 +1,12 @@
+{
+  "generator": "built-in image_gen",
+  "generated_at": "2026-10-01",
+  "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-7f7e17c7-3459-4d84-af0c-4d9723e7e066.png",
+  "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art cloud sprite atlas for a gritty hand-painted industrial 2D game. Create one wide landscape RGBA image, aspect ratio 3:2, divided into exactly THREE equal horizontal rows with generous transparent gutters. Truly transparent background, no sky or ground, no grid, no text. Top third: sparse long fine high-altitude cirrus strands, feathery horizontal wisps, thin layered silhouette. Middle third: broken broad stratocumulus bank, medium rounded masses with distinct shaded undersides and gaps. Bottom third: separate low dark wind-torn cloud fragments, ragged curls and long pointed trailing ends, clearly different from the rounded middle band. Each row fills most of the horizontal width, but keeps transparent padding on ALL sides; no cloud crosses a row boundary, no hard cropped edge. Muted neutral slate blue-grey, restrained warm grey highlights, useful midtones and deep undersides so code can tint for nine biomes. Detailed disciplined pixel clusters at roughly 2 pixel scale, nearest-neighbor sprite aesthetic, limited 12-18 tone palette, strong but natural silhouettes, painterly material consistent with gritty industrial pixel art. Avoid photorealism, soft airbrush gradients, cute cartoon puffs, outlines, stars, buildings, orange sunset colors, any background rectangle. Must be production-ready alpha cutouts with visibly distinct shape families in the three rows.",
+  "asset": "cloud_depths.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "layout": "Three equal horizontal bands: high cirrus, middle stratocumulus, low wind-torn fragments. Original RGBA bytes preserved; runtime region sampling only."
+}

@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "levin",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Light scouting stride with frequent radio checks",
+    "walk_rate": 1.16,
+    "idle_rate": 1.02,
+    "gestures": [
+      "radio_listen",
+      "scout_watch"
+    ]
+  },
+  "palette": {
+    "width": 0.84,
+    "hat": [
+      "#333c2d",
+      "#5c6c47",
+      "#90a06c",
+      "#bbca8e"
+    ],
+    "palette": {
+      "deep": "#2e362c",
+      "shadow": "#414c36",
+      "olive": "#64734c",
+      "cloth": "#809260",
+      "light": "#a5b57d",
+      "edge": "#c9d49d",
+      "trouser": "#344449",
+      "trouser_light": "#586d70",
+      "skin_shadow": "#805438",
+      "skin": "#b48a58",
+      "skin_light": "#dbb67c",
+      "red": "#b3a67a"
+    },
+    "visual_signature": {
+      "head": "pointed olive hood with exposed side face",
+      "outfit": "short asymmetric field poncho and neck scarf",
+      "equipment": "radio pack with long aerial"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "levin_body.png",
+    "levin_arms.png",
+    "levin_torso.png",
+    "levin_head.png",
+    "levin_back_torso.png",
+    "levin_back_head.png"
+  ],
+  "sha256": {
+    "levin_body.png": "8a57160561190bdc9c4d5dd02b46bf3145824154d4762a01c360bd00d11a793d",
+    "levin_arms.png": "8781a1e11e54b264b64d34fde9230f4f104597c575448690c57558b92121940e",
+    "levin_torso.png": "49f6173986a4fe3307e02e743837f2a1fc913a96b88ebaf483d6d61909a7fd72",
+    "levin_head.png": "1c11ff3551143516b57a8fb9072f156fae936c80d28d6c4e40284915a541806e",
+    "levin_back_torso.png": "3cd32274645f9a0dfb47a8205da33624eef16f83366e9ba7b98f5aa34c48f0f9",
+    "levin_back_head.png": "dea569d84c75093763ee815662e6fe868c8c2a410d132a9797f82e41de72a56e"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "6d4a3a1391b421d8c6d7333b0f7466991c08f4a988d00559bd56a7e9173a74de"
+}

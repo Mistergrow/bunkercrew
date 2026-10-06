@@ -1,0 +1,98 @@
+{
+  "title": "Bunkercrew twelve modular aircraft hulls",
+  "asset": "aircraft_hulls_v1.png",
+  "tool": "OpenAI built-in image_gen",
+  "mode": "generate",
+  "prompt": "Use case: stylized-concept.\nAsset type: production transparent modular sprite atlas for the existing Bunkercrew 2D side-view pixel-art bunker defense game.\nPrimary request: twelve distinct industrial aircraft hull sprites, replacing reused ground-machine hulls. Draw a 4-column by 3-row evenly spaced atlas on a genuinely transparent background, wide landscape 2048 by 1152, twelve 512x384 conceptual cells. Each entire aircraft is centered inside its cell with generous transparent gutter; do not overlap cells. Nose/front of EVERY craft points LEFT, tail RIGHT, strict orthographic side elevation, level horizontal. No perspective, no top-down wings.\nStyle: finely detailed weathered pixel art, strong stepped dark pixel outlines, controlled crisp clustered highlights, muted olive steel, concrete grey, worn brass, rust copper, dark smoky glass. Same grounded mechanical materials as Bunkercrew bunkers, not cartoon or glossy futuristic concept art. At gameplay scale bodies are 50\u2013150 px wide, so prioritize readable silhouettes and large material clusters over microscopic noise.\nRow1 left to right: compact twin-rotor scout drone hull with sensor nose and two separate exposed rotor hubs; military utility attack helicopter with left cockpit, right slim tail boom, tail rotor hub and worn landing skids; bulky tandem-rotor industrial cargo bomber helicopter with two rotor hub masts and unmistakable cargo belly; slim sharp interceptor jet hull with swept tail, tiny cockpit and rear exhaust.\nRow2 left to right: small armored airship with elliptical segmented metal envelope, short underside gondola and shield coil fittings; massive squat VTOL flying fortress with four lift-engine mounts and heavy central hull; lean rocket quadrotor drone with two distinct empty launch pods and sensor nose; elegant single-engine patrol propeller plane, long nose at left, readable wing side profile and right tail.\nRow3 left to right: stout tiltrotor transport with stub wing side profile and clearly separate nacelle mounts; vintage-industrial armored dive bomber propeller plane with tall right tail and belly bomb-bay doors; delta-wing pulse fighter jet with exposed warm copper coil panels and exhaust to right; long industrial heavy zeppelin with riveted grey-olive envelope, angular ribs, large underside command gondola and engine housings.\nConstraints: twelve separate silhouettes in precisely those positions. No words, numbers, labels, insignia, layout lines, watermarks, background, ground, cast ground shadows, glow halos or sparks. IMPORTANT every rotor and propeller has only its static shaft/hub/mount, NO blades, NO drawn spinning disk. No long protruding weapon barrels, gun barrels or projectiles. Rotor blades, tilting nacelles, movable turrets, propellers, thruster exhaust, recoil, banking and damage will be animated separately by native game code; make the static hull suitable for that modular assembly. Genuine transparent exterior, including between aircraft. All craft completely inside their cells, uncropped. Preserve subdued material palette with only small amber lamps.",
+  "license": "Only distribute together with Bunkercrew.",
+  "generated_file": "01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-854cec2b-461b-4ad9-8709-5829ce477625.png",
+  "date": "2026-10-04",
+  "processing": "Generated PNG copied byte-for-byte; no raster editing. Native Texture2D atlas regions crop alpha bounds; nearest-neighbour filtering.",
+  "references": [
+    "assets/enemies/vehicle_hulls_v1.png (material style, inspected before generation)"
+  ],
+  "notes": "Requested 2048x1152 atlas; actual built-in output is 1672x941, regions measured from actual alpha.",
+  "sha256": "6cdbdfb052e71d7ec200a167248455be355163f52fa47e6bda8a16a07c544221",
+  "actual_size": [
+    1672,
+    941
+  ],
+  "alpha_range": [
+    0,
+    255
+  ],
+  "atlas_regions": {
+    "scout_drone": [
+      48,
+      137,
+      281,
+      150
+    ],
+    "gunship": [
+      368,
+      123,
+      383,
+      167
+    ],
+    "bomber": [
+      773,
+      73,
+      409,
+      219
+    ],
+    "interceptor": [
+      1211,
+      96,
+      431,
+      194
+    ],
+    "shield_airship": [
+      30,
+      385,
+      340,
+      212
+    ],
+    "sky_fortress": [
+      387,
+      374,
+      434,
+      214
+    ],
+    "rocket_drone": [
+      881,
+      406,
+      270,
+      157
+    ],
+    "patrol_plane": [
+      1209,
+      401,
+      424,
+      171
+    ],
+    "tiltrotor": [
+      44,
+      656,
+      345,
+      211
+    ],
+    "dive_bomber": [
+      407,
+      667,
+      396,
+      191
+    ],
+    "pulse_fighter": [
+      823,
+      664,
+      348,
+      223
+    ],
+    "heavy_zeppelin": [
+      1193,
+      676,
+      463,
+      213
+    ]
+  }
+}

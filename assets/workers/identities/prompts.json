@@ -1,0 +1,26 @@
+{
+  "tool": "image_gen.imagegen (built-in)",
+  "date": "2026-09-30",
+  "usage": "Character production references. Runtime sprites are independently rasterized from the repository's native animation source with matching identity cues.",
+  "notes": "Full original tool outputs preserved. Runtime transparency is provided by the authored atlases, not assumed from these concept references.",
+  "assets": [
+    {
+      "id": "mara",
+      "file": "mara.png",
+      "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-77f35ed4-9ce6-4caf-af17-08943c6c8401.png",
+      "prompt": "Use case: stylized-concept. Asset type: game character production reference for the 2D side-view industrial bunker survival game LETZTE SCHICHT. Create ONE full-body worker facing right in relaxed side profile, from helmet to boot soles, isolated on a genuinely transparent background. Restrained gritty pixel art matching late-1990s detailed 2D PC games, crisp hand-placed-looking pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, NO smooth painting, NO 3D. Character should be instantly distinguishable when downscaled to 65 pixels tall. Unarmed, empty hands at sides, small practical backpack, durable boots. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures. Slight left-front light. Character MARA: adult woman forewoman, lean sturdy build, rust-orange work jacket with narrow pale safety stripe, dark olive trousers, amber/yellow miner hardhat, dark brown ponytail protruding behind the neck, warm light brown face, alert determined expression, narrow chin, practical small belt pouch. Clear long ponytail silhouette and orange upper body. Keep the workwear tough and believable, not glamour clothing."
+    },
+    {
+      "id": "branko",
+      "file": "branko.png",
+      "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-9eb02f8e-2444-4096-97be-2dfdd8c742c1.png",
+      "prompt": "Use case: stylized-concept. Asset type: game character production reference for the 2D side-view industrial bunker survival game LETZTE SCHICHT. Create ONE full-body worker facing right in relaxed side profile, from helmet to boot soles, isolated on a genuinely transparent background. Restrained gritty pixel art matching late-1990s detailed 2D PC games, crisp hand-placed-looking pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, NO smooth painting, NO 3D. Character should be instantly distinguishable when downscaled to 65 pixels tall. Unarmed, empty hands at sides, small practical backpack, durable boots. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures. Slight left-front light. Character BRANKO: stocky broad-shouldered adult man shift guard, thick dark brown beard and heavy jaw, offwhite battered safety helmet, thick navy blue reinforced work coat with a large slate shoulder pad, dark steel trousers, heavy boots and wide leather belt, sturdy square backpack. Strongly broad square upper-body silhouette with substantial sleeves. Pale warm face visible above beard. His coat is blue not green, his helmet is ivory not yellow."
+    },
+    {
+      "id": "ivo",
+      "file": "ivo.png",
+      "source": "local-archive:generated_images/01a0f3bb-2d98-7940-8924-e5b029d3045a/exec-ddf0fa1a-07ff-44be-8804-84ef7b05e609.png",
+      "prompt": "Use case: stylized-concept. Asset type: game character production reference for the 2D side-view industrial bunker survival game LETZTE SCHICHT. Create ONE full-body worker facing right in relaxed side profile, from helmet to boot soles, isolated on a genuinely transparent background. Restrained gritty pixel art matching late-1990s detailed 2D PC games, crisp hand-placed-looking pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, NO smooth painting, NO 3D. Character should be instantly distinguishable when downscaled to 65 pixels tall. Unarmed, empty hands at sides, small practical backpack, durable boots. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures. Slight left-front light. Character IVO: slim adult male mechanic, narrow frame and youthful angular face, short dark hair under a small dark teal work cap, prominent round brass-rimmed workshop goggles on forehead, teal shirt sleeves under a sleeveless worn saddle-brown leather tool vest, dark gray narrow trousers, compact belt with wrenches, light work boots and slim side tool roll. Readable goggle lenses, small headwear silhouette and narrow body. No hardhat, beard or ponytail."
+    }
+  ]
+}

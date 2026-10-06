@@ -1,0 +1,8 @@
+{
+  "asset": "assets/expedition/fuel_depot_v1.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-02",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D orthographic side-scrolling pixel art roadside supply checkpoint, for the postindustrial bunker defense game LAST SHIFT. Create a new abandoned maintenance fuel depot: left a low rust-streaked olive green horizontal diesel storage tank on short steel supports, center a narrow pump with looped black hose and dull amber gauge, right a weathered steel service cabinet and two stacked supply boxes, behind them one short broken canopy with pipe supports. Strict side elevation with no perspective and no visible top planes. All objects form ONE small coherent landmark at ground level, width roughly three times its height, full silhouette visible, transparent margin. Detailed pixel painting, muted worn green-gray steel, blackened recesses, sparse brass bolts, tiny pale ivory warning stripe, restrained reddish rust. Crisp chunky pixel edges readable rendered at 220 pixels wide, deliberate hand-painted industrial texture, upper-left neutral lighting. No humans, no vehicles, no text or logos. No ground plane, no gradients into transparency, no shadows outside silhouette, no glowing outline. Genuine alpha transparent background. Calm practical machinery, no fantasy props.",
+  "alpha": "Original tool-generated alpha preserved. Runtime sprites use nearest texture filtering; no raster recomposition.",
+  "notes": "New purpose-built convoy roadside landmark."
+}

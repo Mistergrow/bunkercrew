@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-30",
+  "mode": "built-in image_gen",
+  "notes": "New independently generated assets. Originals copied byte-for-byte, no image postprocessing. Model returned 2172x724 despite prompt requesting 3072x1024. Normalized anchors use full image UV coordinates.",
+  "assets": [
+    {
+      "id": "ash_foundry",
+      "path": "res://assets/environments/v2/ash_foundry.png",
+      "source_output_path": "local-archive:generated_images/01a0f3c8-bfdd-7d41-ae3e-edb98bd1e3c3/exec-c67d1e97-e731-41de-b64d-2f7289c5e7c2.png",
+      "tool_mode": "built-in image_gen",
+      "intent": "generate",
+      "requested_dimensions": [
+        3072,
+        1024
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "full_prompt": "Use case: stylized-concept.\nAsset type: production-ready distant environment panorama background for LETZTE SCHICHT, a serious 2D industrial bunker-defense pixel-art game.\nOutput: ONE single continuous ultra-wide 3:1 image, requested native size 3072x1024 PNG, no border, no panels, no words.\nStyle: cohesive premium detailed hand-crafted industrial pixel art, deliberate crisp squared pixel clusters and sharp stair-step contours, restrained material texture, no random mottled noise, no watercolor or painterly brush marks, no photorealism, no glossy 3D. Pixel cluster size should read like an expertly crafted 1536x512 pixel canvas nearest-neighbor enlarged. Architectural shapes must be structurally coherent and recognizable. Layered atmospheric silhouettes separated by value with clean open negative spaces.\nComposition: distant horizontal side view across a broad landscape; sky approximately the upper 30 percent; unique hero landmarks occupy y=25%-65%, including substantial recognizable landmarks in the RIGHT HALF because a gameplay bunker will cover the left half. The lowest 30% is calm low-contrast dark distant terrain or water, without large near-camera props. Prioritize immediately readable silhouette and value hierarchy at thumbnail size. No foreground platforms, no underground cutaway, no bunker, no rooms, no people, no robots, no game UI, no logos or text. Static architecture intact. No baked-in snow, rain, sparks, floating embers, smoke plumes or particles; those will be animated by the game. Broad restrained clouds allowed; avoid intricate stippled clouds covering the whole frame.\nWorld: ASH FOUNDRY. A monumental working smelting foundry at deep charcoal-blue night, viewed from far across a plain. One giant recognizable blast furnace in the right-center at x=.66 with tall pipework, rust-copper gantries and a towering flared cooling tower around x=.83. A secondary asymmetric furnace structure at x=.22 balances the vista. Thick sparse straight chimneys with visible emission outlets; tiny amber industrial windows and intense local orange light spilling from a few furnace doors, not an orange sky. Heavy charcoal masses, dark oxidized copper accents, ash-gray distance and furnace-orange LOCAL glows. Dark blue slate sky with broad calm cloud masses, no sunset stripe. Lower third nearly black quiet slag fields fading into distant atmospheric layers, clean modest geometry. The furnace and cooling tower must read as the unique monumental subject, not a generic repetitive factory skyline. Restrained cinematic lighting, serious quiet sense of vast scale.",
+      "reference_images_inspected": [
+        "reference/konzept.jpg",
+        "assets/environments/ash_foundry.png",
+        "assets/environments/abandoned_harbor.png"
+      ],
+      "smoke_anchors": [
+        [
+          0.451,
+          0.312
+        ],
+        [
+          0.741,
+          0.226
+        ],
+        [
+          0.807,
+          0.365
+        ],
+        [
+          0.971,
+          0.42
+        ]
+      ],
+      "water_regions": [],
+      "sky_color": "#23394F",
+      "earth_tint": "#252C32",
+      "palette": {
+        "shadow": "#101924",
+        "midground": "#273A4A",
+        "atmosphere": "#46637A",
+        "accent": "#ED8A26",
+        "light": "#FFC462"
+      },
+      "light_anchors": [
+        [
+          0.67,
+          0.677
+        ],
+        [
+          0.67,
+          0.539
+        ],
+        [
+          0.676,
+          0.377
+        ]
+      ],
+      "inspection": "Recognizable right-side blast furnace and cooling tower; chimney outlets have no baked smoke. Furnace light is local. Calm lower terrain."
+    },
+    {
+      "id": "abandoned_harbor",
+      "path": "res://assets/environments/v2/abandoned_harbor.png",
+      "source_output_path": "local-archive:generated_images/01a0f3c8-bfdd-7d41-ae3e-edb98bd1e3c3/exec-8835995a-b8e0-40ea-a115-e48016ba3883.png",
+      "tool_mode": "built-in image_gen",
+      "intent": "generate",
+      "requested_dimensions": [
+        3072,
+        1024
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "full_prompt": "Use case: stylized-concept.\nAsset type: production-ready distant environment panorama background for LETZTE SCHICHT, a serious 2D industrial bunker-defense pixel-art game.\nOutput: ONE single continuous ultra-wide 3:1 image, requested native size 3072x1024 PNG, no border, no panels, no words.\nStyle: cohesive premium detailed hand-crafted industrial pixel art, deliberate crisp squared pixel clusters and sharp stair-step contours, restrained material texture, no random mottled noise, no watercolor or painterly brush marks, no photorealism, no glossy 3D. Pixel cluster size should read like an expertly crafted 1536x512 pixel canvas nearest-neighbor enlarged. Architectural shapes must be structurally coherent and recognizable. Layered atmospheric silhouettes separated by value with clean open negative spaces.\nComposition: distant horizontal side view across a broad landscape; sky approximately the upper 30 percent; unique hero landmarks occupy y=25%-65%, including substantial recognizable landmarks in the RIGHT HALF because a gameplay bunker will cover the left half. The lowest 30% is calm low-contrast dark distant terrain or water, without large near-camera props. Prioritize immediately readable silhouette and value hierarchy at thumbnail size. No foreground platforms, no underground cutaway, no bunker, no rooms, no people, no robots, no game UI, no logos or text. Static architecture intact. No baked-in snow, rain, sparks, floating embers, smoke plumes or particles; those will be animated by the game. Broad restrained clouds allowed; avoid intricate stippled clouds covering the whole frame.\nWorld: ABANDONED HARBOR. An almost silent maritime landscape at cold turquoise-blue midnight. A huge long rusted cargo ship hulk sits broadside from x=.48 to x=.90, its stern bridge and mast at x=.84, unmistakable long hull and dark bow silhouette. Only a FEW sparse cargo dock cranes with angled booms, one at x=.25 and another near x=.65; no dense forest of identical cranes. A low breakwater extends from the right edge with a tiny distant lit beacon at x=.95. The broad lower third is cold open sea with clean horizontal bands and fine spaced silver moonlight reflections, not busy stippling. The waterline is approximately y=.65. Silver moon hidden behind one broad cloud in upper left. Atmosphere has blue-green teal depth and very faint aquamarine rim light on steel edges. Distinguishing palette: charcoal teal, deep turquoise sea, cold desaturated cyan light, sparse pale silver reflections, subtle oxidized brown on ship. No orange sky, no sunset glow, no busy factory skyline. Keep the ship above water and its silhouette legible, with realistic coherent hull proportions. Vast open negative space, quiet moody clean pixel art.",
+      "reference_images_inspected": [
+        "reference/konzept.jpg",
+        "assets/environments/ash_foundry.png",
+        "assets/environments/abandoned_harbor.png"
+      ],
+      "smoke_anchors": [],
+      "water_regions": [
+        [
+          0,
+          0.65,
+          1,
+          0.35
+        ]
+      ],
+      "sky_color": "#123D50",
+      "earth_tint": "#20383D",
+      "palette": {
+        "shadow": "#08222E",
+        "midground": "#164B5C",
+        "atmosphere": "#3D7788",
+        "accent": "#86BDC6",
+        "light": "#D1E8D9"
+      },
+      "light_anchors": [
+        [
+          0.973,
+          0.516
+        ]
+      ],
+      "inspection": "A long broadside freighter dominates right half; cold turquoise palette and silver moon path. Water rectangle begins below the hull/shore and excludes all architecture."
+    },
+    {
+      "id": "basalt_quarry",
+      "path": "res://assets/environments/v2/basalt_quarry.png",
+      "source_output_path": "local-archive:generated_images/01a0f3c8-bfdd-7d41-ae3e-edb98bd1e3c3/exec-e969a7cc-41f7-41ee-aab5-c0d8862fc9ca.png",
+      "tool_mode": "built-in image_gen",
+      "intent": "generate",
+      "requested_dimensions": [
+        3072,
+        1024
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "full_prompt": "Use case: stylized-concept.\nAsset type: production-ready distant environment panorama background for LETZTE SCHICHT, a serious 2D industrial bunker-defense pixel-art game.\nOutput: ONE single continuous ultra-wide 3:1 image, requested native size 3072x1024 PNG, no border, no panels, no words.\nStyle: cohesive premium detailed hand-crafted industrial pixel art, deliberate crisp squared pixel clusters and sharp stair-step contours, restrained material texture, no random mottled noise, no watercolor or painterly brush marks, no photorealism, no glossy 3D. Pixel cluster size should read like an expertly crafted 1536x512 pixel canvas nearest-neighbor enlarged. Architectural shapes must be structurally coherent and recognizable. Layered atmospheric silhouettes separated by value with clean open negative spaces.\nComposition: distant horizontal side view across a broad landscape; sky approximately the upper 30 percent; unique hero landmarks occupy y=25%-65%, including substantial recognizable landmarks in the RIGHT HALF because a gameplay bunker will cover the left half. The lowest 30% is calm low-contrast dark distant terrain or water, without large near-camera props. Prioritize immediately readable silhouette and value hierarchy at thumbnail size. No foreground platforms, no underground cutaway, no bunker, no rooms, no people, no robots, no game UI, no logos or text. Static architecture intact. No baked-in snow, rain, sparks, floating embers, smoke plumes or particles; those will be animated by the game. Broad restrained clouds allowed; avoid intricate stippled clouds covering the whole frame.\nWorld: BASALT QUARRY. A stark open-pit quarry carved into enormous columnar black basalt cliffs at cool lavender dawn. Monumental geometric terraces descend diagonally from high cliffs at the far right x=.78 toward an open broad pit at center-left. Dramatic angular rock strata and steep vertical hexagonal column hints dominate 85% of all land silhouettes; NOT a factory or industrial skyline. One large distant bucket-wheel excavator sits at x=.65 around y=.47, its recognizable toothed wheel and long thin cantilever forming a strong isolated silhouette against pale lavender sky and far cliff. No buildings except one tiny anonymous maintenance shack barely visible near left distance. Cool muted lilac and dusty lavender sky with broad calm cloud shapes, ochre pale dawn light on a few horizontal cliff edges, charcoal-violet basalt and quiet slate blue shadows. The lower third is calm dark quarry floor with a few very broad flat rock bands, no close-up boulders. Distinct huge stepped amphitheater silhouette, asymmetric composition. Clear monumental carved rock masses, deliberate pixel edges, restrained texture and crisp value bands, no orange sunset.",
+      "reference_images_inspected": [
+        "reference/konzept.jpg",
+        "assets/environments/ash_foundry.png",
+        "assets/environments/abandoned_harbor.png"
+      ],
+      "smoke_anchors": [],
+      "water_regions": [],
+      "sky_color": "#AAA0C9",
+      "earth_tint": "#4C4B60",
+      "palette": {
+        "shadow": "#282F42",
+        "midground": "#565876",
+        "atmosphere": "#9590B5",
+        "accent": "#D5AA88",
+        "light": "#F6D7B5"
+      },
+      "light_anchors": [],
+      "inspection": "Monumental stepped columnar cliffs and single bucket-wheel excavator; warm dawn edges on cool lavender basalt. No smoke or water. Clear different silhouette at thumbnail scale."
+    },
+    {
+      "id": "overgrown_steelworks",
+      "path": "res://assets/environments/v2/overgrown_steelworks.png",
+      "source_output_path": "local-archive:generated_images/01a0f3c8-bfdd-7d41-ae3e-edb98bd1e3c3/exec-495a0617-8bce-44d2-a87b-df9bd7a41e87.png",
+      "tool_mode": "built-in image_gen",
+      "intent": "generate",
+      "requested_dimensions": [
+        3072,
+        1024
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "full_prompt": "Use case: stylized-concept.\nAsset type: production-ready distant environment panorama background for LETZTE SCHICHT, a serious 2D industrial bunker-defense pixel-art game.\nOutput: ONE single continuous ultra-wide 3:1 image, requested native size 3072x1024 PNG, no border, no panels, no words.\nStyle: cohesive premium detailed hand-crafted industrial pixel art, deliberate crisp squared pixel clusters and sharp stair-step contours, restrained material texture, no random mottled noise, no watercolor or painterly brush marks, no photorealism, no glossy 3D. Pixel cluster size should read like an expertly crafted 1536x512 pixel canvas nearest-neighbor enlarged. Architectural shapes must be structurally coherent and recognizable. Layered atmospheric silhouettes separated by value with clean open negative spaces.\nComposition: distant horizontal side view across a broad landscape; sky approximately the upper 30 percent; unique hero landmarks occupy y=25%-65%, including substantial recognizable landmarks in the RIGHT HALF because a gameplay bunker will cover the left half. The lowest 30% is calm low-contrast dark distant terrain or water, without large near-camera props. Prioritize immediately readable silhouette and value hierarchy at thumbnail size. No foreground platforms, no underground cutaway, no bunker, no rooms, no people, no robots, no game UI, no logos or text. Static architecture intact. No baked-in snow, rain, sparks, floating embers, smoke plumes or particles; those will be animated by the game. Broad restrained clouds allowed; avoid intricate stippled clouds covering the whole frame.\nWorld: OVERGROWN STEELWORKS. An abandoned monumental open-sided steel mill reclaimed by thriving trees and ivy, in pale warm overcast daylight. The unique hero landmark at x=.68 is a huge long open steel hall with intact tall triangular truss roof and exposed rusted columns, giant sage-green ivy masses wrapping its edges and climbing the columns; the openings let pale sky show through and reveal distant trees. At x=.88 a taller ivy-wrapped water tower makes a secondary recognizable vertical landmark. Left distance contains a sparse treeline and one low shed almost swallowed by moss. Lush mature foliage silhouettes, moss green and restrained olive-sage canopy colors, warm pale gray sky with broad luminous cloud sheets. Architecture remains structurally coherent; missing wall cladding exposes the truss rhythm. Distinguishing palette: muted moss, sage, pine shadows, oxidized steel brown and pale warm ivory daylight. No orange sunset, no barren black factory line. Lowest third a calm deep pine-green distant meadow/treeline band, subtle mist between foliage layers. Side-on distant view, very clear organized pixel clusters for treetop shapes, no noisy grain or excessive tiny leaf dots. Eerie tranquil nature reclamation and grand scale.",
+      "reference_images_inspected": [
+        "reference/konzept.jpg",
+        "assets/environments/ash_foundry.png",
+        "assets/environments/abandoned_harbor.png"
+      ],
+      "smoke_anchors": [],
+      "water_regions": [],
+      "sky_color": "#D5D3BD",
+      "earth_tint": "#334738",
+      "palette": {
+        "shadow": "#192F2B",
+        "midground": "#4D624C",
+        "atmosphere": "#9AAB8E",
+        "accent": "#8B784F",
+        "light": "#F6E1B5"
+      },
+      "light_anchors": [],
+      "inspection": "Lush sage/moss ivy wraps a coherent open roof truss in right half. Warm overcast daylight. Abandoned chimneys stay unanimated; no smoke anchors."
+    }
+  ]
+}

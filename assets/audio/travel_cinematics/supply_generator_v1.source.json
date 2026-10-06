@@ -1,0 +1,27 @@
+{
+  "asset": "assets/audio/travel_cinematics/supply_generator_v1.wav",
+  "generator": "tools/generate_travel_cinematic_audio.py",
+  "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+  "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "bed",
+  "layers": "Wind on the verge, a small loaded diesel generator catching as its pictured fan starts",
+  "seed": 844209,
+  "sample_rate": 48000,
+  "channels": 2,
+  "pcm_bits": 16,
+  "frames": 300000,
+  "seconds": 6.25,
+  "loop": false,
+  "screen_pan": 0.088,
+  "mix": {
+    "bus": "SFX",
+    "additional_dialogue_duck_db": -7.0,
+    "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+  },
+  "measurements": {
+    "peak_dbfs": -11.86305970378983,
+    "rms_dbfs": -24.999999999999996
+  },
+  "sha256": "106cd2bffd04076c052c52805aa18c92de04f7d7a7fcf1cabf6e73bf17e4aab4"
+}

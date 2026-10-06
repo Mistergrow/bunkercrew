@@ -1,0 +1,66 @@
+{
+  "origin": "Original procedural contact foley and filtered-noise wind. No samples, recordings, or melodies.",
+  "generator": "tools/generate_movement_audio.py",
+  "dependencies": [
+    "numpy",
+    "scipy",
+    "ffmpeg/libvorbis"
+  ],
+  "sample_rate": 32000,
+  "variants": {
+    "step_dry": 3,
+    "step_metal": 3,
+    "step_water": 3,
+    "step_ice": 3,
+    "step_heavy": 3
+  },
+  "contacts": {
+    "step_dry": {
+      "seconds": 0.26,
+      "peak": 0.4,
+      "seed": 374119,
+      "layers": "soft heel, loose gravel grains, short dusty sole scrape"
+    },
+    "step_metal": {
+      "seconds": 0.25,
+      "peak": 0.42,
+      "seed": 718103,
+      "layers": "rubber heel, damped steel panel resonances, short toe contact"
+    },
+    "step_water": {
+      "seconds": 0.36,
+      "peak": 0.36,
+      "seed": 890341,
+      "layers": "shallow splash, displaced water hiss, small decaying bubble modes"
+    },
+    "step_ice": {
+      "seconds": 0.3,
+      "peak": 0.38,
+      "seed": 453127,
+      "layers": "packed snow compression, irregular ice grains, soft sole contact"
+    },
+    "step_heavy": {
+      "seconds": 0.39,
+      "peak": 0.56,
+      "seed": 630911,
+      "layers": "damped mechanical foot weight, low panel flex, restrained gritty contact"
+    }
+  },
+  "wind": {
+    "file": "ambience_wind.ogg",
+    "seconds": 16,
+    "channels": 2,
+    "seed": 1467301,
+    "pcm_peak": 0.43,
+    "design": "Five filtered-noise layers, periodic 1/2/3/5/7-cycle gust envelopes and restrained stereo width.",
+    "loop": "Full-period FFT noise and periodic modulation; no fade-out, seam crossfade, or silent gap."
+  },
+  "preserved_files": 59,
+  "preserved_bank_sha256": "a197c1463ceb29bd89fe10b5dc90ccfd42280de55d5c75e9016e48d57fd6a3be",
+  "generation": "Deterministic PCM; Vorbis container serials may change between encodes.",
+  "validation": {
+    "command": "python3 tests/movement_audio_assets_test.py",
+    "report": "artifacts/movement-effects/audio-measurements.json"
+  },
+  "review": "Signal measurements and browser listening gallery; no listening assessment claimed."
+}

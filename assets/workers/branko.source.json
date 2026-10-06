@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "branko",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Wide planted gait, heavy settling shoulders",
+    "walk_rate": 0.82,
+    "idle_rate": 0.72,
+    "gestures": [
+      "shoulder_roll",
+      "beard_check"
+    ]
+  },
+  "palette": {
+    "width": 1.32,
+    "hat": [
+      "#6b7778",
+      "#abb6b1",
+      "#d9ddc7",
+      "#f4ead2"
+    ],
+    "palette": {
+      "deep": "#202b35",
+      "shadow": "#2c3e4c",
+      "olive": "#445e70",
+      "cloth": "#627e8e",
+      "light": "#8ea9b4",
+      "edge": "#b9c6c5",
+      "trouser": "#303e4a",
+      "trouser_light": "#526476",
+      "skin_shadow": "#855342",
+      "skin": "#b58261",
+      "skin_light": "#d8ad83",
+      "red": "#ad6b4e"
+    },
+    "visual_signature": {
+      "head": "ivory hardhat and full dark beard",
+      "outfit": "broad navy guard coat with split hem and padded shoulders",
+      "equipment": "squared heavy guard pack"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "branko_body.png",
+    "branko_arms.png",
+    "branko_torso.png",
+    "branko_head.png",
+    "branko_back_torso.png",
+    "branko_back_head.png"
+  ],
+  "sha256": {
+    "branko_body.png": "497f870c24061675efca1d88812b91b8c7d6c453b570a80413da17315ef1772e",
+    "branko_arms.png": "e7f3b010dc5b52666fb9e80cb5315e5267accd7636f13d85b2adddec920223ed",
+    "branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
+    "branko_head.png": "eff09e322de57f94d0389e2dc3716944b3470c9debd3dc7fe25d5e49da09e2b2",
+    "branko_back_torso.png": "c5c42b2cf757582665611f5025d4e19a8ed29527c8d71ff355d2b7301c64c376",
+    "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "afc8bded94b1363de3d9616787405927b3e3a2e1d4aa39e756f85999de1f8d68"
+}

@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/godotengine/godot-cpp",
+  "revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+  "license": "MIT, LICENSE.md preserved verbatim",
+  "api_source": "godot --headless --dump-extension-api, installed Godot4.7.2.stable.official.ed1daf0bf",
+  "api_sha256": "d0e4c08c03b165156dabe6bfb6a906baf0069189f62035341230a246c86d6986"
+}

@@ -1,0 +1,14 @@
+{
+  "generator": "generate_ui.py",
+  "method": "Original code-authored pixel artwork drawn with Pillow; deterministic output, no third-party game assets.",
+  "assets": {
+    "icons.png": "18 original 32-pixel technology, material and status glyphs",
+    "wordmark.png": "Retired authoring output; no longer installed in the game. Stencil-cut bitmap lettering rasterized from the project's licensed assets/mono.ttf",
+    "slider_knob.png": "Retired authoring output; no longer installed in the game. Original amber industrial fader handle",
+    "plate.png": "Retired authoring output; no longer installed in the game. Original procedural fallback steel frame",
+    "plate_active.png": "Retired authoring output; no longer installed in the game. Original procedural fallback highlighted frame",
+    "plate_pressed.png": "Retired authoring output; no longer installed in the game. Original procedural fallback pressed frame"
+  },
+  "metal_panel": "Retired generated texture; no longer installed. See metal_panel_source.json for preserved original generation metadata. The live UI uses code-authored UiArt steel grain and native styleboxes.",
+  "date": "2026-09-30"
+}

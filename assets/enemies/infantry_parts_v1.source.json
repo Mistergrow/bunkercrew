@@ -1,0 +1,23 @@
+{
+  "asset": "infantry_parts_v1.png",
+  "columns": 16.0,
+  "generator": "tools/bake_infantry_art.gd",
+  "license": "Same as the original project art; see original asset source metadata.",
+  "method": "Deterministic Godot Compatibility renderer export of existing native field-kit drawing routines. No new art design. Fixed head, coat, backpack and gun parts; continuous articulated limbs and weapon details remain procedural.",
+  "size": [
+    1024.0,
+    1024.0
+  ],
+  "source_sha256": {
+    "assets/workers/branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
+    "assets/workers/ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
+    "assets/workers/mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
+    "scripts/canvas_quads.gd": "788e1977182c213a66b34cbdf372bc637b41a18eeefb5d822fbfd5a33bfd19d7",
+    "scripts/infantry_art_atlas.gd": "4fe287b2eb3a5f3b1bfbd21758e828807950f19a7a0a8043fc0b972f92af25d3",
+    "scripts/infantry_role_art.gd": "e5cd164a6f5165ad0f9f854f076aa4224f066769ee9c912f38b5f343cc697165",
+    "scripts/machine_surface_details.gd": "c287d84145f13cdc95f81797de891b59d6df0b966f6122b48d4f9a31fb7cd80c",
+    "scripts/worker_pose_art.gd": "c71f0f8751d12297034b645791f75a333ba60a13b6f00a28584c4a9c5d182bd4",
+    "tools/bake_infantry_art.gd": "16534d77baff1db17b1242037f2438148e4d98137b596c68641cef29f153148f"
+  },
+  "tile_size": 64.0
+}

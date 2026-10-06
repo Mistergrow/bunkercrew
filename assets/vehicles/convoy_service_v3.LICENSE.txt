@@ -1,0 +1,2 @@
+Generated original Bunkercrew asset; distribute only together with Bunkercrew.
+Generated using built-in image_gen.imagegen. See adjacent source JSON for exact prompt and reference provenance.

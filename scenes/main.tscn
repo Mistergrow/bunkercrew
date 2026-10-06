@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cejntj3x102ye"]
+
+[ext_resource type="Script" uid="uid://bl4vxfjxk2rme" path="res://scripts/game.gd" id="1"]
+
+[node name="LetzteSchicht" type="Node2D" unique_id=1098275541]
+script = ExtResource("1")

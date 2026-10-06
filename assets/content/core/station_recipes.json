@@ -1,0 +1,60 @@
+{
+  "station_recipes": [
+    {
+      "id": "mixer",
+      "label": "Betonmischer",
+      "inputs": {
+        "sand": 2
+      },
+      "output": "concrete",
+      "amount": 2,
+      "time": 5.0,
+      "binder": 1
+    },
+    {
+      "id": "furnace",
+      "label": "Stahlofen",
+      "inputs": {
+        "ore": 2
+      },
+      "alternates": {
+        "scrap": "ore"
+      },
+      "output": "steel",
+      "amount": 2,
+      "time": 6.0
+    },
+    {
+      "id": "glass",
+      "label": "Glasofen",
+      "inputs": {
+        "sand": 2,
+        "limestone": 1
+      },
+      "output": "glass",
+      "amount": 2,
+      "time": 7.0
+    },
+    {
+      "id": "alloy",
+      "label": "Legierungsofen",
+      "inputs": {
+        "tungsten": 2,
+        "steel": 1
+      },
+      "output": "alloy",
+      "amount": 2,
+      "time": 8.0
+    },
+    {
+      "id": "ammo_press",
+      "label": "Munitionspresse",
+      "inputs": {
+        "steel": 2
+      },
+      "output": "ammo",
+      "amount": 2,
+      "time": 6.0
+    }
+  ]
+}

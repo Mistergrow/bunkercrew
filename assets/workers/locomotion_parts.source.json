@@ -1,0 +1,33 @@
+{
+  "source": "generate_locomotion_parts.py",
+  "rig": [
+    "generate_recruits.py",
+    "generate_character_workers.py",
+    "generate_workers.py"
+  ],
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "purpose": "Clean back-view heads and coats for continuous articulated ladder motion",
+  "cell": 112,
+  "identities": [
+    "mara",
+    "branko",
+    "ivo",
+    "nora",
+    "levin",
+    "selma"
+  ],
+  "assets": [
+    "mara_back_torso.png",
+    "mara_back_head.png",
+    "branko_back_torso.png",
+    "branko_back_head.png",
+    "ivo_back_torso.png",
+    "ivo_back_head.png",
+    "nora_back_torso.png",
+    "nora_back_head.png",
+    "levin_back_torso.png",
+    "levin_back_head.png",
+    "selma_back_torso.png",
+    "selma_back_head.png"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 3149,
+  "prompt": "Native German man in his late fifties with a distinctly low resonant bass, coarse weathered gravel at the ends of words. A protective veteran guard. Unhurried, terse, warm but tough conversational German. Compact natural phrases, close dry microphone, no singing, no announcer delivery, no whispering.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "143696755cdc2c6464b88349fde584ee19da8ca56927dfa65931561e2a18aae8",
+  "sample_rate": 24000,
+  "duration": 10.56
+}

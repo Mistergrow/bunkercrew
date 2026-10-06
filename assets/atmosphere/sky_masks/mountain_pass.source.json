@@ -1,0 +1,13 @@
+{
+  "kind": "single-channel sky visibility; white sky, black solid landscape",
+  "source": "assets/environments/v3/mountain_pass.png",
+  "source_sha256": "2f39b860317ecea4f4fa56a93e99fcbf1cd56d06aecdcc3efbc36860bd30d33f",
+  "generator": "tools/generate_cloud_masks.py",
+  "outline_source": "assets/environments/v3/landmarks.json",
+  "method": "v3 source-pixel contour seeds and local source-color graph cut within 12 pixels; verified independent sky/land probes",
+  "license": "Same as the source environment asset; provenance remains with that source",
+  "size": [
+    1672,
+    941
+  ]
+}

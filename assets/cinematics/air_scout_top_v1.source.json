@@ -1,0 +1,21 @@
+{
+  "asset": "air_scout_top_v1.png",
+  "generated_at": "2026-10-02",
+  "generator": "image_gen.imagegen",
+  "transparent_background": true,
+  "prompt": "Use case: stylized-concept. Asset type: transparent top-down enemy scout aircraft sprite for the existing gritty industrial pixel-art game Bunkercrew. Create ONE entirely new asset, not a collage. Reference image 1 is ONLY the game's material/style guide: worn charcoal steel, olive armor, brass hardware and small red machine sensors. Reference image 2 is ONLY the game's painted pixel-art palette and lighting guide. Reference image 3 is ONLY the strict overhead flying composition guide; do not copy its colorful aircraft or saturated blue sky. Square 1024x1024 canvas. A compact unmanned industrial reconnaissance gunship seen in exact orthographic TOP view, nose pointing straight toward the top edge. Central angular armored fuselage, small red sensor at the nose, riveted access panels, copper pipes, short antenna. Two symmetrical large circular ducted rotor housings left and right of the central hull, each dark rotor well empty with a small metal hub; leave rotor BLADES absent so the game can animate those separately. Twin tail fins at bottom, restrained chipped yellow maintenance marks without writing. Entire silhouette including antenna and rotor rings wholly inside canvas with 12 percent empty transparent padding on every side. Centered hull, rotor ring centers close to normalized x=0.28 and x=0.72, y=0.48, ring outer radius about0.14 of canvas. Detailed crisp hand-painted pixel clusters, steel edges catching cold bluish light, warm rust in crevices; readable when reduced to about200x200pixels. No ground, no cloud, no shadow plane, no border, no text, no labels, no extra parts laid out, no photorealism, no 3D render. Genuine transparent alpha outside the aircraft; preserve clean silhouette without glow or haze.",
+  "references": [
+    "res://assets/enemies/chassis_atlas.png",
+    "res://assets/environments/v2/ash_foundry.png",
+    "local-archive:Downloads/images (17).jpeg"
+  ],
+  "usage": "Original Bunkercrew solo air raid introduction. Reference attachment guides composition only; no attachment pixels shipped.",
+  "processing": "Original generated RGBA image copied without raster edits; runtime atlas regions and shaders animate it.",
+  "sha256": "6e69ccd0c237fa0448a689446b89684c336632542047554ab87cd3f00170b44e",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "alpha_mode": "RGBA",
+  "version": 1
+}

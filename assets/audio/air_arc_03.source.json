@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_arc_03.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_arc",
+  "layers": "Electrical corona, irregular high-voltage contact and damped coil discharge",
+  "seed": 942477,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 23040,
+  "seconds": 0.48,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -2.0454600091459936,
+  "rms_dbfs": -19.34216409922495,
+  "sha256": "8aefc6ab163630eff860d0294c644065d7f9a31f2c3850bb0dcb221ab3514853",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

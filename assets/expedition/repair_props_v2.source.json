@@ -1,0 +1,43 @@
+{
+  "asset": "assets/expedition/repair_props_v2.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-04",
+  "prompt": "Use case: stylized-concept. Asset type: production transparent prop atlas for a 2D side-scrolling pixel-art game Bunkercrew. Primary request: four genuinely separate repair-stop props, arranged in four widely separated cells of a two-by-two square atlas. Top-left a squat heavy portable hydraulic bottle jack with olive base, warm copper/brass cylinder and silver raised piston. Top-right a single heavy worn offroad spare wheel, circular side view, dark textured rubber and a weathered olive/copper bolted central hub. Bottom-left a low open industrial olive toolbox with recognizable long socket wrench and three brass wheel nuts; useful authentic tools only. Bottom-right a small freestanding amber-orange construction hazard beacon sitting on a weighted concrete-and-steel foot, with a dark cable wrapped at its base. Style: detailed hard-edged industrial pixel clusters, muted olive steel and grey concrete, chipped paint, copper rust, gritty hand-made mechanical props matching Bunkercrew. Flat orthographic side elevation, fixed upper-left lighting, readable at 16 to 30 native game pixels. Each object wholly within its own cell, no overlap between props, generous fully transparent gutter and padding, no ground or cast shadow. No text, no labels, no UI frame, no people, no background. These are separate mechanical assets for an actual wheel-change minigame, not concept art.",
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-44c01226-2676-4240-9c3d-8e8f4347f661.png",
+  "size": [
+    1305,
+    1205
+  ],
+  "regions": {
+    "jack": [
+      104,
+      80,
+      469,
+      514
+    ],
+    "spare_wheel": [
+      708,
+      73,
+      530,
+      527
+    ],
+    "toolbox": [
+      63,
+      805,
+      603,
+      286
+    ],
+    "beacon": [
+      863,
+      674,
+      269,
+      445
+    ]
+  },
+  "sha256": "b72f1b41d729bb04b7c3e442c3b2b1dc2453820728b6f40c1d015fe1729986eb",
+  "notes": [
+    "Original raster and alpha copied without modification.",
+    "Runtime regions derived from alpha bounds in four nonoverlapping cells; no sprite baking/rescaling."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

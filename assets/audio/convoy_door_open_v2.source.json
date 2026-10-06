@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_door_open_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "door_open",
+  "layers": "Latch disengagement, damped hinge travel and heavy open stop",
+  "seed": 610913,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 34560,
+  "seconds": 0.72,
+  "loop": false,
+  "loop_method": "Silent one-shot edges with 65 ms terminal fade",
+  "sha256": "2f52fdfba09d4fb41f85df1db00c337508cc2c42ebeea0f5249c0c9215ef054a",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

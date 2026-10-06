@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/radar_highlands_v1/landmarks.png",
+  "source_sha256": "0be532dd1e3e1268bb7824dae9e7f5984213eb3d88fc1082b8abd800cf363e3e",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    545,
+    30
+  ],
+  "bounds": [
+    0.43480861244019137,
+    0.8150903294367694,
+    0.32595693779904306,
+    0.031880977683315624
+  ],
+  "crop_pixels": [
+    727,
+    767,
+    545,
+    30
+  ],
+  "occupied_pixels": {
+    "water": 0,
+    "flow": 0,
+    "ice": 5046
+  },
+  "sha256": "f0596000bf07644731de5bcdedc9ef03e2298f83799218b78415784b59e2db56"
+}

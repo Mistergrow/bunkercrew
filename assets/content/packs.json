@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "packs": [
+    "res://assets/content/core.json"
+  ]
+}

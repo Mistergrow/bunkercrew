@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-04T02:03:32.537240+00:00",
+  "feature": "Bunkercrew convoy journey V2 presentation",
+  "license": "Generated original Bunkercrew assets; distribute only together with Bunkercrew. See adjacent source JSON for exact prompts and original generation paths.",
+  "assets": [
+    {
+      "path": "assets/vehicles/convoy_hull_v2.png",
+      "region": [
+        24,
+        131,
+        1751,
+        558
+      ],
+      "runtime_body": [
+        -98,
+        -70,
+        196,
+        62.46
+      ],
+      "use": "Articulated olive steel/concrete convoy hull, separate real wheels, crew and gun.",
+      "sha256": "627df9ce799c1ae58cb91dd9adadaeeaedff11aeec2997bfa70e5d01fa090fef",
+      "dimensions": [
+        1798,
+        875
+      ],
+      "source_metadata": "assets/vehicles/convoy_hull_v2.source.json",
+      "bitmap_changes": "None. Original imagegen output copied by root; composition/animation only in Godot."
+    },
+    {
+      "path": "assets/expedition/road_hinterland_v2.png",
+      "region": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "runtime_width": 1250.0,
+      "bottom_y": 442.0,
+      "camera_depth_gain": 0.27,
+      "use": "Immutable industrial route painting; alternating horizontal tile orientation joins identical edge columns.",
+      "sha256": "226c5df7b0f547f522c59799d2ce22bc698b85da3e9447bb86255f881ebb6e20",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source_metadata": "assets/expedition/road_hinterland_v2.source.json",
+      "bitmap_changes": "None. Original imagegen output copied by root; composition/animation only in Godot."
+    },
+    {
+      "path": "assets/expedition/road_verge_v2.png",
+      "region": [
+        0,
+        497,
+        1672,
+        316
+      ],
+      "runtime_width": 1100.0,
+      "bottom_y": 444.0,
+      "camera_depth_gain": 0.64,
+      "use": "Actual alpha vegetation/debris near plate, original transparent padding excluded by Sprite2D.region_rect.",
+      "sha256": "8b85077e32d440d47bbfe9e42916a27df664e19213bd5187479bb5f560140b79",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source_metadata": "assets/expedition/road_verge_v2.source.json",
+      "bitmap_changes": "None. Original imagegen output copied by root; composition/animation only in Godot."
+    },
+    {
+      "path": "assets/expedition/repair_props_v2.png",
+      "regions": {
+        "jack": [
+          104,
+          80,
+          469,
+          514
+        ],
+        "wheel": [
+          708,
+          73,
+          530,
+          527
+        ],
+        "toolbox": [
+          63,
+          805,
+          603,
+          286
+        ],
+        "beacon": [
+          863,
+          674,
+          269,
+          445
+        ]
+      },
+      "use": "Original transparent repair equipment, native texture region commands driven by actual Journey.repair_step and repair_work.",
+      "sha256": "b72f1b41d729bb04b7c3e442c3b2b1dc2453820728b6f40c1d015fe1729986eb",
+      "dimensions": [
+        1305,
+        1205
+      ],
+      "source_metadata": "assets/expedition/repair_props_v2.source.json",
+      "bitmap_changes": "None. Original imagegen output copied by root; composition/animation only in Godot."
+    }
+  ],
+  "runtime_sources": [
+    {
+      "path": "scripts/convoy_vehicle_art.gd",
+      "sha256": "6aa9be9e4b84cf9d541bfec7f7a59e4d382ccf22115ed89ff1d5e4f279fdfe21"
+    },
+    {
+      "path": "scripts/convoy_presentation.gd",
+      "sha256": "65378880fb48dcf7480cda85171416e459e1e27f6680e4e70660be0ef36ace5a"
+    },
+    {
+      "path": "scripts/expedition_road_art.gd",
+      "sha256": "30e4b250092321b19575d93fd2bba0f87ef84789dc8e815eb639a6b5c9091015"
+    },
+    {
+      "path": "scripts/expedition_depth.gd",
+      "sha256": "34691612f4a1c5bbe73006ee4554af515d893929c46a85460b4c385fc416fd98"
+    },
+    {
+      "path": "shaders/expedition_depth.gdshader",
+      "sha256": "aea53c8ddb03e94872fd540932c26c2b2deaeb99fe6ab317888eda91d13f52cf"
+    },
+    {
+      "path": "shaders/convoy_landmark.gdshader",
+      "sha256": "f30d38d0d6c246357c0fbbefbc6de3c9944f6c94c76e712ee8d56d3c88fbc81a"
+    }
+  ],
+  "route_sky": {
+    "provider": "scripts/parallax_catalog.gd",
+    "original_biome_plate_index": 0,
+    "camera_depth_gain": 0.08,
+    "animation_clock": "Replicated convoy_vehicle.animation_time, updates bounded to 20 Hz; F3 disables sky motion."
+  },
+  "render_policy": {
+    "texture_filter": "CanvasItem.TEXTURE_FILTER_NEAREST",
+    "biome_detail_scale": "Fixed world width, never stretch the industrial detail to the screen as zoom changes.",
+    "painted_depth_layers": 3,
+    "maximum_allocated_depth_sprites": 19,
+    "maximum_live_depth_tiles_per_painted_layer": 9,
+    "roadside_facilities": 8,
+    "ground_collision_y": 430.0,
+    "road_bounds": "game.world_left/game.world_right, presently 740..3700 for the route",
+    "bunker_isolation": "Hide and restore original drawing nodes through weak references; preserve all gameplay nodes/colliders. Old scenery/lighting is hidden during travel/stop/failed.",
+    "pause": "Pauses cosmetic child processes and scene clocks. Prepared native full-image byte comparison confirms fixed pixels.",
+    "reduced_effects": "F3 freezes landscape/cloth movement, removes wide headlight beams and unnecessary convoy smoke while retaining vehicle/route silhouettes."
+  },
+  "state_inputs": [
+    "vehicle.position",
+    "vehicle.facing",
+    "vehicle.velocity",
+    "vehicle.wheel_phase",
+    "vehicle.suspension",
+    "vehicle.animation_time",
+    "vehicle.seats[].occupant.player_id",
+    "vehicle.journey_state.phase",
+    "vehicle.journey_state.phase_time",
+    "vehicle.journey_state.repair_step",
+    "vehicle.journey_state.repair_work",
+    "vehicle.journey_state.repair_bolts",
+    "vehicle.journey_state.repair_cursor"
+  ],
+  "gameplay_mutation": false,
+  "generated_raster_modified": false
+}

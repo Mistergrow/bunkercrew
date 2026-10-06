@@ -1,0 +1,13 @@
+{
+  "kind": "single-channel sky visibility; white sky, black solid landscape",
+  "source": "assets/environments/v3/ash_foundry.png",
+  "source_sha256": "1d176db1ba2c8667c3742ad46773888c2d802aa2c66d68b9e329e99eba57bbc4",
+  "generator": "tools/generate_cloud_masks.py",
+  "outline_source": "assets/environments/v3/landmarks.json",
+  "method": "v3 source-pixel contour seeds and local source-color graph cut within 12 pixels; verified independent sky/land probes",
+  "license": "Same as the source environment asset; provenance remains with that source",
+  "size": [
+    1672,
+    941
+  ]
+}

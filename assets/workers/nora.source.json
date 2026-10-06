@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "nora",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Planted working stance and measured inspection",
+    "walk_rate": 0.96,
+    "idle_rate": 0.85,
+    "gestures": [
+      "blueprint_check",
+      "gauge_check"
+    ]
+  },
+  "palette": {
+    "width": 1.02,
+    "hat": [
+      "#504338",
+      "#8c7455",
+      "#c0a173",
+      "#e4ca98"
+    ],
+    "palette": {
+      "deep": "#26343b",
+      "shadow": "#374c53",
+      "olive": "#547078",
+      "cloth": "#6b8b90",
+      "light": "#91b1ac",
+      "edge": "#b8cec0",
+      "trouser": "#424944",
+      "trouser_light": "#697567",
+      "skin_shadow": "#8e5845",
+      "skin": "#c28a67",
+      "skin_light": "#e4b48a",
+      "red": "#baa171"
+    },
+    "visual_signature": {
+      "head": "wide bronze helmet brim and short dark bob",
+      "outfit": "slate engineer vest with high collar and measuring gauge",
+      "equipment": "long blueprint tube and rectangular folio"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "nora_body.png",
+    "nora_arms.png",
+    "nora_torso.png",
+    "nora_head.png",
+    "nora_back_torso.png",
+    "nora_back_head.png"
+  ],
+  "sha256": {
+    "nora_body.png": "428eab1604c2da19ea3488c6ff9f6ca7d7ea672946da39a2cea5764bb939122c",
+    "nora_arms.png": "2a7adc78cbd645694804eaed507cfe6d58acd1f521205d1ff1e5b2ab8fc847b0",
+    "nora_torso.png": "4ef57b30c6171bb881d621f78eeab813cd88fe35b81ddb7bbc52086422e155db",
+    "nora_head.png": "9d939f1b590504c1699401ab81e81e0a47fd5ff2e495851d5e6f96658fc166ac",
+    "nora_back_torso.png": "6ef16b54e38d8cecc8f2717da443d56305d80620663e65dbfd6554059bb1c355",
+    "nora_back_head.png": "debf3d5e28f520ab3d3e6f94ea53d2bde5ddd672618c3eaa61d99ef20fef2aac"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "2db4cfe671fc9b1518d3951fdf6cb63a28fe44a1d491d9105659fc4d9b54867b"
+}

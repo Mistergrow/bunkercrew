@@ -1,0 +1,14 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Production parallax layer for Bunkercrew, a 2D industrial bunker defense game. Input image is the precise STYLE, PALETTE, CAMERA and COMPOSITION reference: mountain_pass. Match its fine hand-painted pixel clusters, indigo violet storm light, restrained amber lights, alpine setting and readable distant scale. Wide 16:9 canvas matching reference; full-bleed width; no text, labels, UI, characters, borders, panels or watermark. Preserve the same side-on view, no top-down/isometric camera. This layer will be stacked with independently generated aligned layers. Do not bake rain streaks, foreground lightning bolts, fog sheets or motion blur into any layer. Create ONLY the far and middle distance alpine mountain ridges as a genuinely transparent-background cutout. No sky/clouds, no near cliffs, no conifer trees, no buildings, no bridges and no lake. Keep the left high snowy ridge around x=0..0.13, y=0.19..0.6; middle distant peaks around y=0.37..0.55; right ridge around x=.83..1, y=.35..0.64. Rebuild the slopes that were hidden behind foreground forests and structures. Entire lower part filled continuously with overlapping cool blue-violet mountain valleys fading into atmospheric distance; solid terrain to bottom. The upper skyline and spaces above all mountains must be true alpha transparency, no matte color and no checkerboard. Ground silhouettes have crisp pixel-art edges.",
+  "reference": "assets/environments/v3/mountain_pass.png",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-69894efc-b6c3-49f5-a97e-38ea620468d3.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "c5527103f46da54671f1311c8bd260641d2c8af6dc594b719ca299089e3b3d5e",
+  "transparent_background": true,
+  "usage": "Experimental mountain_pass gameplay parallax layer; original alpha and pixels preserved.",
+  "reference_sha256": "2f39b860317ecea4f4fa56a93e99fcbf1cd56d06aecdcc3efbc36860bd30d33f"
+}

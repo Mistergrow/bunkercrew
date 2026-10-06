@@ -1,0 +1,22 @@
+{
+  "name": "Bunkercrew Field Medium",
+  "version": "2.000",
+  "type": "original pixel outline font",
+  "generator": "tools/generate_bunkercrew_font.py",
+  "source": "Original authored grid patterns in generator; no third-party or traced font outlines.",
+  "license": "SIL Open Font License 1.1",
+  "license_file": "OFL.txt",
+  "reserved_font_names": [],
+  "design": "Industrial proportional pixel lettering, distinct lowercase, open counters, aligned digits. Field equipment lettering.",
+  "grid_units": 100,
+  "units_per_em": 1400,
+  "native_sizes": [
+    14,
+    28,
+    42,
+    56
+  ],
+  "rendering": "112px MSDF atlas with 4px range preserves small grid contours at fractional scales",
+  "glyph_count": 239,
+  "sha256": "745ceb016a6b1ca32560613f7c6c913ba34bd009bd2db59e83d0bc41a87c75d9"
+}

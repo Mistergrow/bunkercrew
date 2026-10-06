@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/overgrown_steelworks_v1/landmarks.png",
+  "source_sha256": "ef0a5969bc5c0b5221cf14d1820cc69cc7b1c7a1ffc62906c2bcae0dc526e473",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    1047,
+    124
+  ],
+  "bounds": [
+    0.23145933014354067,
+    0.8660998937300743,
+    0.6261961722488039,
+    0.13177470775770456
+  ],
+  "crop_pixels": [
+    387,
+    815,
+    1047,
+    124
+  ],
+  "occupied_pixels": {
+    "water": 8030,
+    "flow": 0,
+    "ice": 0
+  },
+  "sha256": "5d6a62f0e7c85d1f6501d3794fe63ead42f01c2efad9dca4e73b966b0f17e5c6"
+}

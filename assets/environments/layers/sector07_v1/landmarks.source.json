@@ -1,0 +1,18 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this nearer scenic-landmark plate: Main weathered factories and chimney stacks, railway bridge and water tower across y=.52-.85, autumn birches and conifers and small reflective pond across bottom. Retain approximate positions and side-on silhouettes. Keep all landmark outlines crisp and readable. The areas above and between the scenic silhouettes must have genuine alpha transparency, revealing the other two plates. Fill the lower landscape continuously to all bottom corners. No sky, clouds, distant mountains, sun, moon, rain streaks, mist sheets, motion blur, checkerboard or solid-color background. Extend any ground previously hidden behind objects so gentle parallax has no missing pieces.",
+  "reference": "assets/environments/v3/sector07.png",
+  "reference_sha256": "0eaded14e2623a0b7e9d848982a09f15c35360b389235aefbf69d80d04bf82cc",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-1d911353-befc-4b34-a692-c44f3372fa18.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "56df25a19b6b5e6f6b26697e4e14ed4c3dd294b806aaa0e2d772da2242deebe3",
+  "transparent_background": true,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "usage": "Bunkercrew gameplay depth plate. Original generated pixels and alpha preserved."
+}

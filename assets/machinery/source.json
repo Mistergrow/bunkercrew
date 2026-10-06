@@ -1,0 +1,16 @@
+{
+  "asset": "components.png",
+  "tool": "Built-in imagegen",
+  "mode": "reference-based generation",
+  "reference": "reference/konzept.jpg",
+  "prompt": "Use attached bunker concept ONLY as pixel-art style reference. Create a reusable industrial GAME SPRITE COMPONENT ATLAS on truly transparent background. EXACT GRID: three columns, two rows, six separate complete sprites centered in equal cells, with wide empty transparent margins; no labels, no typography, no scenery, no floor, no cast background shadow. Crisp late1990s hand-clustered pixel rendering, worn olive gray steel, gray concrete dust, brass highlights, muted orange mixer paint, rust chips, upper-left warm lighting, strict side view. Avoid smooth vector art and cartoon. TOP LEFT: the stationary wheeled steel support frame of an orange concrete mixer, two small rubber wheels, leaning steel cradle, handwheel and motor box, NO DRUM (empty gap in upper center to attach rotating drum separately). TOP CENTER: ONLY the separate round orange cylindrical mixing drum, shown in side/three-quarter section with circular dark open mouth facing upper-left, worn orange shell, black mouth, complete isolated drum with no frame, no material contents. TOP RIGHT: industrial steel smelting furnace stationary housing, two narrow vertical exhaust flues, refractory-brick facade, wide black open fire chamber in lower middle (no flames; engine adds fire), heavy steel feet, small side control box. BOTTOM LEFT: ONLY heavy bunker machine-gun barrel and breech assembly pointing RIGHT, long horizontal barrel, muzzle brake, ribbed cooling jacket, blocky receiver at left with top sight and short grip, no tripod/mount/person, no ammunition belt hanging. BOTTOM CENTER: ONLY the separate heavy roof gun's sturdy tripod and central swivel pedestal (NO GUN), folding steel legs, circular upper mount, brass joints, grounded side view. BOTTOM RIGHT: bunker core industrial electrical cabinet, standing olive gray steel housing with riveted edges, analog gauges, copper pipes, small inset dark monitor, vent slats, a protected softly amber lit power chamber, avoid futuristic neon. Match supplied reference materials and density; make each object clean and easy to animate via separate pieces.",
+  "layout": [
+    "mixer_frame",
+    "mixer_drum",
+    "steel_furnace",
+    "turret_barrel",
+    "turret_mount",
+    "core_cabinet"
+  ],
+  "date": "2026-09-30"
+}

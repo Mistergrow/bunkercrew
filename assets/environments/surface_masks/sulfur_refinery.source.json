@@ -1,0 +1,36 @@
+{
+  "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+  "source_path": "res://assets/environments/layers/sulfur_refinery_v1/landmarks.png",
+  "source_sha256": "ba3d4d2a68318a17430bcd1275c3f07ce19a8e635bf32b7e799b3e63c5b80b1a",
+  "annotation_path": "res://assets/environments/background_surface_regions.json",
+  "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+  "generator": "tools/generate_background_surface_masks.py",
+  "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+  "license": "Same as the source background; original art and adjacent provenance retained",
+  "original_dimensions": [
+    1672,
+    941
+  ],
+  "mask_dimensions": [
+    672,
+    93
+  ],
+  "bounds": [
+    0.2840909090909091,
+    0.824654622741764,
+    0.4019138755980861,
+    0.09883103081827843
+  ],
+  "crop_pixels": [
+    475,
+    776,
+    672,
+    93
+  ],
+  "occupied_pixels": {
+    "water": 7436,
+    "flow": 0,
+    "ice": 0
+  },
+  "sha256": "87f6776ebc87ddce91723ada2b7abcecae0192d64a47c1697039a2934be1563a"
+}

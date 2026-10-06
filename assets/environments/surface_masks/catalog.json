@@ -1,0 +1,481 @@
+{
+  "version": 1,
+  "channels": {
+    "water": 0,
+    "flow": 1,
+    "ice": 2
+  },
+  "environments": {
+    "sector07": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/sector07_v1/landmarks.png",
+      "source_sha256": "56df25a19b6b5e6f6b26697e4e14ed4c3dd294b806aaa0e2d772da2242deebe3",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        231,
+        76
+      ],
+      "bounds": [
+        0.6381578947368421,
+        0.8639744952178533,
+        0.13815789473684212,
+        0.08076514346439957
+      ],
+      "crop_pixels": [
+        1067,
+        813,
+        231,
+        76
+      ],
+      "occupied_pixels": {
+        "water": 3862,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "37d13c98dd5b11ebc14ed27dbea16ed3a35ba5a3256eda836789adfbaec45d9b"
+    },
+    "ash_foundry": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/ash_foundry_v1/landmarks.png",
+      "source_sha256": "a17c6981d90549eb57a10b7d61204e127b12946ea3e455c58a1f947637e96412",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        563,
+        75
+      ],
+      "bounds": [
+        0.45514354066985646,
+        0.8140276301806588,
+        0.33672248803827753,
+        0.07970244420828905
+      ],
+      "crop_pixels": [
+        761,
+        766,
+        563,
+        75
+      ],
+      "occupied_pixels": {
+        "water": 5712,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "d1954ac63d67ea88c71cd8fa4727d1ccea045f19992ecaeea246eda2826b9f47"
+    },
+    "abandoned_harbor": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/abandoned_harbor_v1/landmarks.png",
+      "source_sha256": "7569028611ab32f91aafdfbc684b1d82c85448c1157de8eb75cfb937baa2d9fc",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1663,
+        238
+      ],
+      "bounds": [
+        0.0035885167464114833,
+        0.7449521785334751,
+        0.9946172248803827,
+        0.25292242295430395
+      ],
+      "crop_pixels": [
+        6,
+        701,
+        1663,
+        238
+      ],
+      "occupied_pixels": {
+        "water": 247461,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "44afafb3da0425c642bed94f64ddf25cccea06352bd72f8279343252fc637933"
+    },
+    "basalt_quarry": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/basalt_quarry_v1/landmarks.png",
+      "source_sha256": "716aac3f5ab48abc0e5f1763ee1239389ee38ccdd4c20fed6422307fdd391890",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        417,
+        92
+      ],
+      "bounds": [
+        0.6447368421052632,
+        0.8108395324123273,
+        0.2494019138755981,
+        0.09776833156216791
+      ],
+      "crop_pixels": [
+        1078,
+        763,
+        417,
+        92
+      ],
+      "occupied_pixels": {
+        "water": 9332,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "58752528ca0541959d02e47689e05627eff4530e4c201d49203a9da527accb66"
+    },
+    "overgrown_steelworks": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/overgrown_steelworks_v1/landmarks.png",
+      "source_sha256": "ef0a5969bc5c0b5221cf14d1820cc69cc7b1c7a1ffc62906c2bcae0dc526e473",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1047,
+        124
+      ],
+      "bounds": [
+        0.23145933014354067,
+        0.8660998937300743,
+        0.6261961722488039,
+        0.13177470775770456
+      ],
+      "crop_pixels": [
+        387,
+        815,
+        1047,
+        124
+      ],
+      "occupied_pixels": {
+        "water": 8030,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "5d6a62f0e7c85d1f6501d3794fe63ead42f01c2efad9dca4e73b966b0f17e5c6"
+    },
+    "frozen_rail_yard": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/frozen_rail_yard_v1/landmarks.png",
+      "source_sha256": "1ac84fef513d5e9dbc7db4c032c250cba2b35802ebf28c7ce1e3ccd242773a21",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "crop_pixels": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "occupied_pixels": {
+        "water": 0,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "1280e8de649805526731cc11672b0479f5ca25d9bd7ebf7a3375f8a9c966205e"
+    },
+    "iron_canyon": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/iron_canyon_v1/landmarks.png",
+      "source_sha256": "9ead8e2db8978e59ce20c7cba8b092d4eba0b585e2bab5afca93c2840cbef75e",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "crop_pixels": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "occupied_pixels": {
+        "water": 0,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "1280e8de649805526731cc11672b0479f5ca25d9bd7ebf7a3375f8a9c966205e"
+    },
+    "flooded_power_station": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/flooded_power_station_v1/landmarks.png",
+      "source_sha256": "e5f070c0d17fe66cb1dda2047ed1371b84eb96ce92c9afa8832e27407b917a56",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1664,
+        371
+      ],
+      "bounds": [
+        0.0029904306220095694,
+        0.6036131774707758,
+        0.9952153110047847,
+        0.3942614240170032
+      ],
+      "crop_pixels": [
+        5,
+        568,
+        1664,
+        371
+      ],
+      "occupied_pixels": {
+        "water": 284243,
+        "flow": 5047,
+        "ice": 0
+      },
+      "sha256": "1de503a3596ec553ac8e28def67328cfe150a49f1b9351a69eef9c4fa9b53466"
+    },
+    "mountain_pass": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/mountain_pass_v1/valley.png",
+      "source_sha256": "8dc45352ea06e0490423473b08bae0afc42a8b65aefec18602742d5f57a3da77",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        210,
+        71
+      ],
+      "bounds": [
+        0.590311004784689,
+        0.8214665249734325,
+        0.1255980861244019,
+        0.07545164718384698
+      ],
+      "crop_pixels": [
+        987,
+        773,
+        210,
+        71
+      ],
+      "occupied_pixels": {
+        "water": 1719,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "41bb96d4041c15eb1cc1e2f987a6d040fc3011fbbea69e99b97817d1fd3d7b6f"
+    },
+    "storm_dam": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/storm_dam_v1/landmarks.png",
+      "source_sha256": "6d97a8a28bc83b81e70c47a6dbd560f6f2129c9df666e44f556efeeeb3455f05",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1224,
+        372
+      ],
+      "bounds": [
+        0.2661483253588517,
+        0.6025504782146652,
+        0.7320574162679426,
+        0.3953241232731137
+      ],
+      "crop_pixels": [
+        445,
+        567,
+        1224,
+        372
+      ],
+      "occupied_pixels": {
+        "water": 126560,
+        "flow": 23440,
+        "ice": 0
+      },
+      "sha256": "5a66cf438f768783221e8b5d58d9c52f444e99c24f38e65a61156ee8b469ca57"
+    },
+    "sulfur_refinery": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/sulfur_refinery_v1/landmarks.png",
+      "source_sha256": "ba3d4d2a68318a17430bcd1275c3f07ce19a8e635bf32b7e799b3e63c5b80b1a",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        672,
+        93
+      ],
+      "bounds": [
+        0.2840909090909091,
+        0.824654622741764,
+        0.4019138755980861,
+        0.09883103081827843
+      ],
+      "crop_pixels": [
+        475,
+        776,
+        672,
+        93
+      ],
+      "occupied_pixels": {
+        "water": 7436,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "87f6776ebc87ddce91723ada2b7abcecae0192d64a47c1697039a2934be1563a"
+    },
+    "radar_highlands": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/radar_highlands_v1/landmarks.png",
+      "source_sha256": "0be532dd1e3e1268bb7824dae9e7f5984213eb3d88fc1082b8abd800cf363e3e",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        545,
+        30
+      ],
+      "bounds": [
+        0.43480861244019137,
+        0.8150903294367694,
+        0.32595693779904306,
+        0.031880977683315624
+      ],
+      "crop_pixels": [
+        727,
+        767,
+        545,
+        30
+      ],
+      "occupied_pixels": {
+        "water": 0,
+        "flow": 0,
+        "ice": 5046
+      },
+      "sha256": "f0596000bf07644731de5bcdedc9ef03e2298f83799218b78415784b59e2db56"
+    },
+    "buried_megafactory": {
+      "kind": "Cropped RGB surface data: R water, G falling water, B solid ice",
+      "source_path": "res://assets/environments/layers/buried_megafactory_v1/landmarks.png",
+      "source_sha256": "1631a9547597a07a75d834d25e00217fedbb4fa4efead2c1d0e0e2866f583823",
+      "annotation_path": "res://assets/environments/background_surface_regions.json",
+      "annotation_sha256": "9177d0642f1d582a8b52262bc975870f006ba6594792c68c545df56e392d151d",
+      "generator": "tools/generate_background_surface_masks.py",
+      "method": "Reviewed normalized polygons, protected-island exclusions, opaque-alpha intersection, inward feather, cropped source UV bounds",
+      "license": "Same as the source background; original art and adjacent provenance retained",
+      "original_dimensions": [
+        1672,
+        941
+      ],
+      "mask_dimensions": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "crop_pixels": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "occupied_pixels": {
+        "water": 0,
+        "flow": 0,
+        "ice": 0
+      },
+      "sha256": "1280e8de649805526731cc11672b0479f5ca25d9bd7ebf7a3375f8a9c966205e"
+    }
+  },
+  "total_source_texels": 20453576,
+  "total_mask_texels": 1790198,
+  "texture_area_saved_percent": 91.24750605957608
+}

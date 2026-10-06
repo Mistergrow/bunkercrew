@@ -1,0 +1,27 @@
+{
+  "asset": "assets/audio/travel_cinematics/signal_receiver_v1.wav",
+  "generator": "tools/generate_travel_cinematic_audio.py",
+  "generator_sha256": "a15c9d29fde958a0f5cc273dab7dac1e1838dc3e82882998538ed809639996cb",
+  "source": "Original deterministic stereo synthesis; no external samples or recordings.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "bed",
+  "layers": "Quiet verge wind, restrained receiver static fading as the right-hand relay acquires power",
+  "seed": 840173,
+  "sample_rate": 48000,
+  "channels": 2,
+  "pcm_bits": 16,
+  "frames": 360000,
+  "seconds": 7.5,
+  "loop": false,
+  "screen_pan": 0.48,
+  "mix": {
+    "bus": "SFX",
+    "additional_dialogue_duck_db": -7.0,
+    "note": "Authored stereo follows the visible object's horizontal position; existing sliders and buses remain unchanged."
+  },
+  "measurements": {
+    "peak_dbfs": -7.1309464702762515,
+    "rms_dbfs": -25.907150496895884
+  },
+  "sha256": "0f5fe68cdad2b935a8f5bcdf8c45a1eaddd814f58a8a0f928c0cd36cdcd1e65b"
+}

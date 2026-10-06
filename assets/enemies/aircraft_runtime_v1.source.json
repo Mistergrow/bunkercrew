@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "name": "Bunkercrew12 aircraft native integration",
+  "asset": "res://assets/enemies/aircraft_hulls_v1.png",
+  "asset_sha256": "6cdbdfb052e71d7ec200a167248455be355163f52fa47e6bda8a16a07c544221",
+  "source_metadata": "res://assets/enemies/aircraft_hulls_v1.source.json",
+  "regions": "res://scripts/aircraft_art_catalog.gd",
+  "bitmap_modified": false,
+  "runtime": {
+    "scripts/air_enemy_catalog.gd": "354f111480eab211a8d2d1be992dce1c9018cc6ec3993082a9a0c1a50b1ec88c",
+    "scripts/air_machine.gd": "2b82adc501425fc204dafb1f0638b1296eed146e71d96c1a348a97c22bd92cf8",
+    "scripts/enemy_catalog.gd": "d7ec684f901e65b646df8dcb072c7785db50b594720f4ec65aaef564e7d88496",
+    "scripts/aircraft_art_catalog.gd": "3312070ab8b7f9a132de2282fe4397f6d4be3b49774b469d691dcf30d44f270d",
+    "scripts/aircraft_art.gd": "7bc9644b1312e215c7cdf15f0fc82b6491422b3570b047f4621f008accc3fc1b",
+    "scripts/aircraft_presentation.gd": "357cc6ba8adb494b158b9197a293568e5ba57f9ea9dc8c71be8d15fe50689c5a",
+    "scripts/enemy_motion.gd": "3068b2c18878aa674781cbc0234bd94558f4e9f5cdf308c544380d3d7010f68e",
+    "scripts/enemy_motion_pose.gd": "4ff7e0572ca00ad46c90ae794503fcb5bcaa42229157e7fbc3320eae6cbcfc38",
+    "scripts/hostile_air_projectile.gd": "2d54e4ee56be042770b4bf655ec134f30ec0f212abb9b23749176fde9c6c3049",
+    "scripts/actor_weather_geometry.gd": "da5faa224a7efb335480055621b6f5e0d9f8fbb7a9c498a55ea66561cfa6c53b"
+  },
+  "presentation": {
+    "authoritative_clock": "replicated aircraft.age with cosmetic extrapolation capped at120ms",
+    "replica_child": "flight_presentation",
+    "pause": "PAUSABLE child, explicit pause guard",
+    "reduced_effects": "20Hz cosmetic refresh; no rotor-disc/damage-smoke",
+    "normal_refresh": "60Hz cosmetic refresh",
+    "aspect": "exact alpha-island region original aspect, nearest filtering",
+    "wing_facing": "actual velocity, foreshortened bank at turnaround, weapons retain attack_direction",
+    "propeller_disc": "narrow vertical ellipse in side view; horizontal rotor ellipse and independent tail rotor",
+    "construction_material": "existing cached StationSurfaceArt textured native weapon steel"
+  },
+  "limits": {
+    "live_air": 5,
+    "physical_hostile_ordnance": 42,
+    "campaign_air_slots": 40,
+    "previous_campaign_air_slots": 29,
+    "entry_grace_seconds": 8.0,
+    "existing_hitboxes": "six existing raw hitboxes unchanged, established0.85scale retained"
+  },
+  "validation": {
+    "targeted": "tests/aircraft_expansion_test.gd277/277",
+    "native_gallery": "tests/aircraft_production_gallery.gd129/129",
+    "gallery_json": "res://artifacts/audio-air-review/air/gallery/gallery.json",
+    "test_hashes": {
+      "tests/aircraft_expansion_test.gd": "354dfa62690f51501630bb4b8b099863744dca9ec438d3f4174e881572c6ae02",
+      "tests/mechanized_army_test.gd": "56bbe3f414d165937c3decb28504fb4426a84b1159f9b66ccd266387db5c35e2",
+      "tests/scenario_combat_test.gd": "cc23b5da25284a4c6e309a7c6863311dea3e6b0cb9d8c42a12d220e512f9b540",
+      "tests/enemy_classes_test.gd": "d5e06068abe8838c8bf89ecfd775c63c43f2112ba0a223259e96d25c455f3aa1",
+      "tests/army_diversity_test.gd": "56910ea7114ebc7cc5d60abb1a5841c85bb8e178e6b564834af934909120da7a",
+      "tests/enemy_factory_test.gd": "018112b368beaf88933e60f2f0ea0409aec6a62e048533d6a9e9c0ee164a44d0",
+      "tests/enemy_motion_test.gd": "c3f4c4372d861bb25f8004dade1293bae6106be7a2c97fca53d24f92014dbed9",
+      "tests/air_raid_intro_test.gd": "58912c0e5a79d95b1a1bcad120bba5ddb5f47062922e5e9f0b6e92a4d26f9c78",
+      "tests/actor_wetness_test.gd": "847a0f51f3fd5205c5c177d38359b77b4cd8f0ac7736fa28d064ab1b0675a4b6",
+      "tests/weather_cache_followup_test.gd": "5318dcfc06e394d4c190397380c1f5f1927efa67bc024b86564610d90c260c16",
+      "tests/air_combat_test.gd": "6712b586396608a268c7d58687b42a8b4926437a04c8603af91ae17de5f5182a",
+      "tests/aircraft_production_gallery.gd": "a99cd086e7fc560b036a9038970b9d080e31c7568d858c2878319cbea8e0184f",
+      "tests/air_enemy_gallery.gd": "ea10a4230b99a2e78c3664d206865d437e9bb1770ff79178233e4088da620998"
+    }
+  },
+  "license": "Only distribute with Bunkercrew; inherits adjacent original-image metadata."
+}

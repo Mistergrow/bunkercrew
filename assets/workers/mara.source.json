@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "mara",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Controlled stride, deliberate gear checks",
+    "walk_rate": 1.0,
+    "idle_rate": 0.9,
+    "gestures": [
+      "radio_check",
+      "strap_check"
+    ]
+  },
+  "palette": {
+    "width": 0.92,
+    "hat": [
+      "#82542e",
+      "#cb943a",
+      "#edc566",
+      "#ffe4a5"
+    ],
+    "palette": {
+      "deep": "#382b29",
+      "shadow": "#673c32",
+      "olive": "#a6533b",
+      "cloth": "#bf6e49",
+      "light": "#df9664",
+      "edge": "#f1bb80",
+      "trouser": "#46555a",
+      "trouser_light": "#697a7c",
+      "skin_shadow": "#8e5845",
+      "skin": "#c28a67",
+      "skin_light": "#e4b48a",
+      "red": "#d8b56c"
+    },
+    "visual_signature": {
+      "head": "amber hardhat and long dark braid",
+      "outfit": "short rust work jacket with reflective shoulder bands",
+      "equipment": "small belt satchel"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "mara_body.png",
+    "mara_arms.png",
+    "mara_torso.png",
+    "mara_head.png",
+    "mara_back_torso.png",
+    "mara_back_head.png"
+  ],
+  "sha256": {
+    "mara_body.png": "d425218a9a74c242a5e667beae51314562d33e6e9c8b13dfba4e9ecac89f1133",
+    "mara_arms.png": "0c969d479ebee9d0e938136720bfb3943bfbf28ecfadc0773b0b4b9266c9efb8",
+    "mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
+    "mara_head.png": "f3355b2660e5ca9239982ecf694bd1f624ac711374d41fd25014e3e9f661cda7",
+    "mara_back_torso.png": "08a4f8879f56f2dda29c47af4cb38c1da4be09bdf5578f9b1ca1e5ccf5a35c29",
+    "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "cce46983c30027bea83ebcad2c4875b5283e53156f991bd73a4f15755c6967ac"
+}

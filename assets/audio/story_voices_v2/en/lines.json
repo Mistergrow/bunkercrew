@@ -1,0 +1,600 @@
+{
+	"language": "en-US",
+	"lines": [
+		{
+			"file": "san_story_open.wav",
+			"id": "story_open",
+			"source_text": "Hier ist San. Das Warnnetz ist ausgefallen. Wir müssen die anderen Bunker erreichen. Zuerst sichern wir die Front.",
+			"speaker": "san",
+			"text": "This is San. The warning network is down. We need to reach the other bunkers. First, secure the front."
+		},
+		{
+			"file": "san_wall_hint.wav",
+			"id": "wall_hint",
+			"source_text": "Baut die Frontmauer fertig. Schalung, dann Beton. Wartet, bis er ausgehärtet ist.",
+			"speaker": "san",
+			"text": "Finish the front wall. Set the forms, then pour the concrete. Let it cure."
+		},
+		{
+			"file": "san_wall_ready.wav",
+			"id": "wall_ready",
+			"source_text": "Die Front hält. Jetzt müssen wir die ersten Angriffe abwehren.",
+			"speaker": "san",
+			"text": "The front is secure. Now we have to hold off the first attacks."
+		},
+		{
+			"file": "san_relay_first.wav",
+			"id": "relay_first",
+			"source_text": "Das Relais braucht zwei Stahlteile. Bringt sie zum Funkgerät im Bunker.",
+			"speaker": "san",
+			"text": "The relay needs two pieces of steel. Bring them to the radio inside the bunker."
+		},
+		{
+			"file": "san_relay_online.wav",
+			"id": "relay_online",
+			"source_text": "Relais verbunden. Ein schwaches Signal kommt durch. Da draußen ist noch jemand.",
+			"speaker": "san",
+			"text": "Relay connected. A faint signal is getting through. Someone is still out there."
+		},
+		{
+			"file": "san_relay_failure.wav",
+			"id": "relay_failure",
+			"source_text": "Die Verbindung ist weg. Repariert das Funkrelais mit einem Stahlteil.",
+			"speaker": "san",
+			"text": "We lost the connection. Repair the radio relay with one piece of steel."
+		},
+		{
+			"file": "san_relay_restore.wav",
+			"id": "relay_restore",
+			"source_text": "Verbindung steht wieder. Die anderen Bunker warten auf unser Warnsignal.",
+			"speaker": "san",
+			"text": "The connection is back. The other bunkers are waiting for our warning signal."
+		},
+		{
+			"file": "san_storm_tree.wav",
+			"id": "storm_tree",
+			"source_text": "Blitzeinschlag am Außenposten! Der Baum brennt. Bleibt im Schutz des Bunkers.",
+			"speaker": "san",
+			"text": "Lightning strike at the outpost! The tree is on fire. Stay inside the bunker."
+		},
+		{
+			"file": "san_final_signal.wav",
+			"id": "final_signal",
+			"source_text": "Das Warnnetz ist bereit. Haltet die Taste am Funkgerät, bis die Übertragung läuft.",
+			"speaker": "san",
+			"text": "The warning network is ready. Hold the interact button at the radio until transmission begins."
+		},
+		{
+			"file": "san_transmission_live.wav",
+			"id": "transmission_live",
+			"source_text": "Das Signal läuft. Schützt den Kern, bis alle Stationen geantwortet haben.",
+			"speaker": "san",
+			"text": "The signal is going out. Protect the core until every station has answered."
+		},
+		{
+			"file": "san_story_victory.wav",
+			"id": "story_victory",
+			"source_text": "Sie antworten. Mehrere Bunker haben das Signal empfangen. Wir sind nicht mehr allein.",
+			"speaker": "san",
+			"text": "They are answering. Several bunkers received the signal. We are not alone anymore."
+		},
+		{
+			"file": "san_story_defeat.wav",
+			"id": "story_defeat",
+			"source_text": "Der Bunker ist verloren. Unser Signal bricht ab. Vielleicht hört uns beim nächsten Mal jemand.",
+			"speaker": "san",
+			"text": "The bunker is lost. Our signal is fading. Maybe someone will hear us next time."
+		},
+		{
+			"file": "san_warning_ground.wav",
+			"id": "warning_ground",
+			"source_text": "Bodenkontakt. Maschinen nähern sich der Front.",
+			"speaker": "san",
+			"text": "Ground contact. Machines are approaching the front."
+		},
+		{
+			"file": "san_warning_grenadier.wav",
+			"id": "warning_grenadier",
+			"source_text": "Granatwerfer! Bleibt in Deckung.",
+			"speaker": "san",
+			"text": "Grenade launcher! Stay in cover."
+		},
+		{
+			"file": "san_warning_air.wav",
+			"id": "warning_air",
+			"source_text": "Flugmaschinen im Anflug. Besetzt die Luftabwehr.",
+			"speaker": "san",
+			"text": "Hostile aircraft incoming. Get to the anti-air gun."
+		},
+		{
+			"file": "san_warning_boss.wav",
+			"id": "warning_boss",
+			"source_text": "Eine schwere Maschine kommt. Munition auffüllen und Abstand halten.",
+			"speaker": "san",
+			"text": "A heavy machine is coming. Stock up on ammunition and keep your distance."
+		},
+		{
+			"file": "san_core_low.wav",
+			"id": "core_low",
+			"source_text": "Der Bunkerkern ist kritisch beschädigt. Wir müssen ihn jetzt reparieren.",
+			"speaker": "san",
+			"text": "The bunker core is badly damaged. We need to repair it now."
+		},
+		{
+			"file": "san_ally_down.wav",
+			"id": "ally_down",
+			"source_text": "Jemand liegt am Boden. Helft mit einem Verband, wenn der Weg frei ist.",
+			"speaker": "san",
+			"text": "Someone is down. Help them with a bandage when the way is clear."
+		},
+		{
+			"file": "san_revived.wav",
+			"id": "revived",
+			"source_text": "Wieder auf den Beinen. Bleibt zusammen.",
+			"speaker": "san",
+			"text": "Back on your feet. Stay together."
+		},
+		{
+			"file": "san_wave_clear.wav",
+			"id": "wave_clear",
+			"source_text": "Für den Moment ist Ruhe. Reparieren und Vorräte auffüllen.",
+			"speaker": "san",
+			"text": "We have a moment to breathe. Make repairs and restock supplies."
+		},
+		{
+			"file": "san_world_sector07.wav",
+			"id": "world_sector07",
+			"source_text": "Sektor sieben. Zwischen den alten Werken liegt noch eine Leitung zum Warnnetz.",
+			"speaker": "san",
+			"text": "Sector Seven. Somewhere between the old factories, a line still leads to the warning network."
+		},
+		{
+			"file": "san_world_ash_foundry.wav",
+			"id": "world_ash_foundry",
+			"source_text": "Das Aschewerk glüht noch. Unter der Asche könnte das alte Relais überlebt haben.",
+			"speaker": "san",
+			"text": "The Ash Foundry is still smoldering. The old relay might have survived beneath the ash."
+		},
+		{
+			"file": "san_world_abandoned_harbor.wav",
+			"id": "world_abandoned_harbor",
+			"source_text": "Der Hafen ist verlassen. Sein Funkturm hat früher die ganze Küste erreicht.",
+			"speaker": "san",
+			"text": "The harbor is deserted. Its radio tower used to reach the entire coast."
+		},
+		{
+			"file": "san_world_basalt_quarry.wav",
+			"id": "world_basalt_quarry",
+			"source_text": "Basaltbruch. Die Felswände schützen uns, aber der Funkweg führt mitten durch die Grube.",
+			"speaker": "san",
+			"text": "Basalt Quarry. The rock faces shelter us, but the radio line runs straight through the pit."
+		},
+		{
+			"file": "san_world_overgrown_steelworks.wav",
+			"id": "world_overgrown_steelworks",
+			"source_text": "Das Stahlwerk wächst zu. Wir suchen die alte Leitung unter den Wurzeln.",
+			"speaker": "san",
+			"text": "The steelworks are overgrown. We are looking for the old cable beneath the roots."
+		},
+		{
+			"file": "san_world_frozen_rail_yard.wav",
+			"id": "world_frozen_rail_yard",
+			"source_text": "Frostbahnhof. Die Schienen sind tot. Hoffentlich hält die Signalleitung noch.",
+			"speaker": "san",
+			"text": "Frozen Rail Yard. The tracks are dead. Hopefully the signal line still holds."
+		},
+		{
+			"file": "san_world_iron_canyon.wav",
+			"id": "world_iron_canyon",
+			"source_text": "Eisenschlucht. Hier trägt jedes Geräusch weit. Unser Signal muss noch weiter kommen.",
+			"speaker": "san",
+			"text": "Iron Canyon. Every sound carries a long way here. Our signal has to travel farther."
+		},
+		{
+			"file": "san_world_flooded_power_station.wav",
+			"id": "world_flooded_power_station",
+			"source_text": "Das Kraftwerk steht unter Wasser. Nur der Bunker und die alte Funkanlage sind noch trocken.",
+			"speaker": "san",
+			"text": "The power station is flooded. Only the bunker and the old radio equipment are still dry."
+		},
+		{
+			"file": "san_world_mountain_pass.wav",
+			"id": "world_mountain_pass",
+			"source_text": "Gewitterpass. Das Relais liegt hoch genug, um die anderen Bunker zu erreichen. Wenn der Sturm es zulässt.",
+			"speaker": "san",
+			"text": "Storm Pass. The relay is high enough to reach the other bunkers. If the storm lets us."
+		},
+		{
+			"file": "mara_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Erst die Mauer. Ich übernehme die Schalung.",
+			"speaker": "mara",
+			"text": "The wall comes first. I will handle the forms."
+		},
+		{
+			"file": "branko_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Ich schaffe Material heran. Diese Front bleibt stehen.",
+			"speaker": "branko",
+			"text": "I will bring the materials. This front is going to hold."
+		},
+		{
+			"file": "ivo_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Verstanden. Ich prüfe die Schalung, dann kommt der Beton.",
+			"speaker": "ivo",
+			"text": "Understood. I will check the forms, then we pour the concrete."
+		},
+		{
+			"file": "nora_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Die Schalung muss gerade sitzen. Dann hält auch der Beton.",
+			"speaker": "nora",
+			"text": "The formwork needs to sit straight. Then the concrete will hold."
+		},
+		{
+			"file": "levin_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Ich behalte die Straße im Blick. Ihr kümmert euch um die Mauer.",
+			"speaker": "levin",
+			"text": "I'll watch the road. You take care of the wall."
+		},
+		{
+			"file": "selma_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Ich helfe beim Material. Aber lasst den Zugang für Verletzte frei.",
+			"speaker": "selma",
+			"text": "I'll help with the supplies. Keep the entrance clear for the wounded."
+		},
+		{
+			"file": "oskar_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Die Mauer braucht ein ordentliches Fundament. Ich bringe den schweren Kram.",
+			"speaker": "oskar",
+			"text": "The wall needs a solid foundation. I'll bring the heavy stuff."
+		},
+		{
+			"file": "rika_crew_wall.wav",
+			"id": "crew_wall",
+			"source_text": "Ich halte den Zugang frei. Danach sichere ich die Leitungen an der Mauer.",
+			"speaker": "rika",
+			"text": "I'll keep the entrance clear. Then I'll secure the wiring by the wall."
+		},
+		{
+			"file": "mara_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Gut. Wir halten hier durch, bis die Verbindung steht.",
+			"speaker": "mara",
+			"text": "Good. We hold out here until the connection is up."
+		},
+		{
+			"file": "branko_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Wenn da noch jemand ist, lassen wir ihn nicht im Stich.",
+			"speaker": "branko",
+			"text": "If someone is still out there, we are not leaving them behind."
+		},
+		{
+			"file": "ivo_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Ich höre es auch. Schwach, aber das ist eine Stimme.",
+			"speaker": "ivo",
+			"text": "I hear it too. Faint, but that is a voice."
+		},
+		{
+			"file": "nora_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Das Signal ist schwach, aber sauber. Ich kann die Leitung stabilisieren.",
+			"speaker": "nora",
+			"text": "The signal is weak, but clean. I can stabilize the line."
+		},
+		{
+			"file": "levin_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Ich habe draußen Bewegung gesehen. Vielleicht sind das die anderen.",
+			"speaker": "levin",
+			"text": "I saw movement outside. Maybe it's the others."
+		},
+		{
+			"file": "selma_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Solange sie antworten, haben wir eine Chance. Wir holen sie da raus.",
+			"speaker": "selma",
+			"text": "As long as they're answering, we have a chance. We'll get them out."
+		},
+		{
+			"file": "oskar_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Da ist wirklich jemand. Gut, dass wir nicht aufgegeben haben.",
+			"speaker": "oskar",
+			"text": "There's really someone out there. Good thing we didn't give up."
+		},
+		{
+			"file": "rika_crew_reply.wav",
+			"id": "crew_reply",
+			"source_text": "Das Signal kommt durch. Ich halte die Kontakte sauber.",
+			"speaker": "rika",
+			"text": "The signal is getting through. I'll keep the contacts clean."
+		},
+		{
+			"file": "mara_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Alle rein. Um den Baum kümmern wir uns nach dem Sturm.",
+			"speaker": "mara",
+			"text": "Everyone inside. We will deal with the tree after the storm."
+		},
+		{
+			"file": "branko_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Der Stamm ist getroffen. Weg da, unter das Dach!",
+			"speaker": "branko",
+			"text": "The trunk took the hit. Get away from it, under the roof!"
+		},
+		{
+			"file": "ivo_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Das war nah. Ich prüfe drinnen die Leitungen.",
+			"speaker": "ivo",
+			"text": "That was close. I will check the wiring inside."
+		},
+		{
+			"file": "nora_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Weg von den Leitungen. Nach dem Einschlag kann noch Spannung drauf sein.",
+			"speaker": "nora",
+			"text": "Stay clear of the cables. They could still be live after that strike."
+		},
+		{
+			"file": "levin_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Der Baum steht in Flammen. Ich suche einen sicheren Weg zurück.",
+			"speaker": "levin",
+			"text": "The tree is on fire. I'll find a safe way back."
+		},
+		{
+			"file": "selma_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Alle unter das Dach. Ich sehe nach, ob jemand verletzt ist.",
+			"speaker": "selma",
+			"text": "Everyone under the roof. I'll check if anyone is hurt."
+		},
+		{
+			"file": "oskar_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Runter vom freien Gelände. Unter dem Dach sind wir sicherer.",
+			"speaker": "oskar",
+			"text": "Get off the open ground. We're safer under the roof."
+		},
+		{
+			"file": "rika_crew_storm.wav",
+			"id": "crew_storm",
+			"source_text": "Finger weg von blanken Kabeln! Ich schalte die Anlage frei.",
+			"speaker": "rika",
+			"text": "Hands off exposed cables! I'll isolate the power."
+		},
+		{
+			"file": "mara_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Dann hat sich diese Schicht gelohnt. Wir bleiben auf Empfang.",
+			"speaker": "mara",
+			"text": "Then this shift was worth it. We will keep listening."
+		},
+		{
+			"file": "branko_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Habt ihr das gehört? Sie leben noch. Wir haben es geschafft.",
+			"speaker": "branko",
+			"text": "Did you hear that? They are alive. We made it."
+		},
+		{
+			"file": "ivo_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "So viele Antworten. Ich lasse den Empfänger an.",
+			"speaker": "ivo",
+			"text": "So many replies. I am leaving the receiver on."
+		},
+		{
+			"file": "nora_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Das Netz hält. Diesmal haben wir etwas gebaut, das bleibt.",
+			"speaker": "nora",
+			"text": "The network is holding. This time we built something that will last."
+		},
+		{
+			"file": "levin_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Überall Antworten. Gut, dass wir weitergefahren sind.",
+			"speaker": "levin",
+			"text": "Answers from everywhere. I'm glad we kept driving."
+		},
+		{
+			"file": "selma_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Sie sind noch da. Jetzt bringen wir Hilfe zu den anderen Bunkern.",
+			"speaker": "selma",
+			"text": "They're still there. Now we can bring help to the other bunkers."
+		},
+		{
+			"file": "oskar_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Die anderen leben. Dafür hat sich jeder schwere Sack gelohnt.",
+			"speaker": "oskar",
+			"text": "The others are alive. Every heavy sack was worth it."
+		},
+		{
+			"file": "rika_crew_final.wav",
+			"id": "crew_final",
+			"source_text": "Alle Stationen antworten. Diese Leitung lassen wir nicht mehr los.",
+			"speaker": "rika",
+			"text": "Every station is answering. We're keeping this line alive."
+		},
+		{
+			"file": "mara_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "An die Front. Wir lassen sie nicht an den Kern.",
+			"speaker": "mara",
+			"text": "To the front. Keep them away from the core."
+		},
+		{
+			"file": "branko_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Ich sehe sie. Jetzt ruhig zielen und Munition sparen.",
+			"speaker": "branko",
+			"text": "I see them. Take your time, aim, and save your ammunition."
+		},
+		{
+			"file": "ivo_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Die kommen näher. Mein Werkzeug kann kurz warten.",
+			"speaker": "ivo",
+			"text": "They are getting closer. My tools can wait a moment."
+		},
+		{
+			"file": "nora_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Kontakt an der Front. Ich halte die Anlagen am Laufen.",
+			"speaker": "nora",
+			"text": "Contact at the front. I'll keep the machinery running."
+		},
+		{
+			"file": "levin_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Ich habe sie im Visier. Wartet, bis sie aus der Deckung kommen.",
+			"speaker": "levin",
+			"text": "I've got them in my sights. Wait until they leave cover."
+		},
+		{
+			"file": "selma_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Bleibt in Deckung. Wenn jemand fällt, komme ich zu euch.",
+			"speaker": "selma",
+			"text": "Stay in cover. If anyone goes down, I'll come to you."
+		},
+		{
+			"file": "oskar_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Ich halte die Front. Hinter mir könnt ihr weiterarbeiten.",
+			"speaker": "oskar",
+			"text": "I'll hold the front. You can keep working behind me."
+		},
+		{
+			"file": "rika_crew_contact.wav",
+			"id": "crew_contact",
+			"source_text": "Kontakt vorne! Ich sichere drinnen die Stromversorgung.",
+			"speaker": "rika",
+			"text": "Contact up front! I'll secure the power supply inside."
+		},
+		{
+			"file": "mara_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Augen nach oben. Wir müssen das Dach verteidigen.",
+			"speaker": "mara",
+			"text": "Eyes up. We need to defend the roof."
+		},
+		{
+			"file": "branko_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Die holen wir runter. Ich decke den Zugang.",
+			"speaker": "branko",
+			"text": "We will bring them down. I will cover the entrance."
+		},
+		{
+			"file": "ivo_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Rotoren über uns. Hoffentlich hält die Luftabwehr.",
+			"speaker": "ivo",
+			"text": "Rotors overhead. I hope the anti-air gun holds."
+		},
+		{
+			"file": "nora_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Luftkontakt. Ich prüfe die Versorgung der Abwehr.",
+			"speaker": "nora",
+			"text": "Air contact. I'll check the defense power supply."
+		},
+		{
+			"file": "levin_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Über dem Dach! Ich markiere die Flugrichtung.",
+			"speaker": "levin",
+			"text": "Above the roof! I'll call out their approach."
+		},
+		{
+			"file": "selma_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Runter von der freien Fläche. Drinnen können wir euch versorgen.",
+			"speaker": "selma",
+			"text": "Get out of the open. We can treat you inside."
+		},
+		{
+			"file": "oskar_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Oben am Himmel! Ich halte euch den Weg zur Abwehr frei.",
+			"speaker": "oskar",
+			"text": "Up in the sky! I'll keep the path to the air defense clear."
+		},
+		{
+			"file": "rika_crew_air.wav",
+			"id": "crew_air",
+			"source_text": "Flieger über uns! Strom für die Abwehr ist bereit.",
+			"speaker": "rika",
+			"text": "Aircraft overhead! Air defense power is ready."
+		},
+		{
+			"file": "mara_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Kurze Pause. Erst die Schäden, dann die Vorräte.",
+			"speaker": "mara",
+			"text": "A short break. Deal with the damage, then the supplies."
+		},
+		{
+			"file": "branko_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Noch stehen wir. Ich schaue nach der Mauer.",
+			"speaker": "branko",
+			"text": "Still standing. I will check the wall."
+		},
+		{
+			"file": "ivo_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Endlich kurz Ruhe. Wo ist mein Werkzeug?",
+			"speaker": "ivo",
+			"text": "Finally, a quiet moment. Where are my tools?"
+		},
+		{
+			"file": "nora_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Kurz durchatmen. Ich prüfe zuerst die beschädigten Anlagen.",
+			"speaker": "nora",
+			"text": "Take a breath. I'll check the damaged machinery first."
+		},
+		{
+			"file": "levin_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Die Straße ist frei. Ich bleibe noch einen Moment auf Wache.",
+			"speaker": "levin",
+			"text": "The road is clear. I'll stay on watch a little longer."
+		},
+		{
+			"file": "selma_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Wer ist verletzt? Kommt nacheinander zu mir.",
+			"speaker": "selma",
+			"text": "Who's hurt? Come to me one at a time."
+		},
+		{
+			"file": "oskar_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Die Luft ist wieder rein. Ich räume das Material zusammen.",
+			"speaker": "oskar",
+			"text": "The coast is clear again. I'll gather up the materials."
+		},
+		{
+			"file": "rika_crew_clear.wav",
+			"id": "crew_clear",
+			"source_text": "Endlich Ruhe. Ich prüfe Sicherungen und Kabel.",
+			"speaker": "rika",
+			"text": "Finally, some quiet. I'll check the fuses and cables."
+		}
+	]
+}

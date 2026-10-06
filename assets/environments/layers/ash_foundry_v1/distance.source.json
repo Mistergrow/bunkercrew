@@ -1,0 +1,18 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: production raster depth layer for the 2D Godot industrial bunker-defense game Bunkercrew. Input image is the precise STYLE, PALETTE, SIDE-ON CAMERA, LIGHTING and COMPOSITION reference. Match its fine hand-painted pixel-art clusters, weathered metal/concrete and natural trees, detailed distant scale, restrained lights. Make a single wide 16:9 full-bleed image matching the reference canvas (1672x941), no panels or collage. No characters, UI, text, labels, borders, watermark, isometric camera or photo realism. These plates will be stacked at the SAME normalized coordinates and gently moved with parallax. Generate ONLY this middle-distance landscape plate: Only distant blue mountain and wooded ridge silhouettes, crest around y=.47-.65, muted atmospheric perspective. No industrial buildings, chimneys, trees in near distance or lake. Reconstruct terrain hidden behind removed foreground objects. Upper skyline must have genuine alpha transparency. The lower part beneath terrain remains continuously painted terrain to all bottom corners, without black gaps. Absolutely no clouds, sky, sun, moon, distant fog sheet, checkerboard, color matte or shadow cast outside the cutout.",
+  "reference": "assets/environments/v3/ash_foundry.png",
+  "reference_sha256": "1d176db1ba2c8667c3742ad46773888c2d802aa2c66d68b9e329e99eba57bbc4",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-843341b2-5d03-4572-b2b6-b89dd66d0c3d.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "e97fe2c67fce3a99d417574f44ce97bc36dabad11c7b5858580696c717ae02f0",
+  "transparent_background": true,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "usage": "Bunkercrew gameplay depth plate. Original generated pixels and alpha preserved."
+}

@@ -1,0 +1,51 @@
+{
+  "generator": "built-in image_gen",
+  "generated_at": "2026-10-01",
+  "asset": "distant_horizon.png",
+  "source": "local-archive:generated_images/01a0f8ef-cf48-75a3-93c6-04a041f40b41/exec-537822df-e9d8-4797-9332-e30ff2c22e4a.png",
+  "size": [
+    1774,
+    887
+  ],
+  "rows": [
+    {
+      "kind": "rocky ridges",
+      "region": [
+        0,
+        90,
+        1774,
+        180
+      ]
+    },
+    {
+      "kind": "wooded hills",
+      "region": [
+        0,
+        356,
+        1774,
+        146
+      ]
+    },
+    {
+      "kind": "industrial shore",
+      "region": [
+        0,
+        548,
+        1774,
+        131
+      ]
+    },
+    {
+      "kind": "arid mesas",
+      "region": [
+        0,
+        726,
+        1774,
+        161
+      ]
+    }
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: transparent RGBA distant landscape atlas for a grounded industrial 2D pixel-art bunker game. Create one wide 2048x1024 image with EXACTLY FOUR horizontal rows of 2048x256 pixels, no labels, no grid lines. Each row is a continuous modest-height side-view distant landscape strip spanning the entire width. Genuine transparent sky above every uneven terrain silhouette, and 12 transparent pixels below each strip to separate rows. Each strip's land descends to a common flat baseline 244 pixels below that row's top; land connected all the way along that baseline, never isolated floating islands. ROW 1: craggy folded rocky alpine foothills with fine cliff striations, alternating rounded and jagged subdued ridgelines, tiny scattered pale snow traces, no towering hero peak. ROW 2: broad undulating forested low hills, tiny varied conifer and deciduous treelines, visible mottled canopy texture and layered wooded slopes, no giant foreground trees. ROW 3: flat distant industrial shore, small low warehouses, occasional narrow smokestacks, tiny pipes, sparse modest utility structures with fine pixel detail, low dark rocky embankment all across bottom; NO ships, cranes, dams, bridges, cooling towers, flames or isolated iconic landmarks. ROW 4: layered weathered dry mesas, buttes and eroded terraced foothills with delicate horizontal strata and fractured rock planes, low varied plateaus instead of tall hero cliffs. Muted neutral slate gray palette for ALL rows, with 8-14 closely related gray values suitable for runtime biome tinting. Fine authentic crisp pixel clusters around 1-2 pixels, painterly natural shape variety with detailed pixel shading, not a vector silhouette, no flat triangle mountains, no smooth anti-aliased gradients. Low contrast atmospheric distant forms yet enough texture to read when drawn 100-200 pixels tall. Orthographic side view, no ground plane perspective grid, no scenery beyond each strip, no sun/moon/sky/clouds/water, no text, no border. Exactly four wide isolated horizontal strips, evenly spaced. Entire non-land area truly transparent alpha.",
+  "processing": "Original generated RGBA preserved byte-for-byte. Godot reads exact atlas regions and tints their luminance into biome palettes. No panorama landmarks are repeated.",
+  "license": "Generated for the LETZTE SCHICHT project; no external source artwork incorporated."
+}

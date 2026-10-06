@@ -1,0 +1,23 @@
+{
+  "asset": "assets/audio/medical_revive_01.wav",
+  "version": 1,
+  "generator": "tools/generate_machinery_medical_audio.py",
+  "generator_sha256": "917712d6ddd3d6a025daa1afe7fba8e182f8db5b76d5dd229d5d00f98dbbada3",
+  "helper_generator": "tools/generate_aircraft_audio.py",
+  "helper_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic mechanism, fabric and airflow design; no borrowed recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "medical_revive",
+  "layers": "Two restrained dressing/tool contacts and controlled respirator/valve release; no speech or melody",
+  "seed": 720391,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 28800,
+  "seconds": 0.6,
+  "loop": false,
+  "sha256": "322f5067a45a1c86cc013510b7b6677aea1e8451b4e2ddd567c59e623c127cea",
+  "rms_dbfs": -22.99036802507512,
+  "peak_dbfs": -5.192719992755764,
+  "playback": "Mono SFX source, runtime spatial gain and bounded pooling. Machinery audible only during real production; treatment at successful completion, replacing the old build cue. Existing 50% preferences remain unchanged."
+}

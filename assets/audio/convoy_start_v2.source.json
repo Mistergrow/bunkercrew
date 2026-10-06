@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_start_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "start",
+  "layers": "Starter relay, uneven cranking, compression catch, diesel settling",
+  "seed": 605928,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 88800,
+  "seconds": 1.85,
+  "loop": false,
+  "loop_method": "Silent one-shot edges with 65 ms terminal fade",
+  "sha256": "21e60a418a36e76af4f00d746fb225b9d22c5e52a40f906cef9816cde7494a88",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

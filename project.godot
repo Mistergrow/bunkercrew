@@ -1,0 +1,67 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="Bunkercrew"
+config/version="0.1.0-beta"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://assets/icon.svg"
+
+[audio]
+
+driver/enable_input=true
+
+[autoload]
+
+ProfileMigration="*res://scripts/profile_migration.gd"
+Localization="*res://scripts/localization.gd"
+SocialHub="*res://scripts/social_hub.gd"
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/size/window_width_override=1440
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/size/min_width=960
+window/size/min_height=600
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="Terrain"
+2d_physics/layer_2="Defense"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Workers"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.035, 0.047, 0.06, 1)
+
+[shader_globals]
+
+beat_pulse={
+"type": "float",
+"value": 0.0
+}

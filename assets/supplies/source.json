@@ -1,0 +1,32 @@
+{
+  "asset": "industrial_crate.png",
+  "date": "2026-10-01",
+  "tool": "OpenAI built-in image_gen",
+  "mode": "reference-based generation and proportion edit",
+  "reference": [
+    "assets/machinery/components.png",
+    "assets/industrial_props.png"
+  ],
+  "source": "Original image generated for LETZTE SCHICHT; no third-party sprite copied. Referenced project artwork retains its existing provenance.",
+  "license": "No additional third-party asset license introduced. Generated for use in this project; copyright status is not independently asserted.",
+  "generation_prompt": "Use case: stylized-concept. Asset type: a reusable supply-crate sprite for an existing 2D side-view industrial bunker defense game. Input images are STYLE REFERENCES ONLY: image 1 is our existing weathered machinery atlas; image 2 is our prop atlas. Generate ONE complete low rectangular industrial supply crate, isolated on truly transparent background, no atlas and no other objects. Match the references' gritty detailed painted pixel-art materials, warm upper-left illumination, dark brown outlines, muted olive-gray steel straps, brown aged timber panels, restrained brass/rust edge wear. Shape: chest about 1.55 times as wide as tall, viewed nearly straight on from the side, tiny visible top lip and a narrow right face; flat horizontal bottom, robust metal corner rails, two believable strapped locking brackets. Central front panel broad and relatively quiet, EMPTY with no symbol, no writing and no label; the engine will add the actual material badge. Fine clustered pixels and readable substantial edges, enough controlled texture to match our furnace and workbench when rendered only 58 by 38 game pixels. All artwork inside a tight single rectangular bounding silhouette with transparent padding. Absolutely actual alpha transparency outside the crate, no black or colored backdrop, no gradient, no scenery, no ground plane, no drop shadow outside the sprite, no glow, no text, no numbers, no logos, no sample grid. This is ONE crafted wooden and weathered-metal storage crate, not a UI icon and not a collage.",
+  "edit_prompt": "Use case: precise-object-edit. This is a supplied game supply-crate sprite. Keep exactly its weathered timber, olive-gray riveted steel straps, brass latch details, warm upper-left lighting, clustered pixel rendering, and actual alpha transparency. Change ONLY the shape proportions: this crate is currently far too wide. Make a compact chest with the COMPLETE VISIBLE CRATE SILHOUETTE measuring exactly 1.55 times as wide as tall (roughly 62 wide by 40 high game pixels). Its front should look close to a square with a slightly rectangular width, NOT a long horizontal trunk. Keep the two straps closer together, a small right face, quiet central front wood panel. Repaint the shape so it is a compact tall solid box, do not merely keep a long box centered on a square canvas. Give only ONE crate with no other objects. Keep generous actually transparent blank canvas outside the sprite, all top and bottom corners visible, perfectly flat horizontal base. No text, no badges, no symbols, no floor, no background shadow. True RGBA transparency, same style and palette as the input.",
+  "selected_output": "exec-d5f9c991-5779-4922-b316-33d5c2022f6c.png",
+  "sha256": "89749a26037bbdb6c5a9361a62014b3dd75e4bb6a0a365cd487850e51e7c2ac2",
+  "native_dimensions": [
+    1561,
+    1007
+  ],
+  "sprite_region": [
+    296,
+    192,
+    969,
+    622
+  ],
+  "draw_dimensions": [
+    58,
+    38
+  ],
+  "processing": "Selected PNG copied byte-for-byte with original alpha. AtlasTexture region crops transparent padding during drawing; no external raster editing.",
+  "integration": "scripts/supply_art.gd draws the shared crate; existing UiArt material badges identify resources. Physics, transfer rules and inventory amounts remain in Supply."
+}

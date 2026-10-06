@@ -1,0 +1,3 @@
+Original Bunkercrew composition, generated with the Audiote / Tessel engine.
+Distribution permitted only together with Bunkercrew, under the permission granted for Audiote.
+No third-party music recordings or samples are included.

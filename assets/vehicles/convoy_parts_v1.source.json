@@ -1,0 +1,12 @@
+{
+  "asset": "assets/vehicles/convoy_parts_v1.png",
+  "tool": "built-in image_gen.imagegen",
+  "reference": "assets/vehicles/convoy_hull_v1.png",
+  "prompt": "Use case: stylized-concept. Asset type: ORIGINAL modular side-view sprite atlas for the friendly expedition truck in the reference image. Match its aged hand-painted pixel art, olive steel, brass bolts, off-white markings and rust. Reference is STYLE/MATERIAL and truck silhouette context only. Draw a transparent game PARTS SHEET, 1536x1024, four clearly separated objects with generous transparent margins, NO labels/text. Top left at center(390,260): ONE perfect circular off-road truck wheel, side-on round silhouette, thick dirty black rubber tread, olive steel rim with 6 bolts, practical used hub, diameter about330. Top right at center(1130,260): ONE distinct original pintle machinegun BODY aimed RIGHT, strictly flat side view, about650px long, with perforated barrel shroud, short muzzle brake, rectangular olive ammunition feed box under receiver, shoulder/grip controls LEFT, no mount/tripod, no muzzle flash, neutral elevation. Bottom left centered(380,735): ONE wide rectangular bolt-on ARMORED SIDE SKIRT about650x210 with worn off-white diagonal stripe, olive plate metal, brass edge bolts, rusted underside, independent side-view attachment with crisp shape. Bottom right centered(1140,725): ONE side-view CARGO EXPANSION assembly about650x260: two heavy strapped weathered utility boxes and horizontal fuel can on a shallow steel rack, no floor. All four have fixed upper-left light and dark outline but NO glow, NO ground, NO shadows outside objects, no perspective. Author clean useful game parts with real alpha-transparent background; painted depth via small deliberate highlights, readable at native game sizes wheel24px diameter, MG65px width, armor70px, cargo45px. Do not include the reference truck itself, people, lettering, icons, scenic objects or checkerboard. Each sprite completely separate, fully visible and aligned horizontally.",
+  "original_path": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-ad47e721-90d3-44c7-817d-c19b1aa0e127.png",
+  "date": "2026-10-02",
+  "notes": [
+    "Original generated PNG copied unchanged, alpha preserved.",
+    "Independent authored wheel, MG, armor skirt, cargo upgrade; rotations and firing are runtime animation."
+  ]
+}

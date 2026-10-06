@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 4049,
+  "prompt": "Native German man in his early twenties. Clearly youthful high light tenor, bright slightly nasal timbre, nimble spontaneous conversational rhythm. A curious mechanic thinking while speaking. Friendly alert energy, natural German vowel connections and mild breath pauses. Dry close microphone, no presenter voice or dramatic performance.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "c66f7719037169d4043d6884987f32d5f85e388508435cb50388da4be1146b46",
+  "sample_rate": 24000,
+  "duration": 8.96
+}

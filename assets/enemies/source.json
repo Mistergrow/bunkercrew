@@ -1,0 +1,16 @@
+{
+  "asset": "chassis_atlas.png",
+  "tool": "Built-in imagegen",
+  "mode": "reference-based generation",
+  "reference": "reference/konzept.jpg",
+  "prompt": "Use the supplied bunker image ONLY as style reference. Create an original reusable 2D pixel-art game sprite ATLAS of six mechanical enemy BODY CHASSIS modules on truly transparent background. EXACT layout: three columns by two rows, six isolated objects centered in equally sized square cells, generous transparent margins around every object, no labels/no text/no dividers. Every chassis faces LEFT in strict orthographic side view, identical lighting from upper left, dark charcoal armor, olive weathered steel, chipped edges, brass hydraulic joints, tiny vivid RED sensor lights. Handcrafted late-1990s industrial pixel-cluster shading matching the reference, sharp stepped silhouettes, absolutely NO smooth vector/cartoon look or glossy 3D. Top row left: small lean reconnaissance runner chassis with wedge nose. Top center: medium four-legged machine's compact armored body and engine vents. Top right: wide six-legged breaker chassis with reinforced angular shield cheeks. Bottom left: heavy tall biped colossus upper torso with two exhaust stacks and layered frontal armor. Bottom center: agile assault machine chassis with red triple optic and exposed rear engine. Bottom right: huge siege walker body with twin exhausts, cylindrical engine and thick angular frontal plating. IMPORTANT THESE ARE BODY MODULES ONLY: no legs, no feet, no floor/shadow, no detached weapons, no gun barrels, no backgrounds, no complete scenes. Engine animates articulated legs and weapons separately. Keep modules similarly scaled within each cell; actual game scales them. Every component silhouette complete and separated by empty transparency.",
+  "layout": [
+    "runner",
+    "strider",
+    "breaker",
+    "colossus",
+    "assault",
+    "siege"
+  ],
+  "date": "2026-09-30"
+}

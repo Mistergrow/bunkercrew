@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-30",
+  "generator": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "intent": "generate",
+    "calls_per_asset": 1,
+    "requested_dimensions": [
+      3072,
+      1024
+    ],
+    "actual_dimensions": [
+      2172,
+      724
+    ],
+    "aspect_ratio": "3:1",
+    "postprocessing": "None. Original generated PNGs copied byte-for-byte to the repository.",
+    "notes": "Built-in generation preserved the requested aspect ratio but returned 2172x724. No resizing or editing was performed."
+  },
+  "style_reference": {
+    "path": "reference/konzept.jpg",
+    "role": "inspected local visual reference; style described in prompt",
+    "additional_inspected": [
+      "assets/environments/frozen_rail_yard.png",
+      "assets/environments/mountain_pass.png"
+    ],
+    "reference_images_sent": false
+  },
+  "coordinates": "Normalized x/y/w/h relative to full uncropped panorama. Animation bounds are advisory and must be transformed with the same camera rect as the texture.",
+  "assets": {
+    "frozen_rail_yard": {
+      "path": "assets/environments/v2/frozen_rail_yard.png",
+      "source_output": "local-archive:generated_images/01a0f3c8-f98e-7f82-b0f4-b3bc62f31940/exec-ec654ec1-dc77-4359-afd3-f8b52f55ee8c.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: final production 2D game background panorama for LETZTE SCHICHT, a detailed post-apocalyptic industrial pixel-art side-view bunker defense game. Generate a single continuous wide panorama at 3072 × 1024 pixels, exact 3:1 aspect ratio.\nPrimary request: FROZEN RAIL YARD. A vast snowbound railway freight depot on a clear polar morning. Rows of abandoned dark freight wagons and one legible locomotive silhouette sit among orderly snowbound tracks. On the center-right, a distinctive broad curved brick engine roundhouse has many arched bay openings, thick snow on its roof, several roof sections caved in, and a handful of very small warm amber cabin windows. Delicate catenary gantries and sagging power cables create a restrained railway rhythm. Distant low ice-blue hills and a small pale morning sun at upper right; quiet clear frosty sky.\nStyle/medium: premium hand-authored industrial pixel art with crisp hard-edged deliberate square pixel clusters, visibly stepped silhouettes, consistent pixel density equivalent to a 1536 × 512 working canvas shown at 2×; atmospheric depth in three readable layers, finely considered structure and materials. Broad clean masses and sparing texture; no photorealism, painterly blending, excessive dithering or speckled noise. Cohesive with dark charcoal bunker interiors, pale concrete and amber work lights, while retaining this world's distinct cyan snow palette.\nComposition: distant side view, all subjects belong to the background. Upper 30% mostly uncluttered pale cyan sky; recognizable roundhouse and train landmarks between y=28% and y=65%, especially center/right (left third will be covered by game bunker). Lower 30% is quiet horizontal fields of blue snow and distant rail lines with subdued contrast; no large foreground objects. Crisp readable at thumbnail size. No orange sunset. Clear shape hierarchy.\nPalette: glacial cyan, soft pale blue snow, cool desaturated cobalt shadows, near-black blue rails, tiny amber windows.\nConstraints: one uninterrupted full-bleed panorama; no panels, labels, text, logo, watermark, UI, border, bunker, rooms, humans, characters, gameplay platforms, foreground ground strip, close-up objects, snowflakes or falling precipitation. No baked-in moving steam, smoke, particle debris or turbulent clouds; atmosphere will be animated by the game. Do not imitate the generic ruined city skyline of other worlds.",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "visual_review": "Distinct clear cyan polar morning; broad arched snowbound roundhouse centered to right, railway tracks and locomotive; no baked precipitation or smoke. Controlled texture reads cleanly at game scale.",
+      "palette": {
+        "sky_color": "#9BCDE0",
+        "earth_tint": "#34546B",
+        "shadow": "#203449",
+        "accent": "#C38B39",
+        "atmosphere": "#B4DEEE"
+      },
+      "landmarks": {
+        "roundhouse": [
+          0.4,
+          0.39,
+          0.57,
+          0.26
+        ],
+        "locomotive": [
+          0.57,
+          0.6,
+          0.13,
+          0.11
+        ],
+        "sun": [
+          0.945,
+          0.162
+        ]
+      },
+      "light_anchors": [
+        [
+          0.506,
+          0.544
+        ],
+        [
+          0.826,
+          0.55
+        ],
+        [
+          0.92,
+          0.552
+        ]
+      ],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "animation_suggestions": [
+        "Very light slow snow particles above the gameplay horizon",
+        "Subtle warm window pulse confined to roundhouse windows",
+        "Low opacity drifting cold haze above the rail yard"
+      ]
+    },
+    "iron_canyon": {
+      "path": "assets/environments/v2/iron_canyon.png",
+      "source_output": "local-archive:generated_images/01a0f3c8-f98e-7f82-b0f4-b3bc62f31940/exec-db08155f-a93b-4646-9be9-a267651e5852.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: final production 2D game background panorama for LETZTE SCHICHT, a detailed post-apocalyptic industrial pixel-art side-view bunker defense game. Generate one continuous wide panorama at 3072 × 1024 pixels, exact 3:1 aspect ratio.\nPrimary request: IRON CANYON. Monumental iron-red sandstone mesas form an immense stratified gorge in a dry badland. A striking flat-topped giant butte dominates the center-right, with sharply readable horizontal bands of vermilion sandstone and ochre sunlit edges. A tenuous broken metal ore conveyor bridge crosses high over the gorge at the middle-right, its central section missing; below, a dark abandoned mining adit and restrained stepped excavation scar cut into rock. Foreground-scale structures must not appear. Huge natural geology dominates completely. No factories, city skyline, forest, conifers or industrial smokestacks.\nStyle/medium: premium hand-authored industrial pixel art, crisp hard-edged deliberate square pixel clusters, visibly stepped silhouettes, consistent pixel density equivalent to a 1536 × 512 working canvas shown at 2×. Three readable layers of mesa and canyon silhouettes with controlled atmospheric perspective. Broad clean rock masses, carefully designed strata, restrained localized texture without mottled noise. No photorealism, smooth painting, illustration brushwork or excessive dithering. Cohesive with dark charcoal bunker interiors and pale concrete, while deliberately unique in terrain and palette.\nComposition: distant side view background, upper 30% an uncluttered pale amber sky; great mesas rise into this space. Main red mesa and fragile broken conveyor landmarks occupy y=25–65%, concentrated center/right because gameplay bunker covers the left third. Lower 30% quiet shadowed canyon planes receding into dusty distance, subdued contrast, no foreground ledge or platform. Readable dramatic silhouette at thumbnail size.\nLighting/palette: clear dry late afternoon side light, not sunset; light pale amber sky, weathered red oxide, warm vermilion, copper and ochre strata, muted plum shade inside the deep gorge. Strong planes rather than glittery highlights. No repeated orange horizon band, no blue storm sky.\nConstraints: full-bleed single continuous panorama. No people, characters, enemies, bunker, rooms, player, foreground platform, labels, text, logos, UI, watermark, frame, panels, vegetation or ships. Do not bake in airborne dust, moving debris, smoke plumes or precipitation; the game will animate atmosphere.",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "visual_review": "Dominant red stratified mesas, pale amber clear sky and broken conveyor; no city silhouette or forest. Strong silhouette survives distant presentation.",
+      "palette": {
+        "sky_color": "#E9C49A",
+        "earth_tint": "#784241",
+        "shadow": "#523441",
+        "accent": "#CA713A",
+        "atmosphere": "#BE978D"
+      },
+      "landmarks": {
+        "main_mesa": [
+          0.48,
+          0.09,
+          0.24,
+          0.32
+        ],
+        "broken_conveyor": [
+          0.69,
+          0.265,
+          0.31,
+          0.19
+        ],
+        "mine_adit": [
+          0.71,
+          0.535,
+          0.047,
+          0.07
+        ]
+      },
+      "light_anchors": [],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "animation_suggestions": [
+        "Sparse low-opacity warm dust motion",
+        "Extremely restrained heat shimmer near exposed sunlit canyon ledges"
+      ]
+    },
+    "flooded_power_station": {
+      "path": "assets/environments/v2/flooded_power_station.png",
+      "source_output": "local-archive:generated_images/01a0f3c8-f98e-7f82-b0f4-b3bc62f31940/exec-219787f0-bcbc-4cd1-a5dd-12d36a7fc778.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: final production 2D game background panorama for LETZTE SCHICHT, a detailed post-apocalyptic industrial pixel-art side-view bunker defense game. Generate a single continuous wide panorama at 3072 × 1024 pixels, exact 3:1 aspect ratio.\nPrimary request: FLOODED POWER STATION. An enormous abandoned partly submerged brutalist hydroelectric dam occupies the central and right half of a broad flooded valley. It must unmistakably read as a hydroelectric dam: massive moss-stained concrete wall, five huge regularly spaced dark sluice openings, concrete buttresses, squat turbine hall at water level, oxidized teal service gantries and a narrow crest road. Upper concrete structures rise above deep jade and turquoise reservoir water; some low hall windows are submerged. A few tiny warm maintenance lights punctuate the concrete. Distant damp layered hills enclose the reservoir. This is a freshwater hydroelectric basin, never a harbor: no ships, docks, cranes, skyline or cooling towers.\nStyle/medium: premium hand-authored industrial pixel art; deliberate crisp square pixel clusters, visible stepped edge silhouettes, stable pixel density equivalent to a 1536 × 512 working canvas shown at 2×. Detailed but readable architecture and three atmospheric layers, broad clean planes, restrained wear and clean dark openings. Avoid photorealism, smooth painterly blending, fuzzy texture and mottled speckled noise. Pixel-perfect small reflected horizontal light bands. Cohesive with charcoal bunker interiors, pale concrete and amber work lamps.\nComposition: a distant side-view background, not an isometric map. Upper 30% quiet muted pale green-grey midday sky with spacious clarity. Dam crest around y=30–35%, dam wall and turbine halls y=35–64%; strongest unique hydroelectric landmark center/right because left third may be covered by gameplay bunker. Waterline almost horizontal at y=64%, lower 36% predominantly clean flat deep turquoise water with sparse small static pixel reflections. The whole lower band is water, with no foreground bank or platform. Sluice outlets align at y=58–65%; restrained still pale streaks below openings, no big white moving waterfalls baked into image. Calm geometry supports later animated shimmer.\nLighting/palette: damp muted green midday, jade shadows and oxidized turquoise, soft pale sage concrete highlights, dark blue-green openings, sparse warm pinpoints. No orange sunset or generic blue ruined city palette.\nConstraints: one full-bleed uninterrupted panorama with no panels, UI, labels, text, watermark, border, bunker, rooms, player, people, creatures, ships, foreground platforms or close-up debris. No baked-in moving rain, spray, mist trails, smoke plumes or particles; engine will animate atmosphere and water.",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "visual_review": "Unambiguous massive hydroelectric dam and submerged turbine hall, four large visible sluice openings, turquoise water, sage concrete and wooded valley. Water begins at y≈0.681 across whole image. No visible falling waterfall, so no waterfall overlay should be drawn.",
+      "palette": {
+        "sky_color": "#ABC0B2",
+        "earth_tint": "#435E58",
+        "shadow": "#123C40",
+        "accent": "#CBB16E",
+        "atmosphere": "#8EB6A4",
+        "water_deep": "#00525A",
+        "water_highlight": "#4A9691"
+      },
+      "landmarks": {
+        "dam": [
+          0.115,
+          0.23,
+          0.885,
+          0.453
+        ],
+        "turbine_hall": [
+          0.145,
+          0.54,
+          0.36,
+          0.141
+        ]
+      },
+      "waterline_y": 0.681,
+      "water_regions": [
+        [
+          0,
+          0.705,
+          1,
+          0.285
+        ]
+      ],
+      "waterfall_regions": [],
+      "sluice_foam_anchors": [
+        [
+          0.59,
+          0.681
+        ],
+        [
+          0.685,
+          0.681
+        ],
+        [
+          0.78,
+          0.681
+        ],
+        [
+          0.882,
+          0.681
+        ]
+      ],
+      "light_anchors": [
+        [
+          0.16,
+          0.657
+        ],
+        [
+          0.321,
+          0.657
+        ],
+        [
+          0.387,
+          0.658
+        ],
+        [
+          0.446,
+          0.505
+        ],
+        [
+          0.503,
+          0.52
+        ]
+      ],
+      "animation_suggestions": [
+        "Animate calm horizontal water reflection shimmer strictly within water_regions",
+        "Small soft ripples around sluice_foam_anchors",
+        "Slow neutral green atmospheric drift over distant hills",
+        "No waterfall shader: no falling water is baked into this selected source"
+      ]
+    },
+    "mountain_pass": {
+      "path": "assets/environments/v2/mountain_pass.png",
+      "source_output": "local-archive:generated_images/01a0f3c8-f98e-7f82-b0f4-b3bc62f31940/exec-5fb4c301-dde2-4804-8711-c53fa4cd6de0.png",
+      "prompt": "Use case: stylized-concept.\nAsset type: final production 2D game background panorama for LETZTE SCHICHT, a detailed post-apocalyptic industrial pixel-art side-view bunker defense game. Generate a single continuous wide panorama at 3072 × 1024 pixels, exact 3:1 aspect ratio.\nPrimary request: MOUNTAIN PASS. Dramatic jagged alpine slate mountains with pale snow-highlighted high ridges tower above a sheer deep gorge. An unmistakable ruined concrete railway viaduct runs across the central/right chasm: slender huge piers, three legible arches and a broad missing deck section suspended over emptiness. A tiny narrow radio relay tower and a small utility hut stand on the far right cliff, only minute warm lights. Layered sawtooth peaks dominate the scale, with clean distant valley haze below the bridge. A few miniature conifer silhouettes may cluster on distant slopes, but geology and viaduct remain dominant. No factories or ruined urban skyline.\nStyle/medium: premium hand-authored industrial pixel art with crisp deliberate square pixel clusters, clean stepped edges, coherent pixel density equivalent to a 1536 × 512 working canvas shown at 2×. Strong silhouette design in three layered depths. Carefully designed cool snow ridges and slate cliff planes, restrained material marks. No noisy mottling, random speckles, smooth painterly blending, photography or excessive dithering. Cohesive with charcoal bunker interiors, pale concrete and amber work lights.\nComposition: panoramic distant side view, all scenery behind gameplay. Upper 30% is quiet deep indigo/violet storm-dusk sky with broad stable dark cloud masses and pale horizon separation, not ornate swirling clouds. Main jagged peaks rise across center/right; broken viaduct and relay landmark must fall within y=35–65% where visible above game cover. Left third simpler, allowing bunker overlay. Lower 30% consists of quiet layered misty deep blue gorge shapes with low contrast, no big foreground trees, cliff ledge or platform. Readable at thumbnail size.\nLighting/palette: violet and indigo storm dusk, lavender-grey distant peaks, cold pale high snow ridges, blue slate shadow, two or three tiny amber lamps only. Absolutely no orange horizon band or warm sunset, no cyan polar morning palette.\nConstraints: full-bleed continuous landscape, no frames, panels, labels, text, logos, UI, border, bunker, rooms, player, characters, foreground platform, modern city or near objects. Do not bake in lightning, moving rain/snow, particles, drifting smoke or tendrils of fog; the game animates atmosphere.",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "visual_review": "Distinct indigo/violet storm dusk; pale jagged peaks, extremely legible broken viaduct in center/right and tiny relay mast on right cliff. Broad stable sky clouds, no rain or moving fog tendrils.",
+      "palette": {
+        "sky_color": "#2B345D",
+        "earth_tint": "#383F63",
+        "shadow": "#212E51",
+        "accent": "#BA935F",
+        "atmosphere": "#7785AD"
+      },
+      "landmarks": {
+        "main_peak": [
+          0.59,
+          0.045,
+          0.17,
+          0.3
+        ],
+        "viaduct": [
+          0.473,
+          0.51,
+          0.39,
+          0.49
+        ],
+        "bridge_gap": [
+          0.676,
+          0.506,
+          0.056,
+          0.11
+        ],
+        "relay_mast": [
+          0.951,
+          0.154,
+          0.017,
+          0.221
+        ]
+      },
+      "light_anchors": [
+        [
+          0.959,
+          0.158
+        ],
+        [
+          0.95,
+          0.403
+        ],
+        [
+          0.963,
+          0.403
+        ]
+      ],
+      "water_regions": [],
+      "waterfall_regions": [],
+      "animation_suggestions": [
+        "Very slow layered gorge mist confined to low-contrast valley areas",
+        "Soft relay beacon pulse at the exact mast tip",
+        "Occasional subdued storm illumination with no fixed lightning bolt overlay"
+      ]
+    }
+  }
+}

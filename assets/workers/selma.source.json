@@ -1,0 +1,80 @@
+{
+  "source": "generate_character_workers.py",
+  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "rig": "generate_workers.py",
+  "method": "Original source-authored pixel geometry; no imported image edits",
+  "identity": "selma",
+  "states": 19,
+  "frames": 110,
+  "cell": 112,
+  "feet_anchor": [
+    48,
+    90
+  ],
+  "head_origin": [
+    49,
+    33
+  ],
+  "torso_origin": [
+    48,
+    48
+  ],
+  "motion": {
+    "label": "Balanced medical kit carry and deliberate equipment checks",
+    "walk_rate": 1.02,
+    "idle_rate": 0.88,
+    "gestures": [
+      "kit_check",
+      "bandage_check"
+    ]
+  },
+  "palette": {
+    "width": 0.91,
+    "hat": [
+      "#606b62",
+      "#aab8a4",
+      "#d1dbc2",
+      "#e9ead2"
+    ],
+    "palette": {
+      "deep": "#2e3434",
+      "shadow": "#43594f",
+      "olive": "#647f6d",
+      "cloth": "#86a28b",
+      "light": "#aec6a7",
+      "edge": "#d1dfbc",
+      "trouser": "#4a464c",
+      "trouser_light": "#746a76",
+      "skin_shadow": "#795241",
+      "skin": "#ad8263",
+      "skin_light": "#d4aa84",
+      "red": "#c9d1b1"
+    },
+    "visual_signature": {
+      "head": "soft ivory medical cap and short auburn bob",
+      "outfit": "long sage field jacket with pale medical insignia",
+      "equipment": "large cream cross-marked medical bag"
+    }
+  },
+  "motion_frames": "character_motion_frames.json",
+  "motion_frames_sha256": "1d38b305b6f797680096cee069eaab11463e23a394004562e318d988187a5e03",
+  "assets": [
+    "selma_body.png",
+    "selma_arms.png",
+    "selma_torso.png",
+    "selma_head.png",
+    "selma_back_torso.png",
+    "selma_back_head.png"
+  ],
+  "sha256": {
+    "selma_body.png": "74d43c72e6985ed33d702830017b87e67930a337e17d866c0fea6be09fd52c90",
+    "selma_arms.png": "653ce84f049b14e4a385aad34fd521f9932027de47d2d0f030d9a3899e2361ba",
+    "selma_torso.png": "d5d134e6ba99268ce3e989aa30481d1bb3a59c6e22704f3ba9026dd790467f6e",
+    "selma_head.png": "80c4fac03b79f5867f215baa2df431e659fa5e12de2b1f992de6cb83cb046d1b",
+    "selma_back_torso.png": "59dd0b130cc761ff4428c6046f7615b9cf3ae36ee8379da3d3ef40776606d9ad",
+    "selma_back_head.png": "53bcd9569e341d8f21745503892314f1ddce79371b27dc6c2fc18b7018808678"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "source_history": "identities/source-history-20261005.json",
+  "previous_source_sha256": "d0349a9cab2b12ce7693024647c5c3682884ee5c1a74943ec5a2a5e0e413569a"
+}

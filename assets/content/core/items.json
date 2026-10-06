@@ -1,0 +1,237 @@
+{
+  "items": [
+    {
+      "id": "sand",
+      "label": "Sand",
+      "color": "#d6b176",
+      "inventory_order": 0,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/workers/material_props.png",
+        "region": [
+          0,
+          0,
+          24,
+          24
+        ],
+        "world_region": [
+          3,
+          4,
+          19,
+          18
+        ],
+        "world_width": 19
+      }
+    },
+    {
+      "id": "limestone",
+      "label": "Kalkstein",
+      "color": "#ded8bd",
+      "inventory_order": 1,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "ore",
+      "label": "Eisenerz",
+      "color": "#ad7970",
+      "inventory_order": 2,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/workers/material_props.png",
+        "region": [
+          24,
+          0,
+          24,
+          24
+        ],
+        "world_region": [
+          27,
+          4,
+          19,
+          18
+        ],
+        "world_width": 19
+      }
+    },
+    {
+      "id": "tungsten",
+      "label": "Wolframerz",
+      "color": "#a496c4",
+      "inventory_order": 3,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "steel",
+      "label": "Stahl",
+      "color": "#a4c9d0",
+      "inventory_order": 5,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/workers/material_props.png",
+        "region": [
+          48,
+          0,
+          24,
+          24
+        ],
+        "world_region": [
+          48,
+          6,
+          24,
+          17
+        ],
+        "world_width": 24
+      }
+    },
+    {
+      "id": "alloy",
+      "label": "Panzerstahl",
+      "color": "#7facc6",
+      "inventory_order": 6,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "concrete",
+      "label": "Beton",
+      "color": "#c4c1ad",
+      "inventory_order": 7,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/workers/material_props.png",
+        "region": [
+          72,
+          0,
+          24,
+          24
+        ],
+        "world_region": [
+          74,
+          0,
+          21,
+          23
+        ],
+        "world_width": 21,
+        "pour_region": [
+          144,
+          0,
+          24,
+          24
+        ]
+      }
+    },
+    {
+      "id": "glass",
+      "label": "Glas",
+      "color": "#90d7df",
+      "inventory_order": 8,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "ammo",
+      "label": "Munition",
+      "color": "#e6bb62",
+      "inventory_order": 9,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/workers/material_props.png",
+        "region": [
+          96,
+          0,
+          24,
+          24
+        ],
+        "world_region": [
+          98,
+          3,
+          21,
+          20
+        ],
+        "world_width": 21
+      }
+    },
+    {
+      "id": "scrap",
+      "label": "Schrott",
+      "color": "#839c99",
+      "inventory_order": 4,
+      "storage": true,
+      "cargo": true,
+      "art": {
+        "kind": "sprite",
+        "texture": "res://assets/loot/salvage_atlas.png",
+        "region": [
+          70,
+          196,
+          385,
+          253
+        ],
+        "world_region": [
+          70,
+          196,
+          385,
+          253
+        ],
+        "world_width": 32
+      }
+    },
+    {
+      "id": "jaw_trap",
+      "label": "Klemmfalle",
+      "color": "#b9bc9c",
+      "inventory_order": 10,
+      "storage": false,
+      "cargo": false,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "blast_trap",
+      "label": "Sprengmine",
+      "color": "#d29065",
+      "inventory_order": 11,
+      "storage": false,
+      "cargo": false,
+      "art": {
+        "kind": "procedural"
+      }
+    },
+    {
+      "id": "sentry_kit",
+      "label": "Feldgeschütz",
+      "color": "#8dafa3",
+      "inventory_order": 12,
+      "storage": false,
+      "cargo": false,
+      "art": {
+        "kind": "procedural"
+      }
+    }
+  ]
+}

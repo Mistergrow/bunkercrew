@@ -1,0 +1,21 @@
+{
+  "tool": "image_gen.imagegen (built-in)",
+  "date": "2026-10-02",
+  "assets": [
+    {
+      "id": "sulfur_refinery",
+      "prompt": "Use case: stylized-concept. Asset type: wide 3:1 seamless-feeling painted pixel-art landscape background for a 2D side-view bunker-defense game, 2880x960 preferred. Create an ORIGINAL sulfur refinery, no text: gigantic corroded fractional-distillation towers and cylindrical storage tanks in a dry sulfur-yellow volcanic basin, mustard mineral deposits, black pipe gantries connecting offset towers, a few tiny warm red furnace windows. Large distinct landmark at right third, modest infrastructure at left third, open readable middle. Horizon in lower half, side elevation distant landscape with very little visible top planes, no foreground platform, no characters or vehicles. Sky upper 45% smoky desaturated ochre with sparse layered dusky clouds; warm ivory horizon, muted olive-brown machinery. Gritty detailed hand-painted pixel-art, crisp 2–4px clusters and limited-color shading matching a dark industrial Godot sidescroller, no blur, no photographic textures, no glowing sci-fi neon, no dramatic camera perspective. Bottom 20% quiet dark dry earth. Keep cloud/land edges crisp for later authored skyline masking. Full opaque panorama, no border, no watermark.",
+      "generated": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-5f98aa36-05ae-4006-909f-15c48eaff09b.png"
+    },
+    {
+      "id": "radar_highlands",
+      "prompt": "Use case: stylized-concept. Asset type: wide 3:1 painted pixel-art background panorama for a 2D side-view industrial bunker-defense game, 2880x960 preferred. Create an ORIGINAL cold remote radar highlands landscape, no text. Three distinct pale weathered parabolic radar dishes on staggered rocky ridgelines, largest dish on right third, one squat geodesic radome left, antennas and small concrete listening-post buildings, tiny amber service lights. Mountains terraced in overlapping layers; grass and snow patches on slate crags; no water. Cool violet-indigo dusk above pale blue horizon with wispy clouds, restrained silver dishes contrasting dark blue rocks. Horizon in lower half, open readable middle, side elevation distant landscape with very little visible top planes, no foreground gameplay platform, no characters, no vehicles. Gritty detailed hand-painted pixel art, crisp 2–4px clusters and limited-color shading matching an industrial Godot sidescroller, no blur or photo textures, no neon, no isometric camera. Quiet dark rocky foreground occupies bottom20%. Full opaque panorama with no border or watermark. Crisp silhouettes support accurate sky occlusion masks.",
+      "generated": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-b4a6ece9-a2b3-428a-a486-413f17eb667e.png"
+    },
+    {
+      "id": "buried_megafactory",
+      "prompt": "Use case: stylized-concept. Asset type: wide 3:1 painted pixel-art landscape background for a 2D side-view bunker-defense game, 2880x960 preferred. Create an ORIGINAL buried megafactory excavation, no text. Massive abandoned industrial halls and broken gantries half swallowed by red-brown earth, gigantic circular turbine opening in a collapsed factory facade at right third, enormous broken overhead crane at left third, rusted ventilation shafts emerging from sediment terraces, torn roof trusses, subtle tiny molten-orange emergency lamps in the exposed buried machinery. Geological layers cross the low canyon walls; not a modern working refinery, no snowy peaks, no dams. Muted dusty plum sky and copper dusk horizon with layered ash clouds. Distant landscape in side elevation with limited top planes, middle open and readable behind player-built bunker; lower20% dark rubble terraces. Hand-painted gritty pixel-art with crisp2–4px clusters, limited-color industrial shading consistent with a Godot side-scroller. No characters, no vehicles, no foreground platform, no photorealism, no blurry gradients, no isometric view, no text/borders/watermarks. Opaque full panorama, crisp land silhouettes for later sky occlusion.",
+      "generated": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-16c440fe-7b83-47da-9a67-f25a9f550add.png"
+    }
+  ]
+}

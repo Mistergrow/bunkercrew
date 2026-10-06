@@ -1,0 +1,19 @@
+{
+  "asset": "assets/audio/convoy_clatter_v2.wav",
+  "generator": "tools/generate_convoy_audio.py",
+  "generator_sha256": "42e12d13e5cdae08e2ecc702062587e550f1360e082e8c981d09db4bdbf0eaba",
+  "source": "Original deterministic procedural mechanical foley; no external samples, recordings or melodies.",
+  "license": "Original Bunkercrew sound design; distribution only together with Bunkercrew.",
+  "role": "clatter",
+  "layers": "Damped loose body panels, cargo fasteners and short metal suspension knocks",
+  "seed": 604931,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 384000,
+  "seconds": 8.0,
+  "loop": true,
+  "loop_method": "Periodic FFT textures and integer-period harmonics; no fades or seam crossfade",
+  "sha256": "69094f398bb95226f6ac304a515dbcc825242f615b3b9167c0b85f1f9fa41226",
+  "playback": "Bounded spatial convoy voices on the existing SFX bus; defaults and other audio banks unchanged."
+}

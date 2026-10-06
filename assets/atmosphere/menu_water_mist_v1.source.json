@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-02",
+  "asset": "Menu water mist and spillway spray atlas",
+  "size": [
+    2172,
+    724
+  ],
+  "mode": "RGBA",
+  "sha256": "52976cca03cf53fb1461fa4ba2c2e9ccf843a19151eb4dd89156ba64a531fca4",
+  "style_references": [
+    "assets/environments/v2/ash_foundry.png",
+    "assets/environments/v2/abandoned_harbor.png"
+  ],
+  "rows": {
+    "0": "Harbour low fog",
+    "1": "Waterfall and spillway spray"
+  },
+  "initial_prompt": "Use case: stylized-concept. Create one new production-ready RGBA texture atlas for the 2D pixel-painted industrial game Bunkercrew. Reference images are STYLE REFERENCES ONLY: match their restrained finely clustered hand-painted pixels, sombre blue-grey industrial atmosphere and soft layered silhouettes. Do not reproduce buildings or the reference scenes. Asset: two separate extremely wide horizontal low mist banks, stacked in exactly two equal rows, target 2048x512 pixels, each row 2048x256. TOP ROW: sparse cold blue-grey harbour fog with several irregular wisps, uneven translucent density, long low broken shape. BOTTOM ROW: a slightly brighter neutral grey-white drifting waterfall spray bank, subtle granular mist tufts and ragged soft pixel edges, low horizontal silhouette. Both have natural horizontal drifting forms, no dark outline, no solid rectangle, no straight cropped edges, no photorealistic smooth blur. Mist varies in thickness and has internal transparent gaps. Everything outside mist must be true alpha transparency including all gutters: fully transparent left/right margins of at least 96 pixels, fully transparent 24 pixels along the top and bottom of EACH row, so no piece touches atlas edges or crosses row boundary. Keep these margins completely clear. No horizon, water, shore, sky, objects, trees, text, numbers, borders or checkerboard pixels; no baked lighting halo. Suitable for very subtle translucent rendering over the reference panoramas, tinted in engine and animated by a shader. Output ONLY the transparent atlas.",
+  "refinement_prompt": "Refine this transparent game mist texture atlas. Keep the same two long low horizontal mist shapes and fine painted pixel clusters. Correct the texture for professional game use: ALL visible pigment must be strictly neutral grayscale, equal red green blue values, no blue/cyan/magenta or saturated fringe pixels anywhere. Preserve true alpha transparency, internal translucent detail and irregular wispy silhouette. Increase separation between the two rows and transparent margins so each mist bank fits comfortably INSIDE its own half of the canvas, not touching any edge: at least 50 pixels completely transparent padding around each row. Row1 is thin wispy low fog, row2 slightly denser fine waterfall spray. Outer edges and middle separating horizontal gutter must be COMPLETELY transparent. Remove any isolated stray pixels outside the two silhouettes. No objects, no text, no sky, no rectangles, no black background, no checkerboard. It is an engine-tinted neutral mist atlas, low-contrast gray fine mottled shading. Keep two rows only, same wide landscape composition.",
+  "integration": "Original generated RGBA preserved. Shader uses neutral luminance with authored biome tint and rejects negligible alpha to prevent fringe colors or near-transparent atlas bounds. Region sampling must remain within each half."
+}

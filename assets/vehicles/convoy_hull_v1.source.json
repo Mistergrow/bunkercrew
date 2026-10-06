@@ -1,0 +1,12 @@
+{
+  "asset": "assets/vehicles/convoy_hull_v1.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-02",
+  "prompt": "Use case: stylized-concept. Asset type: transparent runtime sprite hull for the friendly expedition transport in a 2D side-scrolling bunker defense game. Reference image is material/pixel painting style ONLY, not the subject to copy. Create ONE long armored civilian utility truck BODY, strict orthographic SIDE VIEW facing RIGHT, narrow cab at front right, low long rear cargo deck at left, rectangular door and clearly readable large cab window, heavy bumper, pale muted ivory rescue stripes on faded army-green steel, warm brass bolt heads, restrained rust and chipped edges, painted pixel art matching the supplied industrial chassis. Distinct friendly 6-wheel expedition cargo truck silhouette. The roof over rear deck must have an empty flat gunner mounting ring/platform with no attached gun and ample room for a separately animated seated worker. Body ONLY: no wheels, no tracks, no people, no gun barrels. Three shallow open wheel arches in lower body with transparent centers for code-animated wheels beneath. Include some strapped storage bins low on cargo deck, one small fuel can, exhaust pipe, cab windows dark desaturated teal. Native game width about 185 pixels; make broad coherent texture and crisp silhouette that reads at that size. Composition: wide horizontal isolated hull centered with transparent margin, full vehicle visible. Lighting fixed from upper left; no outline glow, no drop shadow, no ground, no background, no text/logos or labels, no perspective, no 3D view. True alpha-transparent background. The chassis bottom must remain horizontally level.",
+  "reference": "assets/enemies/vehicle_hulls_v1.png",
+  "original_path": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-76eb4e9b-0fee-486a-8e34-b8925962346f.png",
+  "notes": [
+    "Copied without raster modification; native alpha preserved.",
+    "Only the chassis is painted; wheels, suspension, occupants and MG are animated runtime components."
+  ]
+}

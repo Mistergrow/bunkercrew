@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image_gen",
+  "generated_at": "2026-10-02",
+  "asset": "frozen_vegetation_v1.png",
+  "source": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-c6f0b27f-bb7e-49e4-abd1-3dae11e41691.png",
+  "prompt": "Use case: stylized-concept. Asset type: wide transparent foreground vegetation strip for a serious 2D side-view pixel-art bunker game, matching the viewed snowy industrial railway reference. Generate one wide approximately 3:1 RGBA image: a low uneven connected winter hedgerow of frosty shrubs, brambles, sparse reeds, dry grass clumps, small rocks and several young conifers and bare birch saplings. Trees differ strongly in height, largest only about half canvas height. Shrubs and grasses dense near bottom with varied gaps above, horizontal game elevation, no perspective. Every plant grows from ONE flat baseline exactly along bottom edge, no dangling roots below, landscape connected full width at bottom, all tops and branches fully inside canvas. Genuine transparent sky throughout top and between plants; no sky fill, no clouds, no backdrop, no people or animals. Crisp detailed pixel clusters, dark charcoal-blue branches, dusty desaturated pine green, slate-blue shadow snow with restrained pale blue-gray frost flecks, no vivid green, upper-left cold daylight. Detailed hand-painted late-1990s pixel-game style, clear silhouette when rendered 140px high. Transparent padding above highest branches. No text, grid, labels, panels, UI, border, ground perspective or shadows outside the plants. One continuous wide strip, not an atlas.",
+  "processing": "Original RGBA preserved. Godot samples the baseline region and uses a luminance-based winter palette to suppress chromatic alpha-edge artifacts.",
+  "region": [
+    0,
+    125,
+    2172,
+    515
+  ],
+  "license": "Generated for Bunkercrew / LETZTE SCHICHT; no third-party asset license attached."
+}

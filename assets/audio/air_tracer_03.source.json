@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_tracer_03.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "air_tracer",
+  "layers": "Dry autocannon pressure report, breech contact and short ejection mechanism",
+  "seed": 937278,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 14400,
+  "seconds": 0.3,
+  "loop": false,
+  "loop_method": "Finite dry transient with short attack/release; no repeated waveform",
+  "peak_dbfs": -2.046088373709827,
+  "rms_dbfs": -19.669819049104333,
+  "sha256": "c983d3f9076fa805d79793a079458d0853584dec4701970826ea61e51533abdd",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

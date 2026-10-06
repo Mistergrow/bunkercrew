@@ -1,0 +1,547 @@
+{
+  "description": "Original per-character source notices and runtime asset hashes preserved before the eight distinct silhouette revision. Original bitmaps are also retained in artifacts/crew-identities-20261005/visuals/baseline-source/.",
+  "sources": {
+    "mara": {
+      "notice": {
+        "source": "generate_character_workers.py",
+        "rig": "generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "mara",
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "motion": {
+          "label": "Controlled stride, deliberate gear checks",
+          "walk_rate": 1.0,
+          "idle_rate": 0.9,
+          "gestures": [
+            "radio_check",
+            "strap_check"
+          ]
+        },
+        "palette": {
+          "width": 0.92,
+          "hat": [
+            "#82542e",
+            "#cb943a",
+            "#edc566",
+            "#ffe4a5"
+          ],
+          "palette": {
+            "deep": "#382b29",
+            "shadow": "#673c32",
+            "olive": "#a6533b",
+            "cloth": "#bf6e49",
+            "light": "#df9664",
+            "edge": "#f1bb80",
+            "trouser": "#46555a",
+            "trouser_light": "#697a7c",
+            "skin_shadow": "#8e5845",
+            "skin": "#c28a67",
+            "skin_light": "#e4b48a",
+            "red": "#d8b56c"
+          }
+        },
+        "assets": [
+          "mara_body.png",
+          "mara_arms.png",
+          "mara_torso.png",
+          "mara_head.png"
+        ]
+      },
+      "notice_sha256": "cce46983c30027bea83ebcad2c4875b5283e53156f991bd73a4f15755c6967ac",
+      "assets_sha256": {
+        "mara_body.png": "d425218a9a74c242a5e667beae51314562d33e6e9c8b13dfba4e9ecac89f1133",
+        "mara_arms.png": "0c969d479ebee9d0e938136720bfb3943bfbf28ecfadc0773b0b4b9266c9efb8",
+        "mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
+        "mara_head.png": "f3355b2660e5ca9239982ecf694bd1f624ac711374d41fd25014e3e9f661cda7",
+        "mara_back_torso.png": "08a4f8879f56f2dda29c47af4cb38c1da4be09bdf5578f9b1ca1e5ccf5a35c29",
+        "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d"
+      }
+    },
+    "branko": {
+      "notice": {
+        "source": "generate_character_workers.py",
+        "rig": "generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "branko",
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "motion": {
+          "label": "Wide planted gait, heavy settling shoulders",
+          "walk_rate": 0.82,
+          "idle_rate": 0.72,
+          "gestures": [
+            "shoulder_roll",
+            "beard_check"
+          ]
+        },
+        "palette": {
+          "width": 1.32,
+          "hat": [
+            "#6b7778",
+            "#abb6b1",
+            "#d9ddc7",
+            "#f4ead2"
+          ],
+          "palette": {
+            "deep": "#202b35",
+            "shadow": "#2c3e4c",
+            "olive": "#445e70",
+            "cloth": "#627e8e",
+            "light": "#8ea9b4",
+            "edge": "#b9c6c5",
+            "trouser": "#303e4a",
+            "trouser_light": "#526476",
+            "skin_shadow": "#855342",
+            "skin": "#b58261",
+            "skin_light": "#d8ad83",
+            "red": "#ad6b4e"
+          }
+        },
+        "assets": [
+          "branko_body.png",
+          "branko_arms.png",
+          "branko_torso.png",
+          "branko_head.png"
+        ]
+      },
+      "notice_sha256": "afc8bded94b1363de3d9616787405927b3e3a2e1d4aa39e756f85999de1f8d68",
+      "assets_sha256": {
+        "branko_body.png": "497f870c24061675efca1d88812b91b8c7d6c453b570a80413da17315ef1772e",
+        "branko_arms.png": "e7f3b010dc5b52666fb9e80cb5315e5267accd7636f13d85b2adddec920223ed",
+        "branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
+        "branko_head.png": "eff09e322de57f94d0389e2dc3716944b3470c9debd3dc7fe25d5e49da09e2b2",
+        "branko_back_torso.png": "c5c42b2cf757582665611f5025d4e19a8ed29527c8d71ff355d2b7301c64c376",
+        "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a"
+      }
+    },
+    "ivo": {
+      "notice": {
+        "source": "generate_character_workers.py",
+        "rig": "generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "ivo",
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "motion": {
+          "label": "Quick light steps, restless head and tools",
+          "walk_rate": 1.18,
+          "idle_rate": 1.15,
+          "gestures": [
+            "goggles_check",
+            "tool_check"
+          ]
+        },
+        "palette": {
+          "width": 0.8,
+          "hat": [
+            "#3f3a2c",
+            "#726745",
+            "#a5965e",
+            "#d2c08a"
+          ],
+          "palette": {
+            "deep": "#253c38",
+            "shadow": "#305652",
+            "olive": "#48827a",
+            "cloth": "#65a79b",
+            "light": "#94c5ad",
+            "edge": "#c3dbc0",
+            "trouser": "#4e4e3c",
+            "trouser_light": "#72745a",
+            "skin_shadow": "#805438",
+            "skin": "#b48a58",
+            "skin_light": "#dbb67c",
+            "red": "#a2794c"
+          }
+        },
+        "assets": [
+          "ivo_body.png",
+          "ivo_arms.png",
+          "ivo_torso.png",
+          "ivo_head.png"
+        ]
+      },
+      "notice_sha256": "89ef04743c247d0dde2ee7eee6c965475a042885c0929c8714a0c4d94c24eaec",
+      "assets_sha256": {
+        "ivo_body.png": "fb25a9fe73cebcceca855d54a6aa5cab02e815d65f2853f71543fff30652f5a0",
+        "ivo_arms.png": "3be56a67c1f1c72ec815e877e5f500f85b316a35ab1f698aa5ef555c8ad48b99",
+        "ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
+        "ivo_head.png": "76a3a7e61d7a16466b57e9ba8b745219be284f7103bf0912bb9bbd8c4890c14a",
+        "ivo_back_torso.png": "3ed8f164e6aff20873c3835f4a83290de928311ea1da444fa6a361b583c28fcb",
+        "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019"
+      }
+    },
+    "nora": {
+      "notice": {
+        "source": "generate_recruits.py",
+        "rig": "generate_character_workers.py / generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "nora",
+        "base_motion": "mara",
+        "palette": {
+          "width": 1.02,
+          "hat": [
+            "#504338",
+            "#8c7455",
+            "#c0a173",
+            "#e4ca98"
+          ],
+          "palette": {
+            "deep": "#26343b",
+            "shadow": "#374c53",
+            "olive": "#547078",
+            "cloth": "#6b8b90",
+            "light": "#91b1ac",
+            "edge": "#b8cec0",
+            "trouser": "#424944",
+            "trouser_light": "#697567",
+            "skin_shadow": "#8e5845",
+            "skin": "#c28a67",
+            "skin_light": "#e4b48a",
+            "red": "#baa171"
+          }
+        },
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "assets": [
+          "nora_body.png",
+          "nora_arms.png",
+          "nora_torso.png",
+          "nora_head.png"
+        ]
+      },
+      "notice_sha256": "2db4cfe671fc9b1518d3951fdf6cb63a28fe44a1d491d9105659fc4d9b54867b",
+      "assets_sha256": {
+        "nora_body.png": "c13ff969b009c12d5eceef379ff4e37c61eca998713493817bc4691acdcaa4cc",
+        "nora_arms.png": "2a7adc78cbd645694804eaed507cfe6d58acd1f521205d1ff1e5b2ab8fc847b0",
+        "nora_torso.png": "a2c8315454d247b3bc07cb6111971cd9488c9965b172e3f20e1d7f886aa49cdd",
+        "nora_head.png": "8cf560961941dc3dae141c035c81d2d565e7becbbf67ad29b0d38533818d05e0",
+        "nora_back_torso.png": "c8e3856ef17ecac4d53dce169473df95da9f05521724503a83419b10c6424dde",
+        "nora_back_head.png": "74755ae9bc83c62e7b640caae3ec585c412bbb116eb5353ddf8fc371501f1195"
+      }
+    },
+    "levin": {
+      "notice": {
+        "source": "generate_recruits.py",
+        "rig": "generate_character_workers.py / generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "levin",
+        "base_motion": "ivo",
+        "palette": {
+          "width": 0.84,
+          "hat": [
+            "#333c2d",
+            "#5c6c47",
+            "#90a06c",
+            "#bbca8e"
+          ],
+          "palette": {
+            "deep": "#2e362c",
+            "shadow": "#414c36",
+            "olive": "#64734c",
+            "cloth": "#809260",
+            "light": "#a5b57d",
+            "edge": "#c9d49d",
+            "trouser": "#344449",
+            "trouser_light": "#586d70",
+            "skin_shadow": "#805438",
+            "skin": "#b48a58",
+            "skin_light": "#dbb67c",
+            "red": "#b3a67a"
+          }
+        },
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "assets": [
+          "levin_body.png",
+          "levin_arms.png",
+          "levin_torso.png",
+          "levin_head.png"
+        ]
+      },
+      "notice_sha256": "6d4a3a1391b421d8c6d7333b0f7466991c08f4a988d00559bd56a7e9173a74de",
+      "assets_sha256": {
+        "levin_body.png": "0d0b281eb9e6229545b961f26dc9d4e599d063ef04cbca3f718daa8eef2c9a23",
+        "levin_arms.png": "8781a1e11e54b264b64d34fde9230f4f104597c575448690c57558b92121940e",
+        "levin_torso.png": "4bb99665649a02714747607f0a789747940b2f3339211904b77c1834ff1973b2",
+        "levin_head.png": "8028a8340a6e75ecba03af338b1aa3ed83ccd0649ba726bfa711dcf64037ac4a",
+        "levin_back_torso.png": "0edc9d1e93c4e4023469ec25f3b45569d1444ef0d9c3b9e7993b43cd83b6d992",
+        "levin_back_head.png": "38c7a58a2a282164928272da99f3b8d57618f6f10c35b090b69d462393bb61e8"
+      }
+    },
+    "selma": {
+      "notice": {
+        "source": "generate_recruits.py",
+        "rig": "generate_character_workers.py / generate_workers.py",
+        "method": "Original source-authored pixel geometry; no imported image edits",
+        "identity": "selma",
+        "base_motion": "mara",
+        "palette": {
+          "width": 0.91,
+          "hat": [
+            "#606b62",
+            "#aab8a4",
+            "#d1dbc2",
+            "#e9ead2"
+          ],
+          "palette": {
+            "deep": "#2e3434",
+            "shadow": "#43594f",
+            "olive": "#647f6d",
+            "cloth": "#86a28b",
+            "light": "#aec6a7",
+            "edge": "#d1dfbc",
+            "trouser": "#4a464c",
+            "trouser_light": "#746a76",
+            "skin_shadow": "#795241",
+            "skin": "#ad8263",
+            "skin_light": "#d4aa84",
+            "red": "#c9d1b1"
+          }
+        },
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "assets": [
+          "selma_body.png",
+          "selma_arms.png",
+          "selma_torso.png",
+          "selma_head.png"
+        ]
+      },
+      "notice_sha256": "d0349a9cab2b12ce7693024647c5c3682884ee5c1a74943ec5a2a5e0e413569a",
+      "assets_sha256": {
+        "selma_body.png": "9d1bf8f50775b60504a67e746e028a02a07d799cf98f644fbef39358afd83ec5",
+        "selma_arms.png": "653ce84f049b14e4a385aad34fd521f9932027de47d2d0f030d9a3899e2361ba",
+        "selma_torso.png": "009cb999782a0104528978203cd75190ff55db868a17bd7d3a2f1706796f11d0",
+        "selma_head.png": "b80ff75ac2353cb31ea2ee7df5ee7ae0fbcb2d8f25f13ed46d09fe98706a1587",
+        "selma_back_torso.png": "a8c3cf6fed092a5910ce86ef353524b0da9baaea0456cf85478b11e417b97b54",
+        "selma_back_head.png": "c471bec42dead91f9a8cbd429e607cb55fe1500d54ef06c4268cc599e76e555e"
+      }
+    },
+    "oskar": {
+      "notice": {
+        "source": "generate_solo_recruits.py",
+        "rig": [
+          "generate_character_workers.py",
+          "generate_workers.py"
+        ],
+        "method": "Original source-authored pixel geometry; no imported image reads or edits; side/rear only, no frontal artwork.",
+        "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+        "identity": "oskar",
+        "base_motion": "branko",
+        "motion": {
+          "label": "Broad dustcoat stance, short weighty stride, lamp and pack checks",
+          "walk_rate": 0.9,
+          "idle_rate": 0.76,
+          "gestures": [
+            "lamp_check",
+            "pack_tighten"
+          ]
+        },
+        "palette": {
+          "width": 1.16,
+          "hat": [
+            "#4a422e",
+            "#8b7946",
+            "#bda669",
+            "#e0cf95"
+          ],
+          "palette": {
+            "deep": "#332f29",
+            "shadow": "#4c473b",
+            "olive": "#696451",
+            "cloth": "#858168",
+            "light": "#a8a58a",
+            "edge": "#c7c1a0",
+            "trouser": "#393e39",
+            "trouser_light": "#61675c",
+            "skin_shadow": "#724b3a",
+            "skin": "#aa7957",
+            "skin_light": "#c9a17b",
+            "red": "#baa263"
+          }
+        },
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "assets": {
+          "oskar_body.png": "1551483e7b434ce7ec33a19d0b3de6dea7a1edb14cbb80666a5c95ddc39ec7da",
+          "oskar_arms.png": "b7fecd73cb854d47e636d92fa0817ecebb0bda611cfc5a18d40f88a8a51da9a2",
+          "oskar_torso.png": "b5a0be5b83b428bb6811b3a1cf5675b0524685b0c854908393090aec7224d1ee",
+          "oskar_head.png": "04beb0af16e06338a7b602c855cd62e02f69a33d39627632b27fac91cb01ffc8",
+          "oskar_back_torso.png": "d43bae6f43c0f3aa2a04750b4f69618a947d8a2feff1769c6b60095a2c3e164d",
+          "oskar_back_head.png": "ffedfc59aef927d48f32153b1110004c55a809f7fde878d869eff861879c35a9"
+        },
+        "preserved_older_pngs": {
+          "worker_1_body.png": "a64fe63e019777ddeeee90010e9011403b51d6afa030b3a2900e1e485419e072",
+          "nora_body.png": "c13ff969b009c12d5eceef379ff4e37c61eca998713493817bc4691acdcaa4cc",
+          "worker_2_body.png": "4be1dddf0be9f844accc06d375139ff4fc883444cd6b8c5eb3230397afdd4bb5",
+          "ivo_body.png": "fb25a9fe73cebcceca855d54a6aa5cab02e815d65f2853f71543fff30652f5a0",
+          "branko_head.png": "eff09e322de57f94d0389e2dc3716944b3470c9debd3dc7fe25d5e49da09e2b2",
+          "levin_back_head.png": "38c7a58a2a282164928272da99f3b8d57618f6f10c35b090b69d462393bb61e8",
+          "mara_arms.png": "0c969d479ebee9d0e938136720bfb3943bfbf28ecfadc0773b0b4b9266c9efb8",
+          "nora_back_head.png": "74755ae9bc83c62e7b640caae3ec585c412bbb116eb5353ddf8fc371501f1195",
+          "ivo_head.png": "76a3a7e61d7a16466b57e9ba8b745219be284f7103bf0912bb9bbd8c4890c14a",
+          "selma_back_torso.png": "a8c3cf6fed092a5910ce86ef353524b0da9baaea0456cf85478b11e417b97b54",
+          "branko_arms.png": "e7f3b010dc5b52666fb9e80cb5315e5267accd7636f13d85b2adddec920223ed",
+          "levin_arms.png": "8781a1e11e54b264b64d34fde9230f4f104597c575448690c57558b92121940e",
+          "material_props.png": "3d3edda191aca8eb74d97c3cfbeee6df5dd637a981d12c689ef554e427eec2e2",
+          "worker_contact_sheet.png": "4586c07de16643426c9960d5d5f57db511f1053dc21640e4faa68254d1d7778a",
+          "nora_back_torso.png": "c8e3856ef17ecac4d53dce169473df95da9f05521724503a83419b10c6424dde",
+          "selma_arms.png": "653ce84f049b14e4a385aad34fd521f9932027de47d2d0f030d9a3899e2361ba",
+          "levin_head.png": "8028a8340a6e75ecba03af338b1aa3ed83ccd0649ba726bfa711dcf64037ac4a",
+          "selma_torso.png": "009cb999782a0104528978203cd75190ff55db868a17bd7d3a2f1706796f11d0",
+          "selma_body.png": "9d1bf8f50775b60504a67e746e028a02a07d799cf98f644fbef39358afd83ec5",
+          "ivo_arms.png": "3be56a67c1f1c72ec815e877e5f500f85b316a35ab1f698aa5ef555c8ad48b99",
+          "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a",
+          "worker_2_arms.png": "323f50b33a489637df156b3ba90a6b1d16ccbde08b2feffa9f79c9af122e04bb",
+          "levin_body.png": "0d0b281eb9e6229545b961f26dc9d4e599d063ef04cbca3f718daa8eef2c9a23",
+          "nora_head.png": "8cf560961941dc3dae141c035c81d2d565e7becbbf67ad29b0d38533818d05e0",
+          "levin_back_torso.png": "0edc9d1e93c4e4023469ec25f3b45569d1444ef0d9c3b9e7993b43cd83b6d992",
+          "selma_head.png": "b80ff75ac2353cb31ea2ee7df5ee7ae0fbcb2d8f25f13ed46d09fe98706a1587",
+          "nora_arms.png": "2a7adc78cbd645694804eaed507cfe6d58acd1f521205d1ff1e5b2ab8fc847b0",
+          "levin_torso.png": "4bb99665649a02714747607f0a789747940b2f3339211904b77c1834ff1973b2",
+          "mara_back_torso.png": "08a4f8879f56f2dda29c47af4cb38c1da4be09bdf5578f9b1ca1e5ccf5a35c29",
+          "selma_back_head.png": "c471bec42dead91f9a8cbd429e607cb55fe1500d54ef06c4268cc599e76e555e",
+          "ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
+          "nora_torso.png": "a2c8315454d247b3bc07cb6111971cd9488c9965b172e3f20e1d7f886aa49cdd",
+          "worker_1_arms.png": "323f50b33a489637df156b3ba90a6b1d16ccbde08b2feffa9f79c9af122e04bb",
+          "ivo_back_torso.png": "3ed8f164e6aff20873c3835f4a83290de928311ea1da444fa6a361b583c28fcb",
+          "branko_body.png": "497f870c24061675efca1d88812b91b8c7d6c453b570a80413da17315ef1772e",
+          "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d",
+          "mara_body.png": "d425218a9a74c242a5e667beae51314562d33e6e9c8b13dfba4e9ecac89f1133",
+          "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019",
+          "branko_back_torso.png": "c5c42b2cf757582665611f5025d4e19a8ed29527c8d71ff355d2b7301c64c376",
+          "branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
+          "mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
+          "mara_head.png": "f3355b2660e5ca9239982ecf694bd1f624ac711374d41fd25014e3e9f661cda7"
+        }
+      },
+      "notice_sha256": "cfbfb2b8b4509b311da5e50c8a7192481438522dcb22a8d1d17afecf0afb2e30",
+      "assets_sha256": {
+        "oskar_body.png": "1551483e7b434ce7ec33a19d0b3de6dea7a1edb14cbb80666a5c95ddc39ec7da",
+        "oskar_arms.png": "b7fecd73cb854d47e636d92fa0817ecebb0bda611cfc5a18d40f88a8a51da9a2",
+        "oskar_torso.png": "b5a0be5b83b428bb6811b3a1cf5675b0524685b0c854908393090aec7224d1ee",
+        "oskar_head.png": "04beb0af16e06338a7b602c855cd62e02f69a33d39627632b27fac91cb01ffc8",
+        "oskar_back_torso.png": "d43bae6f43c0f3aa2a04750b4f69618a947d8a2feff1769c6b60095a2c3e164d",
+        "oskar_back_head.png": "ffedfc59aef927d48f32153b1110004c55a809f7fde878d869eff861879c35a9"
+      }
+    },
+    "rika": {
+      "notice": {
+        "source": "generate_solo_recruits.py",
+        "rig": [
+          "generate_character_workers.py",
+          "generate_workers.py"
+        ],
+        "method": "Original source-authored pixel geometry; no imported image reads or edits; side/rear only, no frontal artwork.",
+        "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+        "identity": "rika",
+        "base_motion": "ivo",
+        "motion": {
+          "label": "Narrow springy electrical-service stride, headset and cable checks",
+          "walk_rate": 1.07,
+          "idle_rate": 0.98,
+          "gestures": [
+            "headset_check",
+            "cable_check"
+          ]
+        },
+        "palette": {
+          "width": 0.86,
+          "hat": [
+            "#38464a",
+            "#687d82",
+            "#9fb3b3",
+            "#c5cebd"
+          ],
+          "palette": {
+            "deep": "#29383c",
+            "shadow": "#3e555d",
+            "olive": "#577582",
+            "cloth": "#7593a1",
+            "light": "#a0b9bb",
+            "edge": "#c0d2c9",
+            "trouser": "#514c47",
+            "trouser_light": "#77736a",
+            "skin_shadow": "#815245",
+            "skin": "#b68065",
+            "skin_light": "#dbad87",
+            "red": "#b39663"
+          }
+        },
+        "states": 19,
+        "frames": 110,
+        "cell": 112,
+        "assets": {
+          "rika_body.png": "c51c99d243ed46e0d6bebf73151d402785da1303f0e970422dc107b9a0ef5939",
+          "rika_arms.png": "e1eb49034e276b1e41543cc3394ae7e559c94c7c41d2eecc24bb4568fe0b5c14",
+          "rika_torso.png": "0f4eb7d8de9582b8a9514a688dbafa0b3da50176d5a18b3ec66400a90db4f879",
+          "rika_head.png": "d5db8443e2d80b89292a65266898afe233fb6e36e7a1a0be7dd901aede1f8ed7",
+          "rika_back_torso.png": "fad6084d5360f90721afaa8230f44d4474adc1a3c1f3566edb8fc0b4e2db0087",
+          "rika_back_head.png": "aeb11d2037fde13fb82db50beac01a955a83fee8640ae3fc991269ae3a9d3ed3"
+        },
+        "preserved_older_pngs": {
+          "worker_1_body.png": "a64fe63e019777ddeeee90010e9011403b51d6afa030b3a2900e1e485419e072",
+          "nora_body.png": "c13ff969b009c12d5eceef379ff4e37c61eca998713493817bc4691acdcaa4cc",
+          "worker_2_body.png": "4be1dddf0be9f844accc06d375139ff4fc883444cd6b8c5eb3230397afdd4bb5",
+          "ivo_body.png": "fb25a9fe73cebcceca855d54a6aa5cab02e815d65f2853f71543fff30652f5a0",
+          "branko_head.png": "eff09e322de57f94d0389e2dc3716944b3470c9debd3dc7fe25d5e49da09e2b2",
+          "levin_back_head.png": "38c7a58a2a282164928272da99f3b8d57618f6f10c35b090b69d462393bb61e8",
+          "mara_arms.png": "0c969d479ebee9d0e938136720bfb3943bfbf28ecfadc0773b0b4b9266c9efb8",
+          "nora_back_head.png": "74755ae9bc83c62e7b640caae3ec585c412bbb116eb5353ddf8fc371501f1195",
+          "ivo_head.png": "76a3a7e61d7a16466b57e9ba8b745219be284f7103bf0912bb9bbd8c4890c14a",
+          "selma_back_torso.png": "a8c3cf6fed092a5910ce86ef353524b0da9baaea0456cf85478b11e417b97b54",
+          "branko_arms.png": "e7f3b010dc5b52666fb9e80cb5315e5267accd7636f13d85b2adddec920223ed",
+          "levin_arms.png": "8781a1e11e54b264b64d34fde9230f4f104597c575448690c57558b92121940e",
+          "material_props.png": "3d3edda191aca8eb74d97c3cfbeee6df5dd637a981d12c689ef554e427eec2e2",
+          "worker_contact_sheet.png": "4586c07de16643426c9960d5d5f57db511f1053dc21640e4faa68254d1d7778a",
+          "nora_back_torso.png": "c8e3856ef17ecac4d53dce169473df95da9f05521724503a83419b10c6424dde",
+          "selma_arms.png": "653ce84f049b14e4a385aad34fd521f9932027de47d2d0f030d9a3899e2361ba",
+          "levin_head.png": "8028a8340a6e75ecba03af338b1aa3ed83ccd0649ba726bfa711dcf64037ac4a",
+          "selma_torso.png": "009cb999782a0104528978203cd75190ff55db868a17bd7d3a2f1706796f11d0",
+          "selma_body.png": "9d1bf8f50775b60504a67e746e028a02a07d799cf98f644fbef39358afd83ec5",
+          "ivo_arms.png": "3be56a67c1f1c72ec815e877e5f500f85b316a35ab1f698aa5ef555c8ad48b99",
+          "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a",
+          "worker_2_arms.png": "323f50b33a489637df156b3ba90a6b1d16ccbde08b2feffa9f79c9af122e04bb",
+          "levin_body.png": "0d0b281eb9e6229545b961f26dc9d4e599d063ef04cbca3f718daa8eef2c9a23",
+          "nora_head.png": "8cf560961941dc3dae141c035c81d2d565e7becbbf67ad29b0d38533818d05e0",
+          "levin_back_torso.png": "0edc9d1e93c4e4023469ec25f3b45569d1444ef0d9c3b9e7993b43cd83b6d992",
+          "selma_head.png": "b80ff75ac2353cb31ea2ee7df5ee7ae0fbcb2d8f25f13ed46d09fe98706a1587",
+          "nora_arms.png": "2a7adc78cbd645694804eaed507cfe6d58acd1f521205d1ff1e5b2ab8fc847b0",
+          "levin_torso.png": "4bb99665649a02714747607f0a789747940b2f3339211904b77c1834ff1973b2",
+          "mara_back_torso.png": "08a4f8879f56f2dda29c47af4cb38c1da4be09bdf5578f9b1ca1e5ccf5a35c29",
+          "selma_back_head.png": "c471bec42dead91f9a8cbd429e607cb55fe1500d54ef06c4268cc599e76e555e",
+          "ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
+          "nora_torso.png": "a2c8315454d247b3bc07cb6111971cd9488c9965b172e3f20e1d7f886aa49cdd",
+          "worker_1_arms.png": "323f50b33a489637df156b3ba90a6b1d16ccbde08b2feffa9f79c9af122e04bb",
+          "ivo_back_torso.png": "3ed8f164e6aff20873c3835f4a83290de928311ea1da444fa6a361b583c28fcb",
+          "branko_body.png": "497f870c24061675efca1d88812b91b8c7d6c453b570a80413da17315ef1772e",
+          "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d",
+          "mara_body.png": "d425218a9a74c242a5e667beae51314562d33e6e9c8b13dfba4e9ecac89f1133",
+          "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019",
+          "branko_back_torso.png": "c5c42b2cf757582665611f5025d4e19a8ed29527c8d71ff355d2b7301c64c376",
+          "branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
+          "mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
+          "mara_head.png": "f3355b2660e5ca9239982ecf694bd1f624ac711374d41fd25014e3e9f661cda7"
+        }
+      },
+      "notice_sha256": "27dc195501fa9202872a1df73c446bf17464afabffc52b8e2505833d3662fbd7",
+      "assets_sha256": {
+        "rika_body.png": "c51c99d243ed46e0d6bebf73151d402785da1303f0e970422dc107b9a0ef5939",
+        "rika_arms.png": "e1eb49034e276b1e41543cc3394ae7e559c94c7c41d2eecc24bb4568fe0b5c14",
+        "rika_torso.png": "0f4eb7d8de9582b8a9514a688dbafa0b3da50176d5a18b3ec66400a90db4f879",
+        "rika_head.png": "d5db8443e2d80b89292a65266898afe233fb6e36e7a1a0be7dd901aede1f8ed7",
+        "rika_back_torso.png": "fad6084d5360f90721afaa8230f44d4474adc1a3c1f3566edb8fc0b4e2db0087",
+        "rika_back_head.png": "aeb11d2037fde13fb82db50beac01a955a83fee8640ae3fc991269ae3a9d3ed3"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "asset": "assets/audio/air_engine_jet_v1.wav",
+  "generator": "tools/generate_aircraft_audio.py",
+  "generator_sha256": "af49aba30021dd6a5daeefd21988dac9adff687ae86cdac9081190ed2b800f5f",
+  "origin": "Original deterministic aircraft mechanism, airflow and ordnance sound design; no external recordings, music or speech.",
+  "license": "Original Bunkercrew sound design. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
+  "role": "jet",
+  "layers": "Broad intake/exhaust pressure, restrained turbine harmonics and a speech-band notch",
+  "seed": 913364,
+  "sample_rate": 48000,
+  "channels": 1,
+  "pcm_bits": 16,
+  "frames": 384000,
+  "seconds": 8.0,
+  "loop": true,
+  "loop_method": "Integer-period carriers and circular FFT textures, intact rotation to quiet low-derivative cut",
+  "peak_dbfs": -11.024567105253979,
+  "rms_dbfs": -20.0,
+  "sha256": "784cfa5b9e43cf7daeda9a488fdfaccf4317c7f777793c5576d7e227d22e4c4e",
+  "playback": "Canonical mono source on SFX; runtime supplies bounded voices, world-space pan, attenuation, pause and mixer gain. Existing 50% saved settings remain unchanged."
+}

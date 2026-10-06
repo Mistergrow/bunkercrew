@@ -1,0 +1,77 @@
+{
+  "generator": "tools/generate_ricochet_audio.py",
+  "generator_revision": 1,
+  "authored_at": "2026-10-05",
+  "asset": "ricochet_metal_02",
+  "material": "metal",
+  "description": "A longer rough, downward metallic glancing zing.",
+  "origin": "Kenney CC0 contact recordings layered with original deterministic DSP deflection resonances and air trails. These are authored effects, not recordings of actual bullet ricochets. No AI audio model used.",
+  "source_author": "Kenney",
+  "source_pack": "Impact Sounds",
+  "source_page": "https://kenney.nl/assets/impact-sounds",
+  "source_archive_sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+  "source_license": "CC0-1.0",
+  "source_license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source_recordings": {
+    "impactPlate_light_004.ogg": "9cb33b0c0cce948313f078b60769d2f8e4075472494fc8f8129aa4a23c951897",
+    "impactTin_medium_001.ogg": "84253095543c094d83cd749f42ecfbc96e356b60385f18a192c18eafb25b3cc6"
+  },
+  "derivative_license": "CC0-1.0",
+  "sha256": "bbe8f8c81202ee35bf545c196331d25a75d61e80de750bd36404fba135a859b1",
+  "seconds": 0.46,
+  "sample_rate": 48000,
+  "channels": 1,
+  "format": "PCM16 WAV",
+  "peak": 0.53997802734375,
+  "reconstructed_peak_4x": 0.5526260566426902,
+  "rms": 0.07131746499202311,
+  "dc": -1.188637553781703e-07,
+  "processing": {
+    "recorded_layers": [
+      {
+        "file": "impactPlate_light_004.ogg",
+        "gain": 0.52,
+        "at": 0.001,
+        "speed": 1.38,
+        "low": 680,
+        "high": 7700,
+        "decay": 0.053
+      },
+      {
+        "file": "impactTin_medium_001.ogg",
+        "gain": 0.18,
+        "at": 0.005,
+        "speed": 1.67,
+        "low": 1200,
+        "high": 6800,
+        "decay": 0.033
+      }
+    ],
+    "original_dsp_glance": {
+      "at": 0.009,
+      "start_hz": 3620,
+      "end_hz": 1190,
+      "decay": 0.088,
+      "pitch_decay": 0.072,
+      "gain": 0.25,
+      "roughness": 0.18
+    },
+    "original_dsp_air": {
+      "at": 0.015,
+      "low": 1300,
+      "high": 6000,
+      "decay": 0.065,
+      "gain": 0.038
+    },
+    "seed": 501043,
+    "reverb": false,
+    "musical_layers": false,
+    "output_bandpass_hz": [
+      360,
+      8300
+    ],
+    "peak_target": 0.54,
+    "release_seconds": 0.03
+  },
+  "review": "Objective decoded-PCM and source verification only; browser samples provided for human listening."
+}

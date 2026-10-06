@@ -1,0 +1,8 @@
+{
+  "use": "Windows build toolchain; notices retained for statically linked support runtime",
+  "source": "Ubuntu noble mingw-w64 11.0.1, GCC13-posix apt packages",
+  "files": {
+    "GCC-NOTICE": "a481f772f7a53335f13b32c6c54eb1c8577ce97704edd3757ab7ed4287a8e96a",
+    "NOTICE": "af23297b7d17e8e31817a5d58088de6fdafe34705bb5a7d1d330f08711b31314"
+  }
+}

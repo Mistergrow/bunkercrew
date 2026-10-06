@@ -1,0 +1,8 @@
+Bunkercrew generated environment artwork
+
+These original sprite atlases were generated for Bunkercrew using OpenAI's
+built-in image generation tool on 2026-10-03. Their generation prompts and
+measured sprite regions are recorded in the adjacent .source.json files.
+No third-party sprite sheets were copied into these assets.
+Distribution and use with Bunkercrew are permitted. This notice does not change
+the license of the game code or the separately licensed Audiote music engine.

@@ -1,0 +1,19 @@
+{
+  "asset": "assets/expedition/road_hinterland_v2.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-04",
+  "prompt": "Use case: stylized-concept. Asset type: a full-width production background panorama for a moving side-view 2D game level in Bunkercrew. Primary request: abandoned industrial hinterland along a crew convoy route between fortified bunkers, matching detailed dark industrial pixel art. Composition wide landscape 16:9; distant skyline at 52% of image height, generous overcast twilight sky, low distant ridges behind half-demolished steelworks, overhead pipelines, one ruined concrete viaduct, overgrown railway structures, tiny practical amber lights. The near ground is low and dark, sparse scrub and fractured concrete embankment silhouettes only. All scenery is in the distance behind a horizontally side-scrolling road which the engine draws separately. No vehicle, no visible characters, no foreground road, no close giant wall obscuring play area. Muted slate blue/teal shadows, dusty olive vegetation, weathered iron and concrete, copper rust, restrained warm small lamps. Pixel-perfect hand-authored-looking hard pixel clusters, detailed silhouettes, no painting blur or shallow depth-of-field. Strong separation of sky, far distance and mid industrial skyline for parallax reuse, continuous empty horizons left and right without frame. Suitable for a game rather than a concept-art poster. Cover the entire canvas edge to edge. No title, no typography, no UI, no logos, no decorative border.",
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-f0cad05e-1f31-41a6-8c0f-cbc970aa879e.png",
+  "size": [
+    1672,
+    941
+  ],
+  "horizon_y": 0.52,
+  "sha256": "226c5df7b0f547f522c59799d2ce22bc698b85da3e9447bb86255f881ebb6e20",
+  "notes": [
+    "Copied without raster modification.",
+    "Road and vehicle are runtime geometry, this image is strictly behind the playable plane.",
+    "Combined with route-specific original sky/distance plates and separate alpha verge for parallax."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

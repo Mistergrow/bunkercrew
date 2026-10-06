@@ -1,0 +1,13 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 9547,
+  "prompt": "Native German woman in her early twenties. Distinct forward mid-register speaking voice, lightly husky grain with lively quick confident articulation. An alert hands-on electrician, friendly direct everyday conversational German, energetic without shouting. Compact rhythm with natural connected syllables, darker and drier than a bright high soprano but without a deep smoky alto. Dry close microphone, no announcer cadence, no cartoon performance, no singing or whispering.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "927fb96cdf2f09bfa71535eefe6cd5aced08e0a1bef7b87d7119467abc29a166",
+  "sample_rate": 24000,
+  "duration": 7.2,
+  "device": "cpu",
+  "dtype": "float32"
+}

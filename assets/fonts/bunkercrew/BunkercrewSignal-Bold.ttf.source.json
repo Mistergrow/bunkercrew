@@ -1,0 +1,22 @@
+{
+  "name": "Bunkercrew Signal Bold",
+  "version": "2.000",
+  "type": "original pixel outline font",
+  "generator": "tools/generate_bunkercrew_font.py",
+  "source": "Original authored grid patterns in generator; no third-party or traced font outlines.",
+  "license": "SIL Open Font License 1.1",
+  "license_file": "OFL.txt",
+  "reserved_font_names": [],
+  "design": "Industrial proportional pixel lettering, distinct lowercase, open counters, aligned digits. Half-cell stencil bridges in enclosed display capitals.",
+  "grid_units": 100,
+  "units_per_em": 1400,
+  "native_sizes": [
+    14,
+    28,
+    42,
+    56
+  ],
+  "rendering": "Nearest bitmap for large display type",
+  "glyph_count": 239,
+  "sha256": "b50c2f3dfec4b3a9401dd47f9a8eac2f6e7923e749df67bd5cf1c0ccc840cad0"
+}

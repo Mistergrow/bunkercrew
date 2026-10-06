@@ -1,0 +1,36 @@
+{
+  "asset": "assets/audio/air_raid_flyover_v1.wav",
+  "generator": "tools/generate_air_raid_audio.py",
+  "source": "Original deterministic stereo synthesis; no samples, recordings, voice models or vehicle assets.",
+  "role": "Industrial twin-rotor scout drone and high-altitude wind during the solo air-contact preview",
+  "seed": 832471,
+  "sample_rate": 32000,
+  "frames": 128000,
+  "seconds": 4,
+  "channels": 2,
+  "format": "PCM16",
+  "rotor_blade_pass_hz": [
+    35.5,
+    37.75
+  ],
+  "loop": {
+    "begin": 0,
+    "end_exclusive": 128000,
+    "mode": "forward",
+    "method": "Periodic carriers, Fourier noise and circular filtering; whole-wave rotation to a quiet seam, no crossfade gap.",
+    "seam_rotation_frames": 108763
+  },
+  "mix": {
+    "bus": "SFX",
+    "volume_db": -9.0,
+    "additional_speech_duck_db": -4.0,
+    "panel_attack_seconds": 0.65,
+    "panel_release_seconds": 0.8,
+    "note": "Runtime panel owns smooth gain fades, including skip; obeys the SFX slider."
+  },
+  "measurements": {
+    "peak_dbfs": -5.192746210115122,
+    "rms_dbfs": -18.146020492271887
+  },
+  "sha256": "0534e7f5201a42be9a3c97bc974af3ae909b3b8b1cf5d15cc619270d72332446"
+}

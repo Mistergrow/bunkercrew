@@ -1,0 +1,2 @@
+Generated specifically for Bunkercrew. Distribute this asset only together with Bunkercrew.
+See aircraft_hulls_v1.source.json for the generator, exact prompt and provenance.

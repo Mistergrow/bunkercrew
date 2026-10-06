@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "revision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+  "seed": 5303,
+  "prompt": "Native German woman in her late twenties with a bright clear higher soprano speaking voice and precise light articulation. An analytical engineer, direct and brisk, slightly wry and curious. Natural relaxed spoken German with connected syllables, crisp short sentences. Dry close microphone, no airy whisper, no announcer or cartoon tone.",
+  "text": "Wir haben noch einen langen Weg vor uns. Ich sehe nach den Vorräten, dann fahren wir weiter. Bleibt in meiner Nähe. Zusammen kommen wir hier durch.",
+  "reference_voice": "Entirely synthetic fictional voice; no human reference.",
+  "sha256": "e5c271aa04a1433a494f5fde0cbe50fd009fdcc3c72075e5195b634b00683451",
+  "sample_rate": 24000,
+  "duration": 9.28
+}

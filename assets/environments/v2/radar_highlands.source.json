@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen.imagegen (built-in)",
+  "date": "2026-10-02",
+  "prompt": "Use case: stylized-concept. Asset type: wide 3:1 painted pixel-art background panorama for a 2D side-view industrial bunker-defense game, 2880x960 preferred. Create an ORIGINAL cold remote radar highlands landscape, no text. Three distinct pale weathered parabolic radar dishes on staggered rocky ridgelines, largest dish on right third, one squat geodesic radome left, antennas and small concrete listening-post buildings, tiny amber service lights. Mountains terraced in overlapping layers; grass and snow patches on slate crags; no water. Cool violet-indigo dusk above pale blue horizon with wispy clouds, restrained silver dishes contrasting dark blue rocks. Horizon in lower half, open readable middle, side elevation distant landscape with very little visible top planes, no foreground gameplay platform, no characters, no vehicles. Gritty detailed hand-painted pixel art, crisp 2\u20134px clusters and limited-color shading matching an industrial Godot sidescroller, no blur or photo textures, no neon, no isometric camera. Quiet dark rocky foreground occupies bottom20%. Full opaque panorama with no border or watermark. Crisp silhouettes support accurate sky occlusion masks.",
+  "original": "local-archive:generated_images/01a0fbcc-f829-7fd1-aa05-be6010150fae/exec-b4a6ece9-a2b3-428a-a486-413f17eb667e.png",
+  "license": "Generated for this project; no external source art",
+  "size": [
+    2172,
+    724
+  ]
+}

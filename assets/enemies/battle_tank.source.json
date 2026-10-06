@@ -1,0 +1,7 @@
+{
+  "method": "Repository-native pixel geometry and existing tracked hull",
+  "hull": "vehicle_hulls_v1.png",
+  "geometry": "res://scripts/ground_vehicle_art.gd",
+  "class": "battle_tank",
+  "note": "Existing mortar-carrier base hull with original armored turret, long cannon, recoil and animated track gear; no third-party asset introduced."
+}

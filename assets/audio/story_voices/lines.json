@@ -1,0 +1,305 @@
+{
+  "language": "de-DE",
+  "lines": [
+    {
+      "file": "san_story_open.wav",
+      "id": "story_open",
+      "speaker": "san",
+      "text": "Hier ist San. Das Warnnetz ist ausgefallen. Wir müssen die anderen Bunker erreichen. Zuerst sichern wir die Front."
+    },
+    {
+      "file": "san_wall_hint.wav",
+      "id": "wall_hint",
+      "speaker": "san",
+      "text": "Baut die Frontmauer fertig. Schalung, dann Beton. Wartet, bis er ausgehärtet ist."
+    },
+    {
+      "file": "san_wall_ready.wav",
+      "id": "wall_ready",
+      "speaker": "san",
+      "text": "Die Front hält. Jetzt müssen wir die ersten Angriffe abwehren."
+    },
+    {
+      "file": "san_relay_first.wav",
+      "id": "relay_first",
+      "speaker": "san",
+      "text": "Das Relais braucht zwei Stahlteile. Bringt sie zum Funkgerät im Bunker."
+    },
+    {
+      "file": "san_relay_online.wav",
+      "id": "relay_online",
+      "speaker": "san",
+      "text": "Relais verbunden. Ein schwaches Signal kommt durch. Da draußen ist noch jemand."
+    },
+    {
+      "file": "san_relay_failure.wav",
+      "id": "relay_failure",
+      "speaker": "san",
+      "text": "Die Verbindung ist weg. Repariert das Funkrelais mit einem Stahlteil."
+    },
+    {
+      "file": "san_relay_restore.wav",
+      "id": "relay_restore",
+      "speaker": "san",
+      "text": "Verbindung steht wieder. Die anderen Bunker warten auf unser Warnsignal."
+    },
+    {
+      "file": "san_storm_tree.wav",
+      "id": "storm_tree",
+      "speaker": "san",
+      "text": "Blitzeinschlag am Außenposten! Der Baum brennt. Bleibt im Schutz des Bunkers."
+    },
+    {
+      "file": "san_final_signal.wav",
+      "id": "final_signal",
+      "speaker": "san",
+      "text": "Das Warnnetz ist bereit. Haltet die Taste am Funkgerät, bis die Übertragung läuft."
+    },
+    {
+      "file": "san_transmission_live.wav",
+      "id": "transmission_live",
+      "speaker": "san",
+      "text": "Das Signal läuft. Schützt den Kern, bis alle Stationen geantwortet haben."
+    },
+    {
+      "file": "san_story_victory.wav",
+      "id": "story_victory",
+      "speaker": "san",
+      "text": "Sie antworten. Mehrere Bunker haben das Signal empfangen. Wir sind nicht mehr allein."
+    },
+    {
+      "file": "san_story_defeat.wav",
+      "id": "story_defeat",
+      "speaker": "san",
+      "text": "Der Bunker ist verloren. Unser Signal bricht ab. Vielleicht hört uns beim nächsten Mal jemand."
+    },
+    {
+      "file": "san_warning_ground.wav",
+      "id": "warning_ground",
+      "speaker": "san",
+      "text": "Bodenkontakt. Maschinen nähern sich der Front."
+    },
+    {
+      "file": "san_warning_air.wav",
+      "id": "warning_air",
+      "speaker": "san",
+      "text": "Flugmaschinen im Anflug. Besetzt die Luftabwehr."
+    },
+    {
+      "file": "san_warning_boss.wav",
+      "id": "warning_boss",
+      "speaker": "san",
+      "text": "Eine schwere Maschine kommt. Munition auffüllen und Abstand halten."
+    },
+    {
+      "file": "san_core_low.wav",
+      "id": "core_low",
+      "speaker": "san",
+      "text": "Der Bunkerkern ist kritisch beschädigt. Wir müssen ihn jetzt reparieren."
+    },
+    {
+      "file": "san_ally_down.wav",
+      "id": "ally_down",
+      "speaker": "san",
+      "text": "Jemand liegt am Boden. Helft mit einem Verband, wenn der Weg frei ist."
+    },
+    {
+      "file": "san_revived.wav",
+      "id": "revived",
+      "speaker": "san",
+      "text": "Wieder auf den Beinen. Bleibt zusammen."
+    },
+    {
+      "file": "san_wave_clear.wav",
+      "id": "wave_clear",
+      "speaker": "san",
+      "text": "Für den Moment ist Ruhe. Reparieren und Vorräte auffüllen."
+    },
+    {
+      "file": "san_world_sector07.wav",
+      "id": "world_sector07",
+      "speaker": "san",
+      "text": "Sektor sieben. Zwischen den alten Werken liegt noch eine Leitung zum Warnnetz."
+    },
+    {
+      "file": "san_world_ash_foundry.wav",
+      "id": "world_ash_foundry",
+      "speaker": "san",
+      "text": "Das Aschewerk glüht noch. Unter der Asche könnte das alte Relais überlebt haben."
+    },
+    {
+      "file": "san_world_abandoned_harbor.wav",
+      "id": "world_abandoned_harbor",
+      "speaker": "san",
+      "text": "Der Hafen ist verlassen. Sein Funkturm hat früher die ganze Küste erreicht."
+    },
+    {
+      "file": "san_world_basalt_quarry.wav",
+      "id": "world_basalt_quarry",
+      "speaker": "san",
+      "text": "Basaltbruch. Die Felswände schützen uns, aber der Funkweg führt mitten durch die Grube."
+    },
+    {
+      "file": "san_world_overgrown_steelworks.wav",
+      "id": "world_overgrown_steelworks",
+      "speaker": "san",
+      "text": "Das Stahlwerk wächst zu. Wir suchen die alte Leitung unter den Wurzeln."
+    },
+    {
+      "file": "san_world_frozen_rail_yard.wav",
+      "id": "world_frozen_rail_yard",
+      "speaker": "san",
+      "text": "Frostbahnhof. Die Schienen sind tot. Hoffentlich hält die Signalleitung noch."
+    },
+    {
+      "file": "san_world_iron_canyon.wav",
+      "id": "world_iron_canyon",
+      "speaker": "san",
+      "text": "Eisenschlucht. Hier trägt jedes Geräusch weit. Unser Signal muss noch weiter kommen."
+    },
+    {
+      "file": "san_world_flooded_power_station.wav",
+      "id": "world_flooded_power_station",
+      "speaker": "san",
+      "text": "Das Kraftwerk steht unter Wasser. Nur der Bunker und die alte Funkanlage sind noch trocken."
+    },
+    {
+      "file": "san_world_mountain_pass.wav",
+      "id": "world_mountain_pass",
+      "speaker": "san",
+      "text": "Gewitterpass. Das Relais liegt hoch genug, um die anderen Bunker zu erreichen. Wenn der Sturm es zulässt."
+    },
+    {
+      "file": "mara_crew_wall.wav",
+      "id": "crew_wall",
+      "speaker": "mara",
+      "text": "Erst die Mauer. Ich übernehme die Schalung."
+    },
+    {
+      "file": "branko_crew_wall.wav",
+      "id": "crew_wall",
+      "speaker": "branko",
+      "text": "Ich schaffe Material heran. Diese Front bleibt stehen."
+    },
+    {
+      "file": "ivo_crew_wall.wav",
+      "id": "crew_wall",
+      "speaker": "ivo",
+      "text": "Verstanden. Ich prüfe die Schalung, dann kommt der Beton."
+    },
+    {
+      "file": "mara_crew_reply.wav",
+      "id": "crew_reply",
+      "speaker": "mara",
+      "text": "Gut. Wir halten hier durch, bis die Verbindung steht."
+    },
+    {
+      "file": "branko_crew_reply.wav",
+      "id": "crew_reply",
+      "speaker": "branko",
+      "text": "Wenn da noch jemand ist, lassen wir ihn nicht im Stich."
+    },
+    {
+      "file": "ivo_crew_reply.wav",
+      "id": "crew_reply",
+      "speaker": "ivo",
+      "text": "Ich höre es auch. Schwach, aber das ist eine Stimme."
+    },
+    {
+      "file": "mara_crew_storm.wav",
+      "id": "crew_storm",
+      "speaker": "mara",
+      "text": "Alle rein. Um den Baum kümmern wir uns nach dem Sturm."
+    },
+    {
+      "file": "branko_crew_storm.wav",
+      "id": "crew_storm",
+      "speaker": "branko",
+      "text": "Der Stamm ist getroffen. Weg da, unter das Dach!"
+    },
+    {
+      "file": "ivo_crew_storm.wav",
+      "id": "crew_storm",
+      "speaker": "ivo",
+      "text": "Das war nah. Ich prüfe drinnen die Leitungen."
+    },
+    {
+      "file": "mara_crew_final.wav",
+      "id": "crew_final",
+      "speaker": "mara",
+      "text": "Dann hat sich diese Schicht gelohnt. Wir bleiben auf Empfang."
+    },
+    {
+      "file": "branko_crew_final.wav",
+      "id": "crew_final",
+      "speaker": "branko",
+      "text": "Habt ihr das gehört? Sie leben noch. Wir haben es geschafft."
+    },
+    {
+      "file": "ivo_crew_final.wav",
+      "id": "crew_final",
+      "speaker": "ivo",
+      "text": "So viele Antworten. Ich lasse den Empfänger an."
+    },
+    {
+      "file": "mara_crew_contact.wav",
+      "id": "crew_contact",
+      "speaker": "mara",
+      "text": "An die Front. Wir lassen sie nicht an den Kern."
+    },
+    {
+      "file": "branko_crew_contact.wav",
+      "id": "crew_contact",
+      "speaker": "branko",
+      "text": "Ich sehe sie. Jetzt ruhig zielen und Munition sparen."
+    },
+    {
+      "file": "ivo_crew_contact.wav",
+      "id": "crew_contact",
+      "speaker": "ivo",
+      "text": "Die kommen näher. Mein Werkzeug kann kurz warten."
+    },
+    {
+      "file": "mara_crew_air.wav",
+      "id": "crew_air",
+      "speaker": "mara",
+      "text": "Augen nach oben. Wir müssen das Dach verteidigen."
+    },
+    {
+      "file": "branko_crew_air.wav",
+      "id": "crew_air",
+      "speaker": "branko",
+      "text": "Die holen wir runter. Ich decke den Zugang."
+    },
+    {
+      "file": "ivo_crew_air.wav",
+      "id": "crew_air",
+      "speaker": "ivo",
+      "text": "Rotoren über uns. Hoffentlich hält die Luftabwehr."
+    },
+    {
+      "file": "mara_crew_clear.wav",
+      "id": "crew_clear",
+      "speaker": "mara",
+      "text": "Kurze Pause. Erst die Schäden, dann die Vorräte."
+    },
+    {
+      "file": "branko_crew_clear.wav",
+      "id": "crew_clear",
+      "speaker": "branko",
+      "text": "Noch stehen wir. Ich schaue nach der Mauer."
+    },
+    {
+      "file": "ivo_crew_clear.wav",
+      "id": "crew_clear",
+      "speaker": "ivo",
+      "text": "Endlich kurz Ruhe. Wo ist mein Werkzeug?"
+    },
+    {
+      "id": "warning_grenadier",
+      "speaker": "san",
+      "text": "Granatwerfer! Bleibt in Deckung.",
+      "file": "san_warning_grenadier.wav"
+    }
+  ]
+}

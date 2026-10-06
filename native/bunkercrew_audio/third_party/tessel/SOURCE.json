@@ -1,0 +1,28 @@
+{
+  "source": "local-archive:audiote",
+  "source_revision": "67e3323b9163af62892d5eb3aebd52df85e5a5af",
+  "integration": "Tessel engine only; no JUCE dependency in game",
+  "license_status": "Rights-holder-authorized restricted license: distribution only together with Bunkercrew. See LICENSE. Explicit user authorization in task conversation.",
+  "modifications": [
+    "Reese bass parameters forwarded",
+    "Sample/bar seeded hit decisions",
+    "Bar-quantized snapshot changes",
+    "Trigger callback and integer sample transport",
+    "Effect tails retained across changes",
+    "Optional sustained cinematic melody voice with carried attacks and releases for quiet native arrangements",
+    "Optional warm analogue stab voice for refreshed minimal-techno arrangements; original FM and cinematic presets preserved"
+  ],
+  "file_sha256": {
+    "src/audio/DrumEngine.cpp": "65553e3eeaade540156e434357bd23d600f25876cd6a577bd3f23af636778bb0",
+    "src/audio/DrumEngine.h": "5c2ea717baf9f61ac10b3b44d7e8e658789890113d2489a0cbe149a9dd631b52",
+    "src/audio/EffectsRack.cpp": "d9c5ea2fb0460a1c8ac4a729f9a2ab3d90c520ad77cc3bdfe236f1b2b981c064",
+    "src/audio/EffectsRack.h": "4c598c19cbd4fd9a6187f95147e560077a35f89fe131c45625d0251d7b4cbf12",
+    "src/audio/TonalVoice.cpp": "0c34903318f901d4da29bfaff60876b7f47b97f2d68697fdff5f7399b68bef09",
+    "src/audio/TonalVoice.h": "a11b1de8c85e27301c944cf6f1fab34ece842ef809ba11802c50a00f3a7b4b3a",
+    "src/generator/BeatGenerator.cpp": "aa7c7719eb22c6824e8cb39a044b3dd52d268f33ae52ba52ad6222edaf591022",
+    "src/generator/BeatGenerator.h": "882eccce6e5d93876794f08c74e1b7895febaa8a2f06ac0ab71659924c4e73fc",
+    "src/generator/TonalComposer.cpp": "2c7f443d0ecf733d013eae8c1ddf7c5197e5432ddccae018614aef8a638d3932",
+    "src/generator/TonalComposer.h": "cee99a7d9e130c19be01536236f1c8ba67672977f4a41904b1579f463c9f104b",
+    "src/sequencer/Pattern.h": "0a3a57a4b6445e7e24ebd87867262694a7be8457039ac9b298e72535dec025ab"
+  }
+}

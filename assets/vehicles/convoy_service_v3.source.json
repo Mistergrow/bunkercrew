@@ -1,0 +1,46 @@
+{
+  "asset": "assets/vehicles/convoy_service_v3.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-05",
+  "prompt": "Use case: stylized-concept.\nAsset type: production-ready transparent sprite atlas for the existing Bunkercrew industrial convoy truck's animated roadside tire replacement. The supplied image is MATERIAL and PIXEL STYLE reference only; do not include the jack, toolbox, lamp or scenery.\nCreate FOUR separate same-wheel side-view sprites arranged in a clean2×2 grid with generous transparent margins and no labels. Strict orthographic side view, no perspective, each fully visible. All portray the same heavy off-road rubber wheel with an olive steel hub, brass lug nuts, deep chunky tread, brown grit, matching rust and upper-left highlights from the reference.\nTOP LEFT: fully healthy round wheel, complete tire and olive eight-bolt hub, normal24px diameter in gameplay.\nTOP RIGHT: the same wheel at the instant of rupture, mostly round with one short torn outer rubber flap at lower LEFT and visible crack, rim/hub intact, no particles, no glow, no unrelated pieces.\nBOTTOM LEFT: fully deflated wheel resting on a horizontal ground baseline, flattened folded black rubber bulges along the bottom, heavy olive wheel rim sits low inside the tire, upper tire rounded but collapsed sidewalls; reduced height about75% of healthy diameter, slightly wider footprint. No drawn ground/shadow.\nBOTTOM RIGHT: exposed brake drum and studded axle hub with tire removed, compact rusty dark steel circular drum abouthalf the healthy wheel diameter, clear bolts and center cap; no outer tire.\nStyle: deliberate crunchy premium hand-authored pixel art, clear broad pixel clusters and readable form at native24px size, weathered Bunkercrew machinery palette, ochre brass hardware, neutral black rubber, restrained silver edge pixels. No blur, no glossy3D render, no glow, no painted backgrounds, no text, no people, no extra sprites, no weapons. True alpha-transparent background, preserve complete silhouette of all four sprites.",
+  "reference_images": [
+    "assets/expedition/repair_props_v2.png"
+  ],
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-dc469404-d039-46a7-88e1-32767deb32dc.png",
+  "size": [
+    1306,
+    1205
+  ],
+  "sha256": "cb2a1cfbc7a1dcc6584faf936e0d3d08c25c1f07928ccd82806a5e1e3fe58d87",
+  "regions": {
+    "healthy": [
+      40,
+      83,
+      564,
+      574
+    ],
+    "rupture": [
+      690,
+      83,
+      569,
+      578
+    ],
+    "flat": [
+      42,
+      742,
+      668,
+      394
+    ],
+    "hub": [
+      843,
+      791,
+      306,
+      307
+    ]
+  },
+  "notes": [
+    "Raw generated PNG copied without raster modification; native alpha preserved.",
+    "Godot draws atlas regions at native gameplay size; suspension, repair props and crew animate separately."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

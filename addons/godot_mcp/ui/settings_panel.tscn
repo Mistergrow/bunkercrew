@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://nt4tvpvjj48p"]
+
+[node name="SettingsPanel" type="VBoxContainer" unique_id=1976660597]
+custom_minimum_size = Vector2(250, 400)
+
+[node name="Title" type="Label" parent="." unique_id=1213584841]
+layout_mode = 2
+text = "Godot MCP Server"
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=264166443]
+layout_mode = 2
+
+[node name="StatusContainer" type="HBoxContainer" parent="." unique_id=5723125]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="StatusContainer" unique_id=1973938739]
+layout_mode = 2
+text = "Status: "
+
+[node name="StatusValue" type="Label" parent="StatusContainer" unique_id=70323172]
+layout_mode = 2
+text = "Stopped"
+
+[node name="PortContainer" type="HBoxContainer" parent="." unique_id=403604065]
+layout_mode = 2
+
+[node name="PortLabel" type="Label" parent="PortContainer" unique_id=1699677531]
+layout_mode = 2
+text = "Port: "
+
+[node name="PortSpinBox" type="SpinBox" parent="PortContainer" unique_id=1029896465]
+layout_mode = 2
+min_value = 1024.0
+max_value = 65535.0
+value = 3000.0
+
+[node name="AutoStartCheck" type="CheckBox" parent="." unique_id=100214543]
+layout_mode = 2
+text = "Auto-start on load"
+
+[node name="DebugCheck" type="CheckBox" parent="." unique_id=499086544]
+layout_mode = 2
+text = "Debug mode"
+
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=1341421284]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="." unique_id=341438538]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="ButtonContainer" unique_id=53828727]
+layout_mode = 2
+text = "Start"
+
+[node name="StopButton" type="Button" parent="ButtonContainer" unique_id=1689877646]
+layout_mode = 2
+text = "Stop"
+
+[node name="HSeparator3" type="HSeparator" parent="." unique_id=878515462]
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="." unique_id=982824108]
+layout_mode = 2
+text = "Endpoint: http://127.0.0.1:3000/mcp"
+autowrap_mode = 3
+
+[node name="ConnectionLabel" type="Label" parent="." unique_id=311109160]
+layout_mode = 2
+text = "Connections: 0"

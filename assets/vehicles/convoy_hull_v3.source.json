@@ -1,0 +1,30 @@
+{
+  "asset": "assets/vehicles/convoy_hull_v3.png",
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-05",
+  "prompt": "Use case: precise-object-edit.\nAsset type: final transparent 2D game truck hull for Bunkercrew, independently animated chassis, not a scene or a concept sheet.\nInput image1 is the exact existing hull geometry to preserve. Images2 and3 are material/style references only, do NOT include their objects in the result.\nPrimary request: refine the first image into a premium, cohesive pixel-art bunkercrew convoy vehicle. Preserve its exact side profile and component positions so the three separate animated wheels still fit the existing wheel openings. Truck faces RIGHT, orthographic strict side elevation. Keep the rear cargo and strapped concrete blocks on the LEFT, orange/white striped portable concrete mixing drum left of center, utility storage around center, armored driving cab on RIGHT. Preserve the transparent background and wheel cavities; NO attached tires or wheels. Keep the same exterior proportions, same three wheel arch centers, and the same blue-gray cab window shape/position. Cabin aperture must remain at the same relative coordinates.\nStyle: industrial hand-authored pixel art matching the input: weathered olive steel, dense intentional coarse pixel clusters, warm brass bolts, gray chipped concrete, restrained rust along joints, dirty off-white and muted orange safety stripe, hard silhouettes and deliberate small highlights. Improve readability at a196px-wide in-game hull: reduce meaningless tiny speckle, organize light and wear into readable pixel clusters, stronger clear component seams, physical suspension mounting points beneath the body, real body panel construction. Fixed upper-left light, no blurry texture, NO cinematic rim glow, NO glossy 3D shading, no smoothed vector edges.\nComposition: the single complete hull centered with transparent padding, all original silhouette fully visible; around2048px-wide output while preserving the original aspect. Do not crop, rotate, tilt, change perspective, add text, characters, guns, wheel sprites, landscape, shadows outside the hull, particle effects, or extra objects. Keep all current essential identity and payload. This is a raster game asset to replace the hull, all animation is done separately in Godot. Transparent pixels must be truly transparent.",
+  "reference_images": [
+    "assets/vehicles/convoy_hull_v2.png",
+    "assets/vehicles/convoy_parts_v1.png",
+    "assets/expedition/repair_props_v2.png"
+  ],
+  "original_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-fd62c466-69ed-4827-8da3-f86a243444f2.png",
+  "size": [
+    1798,
+    875
+  ],
+  "sha256": "a69842446c9e1d9cd9d70626576d84898a4e7a3e7e0aae8dc69802dfff526e2a",
+  "regions": {
+    "hull": [
+      24,
+      131,
+      1751,
+      558
+    ]
+  },
+  "notes": [
+    "Raw generated PNG copied without raster modification; native alpha preserved.",
+    "Godot draws atlas regions at native gameplay size; suspension, repair props and crew animate separately."
+  ],
+  "license": "Generated original Bunkercrew asset; distribute only together with Bunkercrew."
+}

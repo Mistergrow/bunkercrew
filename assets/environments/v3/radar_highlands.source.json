@@ -1,0 +1,11 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: production background for Bunkercrew, a detailed industrial 2D side-view pixel-art bunker-defense game. Create ONE continuous, full-bleed WIDE landscape image, aspect ratio 16:9, ideally 2560x1440. Crisp, carefully placed small pixel clusters, restrained atmospheric depth, professional hand-painted pixel-art look, no smoothing, no 3D render. This is a distant background behind separately rendered playable terrain and actors. Composition: rich naturally varying cloud sky fills the upper 58 percent; distant landmark silhouettes around y=60 to 82 percent; a layered landscape with atmospheric vegetation, industrial details and landscape depth runs CONTINUOUSLY across the entire width in the lower 42 percent. Ground/base of distant scene reaches the bottom edge. Keep landmark structures sufficiently distant/small to read behind tiny 50-pixel characters. All areas are painted; no cutouts, no empty colored bands, no rectangular panels or seams. Flat side-on camera, landscape runs left-to-right; avoid strong road perspective or large foreground objects. Give left AND right edges naturally continuing landscape and sky. No game UI, letters, frames, people, enemies, tanks, bunker cutaway, solid underground rock cross-section, foreground floor/platform or logo. Scene/backdrop: A remote abandoned radar complex in cold highlands at indigo twilight. Several distant weathered radar dishes and lattice communication towers on frosty rocky ridges, tiny antenna huts, cable masts and service sheds; sparse windswept pine and spruce forests, snow patches and low heath vegetation. Violet-blue and silver clouds in a large layered sky, cool atmospheric mountain layers, faint amber windows. Radar dishes are natural parts of the landscape, not huge foreground props.",
+  "original_generation_path": "local-archive:generated_images/01a0fda2-5b38-73d0-a47b-2eb3ceaf58a4/exec-5456f496-8696-47f9-ac08-f32f1555bcd5.png",
+  "size": [
+    1672,
+    941
+  ],
+  "sha256": "52bd92004d55265f2ea89916f93207b25bcf107d2b8870d60c5037d496aee7af",
+  "usage": "Continuous full-screen background for gameplay and menus; original generated PNG preserved."
+}
