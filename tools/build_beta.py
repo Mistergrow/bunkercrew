@@ -158,6 +158,51 @@ def native_inputs_hash(godot):
     return checksum.hexdigest()
 
 
+def published_native_libraries(godot):
+    """The published desktop audio libraries, if their recorded inputs are unchanged.
+
+    native.source.json records the exact game sources and both libraries of the
+    verified publication build; Tessel's SOURCE.json records its own files.
+    When every native source file is covered by those records and matches
+    them, and both libraries are byte-identical to the record, the published
+    libraries are reused instead of recompiled. A rebuild on a different system
+    compiler (GCC 15 instead of the documented GCC 13.3) renders the music
+    measurably differently and fails the loudness budget, although nothing
+    changed. Exported playback is still checked by validate_beta.py.
+    """
+    metadata_path = ROOT / 'assets/audio/live/native.source.json'
+    tessel_dir = ROOT / 'native/bunkercrew_audio/third_party/tessel'
+    try:
+        metadata = json.loads(metadata_path.read_text())
+        tessel = json.loads((tessel_dir / 'SOURCE.json').read_text())
+        engine = subprocess.check_output([godot, '--version'], text=True).strip()
+    except (OSError, ValueError, subprocess.CalledProcessError):
+        return None
+    if not engine.startswith(str(metadata.get('godot_api', '')) + '.'):
+        return None
+    sources = dict(metadata.get('native_source_sha256') or {})
+    for name, value in (tessel.get('file_sha256') or {}).items():
+        sources[(tessel_dir / name).relative_to(ROOT).as_posix()] = value
+    for directory in ('native/bunkercrew_audio/src', 'native/bunkercrew_audio/third_party/tessel/src'):
+        for path in (ROOT / directory).rglob('*'):
+            if path.is_file() and path.relative_to(ROOT).as_posix() not in sources:
+                return None
+    for relative, expected in sources.items():
+        path = ROOT / relative
+        if not path.is_file() or digest(path) != expected:
+            return None
+    libraries = metadata.get('binaries') or {}
+    if set(libraries) != {'libbunkercrew_audio.linux.x86_64.so', 'bunkercrew_audio.windows.x86_64.dll'}:
+        return None
+    for name, expected in libraries.items():
+        path = ROOT / 'assets/audio/live' / name
+        if not path.is_file() or path.stat().st_size != expected.get('bytes') or digest(path) != expected.get('sha256'):
+            return None
+    return {'libraries': libraries, 'sources': len(sources), 'provenance_sha256': digest(metadata_path),
+            'new_endurance_run': False,
+            'scope': 'Unchanged recorded sources and byte-identical published libraries; exported playback is validated separately.'}
+
+
 def prepare_native(godot, env):
     # Prepare this expensive prerequisite separately while gameplay is reviewed.
     # Reuse only identical verified sources, binaries and verification output.
@@ -174,6 +219,14 @@ def prepare_native(godot, env):
                 for path in outputs):
             print('PASS reused verified native prerequisites for unchanged sources', flush=True)
             return
+    published = published_native_libraries(godot)
+    if published is not None:
+        stamp.write_text(json.dumps({'source_sha256': source_hash,
+                                     'outputs': {str(path.relative_to(ROOT)): digest(path) for path in outputs[:3]},
+                                     'reused_publication_record': published}, indent=2) + '\n')
+        print('PASS reused the published native libraries recorded in native.source.json '
+              '(sources and binaries unchanged; no new endurance run)', flush=True)
+        return
     run([sys.executable, str(ROOT / 'tools/build_live_music.py'), '--platform', 'all',
          '--verify', '--endurance-hours', '2', '--godot', godot],
         'live-music-build.log', env, timeout=1800)
