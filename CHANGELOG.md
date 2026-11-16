@@ -2,6 +2,28 @@
 
 Generated from [assets/releases/changelog.json](assets/releases/changelog.json). Use [the explicit milestone tool](docs/versioning.md); gameplay never changes the version.
 
+## 0.2.0-beta · 2026-11-16
+
+**Deutsch · Grafik-Überarbeitung und Härtung**
+
+- Einheitlicher Pixel-Look: Figuren, Gegner, Maschinen, Kulissen und Gebäude teilen jetzt dieselbe Pixelgröße.
+- Neue Gegnergrafik: sechs unterscheidbare Infanterierollen sowie überarbeitete Panzer, Fahrzeuge, Flugzeuge und Waffen.
+- Mehr Animation: Ruhehaltung, Gehen, Treffer, Zusammenbruch und Aufstehen, Wiederbeleben, Tanz und Arbeit an Maschinen; Gegner gehen, fallen, holen aus und federn.
+- Effekte und Wetter: Blitz und Flak im Pixelstil, Wetter bleibt über der Erde, keine Nahtlinien mehr im Gestein.
+- Oberfläche: neues Logo, scharfe Porträts und Symbole, Menüs öffnen über dem abgedunkelten Spiel, deutsches Dezimalkomma.
+- Kein Ruckler mehr beim ersten Abschuss oder der ersten Explosion.
+- Stabilität: Netzwerk-, Server- und Paketkorrekturen mit zusätzlichen Tests.
+
+**English · Visual overhaul and hardening**
+
+- Unified pixel look: characters, enemies, machines, backdrops and buildings now share one pixel size.
+- New enemy art: six distinct infantry roles plus reworked tanks, vehicles, aircraft and weapons.
+- More animation: idle, walking, hits, collapse and getting up, reviving, dancing and machine work; enemies walk, fall, wind up and bounce on their suspension.
+- Effects and weather: pixel-style lightning and flak, weather stays above ground, no more seam lines in the rock.
+- Interface: new logo, crisp portraits and icons, menus open over the dimmed game, German decimal comma.
+- No more stutter on the first kill or the first explosion.
+- Stability: network, server and packaging fixes with additional tests.
+
 ## 0.1.0-beta · 2026-10-06
 
 **Deutsch · Erste GitHub-Testbeta**

@@ -85,9 +85,21 @@ and refuses to overwrite an existing version directory. Preserve old packages.
 
 ## DONE WITH AI
 
-**DWAI-002 — BUNKERCREW** is developed by one human using AI-assisted development
-with OpenAI Codex. Human authorship, direction, design decisions, testing,
-approval and publication decisions remain with the developer.
+**DWAI-002 — BUNKERCREW** is developed by one human using AI-assisted development.
+Human authorship, direction, design decisions, testing, approval and publication
+decisions remain with the developer.
+
+AI tools used, for transparency:
+
+- **Code and content up to v0.1.0-beta:** OpenAI Codex.
+- **v0.2.0-beta (hardening and visual overhaul):** Anthropic Claude (Claude Code).
+  It covered the pixel density, actor art and animation, effects, interface, render
+  warm-up and the added tests.
+- **Generated media:** each piece is recorded in the provenance file next to it
+  (`*.source.json`, `assets/sources.json`).
+  - images: OpenAI's built-in image generation;
+  - crew reference images: Meshy with gpt-image-2;
+  - story voices: Qwen3-TTS.
 The project is documented in [DONE WITH AI](https://github.com/Mistergrow/done-with-ai).
 
 ## Support
