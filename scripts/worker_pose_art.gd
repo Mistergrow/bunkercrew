@@ -5,11 +5,13 @@ const IdentityArt := preload("res://scripts/worker_identity_art.gd")
 const Additional := preload("res://scripts/worker_gesture_library.gd")
 const Personality := preload("res://scripts/worker_personality.gd")
 const Quads := preload("res://scripts/canvas_quads.gd")
+const Keys := preload("res://scripts/worker_motion_keys.gd")
 ## Articulated idle and medical poses share each character's actual outfit,
 ## face and palette. Clean torso/head pieces contain no baked arms or legs.
 
 const C := {"ink":Color("151b1e"),"deep":Color("25302c"),"shadow":Color("354231"),"olive":Color("566044"),"cloth":Color("727a50"),"light":Color("929b67"),"edge":Color("b2b989"),"trouser":Color("44543c"),"trouser_light":Color("65744e"),"skin_shadow":Color("83583d"),"skin":Color("b88957"),"skin_light":Color("dfba7c"),"leather":Color("674a31"),"leather_light":Color("987047"),"strap":Color("43382c"),"boot":Color("352e27"),"boot_light":Color("5b5141"),"sole":Color("141b1c"),"steel":Color("89998e"),"steel_light":Color("c1cbbb"),"red":Color("9a4535")}
 static var colors: Dictionary = C.duplicate()
+const NO_JOINTS := [null,null]
 static var _continuous := false
 
 static func neutral() -> Dictionary:
@@ -112,27 +114,13 @@ static func sample(kind: String,phase: float,gait: float=0.0,reach: Vector2=Vect
 				pose.hip.y += maxf(0,sin(cycle))*2
 				pose.shoulder.y += maxf(0,sin(cycle))*2
 		"downed", "rise":
-			var lying := neutral()
-			lying.hip = Vector2(0,-10)
-			lying.shoulder = Vector2(-17,-12)
-			lying.feet = [Vector2(13,-4),Vector2(23,-3)]
-			lying.hands = [Vector2(-24,-3),Vector2(-7,-6)]
-			lying.blink = true
-			var kneeling := neutral()
-			kneeling.hip = Vector2(-5,-13)
-			kneeling.shoulder = Vector2(3,-28)
-			kneeling.feet = [Vector2(-17,-3),Vector2(11,-3)]
-			kneeling.hands = [Vector2(-9,-17),Vector2(17,-6)]
-			var elbow := lying.duplicate(true)
-			elbow.shoulder = Vector2(-10,-23)
-			elbow.hands = [Vector2(-23,-3),Vector2(5,-15)]
-			if kind=="downed":
-				pose = _blend(base,kneeling,phase/0.44) if phase<0.44 else _blend(kneeling,lying,(phase-0.44)/0.56)
-				pose.blink = phase>0.4
-			else:
-				if phase<0.30: pose = _blend(lying,elbow,phase/0.30)
-				elif phase<0.65: pose = _blend(elbow,kneeling,(phase-0.30)/0.35)
-				else: pose = _blend(kneeling,base,(phase-0.65)/0.35)
+			# Authored held keys (WorkerMotionKeys): the knockout buckles, kneels,
+			# topples, strikes the floor and settles flat on the back, the spine
+			# then exactly a quarter turn back, so the coat is the supine piece
+			# with its pad on the floor. The rise rolls onto an elbow, sits up,
+			# kneels, pushes off the knee and stands.
+			if kind=="downed": pose = Keys.body_pose(base,Keys.collapse_key(phase*Keys.collapse_seconds()))
+			else: pose = Keys.body_pose(base,Keys.rise_key(phase))
 		"bandage_self", "splint_self":
 			pose.hip = Vector2(-3,-15 if kind=="splint_self" else -25)
 			pose.shoulder = pose.hip+Vector2(5,-17)
@@ -260,10 +248,12 @@ static func foot_transform(foot: Vector2,angle: float=0.0) -> Transform2D:
 	var lowest := maxf((rotation*Vector2(-5,3)).y,(rotation*Vector2(8,3)).y)
 	return Transform2D(angle,foot+Vector2(0,3.0-lowest))
 
-static func _ladder_leg(node: CanvasItem,hip: Vector2,foot: Vector2,side: float) -> void:
+static func _ladder_leg(node: CanvasItem,hip: Vector2,foot: Vector2,side: float,knee_hint: Variant=null) -> void:
 	var a := _joint(hip,foot,12,12,-1)
 	var b := _joint(hip,foot,12,12,1)
 	var knee := a if (a.x<b.x if side<0 else a.x>b.x) else b
+	if knee_hint is Vector2:
+		knee = knee_hint if _continuous else Vector2(knee_hint).round()
 	for segment in [[hip,knee],[knee,foot]]:
 		_line(node,segment[0],segment[1],colors.ink,9)
 		_line(node,segment[0],segment[1],colors.trouser,7)
@@ -338,12 +328,66 @@ static func _atlas_piece(node: CanvasItem,tx: Transform2D,points: Array,uv_point
 		uv.append((origin+Vector2(uv_points[index]))/texture.get_size())
 	node.draw_polygon(mapped,PackedColorArray([Color.WHITE]),uv,texture)
 
+## The drawn attitude of the torso: the pose's own rotation snapped to the
+## nearest authored turn (IdentityArt.TURNS) about a shoulder on the texel
+## grid. Pose math, contacts and weather keep the exact torso_transform; only
+## the painted pieces, their arm sockets and badges use this one, so the coat
+## and head are always native upright texels instead of a rotated quad.
+static func drawn_torso_transform(pose: Dictionary) -> Transform2D:
+	var exact := torso_transform(pose)
+	return Transform2D(IdentityArt.turn_angle(held_step(exact.get_rotation(),pose.get("torso_step"))),exact.origin.round())
+
+## Nearest attitude, unless the rig's remembered step (a hysteresis hint kept
+## by WorkerLocomotion) is still within 0.9 of a step: a gait that rocks
+## across a boundary then keeps one drawn attitude instead of popping.
+static func held_step(angle: float,hint: Variant) -> int:
+	var exact := angle/TAU*IdentityArt.TURN_STEPS
+	if hint is int and absf(exact-float(hint))<=0.9: return hint
+	return roundi(exact)
+
+static func drawn_head_transform(pose: Dictionary) -> Transform2D:
+	var body := drawn_torso_transform(pose)
+	var pivot: Vector2 = pose.get("head_pivot",Vector2.ZERO)
+	var exact := torso_transform(pose).get_rotation()+float(pose.head_tilt)
+	var tx := Transform2D(IdentityArt.turn_angle(held_step(exact,pose.get("head_step"))),Vector2.ZERO)
+	tx.origin = (body*(Vector2(1,-15)+Vector2(pose.head_shift)+pivot)-tx.basis_xform(pivot)).round()
+	return tx
+
+## Draws one authored attitude upright; false when none exists (a rear piece
+## leaning beyond its ladder sway), so the caller keeps the textured quad.
+static func _turned_piece(node: CanvasItem,tx: Transform2D,piece: String,id: String,back: bool) -> bool:
+	var region := IdentityArt.turn_region(piece,IdentityArt.turn_step(tx.get_rotation()),back)
+	if not region.has_area(): return false
+	node.draw_texture_rect_region(IdentityArt.turns(id),Rect2(tx.origin-IdentityArt.TURN_ORIGIN,region.size),region)
+	return true
+
+## The coat or head drawn as two follow-through layers at a near-upright
+## step: the gear (pack, bag, aerial) or hanging hair first, at its own
+## whole-texel trail and swing, then the coat or the head over it. At rest
+## the pair is the authored piece texel for texel. False outside the layered
+## steps (the caller draws the single turned piece).
+static func _layered_piece(node: CanvasItem,tx: Transform2D,piece: String,id: String,pose: Dictionary) -> bool:
+	var step := IdentityArt.turn_step(tx.get_rotation())
+	var top := "coat" if piece=="torso" else "head"
+	var under := "gear" if piece=="torso" else "hair"
+	var region := IdentityArt.layer_region(top,step)
+	if not region.has_area(): return false
+	var texture := IdentityArt.layers(id)
+	var at := tx.origin-IdentityArt.TURN_ORIGIN
+	var trail: Vector2 = Vector2(pose.get("gear",Vector2.ZERO)).round() if piece=="torso" else Vector2.ZERO
+	node.draw_texture_rect_region(texture,Rect2(at+trail,region.size),IdentityArt.layer_region(under,step,int(pose.get(under+"_swing",0))))
+	node.draw_texture_rect_region(texture,Rect2(at,region.size),region)
+	return true
+
 static func _textured_torso(node: CanvasItem,pose: Dictionary,id: String) -> void:
+	var back := bool(pose.get("back",false))
+	if not back and _layered_piece(node,drawn_torso_transform(pose),"torso",id,pose): return
+	if _turned_piece(node,drawn_torso_transform(pose),"torso",id,back): return
 	var tx := torso_transform(pose)
 	# The standalone texture includes the character's complete coat and pack;
 	# unlike an atlas crop it cannot bring a third arm into articulated poses.
 	var points := [Vector2(-48,-48),Vector2(64,-48),Vector2(64,64),Vector2(-48,64)]
-	_atlas_piece(node,tx,points,points,IdentityArt.torso(id,bool(pose.get("back",false))),Vector2(48,48))
+	_atlas_piece(node,tx,points,points,IdentityArt.torso(id,back),Vector2(48,48))
 
 static func head_transform(pose: Dictionary) -> Transform2D:
 	var body := torso_transform(pose)
@@ -353,26 +397,41 @@ static func head_transform(pose: Dictionary) -> Transform2D:
 	return tx
 
 static func _head(node: CanvasItem,pose: Dictionary,id: String) -> void:
-	var tx := head_transform(pose)
-	var points := [Vector2(-49,-33),Vector2(63,-33),Vector2(63,79),Vector2(-49,79)]
-	_atlas_piece(node,tx,points,points,IdentityArt.head(id,bool(pose.get("back",false))),Vector2(49,33))
+	var back := bool(pose.get("back",false))
+	var tx := drawn_head_transform(pose)
+	if (back or not _layered_piece(node,tx,"head",id,pose)) and not _turned_piece(node,tx,"head",id,back):
+		tx = head_transform(pose)
+		var points := [Vector2(-49,-33),Vector2(63,-33),Vector2(63,79),Vector2(-49,79)]
+		_atlas_piece(node,tx,points,points,IdentityArt.head(id,back),Vector2(49,33))
+	# Lids and an open mouth are whole texels at the turned eye and lips.
 	if pose.blink and CharacterCatalog.presentation_id(id,"visual")!="ivo":
-		_patch(node,tx,Vector2(5,4),Vector2.ONE,colors.skin_shadow)
+		_box(node,(tx*Vector2(5.5,4.5)-Vector2(0.5,0.5)).round(),Vector2.ONE,colors.skin_shadow)
 	if pose.mouth and CharacterCatalog.presentation_id(id,"visual")!="branko":
-		_patch(node,tx,Vector2(3,10),Vector2(3,3),colors.deep)
+		_box(node,(tx*Vector2(4.5,11.5)-Vector2(1.5,1.5)).round(),Vector2(3,3),colors.deep)
 
 static func equipment(node: CanvasItem,pose: Dictionary,worker: Node) -> void:
 	var tier: int = worker.progression.armor_tier if "progression" in worker and is_instance_valid(worker.progression) else 0
 	_identity_equipment(node,pose,str(worker.character_id),tier)
 
+## A small stitched badge or strap stays a block of whole texels: it follows
+## the turned coat to its place and quarter-turn orientation, never a tilted quad.
+static func _badge(node: CanvasItem,tx: Transform2D,at: Vector2,size: Vector2,color: Color) -> void:
+	var quarter := posmod(roundi(tx.get_rotation()/(PI*0.5)),4)
+	var shown := Vector2(size.y,size.x) if quarter%2==1 else size
+	Quads.rect(node,Rect2((tx*(at+size*0.5)-shown*0.5).round(),shown),color)
+
 static func _identity_equipment(node: CanvasItem,pose: Dictionary,character_id: String,tier: int) -> void:
-	var tx := torso_transform(pose)
+	var tx := drawn_torso_transform(pose)
 	var length: float = Vector2(pose.shoulder).distance_to(pose.hip)
+	# Plates share the coat's turned texel grid: their corners land on whole texels.
+	var previous_continuous := _continuous
+	_continuous = false
 	if bool(pose.get("back",false)):
 		if tier>0:
 			for side in [-1,1]:
-				_patch(node,tx,Vector2(side*9-2,-2),Vector2(4,17),Color("222b2d"))
-				_patch(node,tx,Vector2(side*9-1,-1),Vector2(2,14),Color("77817a"))
+				_badge(node,tx,Vector2(side*9-2,-2),Vector2(4,17),Color("222b2d"))
+				_badge(node,tx,Vector2(side*9-1,-1),Vector2(2,14),Color("77817a"))
+		_continuous = previous_continuous
 		return
 	if tier>0:
 		_panel(node,tx,[Vector2(-8,0),Vector2(4,0),Vector2(7,5),Vector2(6,length-3),Vector2(-7,length-3)],Color("242d2e"))
@@ -380,19 +439,20 @@ static func _identity_equipment(node: CanvasItem,pose: Dictionary,character_id: 
 		_line(node,tx*Vector2(-6,1),tx*Vector2(2,1),Color("bec0a4"))
 		_line(node,tx*Vector2(-5,8),tx*Vector2(3,8),Color("485554"),2)
 		if tier==2:
-			_patch(node,tx,Vector2(-10,-3),Vector2(7,5),Color("293235"))
-			_patch(node,tx,Vector2(-9,-2),Vector2(5,2),Color("a4ab98"))
+			_badge(node,tx,Vector2(-10,-3),Vector2(7,5),Color("293235"))
+			_badge(node,tx,Vector2(-9,-2),Vector2(5,2),Color("a4ab98"))
 	var spec := CharacterCatalog.data(character_id)
-	_patch(node,tx,Vector2(-7,3),Vector2(5,5),Color("26312f"))
-	_patch(node,tx,Vector2(-6,4),Vector2(3,2),Color(spec.accent))
+	_badge(node,tx,Vector2(-7,3),Vector2(5,5),Color("26312f"))
+	_badge(node,tx,Vector2(-6,4),Vector2(3,2),Color(spec.accent))
 	if CharacterCatalog.presentation_id(character_id,"visual") == "branko":
-		_patch(node,tx,Vector2(-6,7),Vector2(3,1),Color(spec.accent).darkened(0.2))
+		_badge(node,tx,Vector2(-6,7),Vector2(3,1),Color(spec.accent).darkened(0.2))
 	elif CharacterCatalog.presentation_id(character_id,"visual") in ["ivo", "nora", "levin"]:
-		_patch(node,tx,Vector2(-5,3),Vector2(1,5),Color(spec.accent).lightened(0.12))
+		_badge(node,tx,Vector2(-5,3),Vector2(1,5),Color(spec.accent).lightened(0.12))
 
 	elif CharacterCatalog.presentation_id(character_id,"visual") == "selma":
-		_patch(node,tx,Vector2(-6,3),Vector2(1,5),Color("e4e4ce"))
-		_patch(node,tx,Vector2(-8,5),Vector2(5,1),Color("e4e4ce"))
+		_badge(node,tx,Vector2(-6,3),Vector2(1,5),Color("e4e4ce"))
+		_badge(node,tx,Vector2(-8,5),Vector2(5,1),Color("e4e4ce"))
+	_continuous = previous_continuous
 
 static func draw_legs(node: CanvasItem,pose: Dictionary,id: String="mara") -> void:
 	colors = IdentityArt.palette(id,C)
@@ -423,20 +483,21 @@ static func draw_identity_pose(node: CanvasItem,pose: Dictionary,id: String,armo
 	var previous_continuous := _continuous
 	_continuous=bool(pose.get("continuous",false))
 	var hidden:=int(pose.get("hidden_limbs",0))
-	var tx := torso_transform(pose)
+	var tx := drawn_torso_transform(pose)
 	var back := bool(pose.get("back",false))
 	var crawling := bool(pose.get("crawling",false))
 	var hip_spread := float(pose.get("hip_spread",4.0))
 	var foot_angles: Array = pose.get("foot_angles",[0.0,0.0])
-	var elbows: Array = pose.get("elbows",[null,null])
+	var elbows: Array = pose.get("elbows",NO_JOINTS)
+	var knees: Array = pose.get("knees",NO_JOINTS)
 	var rear_shoulder := tx*shoulder_local(pose,0)
 	var front_shoulder := tx*shoulder_local(pose,1)
 	if not hidden&4:
-		if back: _ladder_leg(node,pose.hip+Vector2(-5,0),pose.feet[0],-1)
+		if back: _ladder_leg(node,pose.hip+Vector2(-5,0),pose.feet[0],-1,knees[0])
 		else: _leg(node,pose.hip+Vector2(-hip_spread,0),pose.feet[0],false,crawling,float(foot_angles[0]))
 	if not hidden&1: _arm(node,rear_shoulder,pose.hands[0],false,back,crawling,elbows[0])
 	if not hidden&8:
-		if back: _ladder_leg(node,pose.hip+Vector2(5,0),pose.feet[1],1)
+		if back: _ladder_leg(node,pose.hip+Vector2(5,0),pose.feet[1],1,knees[1])
 		else: _leg(node,pose.hip+Vector2(hip_spread,0),pose.feet[1],true,crawling,float(foot_angles[1]))
 	_textured_torso(node,pose,id)
 	_head(node,pose,id)

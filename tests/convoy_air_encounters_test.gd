@@ -114,7 +114,7 @@ func _run() -> void:
 	flybys.update_state(0)
 	var proof := flybys.diagnostics()
 	check(proof.visible_aircraft==2 and proof.playing_motors==2 and proof.allocated_aircraft==2 and proof.allocated_motors==2,"Actual paired pass uses exactly two visible hulls and two motor voices")
-	check(flybys.aircraft[0].body!=null and flybys.aircraft[0].engines!=null and flybys.aircraft[0].chassis_atlas.resource_path==AircraftArtCatalog.TEXTURE_PATH,"Hull and propulsion use the existing authored atlas independently")
+	check(flybys.aircraft[0].body!=null and flybys.aircraft[0].engines!=null and flybys.aircraft[0].chassis_atlas.resource_path==AircraftArtCatalog.WORLD_PATH,"Hull and propulsion use the existing authored atlas (its world-texel bake) independently")
 	check(not flybys.aircraft[0] is CollisionObject2D and not flybys.aircraft[0].is_in_group("enemies") and not flybys.aircraft[0].is_in_group("air_enemies") and Schema.kind(flybys.aircraft[0]).is_empty(),"A distant flyby cannot impersonate a hittable enemy or enter the wire schema")
 	check(flybys.cloud_nodes[0].z_index<flybys.aircraft[0].z_index and flybys.cloud_nodes[1].z_index>flybys.aircraft[0].z_index and not flybys.cloud_nodes[1].region_enabled,"Clouds straddle actual aircraft; shader samples each atlas cell once")
 	check(flybys.voices.all(func(voice):return voice.stream is AudioStreamWAV and voice.stream.loop_mode==AudioStreamWAV.LOOP_FORWARD and voice.volume_db<-20 and voice.panning_strength>0),"Actual finite motor loops use spatial SFX voices at a restrained distant level")

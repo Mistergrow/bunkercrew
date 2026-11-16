@@ -1,6 +1,9 @@
 extends Control
 const L := preload("res://scripts/locale_text.gd")
 const SocialArt := preload("res://scripts/social_ui_art.gd")
+## Reading sheets under the lobby's two columns: the room (connection, crew
+## and the chosen figure) and the figure roster, sharing one bottom edge.
+const LOBBY_SHEETS: Array[Rect2] = [Rect2(68, 164, 940, 618), Rect2(1016, 214, 346, 568)]
 ## A real room, an open crew list and one shared living landscape.
 var game
 var hud
@@ -29,6 +32,7 @@ var chat_button: Button
 var server_options_button: Button
 var crew_buttons: Array[Button] = []
 var crew_rows: Dictionary = {}
+var _crew_name_counts: Dictionary = {}
 var member_menu: PopupMenu
 var decoration: Control
 var _saved_available := false
@@ -99,13 +103,15 @@ func _ready() -> void:
 	add_child(character_scroll)
 	character_content = VBoxContainer.new()
 	character_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	character_content.add_theme_constant_override("separation",4)
+	# Eight rows of 54 with 2 apart fill the column exactly: the whole roster
+	# shows at once, without a scrollbar cutting the last name.
+	character_content.add_theme_constant_override("separation",2)
 	character_scroll.add_child(character_content)
 	for index in CharacterCatalog.CHARACTERS.size():
 		var entry: Dictionary = CharacterCatalog.CHARACTERS[index]
-		var button := _button(CharacterCatalog.selection_title(str(entry.id)), Rect2(0,0,306,61), func(): _select(str(entry.id)), 20,"",character_content)
-		button.custom_minimum_size = Vector2(0,61)
-		SocialArt.button(button, 20, "", 18, 23)
+		var button := _button(CharacterCatalog.selection_title(str(entry.id)), Rect2(0,0,306,54), func(): _select(str(entry.id)), 20,"",character_content)
+		button.custom_minimum_size = Vector2(0,54)
+		SocialArt.button(button, 20, "", 18, 22)
 		button.draw.connect(func(): _draw_character(button, entry))
 		button.focus_entered.connect(_reveal_character.bind(button))
 		character_buttons.append(button)
@@ -368,14 +374,31 @@ func _refresh_crew() -> void:
 			if "chat_names" in game.network: player_name = str(game.network.chat_names.get(str(slot), player_name))
 			if slot == local_slot and "display_name" in game.network and not str(game.network.display_name).is_empty(): player_name = str(game.network.display_name)
 			crew_rows[slot] = {"player_id":slot, "name":player_name, "character_id":selected, "connected":connected, "is_local":slot == local_slot, "is_host":slot == 1, "friend_code":""}
+	_crew_name_counts.clear()
+	for row: Dictionary in crew_rows.values():
+		if not bool(row.get("connected", false)): continue
+		var key := str(row.get("name", "")).strip_edges()
+		_crew_name_counts[key] = int(_crew_name_counts.get(key, 0)) + 1
+	for index in crew_buttons.size():
+		var slot := index + 1
 		var row: Dictionary = crew_rows[slot]
 		var button := crew_buttons[index]
 		button.visible = slot <= _capacity()
 		button.disabled = not bool(row.get("connected", false))
-		button.text = str(row.get("name", "P%d" % slot)) if not button.disabled else L.text("Gastgeber wird verbunden …" if pending and slot == 1 else "Dein Platz wird bestätigt …" if pending and slot == local_slot else "Freier Platz")
+		button.text = _row_title(row) if not button.disabled else L.text("Gastgeber wird verbunden …" if pending and slot == 1 else "Dein Platz wird bestätigt …" if pending and slot == local_slot else "Freier Platz")
 		button.tooltip_text = "" if button.disabled else L.text("Figur wählen" if bool(row.get("is_local", false)) else "Spieleraktionen")
 		button.queue_redraw()
 	if is_instance_valid(member_menu) and member_menu.visible and not _context_matches(crew_rows.get(_context_slot, {})): member_menu.hide()
+
+## Row heading: the player's chosen name, or the character when that name says
+## nothing (empty, the social default "Crew", a bare slot tag, or shared by two
+## connected players) so every occupied row stays distinguishable.
+func _row_title(row: Dictionary) -> String:
+	var slot := int(row.get("player_id", 0))
+	var player_name := str(row.get("name", "")).strip_edges()
+	if player_name.is_empty() or player_name == "Crew" or player_name == "P%d" % slot or int(_crew_name_counts.get(player_name, 0)) > 1:
+		return CharacterCatalog.selection_title(str(row.get("character_id", "mara")))
+	return player_name
 
 func _open_member(slot: int) -> void:
 	if not crew_rows.has(slot): return
@@ -390,7 +413,7 @@ func _open_member(slot: int) -> void:
 	_context_slot = slot
 	_context_identity = member.duplicate(true)
 	member_menu.clear()
-	member_menu.add_item(str(member.get("name", "P%d" % slot)), -1)
+	member_menu.add_item(_row_title(member), -1)
 	member_menu.set_item_disabled(0, true)
 	member_menu.add_separator()
 	var muted := _member_flag("is_player_muted", slot)
@@ -573,35 +596,40 @@ func _draw() -> void:
 
 func _draw_foreground() -> void:
 	SocialArt.reading_shade(decoration, SocialArt.bounds(hud), 570, 990)
+	# Each column rests on the menus' reading sheet, so connection, crew,
+	# chosen figure and roster read as panels over the live landscape.
+	for sheet: Rect2 in LOBBY_SHEETS: SocialArt.sheet(decoration, sheet, .82)
 	UiArt.text(decoration, Vector2(100, 118), "Online-Koop", 34, UiArt.IVORY, UiArt.MENU_FONT)
-	UiArt.text(decoration, Vector2(100, 156), "Erstelle einen Raum auf deinem Rechner oder tritt deinem Partner mit einem Code bei.", 13, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 152), "Erstelle einen Raum auf deinem Rechner oder tritt deinem Partner mit einem Code bei.", UiArt.TEXT_NOTE, UiArt.MUTED)
 	var network = game.network
-	if not show_server_options: UiArt.text(decoration, Vector2(100, 244), connection_route_text(), 13, UiArt.MUTED)
+	if not show_server_options: UiArt.text(decoration, Vector2(100, 244), connection_route_text(), UiArt.TEXT_NOTE, UiArt.MUTED)
 	if copy_button.visible:
-		UiArt.text(decoration, Vector2(100, 268), _primary_code_label(), 12, UiArt.MUTED)
+		UiArt.text(decoration, Vector2(100, 268), _primary_code_label(), UiArt.TEXT_LABEL, UiArt.MUTED)
 		var code := _primary_code()
 		var code_size := 22
 		while code_size > 12 and UiArt.FONT.get_string_size(code, HORIZONTAL_ALIGNMENT_LEFT, -1, code_size).x > 762: code_size -= 1
 		UiArt.text(decoration, Vector2(100, 302), code, code_size, UiArt.AMBER)
 	var status := L.text(_notice) if elapsed < _notice_until else _status_text()
-	var lines := UiArt.wrap_text(status, 650, 14)
-	for index in mini(lines.size(), 2): UiArt.text(decoration, Vector2(100, 424 + index * 18), lines[index], 14, UiArt.RED if network.state == "error" else UiArt.MUTED)
-	var hints := UiArt.wrap_text(_connection_hint_text(), 650, 12)
-	for index in mini(hints.size(), 2): UiArt.text(decoration, Vector2(100, 465 + index * 16), hints[index], 12, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(100, 512), "Deine Crew", 15, UiArt.IVORY)
-	UiArt.text(decoration, Vector2(375, 512), crew_status(), 13, UiArt.GREEN if _roster_confirmed() and network.peer_connected else UiArt.MUTED)
+	# The room's state is live information: primary colour at the note size.
+	var lines := UiArt.wrap_text(status, 650, UiArt.TEXT_NOTE)
+	for index in mini(lines.size(), 2): UiArt.text(decoration, Vector2(100, 424 + index * 19), lines[index], UiArt.TEXT_NOTE, UiArt.RED if network.state == "error" else UiArt.IVORY)
+	var hints := UiArt.wrap_text(_connection_hint_text(), 780, UiArt.TEXT_NOTE)
+	for index in mini(hints.size(), 2): UiArt.text(decoration, Vector2(100, 464 + index * 18), hints[index], UiArt.TEXT_NOTE, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 514), "Deine Crew", 16, UiArt.IVORY)
+	UiArt.text(decoration, Vector2(375, 514), crew_status(), UiArt.TEXT_NOTE, UiArt.GREEN if _roster_confirmed() and network.peer_connected else UiArt.MUTED)
 	var character_heading := character_heading_text()
-	UiArt.text(decoration, Vector2(1040, 236), character_heading, 14, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(1040, 238), character_heading, UiArt.TEXT_NOTE, UiArt.MUTED)
 	var chosen := _local_character()
-	CharacterSelectPanel.draw_selection_portrait(decoration, chosen, Rect2(795, 492, 160, 160), elapsed)
+	# Room for 3x real pixels per texel at 1080p, on the same base line.
+	CharacterSelectPanel.draw_selection_bust(decoration, chosen, Rect2(774, 450, 202, 202), elapsed)
 	UiArt.text(decoration, Vector2(765, 685), CharacterCatalog.selection_title(chosen), 24, UiArt.IVORY, UiArt.MENU_FONT)
-	var detail := UiArt.wrap_text(CharacterCatalog.selection_detail(chosen), 243, 13)
-	for index in mini(detail.size(), 3): UiArt.text(decoration, Vector2(765, 710 + index * 18), detail[index], 13, UiArt.MUTED)
+	var detail := UiArt.wrap_text(CharacterCatalog.selection_detail(chosen), 236, UiArt.TEXT_BODY)
+	for index in mini(detail.size(), 2): UiArt.text(decoration, Vector2(765, 712 + index * 18), detail[index], UiArt.TEXT_BODY, UiArt.MUTED)
 	var environment := ScenarioCatalog.environment(str(hud.scenario_options.get("environment", "sector07")))
-	UiArt.text(decoration, Vector2(100, 765), L.format("Schauplatz: %s", L.text(str(environment.title)).capitalize()), 14, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(1040, 726), "Story: Das letzte Signal" if hud.story_selected else "Freie Schicht", 13, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 770), L.format("Schauplatz: %s", L.text(str(environment.title)).capitalize()), UiArt.TEXT_NOTE, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(1040, 733), "Story: Das letzte Signal" if hud.story_selected else "Freie Schicht", UiArt.TEXT_NOTE, UiArt.MUTED)
 	decoration.draw_line(Vector2(100, 781), Vector2(1346, 781), Color(UiArt.MUTED, .18), 1)
-	UiArt.text(decoration, Vector2(100, 879), "Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen", 12, UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(100, 879),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)
 
 func _draw_member(button: Button, slot: int) -> void:
 	var member: Dictionary = crew_rows.get(slot, {})
@@ -609,7 +637,9 @@ func _draw_member(button: Button, slot: int) -> void:
 		CharacterSelectPanel.draw_selection_portrait(button, str(member.get("character_id", "mara")), Rect2(19, 6, 35, 35), elapsed)
 		var role := L.text("Du" if bool(member.get("is_local", false)) else "Gastgeber" if bool(member.get("is_host", false)) else "Gast")
 		var character := CharacterCatalog.selection_title(str(member.get("character_id", "mara")))
-		UiArt.text(button, Vector2(74, 43), "P%d · %s · %s" % [slot, role, character], 12, UiArt.MUTED)
+		# The character already heads the row when the player name says nothing.
+		var detail := "P%d · %s" % [slot, role] if button.text == character else "P%d · %s · %s" % [slot, role, character]
+		UiArt.text(button, Vector2(74, 44), detail, UiArt.TEXT_NOTE, UiArt.MUTED)
 		if _member_flag("is_player_blocked", slot): button.draw_texture(SocialArt.icon("block"), Vector2(558, 18), UiArt.RED)
 		elif _member_flag("is_player_muted", slot): button.draw_texture(SocialArt.icon("mute"), Vector2(558, 18), UiArt.MUTED)
 	else:
@@ -619,8 +649,8 @@ func _draw_character(button: Button, entry: Dictionary) -> void:
 	var available := CharacterCatalog.is_unlocked(str(entry.id))
 	if available:
 		var occupying_player: int = game.network.character_owner(str(entry.id),int(game.network.local_player_id))
-		UiArt.text(button, Vector2(18, 48), L.format("Bereits von Spieler %d gewählt",occupying_player) if occupying_player>0 else L.format("%d LP  /  %d", [int(entry.hp), int(entry.capacity)]), 13, UiArt.MUTED)
-	else: UiArt.text(button, Vector2(18, 48), CharacterCatalog.unlock_hint(str(entry.id)), 12, UiArt.MUTED)
+		UiArt.text(button, Vector2(18, 46), L.format("Bereits von Spieler %d gewählt",occupying_player) if occupying_player>0 else L.format("%d LP  /  %d", [int(entry.hp), int(entry.capacity)]), UiArt.TEXT_NOTE, UiArt.MUTED)
+	else: UiArt.text(button, Vector2(18, 46), CharacterCatalog.unlock_hint(str(entry.id)), UiArt.TEXT_NOTE, UiArt.MUTED)
 	if _local_character() == str(entry.id): button.draw_rect(Rect2(0, 13, 2, 23), UiArt.AMBER)
 
 func _network_code(property: String) -> String:

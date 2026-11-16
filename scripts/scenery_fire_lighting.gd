@@ -5,7 +5,9 @@ const MAX_LIGHTS := 4
 const OCCLUDER_MASK := 1 << 14
 const MAX_OCCLUDERS := 12
 const UPDATE_STEP := 1.0 / 24.0
+const WorldLighting := preload("res://scripts/world_lighting.gd")
 static var _falloff: GradientTexture2D
+static var _surface: ImageTexture
 var effects: Node2D
 var lights: Array[PointLight2D] = []
 var occluders: Array[LightOccluder2D] = []
@@ -21,25 +23,55 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	set_process(false) # The parent advances particles, fall geometry and light together.
 	for index in MAX_LIGHTS:
-		var lamp := PointLight2D.new()
-		lamp.name = "FireLight%02d" % index
-		lamp.texture = falloff_texture()
-		lamp.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-		lamp.color = Color(1.0, .56, .25)
-		lamp.range_z_min = -8
-		lamp.range_z_max = 20
-		lamp.range_layer_min = 0
-		lamp.range_layer_max = 0
-		lamp.range_item_cull_mask = 1
-		# Compatibility also checks this mask against receiving CanvasItems;
-		# include their ordinary bit, not only the dedicated blocker bit.
-		lamp.shadow_item_cull_mask = OCCLUDER_MASK | 1
-		lamp.shadow_enabled = true
-		lamp.shadow_filter = Light2D.SHADOW_FILTER_PCF5
-		lamp.shadow_filter_smooth = 1.0
-		lamp.enabled = false
+		var lamp := make_lamp("FireLight%02d" % index)
 		add_child(lamp)
 		lights.append(lamp)
+
+static func make_lamp(label: String, shadowed: bool = true) -> PointLight2D:
+	# Shared by the fire voices here and the bounded gunfire/blast voices of
+	# combat_feel.gd, so both light the same receivers behind the same blockers.
+	# They also light the actors (WorldLighting.ACTOR_MASK), unlike fixtures.
+	var lamp := PointLight2D.new()
+	lamp.name = label
+	lamp.texture = falloff_texture()
+	lamp.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	lamp.color = Color(1.0, .56, .25)
+	lamp.range_z_min = -8
+	lamp.range_z_max = 20
+	lamp.range_layer_min = 0
+	lamp.range_layer_max = 0
+	lamp.range_item_cull_mask = 1 | WorldLighting.ACTOR_MASK
+	# Compatibility also checks this mask against receiving CanvasItems;
+	# include their ordinary bit, not only the dedicated blocker bit.
+	lamp.shadow_item_cull_mask = OCCLUDER_MASK | 1 | WorldLighting.ACTOR_MASK
+	lamp.shadow_enabled = shadowed
+	lamp.shadow_filter = Light2D.SHADOW_FILTER_PCF5
+	lamp.shadow_filter_smooth = 1.0
+	lamp.enabled = false
+	return lamp
+
+## The fire falloff, cut a few texels below its centre: a light at the
+## surface brightens what stands on it and never the rock or rooms beneath,
+## without needing a shadow map for that.
+static func surface_texture() -> ImageTexture:
+	if _surface == null:
+		var image := Image.create(128, 128, false, Image.FORMAT_RGB8)
+		var source := falloff_texture().gradient
+		for y in 128:
+			var cut := 1.0 - smoothstep(66.0, 71.0, float(y))
+			for x in 128:
+				var distance := clampf(Vector2(x - 63.5, y - 63.5).length() / 64.0, 0.0, 1.0)
+				var value := source.sample(distance).r * cut
+				image.set_pixel(x, y, Color(value, value, value))
+		_surface = ImageTexture.create_from_image(image)
+	return _surface
+
+func ensure_occluders() -> void:
+	# Gunfire and blast lights need the soil and bunker blockers even while no
+	# scenery burns. The signature check keeps an unchanged world free.
+	if not is_instance_valid(effects) or not is_instance_valid(effects.props): return
+	if not effects_enabled or effects._reduced: return
+	_sync_occluders()
 
 static func falloff_texture() -> GradientTexture2D:
 	if _falloff == null:
@@ -109,7 +141,10 @@ func update_lighting(delta: float) -> void:
 		var candidate: Dictionary = candidates[index]
 		var lamp := lights[index]
 		var phase := float(candidate.index) * 2.137
-		var flicker := .9 + .065 * sin(clock * 6.7 + phase) + .035 * sin(clock * 11.3 + phase * 2.1)
+		# The light flickers in step with the flame flipbook (12 frames a
+		# second), gently: about a tenth of its energy, never a flash.
+		var stepped := floorf(clock * 12.0) / 12.0
+		var flicker := .9 + .065 * sin(stepped * 6.7 + phase) + .035 * sin(stepped * 11.3 + phase * 2.1)
 		var radius := 142.0 if candidate.tree else 102.0
 		if candidate.broken: radius *= .88
 		radius *= lerpf(.72, 1.0, float(candidate.tail))

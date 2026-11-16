@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// Painted backdrop: keeps its authored value under world ambient and lamps.
+render_mode unshaded;
 #include "res://shaders/sky_cloud_sampling.gdshaderinc"
 uniform vec4 cloud_tint : source_color=vec4(0.45,0.53,0.65,0.5);
 varying vec4 cloud_modulate;

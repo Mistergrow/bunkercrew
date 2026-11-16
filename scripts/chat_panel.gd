@@ -365,7 +365,7 @@ func _toggle_feed() -> void:
 	refresh_locale()
 
 func _layout() -> void:
-	var screen: Rect2 = hud.screen_rect()
+	var screen: Rect2 = hud.hud_rect() if hud.has_method("hud_rect") else hud.screen_rect()
 	panel_rect = Rect2(screen.end.x-584,screen.end.y-468,566,350)
 	editor.position = panel_rect.position
 	editor.size = panel_rect.size
@@ -404,7 +404,7 @@ func _draw() -> void:
 		var error_lines := UiArt.wrap_text(_error if not _error.is_empty() else "Enter: senden · Esc: schließen",532,11)
 		for index in mini(error_lines.size(),2): UiArt.text(self,panel_rect.position+Vector2(16,318+index*15),error_lines[index],11,UiArt.RED if not _error.is_empty() else UiArt.MUTED)
 	elif feed_visible and hud.overlay in ["","pause","network"]:
-		var screen: Rect2 = hud.screen_rect()
+		var screen: Rect2 = hud.hud_rect() if hud.has_method("hud_rect") else hud.screen_rect()
 		var y := screen.position.y+56.0
 		for entry: Dictionary in _visible_feed():
 			var row: Dictionary = entry.row

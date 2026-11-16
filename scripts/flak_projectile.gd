@@ -48,4 +48,12 @@ func impact(collider: Object,at: Vector2,normal: Vector2) -> void:
 	queue_free()
 
 func _draw() -> void:
+	# Presentation fuse (combat_feel.gd): the shared effect layer follows this
+	# shell on host and guests and shows its airburst; once it has burst the
+	# tracer is gone, while the simulated shell flies on unchanged.
+	if has_meta(&"flak_fused"): return
+	if not has_meta(&"flak_tracked") and is_inside_tree():
+		set_meta(&"flak_tracked",true)
+		var feel: Node2D = preload("res://scripts/combat_feel.gd").of(self)
+		if feel != null: feel.track_flak(self)
 	WeaponEffectArt.tracer(self,direction,minf(distance_travelled,37.0),WeaponEffectArt.reduced(game),true)

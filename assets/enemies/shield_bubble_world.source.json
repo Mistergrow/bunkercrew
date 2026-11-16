@@ -1,0 +1,18 @@
+{
+  "asset": "shield_bubble_world.png",
+  "generator": "tools/bake_shield_world.py",
+  "method": "Authored at world density: 2-texel rim, 4x4 Bayer-dithered inner bands, crown highlight, energy ramp of the style bible.",
+  "license": "Original Bunkercrew project art.",
+  "radii": [
+    88,
+    46
+  ],
+  "centre": [
+    89,
+    47
+  ],
+  "source_sha256": {
+    "tools/bake_shield_world.py": "46ed26d48387f83518c6c4771c06bd348c23fd1a0bcb92b4280e5df57ae9518b"
+  },
+  "sha256": "7ed99499e492a311617e54a102917bb75fb34bb5ab8e367040c4d8f829783fc0"
+}

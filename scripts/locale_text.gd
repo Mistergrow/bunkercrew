@@ -14,6 +14,7 @@ static var _message_order: Array[String] = []
 static var _message_cursor := 0
 static var _translations: Array[Translation] = []
 static var _specs: Dictionary = {}
+static var _placeholder: RegEx
 
 static func initialize() -> void:
 	if _loaded: return
@@ -86,6 +87,16 @@ static func text(source: String) -> String:
 	if _messages.has(source): return message_text(_messages[source])
 	return source
 
+## A measured amount for display: whole values without a decimal, otherwise
+## one decimal (rounded down, so a shown amount is never more than there is)
+## with the language's own separator: "12", "11,5" (de), "11.5" (en).
+static func decimal(value: float) -> String:
+	if not is_finite(value): return "—"
+	var tenths := floorf(value * 10.0 + 0.0001)
+	if is_equal_approx(fmod(tenths, 10.0), 0.0): return str(int(tenths / 10.0))
+	var shown := "%.1f" % (tenths / 10.0)
+	return shown.replace(".", ",") if current_locale() == "de" else shown
+
 static func data(value: Variant) -> Variant:
 	if value is String: return text(value)
 	if value is Array:
@@ -107,7 +118,8 @@ static func format(source: String,values: Variant) -> String:
 	initialize()
 	var key: String=str(_canonical.get(source,source))
 	var translated_values=data(values)
-	var result: String=text(key)%translated_values
+	var template: String=text(key)
+	var result: String=_german_decimals(template,translated_values) if _locale=="de" else template%translated_values
 	if _tables.de.has(key):
 		if not _messages.has(result):
 			if _message_order.size()<MAX_MESSAGES:
@@ -118,6 +130,40 @@ static func format(source: String,values: Variant) -> String:
 				_message_cursor = (_message_cursor+1)%MAX_MESSAGES
 		_messages[result]={"key":key,"args":_encode_values(values)}
 	return result
+
+## German shows decimals with a comma ("3,5 s", "+13,9 XP"): every fractional
+## float placeholder (%.1f, %+.1f, …) of `template` is formatted on its own and
+## gets the comma; whole-number and text placeholders are left as they are.
+## Only the displayed string changes; message payloads keep the raw values.
+static func _german_decimals(template: String,values: Variant) -> String:
+	var specs: Array=_format_specs(template)
+	if not ("f" in specs or "F" in specs): return template%values
+	var list: Array=values if values is Array else [values]
+	if _placeholder == null:
+		_placeholder = RegEx.new()
+		_placeholder.compile("%[-+0-9]*(?:\\.[0-9]+)?[scdiouxXfFeEgGv%]")
+	var pattern := ""
+	var adjusted: Array=[]
+	var cursor := 0
+	var index := 0
+	for found in _placeholder.search_all(template):
+		var spec: String=found.get_string()
+		pattern += template.substr(cursor,found.get_start()-cursor)
+		cursor = found.get_end()
+		if spec=="%%":
+			pattern += spec
+			continue
+		if index>=list.size(): return template%values
+		var value: Variant=list[index]
+		index += 1
+		if spec.right(1) in ["f","F"] and "." in spec and not spec.ends_with(".0f") and (value is float or value is int):
+			pattern += "%s"
+			adjusted.append((spec%value).replace(".",","))
+		else:
+			pattern += spec
+			adjusted.append(value)
+	pattern += template.substr(cursor)
+	return pattern%adjusted
 
 static func _encode_values(value: Variant,depth: int=0) -> Variant:
 	if depth>6: return ""

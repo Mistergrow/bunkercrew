@@ -1,0 +1,21 @@
+{
+  "asset": "portraits_v3.png",
+  "tool": "tools/build_crew_portraits_v3.py",
+  "tool_sha256": "ac1ff8fc70038ee5bda9d50ea3d0c299c63a8dc0b6cc5ba65cabb3482650c5da",
+  "source": "portraits_v1.png",
+  "source_sha256": "b6b0640c29f583a3fa47961456a8248d1eead7853e7afdf523b2c67555e673cc",
+  "method": "per-bust 40-colour max-coverage palette, no dither, alpha thresholded at 128",
+  "cell": 80,
+  "order": [
+    "mara",
+    "branko",
+    "ivo",
+    "nora",
+    "levin",
+    "selma",
+    "oskar",
+    "rika"
+  ],
+  "sha256": "18973072630e2bc45980c302699e45322a23be47be777eb0caa3bff1571c4daf",
+  "previous": "portraits_v1.png (detailed, 2,000+ colours) and portraits_v2.png (rebuilt from sprite geometry), both kept for comparison"
+}

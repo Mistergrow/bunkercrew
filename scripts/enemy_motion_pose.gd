@@ -65,13 +65,16 @@ static func sample(state: String, phase: float, kind: String, airborne: bool = f
 			pose.thrust = 0.6*compress
 		"impact":
 			# Fast yielding, controlled hydraulic recovery; no one-frame jitter.
-			var recoil := pulse(p,0.12,0.22)
-			var recovery := sin(p*TAU)*sin(p*PI)*0.7
-			pose.offset = Vector2(5.5*recoil,2.5*recoil+recovery)*traits.y
-			pose.roll = 0.105*recoil*traits.w
-			pose.knee = 2.6*recoil
-			pose.rotor = -0.24*recoil*traits.w
-			pose.thrust = 0.45*recoil
+			# The hull is knocked back and pitched up on its planted legs (they
+			# lean and fold under it), then rocks forward once and settles.
+			var recoil := pulse(p,0.10,0.24)
+			var recovery := sin(p*TAU)*sin(p*PI)*1.2
+			pose.offset = Vector2(9.0*recoil-recovery*1.5,3.5*recoil+recovery)*traits.y
+			pose.roll = 0.17*recoil*traits.w
+			pose.knee = 5.0*recoil
+			pose.foot = -2.0*recoil if not airborne else 0.0
+			pose.rotor = -0.30*recoil*traits.w
+			pose.thrust = 0.55*recoil
 		"service":
 			var unlock := pulse(p,0.2,0.52)
 			var bolt := pulse(p,0.38,0.56)

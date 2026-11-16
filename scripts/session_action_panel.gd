@@ -90,9 +90,9 @@ func _draw() -> void:
 	var bounds: Rect2 = SocialUiArt.bounds(hud)
 	draw_rect(bounds,Color(.01,.015,.018,.20))
 	SocialUiArt.reading_shade(self,bounds,780,990)
-	var headings := UiArt.wrap_text(heading,TEXT_WIDTH,36,UiArt.TITLE_FONT)
+	var headings := UiArt.wrap_text(heading,TEXT_WIDTH,UiArt.TEXT_SIGNAL,UiArt.TITLE_FONT)
 	for index in headings.size():
-		UiArt.text(self,Vector2(80,112+index*46),headings[index],36,UiArt.IVORY,UiArt.TITLE_FONT)
+		UiArt.text(self,Vector2(80,112+index*46),headings[index],UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	var lines := UiArt.wrap_text(message,TEXT_WIDTH,20)
 	for index in lines.size():
 		UiArt.text(self,Vector2(80,252+index*30),lines[index],20)
@@ -104,4 +104,4 @@ func _draw() -> void:
 	if selected!=null:
 		draw_line(Vector2(984,selected.position.y+17),Vector2(984,selected.position.y+selected.size.y-17),UiArt.AMBER,2)
 	draw_line(Vector2(80,724),Vector2(1360,724),Color(UiArt.MUTED,.18),1)
-	UiArt.text(self,Vector2(80,819),"Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen",13,UiArt.MUTED)
+	UiArt.hints(self,Vector2(80,819),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)

@@ -18,6 +18,13 @@ var rain: Array[Dictionary] = []
 var dust: Array[Vector3] = []
 var bolt := PackedVector2Array()
 var lightning_branches: Array[PackedVector2Array] = []
+## Second-order forks off the branches (presentation only).
+var lightning_forks: Array[PackedVector2Array] = []
+## After the flash the bolt's core lingers this long as a dim after-image.
+const AFTERIMAGE_SECONDS := 0.12
+const LightningArt := preload("res://scripts/lightning_art.gd")
+## The drawn bolt of the last strike (LightningArt.rasterise): texture, origin.
+var bolt_art: Dictionary = {}
 var thunder_origin := Vector2.ZERO
 var lightning_age := 10.0
 var lightning_wait := 18.0
@@ -30,6 +37,8 @@ var surface_effects: Node2D
 var prop_surfaces: Node2D
 var world_wind: Node2D
 var storm_events: Node2D
+var precipitation: Node2D
+var environment_data: Dictionary = {}
 var environment_id := "sector07"
 var collision := RainCollision.new()
 var contact_count := 0
@@ -69,6 +78,10 @@ func _ready() -> void:
 	storm_events.name = "StormEvents"
 	storm_events.weather = self
 	add_child(storm_events)
+	precipitation = preload("res://scripts/weather_precipitation.gd").new()
+	precipitation.weather = self
+	add_child(precipitation)
+	precipitation.configure_environment(environment_data if not environment_data.is_empty() else {"id":environment_id,"weather":environment_weather})
 	for band in 3:
 		var spec: Dictionary = RainCatalog.BANDS[band]
 		for index in int(spec.count):
@@ -79,6 +92,7 @@ func _ready() -> void:
 
 func configure_environment(environment: Dictionary) -> void:
 	if is_instance_valid(storm_events): storm_events.reset()
+	environment_data = environment
 	environment_id = str(environment.get("id","sector07"))
 	environment_weather = str(environment.get("weather", "storm"))
 	var default_rain := 1.0 if environment_weather in ["rain", "storm"] else 0.0
@@ -87,11 +101,14 @@ func configure_environment(environment: Dictionary) -> void:
 	lightning_enabled = bool(environment.get("lightning", environment_weather == "storm"))
 	if is_instance_valid(world_wind):
 		world_wind.configure_environment(environment)
+	if is_instance_valid(precipitation):
+		precipitation.configure_environment(environment)
 	if not lightning_enabled:
 		lightning_age = 10.0
 		thunder_wait = -1.0
 		bolt.clear()
 		lightning_branches.clear()
+		lightning_forks.clear()
 	for layer in rain_layers + [sky_layer]:
 		if is_instance_valid(layer):
 			layer.queue_redraw()
@@ -269,6 +286,8 @@ func set_reduced_effects(value: bool) -> void:
 	reduced_effects = value
 	if is_instance_valid(world_wind):
 		world_wind.set_reduced(value)
+	if is_instance_valid(precipitation):
+		precipitation.set_reduced(value)
 	if value:
 		lightning_age = 10.0
 		thunder_wait = -1.0
@@ -353,9 +372,11 @@ func _start_lightning() -> void:
 	lightning_wait = rng.randf_range(15,30)
 	bolt.clear()
 	lightning_branches.clear()
+	lightning_forks.clear()
 	var view := get_canvas_transform().affine_inverse()*get_viewport_rect()
-	var left := maxf(_sky_left()+50.0,view.position.x+50.0) if _wide_view() else 930.0
-	var right := minf(_sky_right()-50.0,view.end.x-50.0) if _wide_view() else 1320.0
+	# Inside the middle of the view, not hugging an edge where it is missed.
+	var left := maxf(_sky_left()+50.0,view.position.x+maxf(50.0,view.size.x*.14)) if _wide_view() else 930.0
+	var right := minf(_sky_right()-50.0,view.end.x-maxf(50.0,view.size.x*.14)) if _wide_view() else 1320.0
 	if right<=left: return
 	var top := maxf(_sky_top(),view.position.y)+8.0 if _wide_view() else _sky_top()+8.0
 	var x := rng.randf_range(left,right)
@@ -379,6 +400,30 @@ func _start_lightning() -> void:
 			path.append(next)
 			point = next
 		if path.size()>1: lightning_branches.append(path)
+	# Short forks off the branches. Their own generator, seeded from the bolt,
+	# so the weather's shared random sequence is untouched.
+	lightning_forks.clear()
+	var forks := RandomNumberGenerator.new()
+	forks.seed = hash(bolt[-1]) ^ hash(bolt[0])
+	for branch in lightning_branches:
+		if branch.size()<3: continue
+		var fork_point := branch[1]
+		var fork := PackedVector2Array([fork_point])
+		var side := -1.0 if branch[-1].x<branch[0].x else 1.0
+		for step in 2:
+			var next := (fork_point+Vector2(-side*forks.randf_range(5,11),forks.randf_range(8,15))).round()
+			if not is_outdoors(next): break
+			fork.append(next)
+			fork_point = next
+		if fork.size()>1: lightning_forks.append(fork)
+	# The drawn bolt: every path kinked into short pixel-art steps and
+	# rasterised once on the world texel grid (lightning_art.gd).
+	var trunk := LightningArt.jag(bolt,forks,10.0,3.0)
+	var jagged_branches: Array[PackedVector2Array] = []
+	for branch in lightning_branches: jagged_branches.append(LightningArt.jag(branch,forks,7.0,2.0))
+	var jagged_forks: Array[PackedVector2Array] = []
+	for fork in lightning_forks: jagged_forks.append(LightningArt.jag(fork,forks,5.0,1.5))
+	bolt_art = LightningArt.rasterise(trunk,jagged_branches,jagged_forks)
 	lightning_age = 0.0
 	thunder_origin = bolt[-1]
 	thunder_wait = thunder_delay(thunder_origin,.7)
@@ -390,8 +435,15 @@ func lightning_strength() -> float:
 
 func _draw_sky() -> void:
 	var bright := lightning_strength()
-	if bright <= 0.0 or bolt.size() < 4:
+	if bolt.size() < 4 or reduced_effects or not lightning_enabled:
 		return
+	if bright <= 0.0 or lightning_age >= 0.10:
+		# After the flash the bolt lingers for a frame or two as a dim, cooler
+		# after-image (no light): the eye's own burn-in of the bolt.
+		var linger := 1.0 - (lightning_age - 0.10) / AFTERIMAGE_SECONDS
+		if linger > 0.0 and lightning_age >= 0.10 and not bolt_art.is_empty():
+			sky_layer.draw_texture_rect(bolt_art.texture, Rect2(bolt_art.origin, bolt_art.size), false, Color(0.74, 0.72, 1.0, 0.55 * linger))
+		if bright <= 0.0: return
 	# Local outdoor illumination avoids flashing the HUD, bunker or underground.
 	var tint := Color(0.66, 0.76, 0.89, 0.065 * bright)
 	# Sample the real roof, including intact glass, so lightning never paints a
@@ -403,10 +455,10 @@ func _draw_sky() -> void:
 		var column_tint := tint
 		column_tint.a *= 1.0-smoothstep(160.0,380.0,absf(float(x)-thunder_origin.x))
 		sky_layer.draw_colored_polygon(PackedVector2Array([Vector2(x,_sky_top()),Vector2(x+10,_sky_top()),Vector2(x+10,right_y),Vector2(x,left_y)]),column_tint)
-	sky_layer.draw_polyline(bolt, Color(0.58, 0.73, 0.89, 0.22 * bright), 5)
-	sky_layer.draw_polyline(bolt, Color(0.84, 0.89, 0.95, 0.67 * bright), 1.4)
-	for branch in lightning_branches:
-		sky_layer.draw_polyline(branch, Color(0.73, 0.82, 0.90, 0.36 * bright), 1)
+	if lightning_age >= 0.10 or bolt_art.is_empty(): return
+	# The bolt on the world's texel grid: one pre-rasterised image in two-texel
+	# cells (white core and pale-blue edge everywhere, a dithered trunk glow).
+	sky_layer.draw_texture_rect(bolt_art.texture, Rect2(bolt_art.origin, bolt_art.size), false, Color(1, 1, 1, bright))
 
 func _draw_wind() -> void:
 	if not roof_flag_visible(): return
@@ -460,9 +512,28 @@ func _draw_rain_band(band: int) -> void:
 		# The bright head trails upward along its already swept motion, so a drawn
 		# streak cannot extend beyond a roof just before its next simulation step.
 		var tint:=Color(0.57,0.66,0.68,float(drop.alpha)*rain_visibility(drop)*(1.0+lightning_strength()*0.5))
-		layer.draw_line(start.round(),point.round(),tint,float(spec.width),false)
+		_streak(layer,start.round(),point.round(),tint,float(spec.width))
 		if band==2:
 			layer.draw_rect(Rect2(point.round(),Vector2(1,2)),Color(0.76,0.80,0.74,0.38*rain_visibility(drop)))
+
+## A streak from `a` to `b` (whole texels) on the world texel grid: one rect per
+## run of texels in the same column (or row, for a streak blown flatter than
+## 45 degrees), so a slanted streak steps by whole texels instead of being a
+## smooth sub-texel line at high zoom. A few rects per streak.
+func _streak(layer: Node2D, a: Vector2, b: Vector2, color: Color, width: float) -> void:
+	var span := b-a
+	if absf(span.x)<=absf(span.y):
+		var columns := int(absf(span.x))+1
+		for index in columns:
+			var top := roundf(a.y+span.y*float(index)/float(columns))
+			var bottom := roundf(a.y+span.y*float(index+1)/float(columns))
+			layer.draw_rect(Rect2(a.x+signf(span.x)*index,minf(top,bottom),width,maxf(1.0,absf(bottom-top))),color)
+	else:
+		var rows := int(absf(span.y))+1
+		for index in rows:
+			var left := roundf(a.x+span.x*float(index)/float(rows))
+			var right := roundf(a.x+span.x*float(index+1)/float(rows))
+			layer.draw_rect(Rect2(minf(left,right),a.y+signf(span.y)*index,maxf(1.0,absf(right-left)),width),color)
 
 func rain_segment(drop: Dictionary) -> PackedVector2Array:
 	var point:Vector2=drop.point

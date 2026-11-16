@@ -15,6 +15,8 @@ import tempfile
 import time
 import tkinter
 
+import fixture_script_dependencies
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "artifacts/fullscreen-handoff"
 GODOT = shutil.which("godot")
@@ -157,9 +159,9 @@ window/size/viewport_height=400
 renderer/rendering_method="gl_compatibility"
 ''')
     shutil.copyfile(source, folder / "display_settings.gd")
-    (folder / "scripts").mkdir()
-    shutil.copyfile(ROOT / "scripts/locale_text.gd", folder / "scripts/locale_text.gd")
-    shutil.copytree(ROOT / "locales", folder / "locales")
+    # Every script this controller source preloads or names, and the data those
+    # scripts name literally (locale tables), derived from it.
+    fixture_script_dependencies.install(ROOT, folder, source)
     (folder / "main.tscn").write_text('''[gd_scene load_steps=2 format=3]
 [ext_resource type="Script" path="res://probe.gd" id="1"]
 [node name="Probe" type="Node"]

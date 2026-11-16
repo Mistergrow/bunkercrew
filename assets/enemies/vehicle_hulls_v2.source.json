@@ -1,0 +1,61 @@
+{
+  "asset": "vehicle_hulls_v2.png",
+  "generator": "tools/grade_enemy_hulls.py",
+  "source": "assets/enemies/vehicle_hulls_v1.png",
+  "method": "Colour and value grade of the painted hull plate per region: per-type paint hue, S-curve value structure, lit top edge one world texel thick, ground contact shade or lighter aircraft belly, red sensor lamp on aircraft. Alpha unchanged; no generated imagery.",
+  "license": "Same as the source plate (see its source metadata).",
+  "regions": {
+    "scout_car": {
+      "box": [
+        265,
+        130,
+        1055,
+        330
+      ],
+      "source_px_per_world_texel": 9.4,
+      "paint_hue_sat_gain": [
+        48,
+        1.0,
+        1.14
+      ]
+    },
+    "battle_tank": {
+      "box": [
+        103,
+        556,
+        1393,
+        361
+      ],
+      "source_px_per_world_texel": 11.1,
+      "paint_hue_sat_gain": [
+        82,
+        1.05,
+        1.04
+      ]
+    },
+    "mortar_carrier": {
+      "box": [
+        103,
+        1024,
+        1393,
+        361
+      ],
+      "source_px_per_world_texel": 11.1,
+      "paint_hue_sat_gain": [
+        32,
+        1.15,
+        1.08
+      ]
+    }
+  },
+  "contrast": 1.4,
+  "size": [
+    1536,
+    1408
+  ],
+  "source_sha256": {
+    "assets/enemies/vehicle_hulls_v1.png": "a8ca973461b1bb8c67324d627cccbc459297f56d2c28dad13e8856281ea64ce3",
+    "tools/grade_enemy_hulls.py": "3b01f38bfa13f4785c4c37bb997dab0413e3083a990ecf10f25702158fb72f12"
+  },
+  "sha256": "b2db6d7b524499c805a7bec26df769e7af6384ae3b16f0b964b0c472611d07da"
+}

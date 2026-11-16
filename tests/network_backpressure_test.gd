@@ -11,6 +11,10 @@ class SessionProbe extends "res://scripts/network_session.gd":
 	func _send(message:Dictionary,_reliable:=true,_target_id:int=0) -> bool:
 		if send_ok: sent.append(message.duplicate(true))
 		return send_ok
+	func _send_encoded(packet:PackedByteArray,_reliable:bool,_target_id:int=0,_channel:int=-1) -> bool:
+		# Snapshots are checked against the receiver's limits and sent encoded.
+		if send_ok: sent.append(Protocol.decode(packet))
+		return send_ok
 class AudioProbe extends RefCounted:
 	var live_music: Node
 class GameProbe extends Node:

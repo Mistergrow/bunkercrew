@@ -33,7 +33,7 @@ Als visuelle Referenzen wurden die [Industrieszenen des Pixel-Art-Autors Brainwa
 
 ## Nachweise
 
-Die [Hofgalerie](../artifacts/courtyard-art-20261004/index.html) enthält tatsächliche Nah-, Weit-, Spiegel- und Torzustandsaufnahmen. Der [gemeinsame Prüfbericht](../artifacts/courtyard-weather-20261004/verification.md) hält den abschließenden Quellstand, Verhaltensprüfungen, lokale Direkt-/Relay-Läufe und die tatsächliche Paketprüfung fest. Die Wetterprofile liegen unter `artifacts/courtyard-weather-20261005/weather/`.
+Die Hofgalerie (`artifacts/courtyard-art-20261004/index.html`; lokale Prüfdaten, nicht im Repository) enthält tatsächliche Nah-, Weit-, Spiegel- und Torzustandsaufnahmen. Der gemeinsame Prüfbericht (`artifacts/courtyard-weather-20261004/verification.md`; lokale Prüfdaten, nicht im Repository) hält den abschließenden Quellstand, Verhaltensprüfungen, lokale Direkt-/Relay-Läufe und die tatsächliche Paketprüfung fest. Die Wetterprofile liegen unter `artifacts/courtyard-weather-20261005/weather/`.
 
 CPU-Kosten und gerenderte Bildrate werden getrennt ausgewiesen. Die Leistungsmessungen laufen bei 1080p mit vier Figuren und 40 Gegnern; Standard- und reduzierte Effekte werden getrennt erfasst. Beide Vergleichsvarianten verwenden denselben eingefrorenen Hof-/Gameplaystand. Die Vergleichsbasis enthält allein die notwendige Korrektur der sonst endlos laufenden Zell-Durchquerung, keine der neuen Cache-, Hüllen- oder Parameteroptimierungen. Der unkorrigierte Fehler und verworfene Versuche bleiben als Diagnosebelege erhalten.
 

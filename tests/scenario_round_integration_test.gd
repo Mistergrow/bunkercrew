@@ -71,7 +71,18 @@ func run():
 		for enemy in get_nodes_in_group("enemies"):
 			west=west or enemy.attack_direction>0
 			east=east or enemy.attack_direction<0
-			correct=correct and enemy.nearest_obstacle()!=null and enemy.nearest_obstacle().get_meta("scenario_front",false)
+			# Every active front now starts behind its installed outer fence: that
+			# fence is the first obstacle, the physical bunker front the next one.
+			var fence=enemy.nearest_obstacle()
+			var outer: bool=fence is PerimeterSite and fence.role=="fence" and fence.tier==PerimeterCatalog.STARTER_FENCE_TIER and fence.side==int(-enemy.attack_direction) and (fence.global_position.x-enemy.global_position.x)*enemy.attack_direction>0
+			var front: Node2D
+			if outer:
+				var gate: float=fence.gate_amount
+				fence.gate_amount=1.0
+				front=enemy.nearest_obstacle()
+				fence.gate_amount=gate
+				outer=enemy.nearest_obstacle()==fence
+			correct=correct and outer and front!=null and front.get_meta("scenario_front",false) and (front.global_position.x-fence.global_position.x)*enemy.attack_direction>0 and (bunker.core_x-front.global_position.x)*enemy.attack_direction>0
 		check(correct and ((west and east) if mode=="center" else (west and not east if mode=="right" else east and not west)),"%s actual factory actors select approached physical bunker front"%mode)
 		await clear_enemies(game)
 		game.rounds._process(0)

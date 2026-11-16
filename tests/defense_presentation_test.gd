@@ -70,11 +70,14 @@ func run() -> void:
 	stable=cabinet_draws
 	game.players[0].position=dome.interaction_point()+Vector2(0,20)
 	await refresh()
-	check(cabinet_draws>stable and UiArt.world_label_visible(dome),"Approaching the floor service point reveals its contextual label")
+	# The quiet HUD keeps words off world machinery during play: approaching no
+	# longer paints a label, so the unchanged cabinet must not redraw either.
+	check(game.hud.overlay.is_empty() and cabinet_draws==stable and not UiArt.world_label_visible(dome),"Approaching the floor service point leaves the cabinet clear of a world label")
 	stable=cabinet_draws
 	game.players[0].focus=dome
 	await refresh()
-	check(cabinet_draws>stable and not UiArt.world_label_visible(dome),"Focused console uses the existing HUD without a duplicate world label")
+	var context: Dictionary=game.hud.context_details(game.players[0])
+	check(cabinet_draws==stable and not UiArt.world_label_visible(dome) and str(context.title)==LocaleText.text("Schutzkuppel") and str(context.body).begins_with("GLASKUPPEL"),"Focused console is named by the existing HUD without a duplicate world label")
 	stable=cabinet_draws
 	LocaleText.set_locale("en",false)
 	await refresh()

@@ -219,6 +219,62 @@ func test_rate_and_frame_limits() -> void:
 	await cleanup()
 	completed_tests += 1
 
+func test_source_isolation() -> void:
+	# The host listens on every loopback address; the flood and the real guest
+	# use different source addresses, as two machines on a LAN would.
+	var probe := new_socket()
+	var port := probe.get_local_port()
+	probe.close()
+	var host_node = Discovery.new()
+	host_node.discovery_port = port
+	host_node.bind_address = "0.0.0.0"
+	nodes.append(host_node)
+	root.add_child(host_node)
+	check(host_node.host(SECRET, GAME_PORT) == OK, "Source-isolation fixture opens the host")
+	host_node.set_process(false)
+	var flood := new_socket()
+	var guest := PacketPeerUDP.new()
+	var separate := guest.bind(0, "127.0.0.2", 65536) == OK
+	sockets.append(guest)
+	var junk := "not json".to_ascii_buffer()
+	flood.set_dest_address("127.0.0.1", port)
+	if separate:
+		guest.set_dest_address("127.0.0.1", port)
+		for frame in 12:
+			for index in 12: flood.put_packet(junk)
+			await wait_seconds(0.02)
+			host_node._process(0)
+		check(host_node.rejected_packets >= 100, "A sustained junk flood from one address is consumed and rejected")
+		guest.put_packet(JSON.stringify(wire("find", "0123456789abcdef0123456789abcdef")).to_ascii_buffer())
+		var answered := false
+		for frame in 30:
+			flood.put_packet(junk)
+			await wait_seconds(0.02)
+			host_node._process(0)
+			if guest.get_available_packet_count() > 0:
+				answered = true
+				break
+		check(answered and host_node.sent_responses == 1, "A real guest at another address is still found during the flood")
+		check(flood.get_available_packet_count() == 0, "The flooding address receives nothing")
+	else:
+		print("LAN discovery: a second loopback address is unavailable; source isolation is checked on the budget table only")
+	var now := Time.get_ticks_usec()
+	var spent := true
+	for index in int(Discovery.PACKET_BURST): spent = host_node._allow_source("192.168.7.1", now) and spent
+	check(spent and not host_node._allow_source("192.168.7.1", now), "One address has a finite parse allowance")
+	check(host_node._allow_source("192.168.7.2", now), "Another address has its own full allowance")
+	var refilled := 0
+	for index in 40:
+		if host_node._allow_source("192.168.7.1", now + 1000000): refilled += 1
+	check(refilled == int(Discovery.PACKET_RATE), "An exhausted allowance refills only with elapsed time")
+	for index in 400: host_node._allow_source("10.%d.%d.1" % [index / 200, index % 200], now + 2000000 + index)
+	check(host_node._sources.size() <= Discovery.MAX_SOURCES, "The per-address table stays bounded under many source addresses")
+	check(host_node._allow_source("192.168.9.9", now + 3000000), "A new address is still admitted when the table is full")
+	host_node.close()
+	check(host_node._sources.is_empty(), "Closing discovery clears the address table")
+	await cleanup()
+	completed_tests += 1
+
 func test_timeout_retries_and_close() -> void:
 	var endpoint := new_socket()
 	var guest = new_discovery(endpoint.get_local_port())
@@ -246,7 +302,8 @@ func run() -> void:
 	await test_bad_requests()
 	await test_spoofed_replies_and_replay()
 	await test_rate_and_frame_limits()
+	await test_source_isolation()
 	await test_timeout_retries_and_close()
-	check(completed_tests == 5, "Every test case reaches its final checks")
+	check(completed_tests == 6, "Every test case reaches its final checks")
 	print("LAN discovery: %d/%d checks passed" % [checks - failures, checks])
 	quit(1 if failures else 0)

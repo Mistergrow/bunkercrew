@@ -39,12 +39,13 @@ func rain_segments() -> Array[Dictionary]:
 		_add_polygon(supply,PackedVector2Array([Vector2(-29,-38),Vector2(29,-38),Vector2(29,-1),Vector2(-29,-1)]),supply,"wood")
 	for station in get_tree().get_nodes_in_group("flak_stations"):
 		if not _eligible(station): continue
-		_add_texture(station,DefenseArt.CONSOLE,DefenseArt.FLAK_CONSOLE_BOUNDS,station,"metal")
+		_add_texture(station,DefenseArt.console(DefenseArt.FLAK_CONSOLE_BOUNDS.size),DefenseArt.FLAK_CONSOLE_BOUNDS,station,"metal")
 		_add_polygon(station,PackedVector2Array([Vector2(-25,-9),Vector2(25,-9),Vector2(25,-1),Vector2(-25,-1)]),station,"metal")
 	for gun in get_tree().get_nodes_in_group("turrets"):
 		if not gun is RoofTurret or not _eligible(gun): continue
 		var flak := gun is FlakTurret
-		_add_texture(gun,MachineryArt.texture("mount"),Rect2(-33,-46,68,46) if flak else Rect2(-32,-44,65,44),gun,"metal")
+		var mount := Rect2(-33,-46,68,46) if flak else Rect2(-32,-44,65,44)
+		_add_texture(gun,MachineryArt.world_texture("mount",Vector2i(mount.size)),mount,gun,"metal")
 		if not is_instance_valid(gun.barrel): continue
 		if flak:
 			for index in 2:
@@ -94,6 +95,15 @@ func _outline(texture: Texture2D) -> PackedVector2Array:
 	var outline := PackedVector2Array()
 	if image==null or image.is_empty(): return outline
 	if image.is_compressed(): image.decompress()
+	# A neighbouring module's pixels inside an atlas region (MachineryArt.
+	# FOREIGN: the barrel's muzzle brake in the mount's corner) are not part of
+	# this prop; snow and rain must not trace them as a stray cluster.
+	if texture is AtlasTexture:
+		for part: String in MachineryArt.FOREIGN:
+			var region: Rect2 = MachineryArt.REGIONS[part]
+			if (texture as AtlasTexture).region == region:
+				var foreign: Rect2 = MachineryArt.FOREIGN[part]
+				image.fill_rect(Rect2i(Vector2i(foreign.position - region.position), Vector2i(foreign.size)), Color(0, 0, 0, 0))
 	var width := image.get_width()
 	var height := image.get_height()
 	var top := PackedVector2Array()

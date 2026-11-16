@@ -15,8 +15,11 @@ const MAX_PACKETS_PER_FRAME := 16
 const MAX_INTERFACES := 8
 const MAX_RETRIES := 3
 const RECEIVE_BUFFER_BYTES := 65536
+# Parsing is budgeted per source address: junk from one sender cannot use up
+# the allowance of a real host or guest. The table itself is bounded.
 const PACKET_BURST := 16.0
 const PACKET_RATE := 8.0
+const MAX_SOURCES := 64
 const RESPONSE_BURST := 4.0
 const RESPONSE_RATE := 2.0
 const INVALID_CODE := "Bitte einen gültigen LAN-Code eingeben."
@@ -46,7 +49,7 @@ var _next_retry_usec := 0
 var _retry_interval_usec := 0
 var _retries := 0
 var _next_socket := 0
-var _packet_tokens := PACKET_BURST
+var _sources: Dictionary = {}
 var _response_tokens := RESPONSE_BURST
 var _budget_updated_usec := 0
 
@@ -113,6 +116,7 @@ func close() -> void:
 	_next_retry_usec = 0
 	_next_socket = 0
 	_retries = 0
+	_sources.clear()
 
 func _open_query_socket(address: String, target: String) -> Error:
 	var socket := PacketPeerUDP.new()
@@ -161,11 +165,7 @@ func _process(_delta: float) -> void:
 		var address := socket.get_packet_ip()
 		var port := socket.get_packet_port()
 		last_poll_packets += 1
-		if _packet_tokens < 1.0:
-			rejected_packets += 1
-			continue
-		_packet_tokens -= 1.0
-		if not _valid_source(address):
+		if not _valid_source(address) or not _allow_source(address, now):
 			rejected_packets += 1
 			continue
 		var message := _decode(packet)
@@ -176,6 +176,25 @@ func _process(_delta: float) -> void:
 			_respond(socket, address, port, message)
 		elif _accept_reply(address, port, message):
 			return # found listeners may free or reuse this node.
+
+func _allow_source(address: String, now_usec: int) -> bool:
+	var bucket: Dictionary = _sources.get(address, {})
+	if bucket.is_empty():
+		if _sources.size() >= MAX_SOURCES:
+			# Forget the source that has been silent longest. A returning sender
+			# simply starts a fresh bucket; a new one is never locked out.
+			var oldest := ""
+			for known: String in _sources:
+				if oldest.is_empty() or int(_sources[known].updated) < int(_sources[oldest].updated): oldest = known
+			_sources.erase(oldest)
+		bucket = {"tokens":PACKET_BURST, "updated":now_usec}
+		_sources[address] = bucket
+	var elapsed := clampf(float(now_usec - int(bucket.updated)) / 1000000.0, 0.0, PACKET_BURST / PACKET_RATE)
+	bucket.tokens = minf(PACKET_BURST, float(bucket.tokens) + elapsed * PACKET_RATE)
+	bucket.updated = now_usec
+	if float(bucket.tokens) < 1.0: return false
+	bucket.tokens = float(bucket.tokens) - 1.0
+	return true
 
 func _respond(socket: PacketPeerUDP, address: String, port: int, message: Dictionary) -> void:
 	if message.op != "find" or not _matches(message):
@@ -257,14 +276,13 @@ func _reset_counters() -> void:
 	sent_responses = 0
 	sent_requests = 0
 	rejected_packets = 0
-	_packet_tokens = PACKET_BURST
+	_sources.clear()
 	_response_tokens = RESPONSE_BURST
 	_budget_updated_usec = Time.get_ticks_usec()
 
 func _refill_budgets(now_usec: int) -> void:
 	var elapsed := clampf(float(now_usec - _budget_updated_usec) / 1000000.0, 0.0, 1.0)
 	_budget_updated_usec = now_usec
-	_packet_tokens = minf(PACKET_BURST, _packet_tokens + elapsed * PACKET_RATE)
 	_response_tokens = minf(RESPONSE_BURST, _response_tokens + elapsed * RESPONSE_RATE)
 
 func _exit_tree() -> void:

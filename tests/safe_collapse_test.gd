@@ -2,6 +2,8 @@ extends SceneTree
 ## Regression for a nonmounted bleed collapse inside a service-plane hull.
 ## All settling uses Worker.move_and_slide, with strict unchanged medical rays.
 class Observer extends Node2D:
+	# Medical aid is authorized only for a helper owned by the patient's world.
+	var game
 	var medical_supplies:=2
 	func can_act(): return true
 var game
@@ -81,6 +83,7 @@ func run():
 	await frames()
 	var observer:=Observer.new()
 	observer.position=Vector2(500,35)
+	observer.game=game
 	game.add_child(observer)
 	player.hp=1
 	player.medical.bleeding=3

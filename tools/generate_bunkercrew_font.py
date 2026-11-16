@@ -21,7 +21,8 @@ UPM = 1400
 # '/' separates scan lines. Capitals occupy ten rows, x-height seven, descenders
 # two. Narrow sidebearings and open apertures keep machine labels readable.
 CAPS = {
-'A': '.####./##..##/#....#/#....#/#....#/######/#....#/#....#/#....#/#....#',
+# A keeps a narrow stepped apex and a low bar so it never reads as R at 11-14 px.
+'A': '..##../..##../.#..#./.#..#./.#..#./#....#/######/#....#/#....#/#....#',
 'B': '#####./#....#/#....#/#....#/#####./#....#/#....#/#....#/#....#/#####.',
 'C': '.#####/#...../#...../#...../#...../#...../#...../#...../#...../.#####',
 'D': '#####./#....#/#....#/#....#/#....#/#....#/#....#/#....#/#....#/#####.',
@@ -39,7 +40,8 @@ CAPS = {
 'P': '#####./#....#/#....#/#....#/#....#/#####./#...../#...../#...../#.....',
 'Q': '.####./#....#/#....#/#....#/#....#/#....#/#....#/#..#.#/#...#./.###.#',
 'R': '#####./#....#/#....#/#....#/#....#/#####./#..#../#...#./#...#./#....#',
-'S': '.#####/#...../#...../#...../.####./.....#/.....#/.....#/.....#/#####.',
+# S hooks both terminals; 5 keeps its flat bar and square shoulder.
+'S': '.####./#....#/#...../#...../.####./.....#/.....#/.....#/#....#/.####.',
 'T': '#######/...#.../...#.../...#.../...#.../...#.../...#.../...#.../...#.../...#...',
 'U': '#....#/#....#/#....#/#....#/#....#/#....#/#....#/#....#/#....#/.####.',
 'V': '#.....#/#.....#/#.....#/#.....#/.#...#./.#...#./.#...#./..#.#../..#.#../...#...',
@@ -57,11 +59,14 @@ LOWER = {
 'f': '..###/.#.../.#.../####./.#.../.#.../.#.../.#.../.#.../.#...',
 'g': '....../....../....../.#####/#....#/#....#/#....#/#....#/#...##/.###.#/.....#/#####.',
 'h': '#...../#...../#...../#.###./##...#/#....#/#....#/#....#/#....#/#....#',
-'i': '#/././#/#/#/#/#/#/#',
+# i carries a left flag: a bare one-cell stem fuses with its neighbours ("Hilfe").
+'i': '.#/../../##/.#/.#/.#/.#/.#/.#',
 'j': '..#/.../.../.##/..#/..#/..#/..#/..#/..#/..#/##.',
 'k': '#...../#...../#...../#....#/#...#./#..#../###.../#..#../#...#./#....#',
-'l': '##/.#/.#/.#/.#/.#/.#/.#/.#/.#',
-'m': '........./........./........./##.##.##./#.#..#..#/#.#..#..#/#.#..#..#/#.#..#..#/#.#..#..#/#.#..#..#',
+# l carries a foot instead of a flag: a flagged stem reads as the numeral 1.
+'l': '#./#./#./#./#./#./#./#./#./##',
+# m has three evenly spaced stems and two arches, matching n.
+'m': '........./........./........./#.##.###./##..##..#/#...#...#/#...#...#/#...#...#/#...#...#/#...#...#',
 'n': '....../....../....../#.###./##...#/#....#/#....#/#....#/#....#/#....#',
 'o': '....../....../....../.####./#....#/#....#/#....#/#....#/#....#/.####.',
 'p': '....../....../....../#.###./##...#/#....#/#....#/#....#/#....#/#####./#...../#.....',
@@ -112,7 +117,8 @@ SYMBOLS = {
 '"': '#.#/#.#/#.#/.../.../.../.../.../.../...',
 '<': '..../..../...#/..#./.#../#.../.#../..#./...#/....',
 '>': '..../..../#.../.#../..#./...#/..#./.#../#.../....',
-'%': '##....#/#.#...#/.##..#./....#../...#.../...#.../..#..##/.#..#.#/#....##/#......',
+# Two closed square rings and one unbroken diagonal: not an X, not a per-mille.
+'%': '###...#/#.#..#./###..#./....#../...#.../...#.../..#..../.#..###/.#..#.#/#...###',
 '&': '.###../#...#./#...#./.#.#../..#.../.#.#.#/#...#./#...#./#...#./.###.#',
 '@': '.#####./#.....#/#..##.#/#.#.#.#/#.#.#.#/#.#.#.#/#..###./#....../#....../.#####.',
 '#': '.#..#./.#..#./######/.#..#./.#..#./######/.#..#./.#..#./....../......',
@@ -251,8 +257,8 @@ def build_face(source, filename, family, style, medium=False, display=False):
     font.setupHorizontalMetrics(metrics)
     font.setupHorizontalHeader(ascent=1200, descent=-300, lineGap=0)
     fullname = f'{family} {style}'
-    font.setupNameTable({'familyName':family, 'styleName':style, 'uniqueFontIdentifier':f'{filename}-2.000',
-        'fullName':fullname, 'psName':filename.removesuffix('.ttf'), 'version':'Version 2.000',
+    font.setupNameTable({'familyName':family, 'styleName':style, 'uniqueFontIdentifier':f'{filename}-2.100',
+        'fullName':fullname, 'psName':filename.removesuffix('.ttf'), 'version':'Version 2.100',
         'copyright':'Copyright 2026 Bunkercrew contributors. Original authored pixel outlines.',
         'licenseDescription':'SIL Open Font License, Version 1.1. No Reserved Font Names.',
         'licenseInfoURL':'https://openfontlicense.org'})
@@ -268,7 +274,7 @@ def build_face(source, filename, family, style, medium=False, display=False):
     font.font.recalcTimestamp = False
     path = DEST/filename
     font.save(path)
-    metadata = {'name':fullname, 'version':'2.000', 'type':'original pixel outline font',
+    metadata = {'name':fullname, 'version':'2.100', 'type':'original pixel outline font',
         'generator':'tools/generate_bunkercrew_font.py',
         'source':'Original authored grid patterns in generator; no third-party or traced font outlines.',
         'license':'SIL Open Font License 1.1', 'license_file':'OFL.txt', 'reserved_font_names':[],

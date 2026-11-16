@@ -31,6 +31,14 @@ func hold(action: String, seconds: float) -> void:
 	Input.action_release(action)
 	await step()
 
+func select(player, action: String, target) -> void:
+	# The classic courtyard gate stands beside the console. Choose the console
+	# with the real target-cycle input, exactly as a player must.
+	for _attempt in 12:
+		if player.focus == target:
+			return
+		await hold(action, 0.025)
+
 func load_cargo(player, cargo: Dictionary) -> void:
 	player.inventory.clear()
 	for kind: String in cargo:
@@ -96,7 +104,11 @@ func run() -> void:
 	check(roof_geometry_valid and is_equal_approx(apex,55.0), "Every roof point lies on the true ellipse and every curved collision strip triangulates")
 	check(roof_stays_above_soil, "No roof glass or curve section descends into the hill or buried bunker wall")
 	check(game.view_stage == 4 and game.camera_target_zoom == 0.48, "The real salvage transition exposes the expanded dome yard and final camera framing")
+	check(game.focus_candidates(worker).has(dome) and game.focus_candidates(partner).has(dome), "Both workers reach the assembly console beside the courtyard gate")
+	await select(worker, "p1_cycle_target", dome)
+	await select(partner, "p2_cycle_target", dome)
 	check(worker.focus == dome and dome.prompt(worker).contains("Welle 16"), "The outside assembly console is reachable and explains its wave requirement")
+	check(partner.focus == dome, "The second worker selects the same console with its own target-cycle input")
 	load_cargo(worker, {"steel": 2})
 	await hold("p1_interact", 0.7)
 	check(worker.inventory.get("steel", 0) == 2 and dome.materials.is_empty(), "Early-wave interaction preserves materials")

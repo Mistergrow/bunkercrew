@@ -21,7 +21,7 @@ func objective_layout() -> Dictionary:
 	if not is_instance_valid(director) or not director.displays_objectives(): return {}
 	var game = director.game
 	if not is_instance_valid(game.hud) or not game.hud.overlay.is_empty(): return {}
-	var screen: Rect2 = game.hud.screen_rect()
+	var screen: Rect2 = game.hud.hud_rect() if game.hud.has_method("hud_rect") else game.hud.screen_rect()
 	var width := minf(430.0,screen.size.x - 36.0)
 	var top := screen.position.y + 74.0
 	if is_instance_valid(game.dialogue) and not game.dialogue.active.is_empty() and game.dialogue.canvas.visible and not bool(game.dialogue.active.ending):

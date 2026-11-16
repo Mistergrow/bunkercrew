@@ -57,8 +57,8 @@ func run():
 		air.set_physics_process(false)
 		air.flight_presentation.set_process(false)
 		air.motion.set_process(false)
-		check(air.chassis_atlas!=null and air.chassis_atlas.resource_path==AircraftArtCatalog.TEXTURE_PATH,kind+" uses its independent aircraft alpha crop")
 		var region: Rect2 = AircraftArtCatalog.REGIONS[kind]
+		check(air.chassis_atlas!=null and air.chassis_atlas.resource_path==AircraftArtCatalog.WORLD_PATH and WorldTexels.level(AircraftArtCatalog.TEXTURE_PATH,region,preload("res://scripts/aircraft_art.gd").hull_texels(air))!=null,kind+" draws its independent aircraft alpha crop from its world-texel bake")
 		check(is_equal_approx(air.profile.body_size.y/air.profile.body_size.x,region.size.y/region.size.x),kind+" preserves the original painted aspect ratio")
 		check(air.get_node("AircraftHull").shape.size==AirEnemyCatalog.PROFILES[kind].hitbox*.85,kind+" retains its catalog hull hitbox at the established scale")
 		check(Schema.valid_state("air_machine",state(air)),kind+" produces a canonical valid network state")

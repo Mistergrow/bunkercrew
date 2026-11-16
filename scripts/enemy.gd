@@ -18,6 +18,7 @@ const LIMB_ART = preload("res://scripts/machine_limb_art.gd")
 const MechanismArt := preload("res://scripts/machine_surface_details.gd")
 const VehicleArt := preload("res://scripts/ground_vehicle_art.gd")
 const RhythmPresentation := preload("res://scripts/rhythm_presentation.gd")
+const PixelArt := preload("res://scripts/pixel_effect_art.gd")
 var visual_scale := 1.0
 var body_height := 43.0
 var attack_reach := 63.0
@@ -41,6 +42,30 @@ var _weapon_draw_part_id := 0
 var _weapon_draw_chassis := ""
 var _weapon_draw_flash := false
 var _weapon_draw_charge := -1.0
+## Walker cannons: hand-pixelled families in baked aim keys
+## (tools/generate_machine_weapons_v2.py), drawn upright on the world texel
+## grid by a child that cancels the weapon node's turn and 0.78 scale. The
+## node keeps the exact aim for muzzle, tracer and weather; only the drawing
+## holds the nearest key (hysteresis as the infantry's living attitudes).
+const WEAPON_KEYS := preload("res://assets/enemies/machine_weapons_v2.png")
+const WEAPON_FAMILIES := {"runner":0,"strider":0,"breaker":1,"colossus":2,"assault":3,"siege":4}
+const WEAPON_STEPS := Vector2i(-9,3)
+const WEAPON_CELL := 96.0
+const WEAPON_KEY := TAU/48.0
+const WEAPON_DRAWN_SCALE := 0.78
+## The keys baked at each walker's drawn scale (tools/bake_machine_weapons_world.py),
+## drawn 1:1 on whole world texels; the v2 keys above stay the fallback.
+const WEAPON_WORLD_PATH := "res://assets/enemies/machine_weapons_world.png"
+const WeaponIndex := preload("res://scripts/machine_weapon_index.gd")
+static var _weapon_world: Texture2D
+## Presentation-only hull life in whole world texels (breath, wind-up crouch),
+## carried by the drawn weapon key; the weapon node that fires stays exact.
+var _hull_lift := Vector2.ZERO
+## Bore of each family in world texels (the flash sits on the drawn muzzle).
+const WEAPON_BORES := [-30.0,-30.0,-35.0,-34.0,-42.0]
+var weapon_keys: Node2D
+var _weapon_step := 0
+var _weapon_keys_drawn := Vector3i(-1,0,-1)
 var dead := false
 var tracer_end := Vector2.ZERO
 var burst_remaining := 0
@@ -58,6 +83,11 @@ var worker_attack_count := 0
 const WORKER_TARGET_RANGE := 148.0
 const WORKER_WINDUP_TIME := 0.48
 const WORKER_ATTACK_INTERVAL := 2.6
+const CHASSIS_PATH := "res://assets/enemies/chassis_atlas_v2.png"
+## The world-texel chassis atlas: every chassis baked offline at each size it
+## is drawn at, in lean stances (tools/world_density_bake.json). CHASSIS_PATH
+## is its source, the bake key and the fallback for a size without a bake.
+const CHASSIS_WORLD_PATH := "res://assets/enemies/chassis_world.png"
 const BODY_REGIONS := {
 	"runner": Rect2(96,243,344,198), "strider": Rect2(558,220,396,252),
 	"breaker": Rect2(1012,232,489,245), "colossus": Rect2(47,513,433,428),
@@ -69,8 +99,10 @@ func _ready() -> void:
 	if not EnemyCatalog.PROFILES.has(kind):
 		kind = "strider"
 	profile = EnemyCatalog.profile(kind)
-	if ResourceLoader.exists("res://assets/enemies/chassis_atlas.png"):
-		chassis_atlas = load("res://assets/enemies/chassis_atlas.png")
+	# Baked from the per-chassis grade (tools/grade_enemy_hulls.py); the
+	# graded 1536 px atlas itself stays unloaded.
+	if ResourceLoader.exists(CHASSIS_WORLD_PATH):
+		chassis_atlas = load(CHASSIS_WORLD_PATH)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	crew_size_at_spawn = Balance.active_players(game)
 	max_hp = Balance.enemy_hp_multiplier(crew_size_at_spawn) * float(profile.hp) * EnemyCatalog.hp_scale(wave) * (EnemyCatalog.ELITE_HP_SCALE if elite else 1.0)
@@ -92,6 +124,11 @@ func _ready() -> void:
 	legs_part = _create_part("ArticulatedLegs", _draw_legs)
 	body_part = _create_part("ArmoredBody", _draw_body)
 	weapon_part = _create_part("ArticulatedWeapon", _draw_weapon)
+	weapon_keys = Node2D.new()
+	weapon_keys.name = "WeaponKeys"
+	weapon_keys.use_parent_material = true
+	weapon_keys.draw.connect(_draw_weapon_keys)
+	weapon_part.add_child(weapon_keys)
 	for part in [body_part, legs_part]:
 		part.scale = Vector2.ONE * visual_scale
 	weapon_part.scale = Vector2.ONE * visual_scale * 0.78
@@ -210,8 +247,36 @@ func target_attack_point() -> Vector2:
 	# The dome front deliberately anchors at450 so this strikes real lower glass410.
 	return target.global_position + Vector2(0, -40)
 
+## Readability (style bible §3): the smallest walkers sat dark and low
+## against the fence base and the dark ground; their whole drawing is lifted
+## a value step, so silhouette and contrast both carry the class.
+const VALUE_LIFT := {"runner":Color(1.34,1.31,1.25), "repair_crawler":Color(1.26,1.24,1.19)}
+const HULL_TILT_STEP := 0.03
+## Hit read of a machine: the whole machine brightens together for the first
+## frames of the replicated 0.2 s hit timer, then one gentler step, then off.
+## A multiply keeps every texel of detail and reads the same on a downscaled
+## painted hull, native limb plates and drawn weapons alike (the actor
+## shader's silhouette rim works in atlas texels, so it outlined only the
+## limbs). Reduced effects keep only the gentle step.
+const FLASH_HOT := Color(1.42,1.36,1.22)
+const FLASH_WARM := Color(1.16,1.13,1.08)
+
+static func machine_flash(timer: float, quiet: bool = false) -> Color:
+	if timer > .13: return FLASH_WARM if quiet else FLASH_HOT
+	if timer > .08 and not quiet: return FLASH_WARM
+	return Color.WHITE
+
 func _pose_parts() -> void:
 	RhythmPresentation.machine_accent(self)
+	# Shared hit read: one flash on every part, a tiny swell of the hull only.
+	var quiet_hits := WeaponEffectArt.reduced(game)
+	var flash := machine_flash(hit_flash,quiet_hits)
+	for part in [body_part,legs_part,weapon_part]:
+		part.modulate = flash
+	if VALUE_LIFT.has(kind):
+		for part in [body_part,legs_part]: part.self_modulate = VALUE_LIFT[kind]
+	# The hit pulse is whole texels (the vehicle's springs, the walker's
+	# knock in _hull_life), never a swell of the baked hull.
 	if VehicleArt.is_vehicle(kind):
 		VehicleArt.pose_parts(self)
 		return
@@ -232,6 +297,14 @@ func _pose_parts() -> void:
 		body_part.position += offset*visual_scale
 		body_part.rotation += float(motion.pose.roll)*mirror
 		weapon_part.position += offset*visual_scale
+	_hull_lift = _hull_life(brace,mirror)
+	body_part.position += _hull_lift
+	# The shot pitches the nose up for two tilt stances, settling with the recoil.
+	body_part.rotation += 0.06*clampf(weapon_recoil/maxf(0.01,5.0*visual_scale),0.0,1.0)*mirror
+	# Authored tilt steps: the painted hull holds each attitude for a few
+	# frames instead of being resampled at a new sub-degree angle every frame,
+	# which made its texel grid shimmer. Presentation only (aim is separate).
+	body_part.rotation = snappedf(body_part.rotation,HULL_TILT_STEP)
 	if kind=="repair_crawler":
 		body_part.position.y+=8.0*visual_scale
 		weapon_part.position.y+=8.0*visual_scale
@@ -249,6 +322,88 @@ func _pose_parts() -> void:
 		weapon_part.rotation = clampf(wrapf(Vector2(aim.x*mirror,aim.y).angle()-PI,-PI,PI),-1.12,0.38)*mirror
 	if kind=="bastion":
 		body_part.scale.x*=1.10
+	_pose_weapon_keys()
+
+## Life of a walker's hull on top of its gait (presentation only, whole world
+## texels): a fresh hit knocks it a texel back; standing, it breathes up a
+## texel on a held beat; through the wind-up it sinks into a brace in three
+## held frames and leans back off the target (the anticipation of style bible
+## 5, inside the existing wind-up).
+func _hull_life(brace: float, mirror: float) -> Vector2:
+	if VehicleArt.is_vehicle(kind): return Vector2.ZERO
+	var clock: float = float(motion.get("clock")) if is_instance_valid(motion) else age
+	if hit_flash > 0.13 and not WeaponEffectArt.reduced(game): return Vector2(mirror,0.0)
+	if brace > 0.0:
+		var frame := minf(3.0,floorf(brace*3.0+0.0001)+1.0)
+		return Vector2((1.0 if frame >= 2.0 else 0.0)*mirror,frame)
+	if moving: return Vector2.ZERO
+	return Vector2(0.0,-1.0 if sin(clock*2.1+float(absi(kind.hash())%7)) > 0.3 else 0.0)
+
+## Bake key of the drawn weapon keys: family and drawn scale x 1000 (as
+## tools/bake_machine_weapons_world.py rounds it).
+func weapon_bake_key() -> String:
+	return "%d|%d" % [weapon_family(),floori(visual_scale*1000.0+0.5)]
+
+static func weapon_world_texture() -> Texture2D:
+	if _weapon_world == null and ResourceLoader.exists(WEAPON_WORLD_PATH): _weapon_world = load(WEAPON_WORLD_PATH)
+	return _weapon_world
+
+## Family row of the baked walker cannons, or -1 where the weapon is drawn by
+## its vehicle or variant equipment.
+func weapon_family() -> int:
+	if VehicleArt.is_vehicle(kind) or GroundVariantVisual.has_special_weapon(kind): return -1
+	return int(WEAPON_FAMILIES.get(chassis_kind(),0))
+
+func _pose_weapon_keys() -> void:
+	if not is_instance_valid(weapon_keys) or weapon_keys.get_parent() != weapon_part: return
+	var family := weapon_family()
+	weapon_keys.visible = family >= 0
+	if family < 0: return
+	var mirror := -float(attack_direction)
+	var exact := weapon_part.rotation*mirror/WEAPON_KEY
+	if absf(exact-float(_weapon_step)) > 0.9 or _weapon_step < WEAPON_STEPS.x or _weapon_step > WEAPON_STEPS.y:
+		_weapon_step = clampi(roundi(exact),WEAPON_STEPS.x,WEAPON_STEPS.y)
+	# Cancel the node's turn and 0.78 scale: one unit per world texel (the
+	# keys baked at this drawn size), mirror only, riding the hull's life.
+	var turned := Transform2D(weapon_part.rotation,weapon_part.scale,0.0,Vector2.ZERO)
+	var baked := WeaponIndex.BASES.has(weapon_bake_key()) and weapon_world_texture() != null
+	var unit := 1.0 if baked else visual_scale
+	var upright := Transform2D(Vector2(mirror*unit,0.0),Vector2(0.0,unit),_hull_lift)
+	weapon_keys.transform = turned.affine_inverse()*upright
+	var charge := roundi(clampf(windup/maxf(0.01,float(profile.windup)),0.0,1.0)*16.0) if chassis_kind() == "siege" else 0
+	var drawn := Vector3i(family,_weapon_step,charge)
+	# The drawn key snaps to the world grid where the node stands, so a move
+	# of the weapon node also redraws it.
+	if drawn != _weapon_keys_drawn or baked:
+		_weapon_keys_drawn = drawn
+		weapon_keys.queue_redraw()
+
+func _draw_weapon_keys() -> void:
+	var family := weapon_family()
+	if family < 0: return
+	var key := weapon_bake_key()
+	var baked := WeaponIndex.BASES.has(key) and weapon_world_texture() != null
+	var drawn_scale := 1.0
+	if baked:
+		# The key baked at this drawn size, 1:1 with its pivot on a world texel.
+		drawn_scale = visual_scale
+		weapon_keys.draw_set_transform_matrix(WorldTexels.on_grid(weapon_keys,Transform2D.IDENTITY))
+		var i := (int(WeaponIndex.BASES[key])+clampi(_weapon_step,WEAPON_STEPS.x,WEAPON_STEPS.y)-WeaponIndex.STEPS.x)*6
+		var data: Array[int] = WeaponIndex.DATA
+		var size := Vector2(data[i+2],data[i+3])
+		weapon_keys.draw_texture_rect_region(weapon_world_texture(),Rect2(Vector2(data[i+4],data[i+5]),size),Rect2(Vector2(data[i],data[i+1]),size))
+	else:
+		_draw_weapon_key(weapon_keys,family,_weapon_step)
+	if chassis_kind() == "siege":
+		# Charge lamp in the drawn breech, on the key's own texels.
+		var lamp := (Transform2D(float(_weapon_step)*WEAPON_KEY,Vector2.ZERO)*(Vector2(-34,-1)*drawn_scale)).round()
+		var charge := float(_weapon_keys_drawn.z)/16.0
+		Quads.rect(weapon_keys,Rect2(lamp-Vector2.ONE,Vector2(2,2)),Color("ef7c4f").lerp(Color("fff0bc"),charge))
+	weapon_keys.draw_set_transform_matrix(Transform2D.IDENTITY)
+
+func _draw_weapon_key(canvas: CanvasItem, family: int, step: int) -> void:
+	var cell := Rect2(float(step-WEAPON_STEPS.x)*WEAPON_CELL,float(family)*WEAPON_CELL,WEAPON_CELL,WEAPON_CELL)
+	canvas.draw_texture_rect_region(WEAPON_KEYS,Rect2(-Vector2.ONE*WEAPON_CELL*0.5,Vector2.ONE*WEAPON_CELL),cell)
 
 func uses_rolling_contacts() -> bool:
 	return VehicleArt.is_vehicle(kind)
@@ -427,14 +582,23 @@ func spawn_motion_wreck() -> void:
 
 func _draw() -> void:
 	Quads.rect(self,Rect2(-44*visual_scale, -2, 87*visual_scale, 5), Color(0, 0, 0, 0.32))
-	if hp < max_hp:
+	if hp < max_hp and not preload("res://scripts/threat_overlay.gd").covers(self):
 		Art.bar(self, Rect2(-31*visual_scale, -body_height-37*visual_scale, 62*visual_scale, 4), hp / max_hp, Art.RED)
-	if show_status_labels and chassis_kind() in ["breaker", "colossus", "siege"]:
+	# Names follow the overlay rule (elite, boss, final boss) also without a HUD.
+	if show_status_labels and preload("res://scripts/threat_overlay.gd").shows_name(self) and not preload("res://scripts/threat_overlay.gd").covers(self):
 		var label: String = str(profile.get("label", ""))
 		Art.text(self, Vector2(-29*visual_scale, -body_height-41*visual_scale), LocaleText.format("ELITE · %s", label) if elite else LocaleText.text(label), 10, Color("ba8e69"))
 	if is_instance_valid(abilities): abilities.draw_telegraph()
 	if muzzle_flash > 0 and not (is_instance_valid(abilities) and abilities.projectile_attack()):
-		draw_line(to_local(weapon_part.to_global(weapon_muzzle())), tracer_end, Color(1.0, 0.32, 0.19, 0.75), 2*visual_scale)
+		# Hostile fire as a self-lit streak on the shared effect layer, once
+		# per replicated shot; a plain line where no game layer exists.
+		var muzzle_at: Vector2 = weapon_part.to_global(weapon_muzzle())
+		var feel: Node2D = preload("res://scripts/combat_feel.gd").of(self)
+		if feel == null:
+			draw_line(to_local(muzzle_at), tracer_end, Color(1.0, 0.32, 0.19, 0.75), 2*visual_scale)
+		elif int(get_meta(&"traced_shot", -1)) != attack_count:
+			set_meta(&"traced_shot", attack_count)
+			feel.trace(muzzle_at, to_global(tracer_end), roundf(1.4*visual_scale))
 	if (windup > 0 or worker_windup > 0) and not VehicleArt.is_vehicle(kind):
 		var charge := maxf(clampf(windup / float(profile.windup),0,1),clampf(worker_windup/worker_windup_duration(),0,1))
 		var glow_pos := to_local(weapon_part.to_global(weapon_muzzle()))
@@ -443,14 +607,39 @@ func _draw() -> void:
 			draw_arc(glow_pos, (10+charge*4)*visual_scale, -PI*0.5, -PI*0.5+TAU*charge, 16, Color("ec9e56"),2)
 			Art.bar(self,Rect2(-27*visual_scale,-body_height-34*visual_scale,54*visual_scale,4),charge,Color("ed764f"))
 
+## Presentation only. Local foot travel per gait radian that equals the hull's
+## real ground travel, from the replicated speed: a planted foot stays on its
+## world position at every wave speed scale, during the speed ramp and in a rush.
+func stride_per_radian() -> float:
+	var rate := float(profile.gait)*maxf(0.001,visual_scale)
+	# Prepared fixtures pose `moving` without the speed ramp of the simulation.
+	if locomotion_speed<=0.0: return move_speed/rate if moving else 0.0
+	return minf(locomotion_speed/clampf(locomotion_speed/move_speed,0.3,1.0),move_speed*3.0)/rate
+
+## Eased 0..1 step height. Feet are set down while the hull brakes instead of
+## snapping to the rest stance on the frame `moving` clears.
+func stride_amount() -> float:
+	if locomotion_speed<=0.0: return 1.0 if moving else 0.0
+	return smoothstep(0.0,0.6,locomotion_speed/move_speed)
+
+## Offset along the travel axis for one leg. Stance (the half cycle with the
+## foot down) is linear in phase; the swing returns on a quintic whose end
+## tangents match the stance, so toe-off and contact have no velocity step.
+static func stride_offset(phase: float, per_radian: float) -> float:
+	var theta := fposmod(phase-PI*0.5,TAU)
+	if theta<PI: return per_radian*(theta-PI*0.5)
+	var swing := (theta-PI)/PI
+	var progress := swing*swing*swing*(10.0+swing*(-15.0+swing*6.0))
+	return per_radian*PI*(0.5-progress+swing*(1.0-swing)*(1.0-2.0*swing))
+
 func leg_foot(index: int) -> Vector2:
 	if VehicleArt.is_vehicle(kind):
 		return VehicleArt.contact(kind,index)
 	var side := -1.0 if index<float(profile.legs)*0.5 else 1.0
 	var phase := gait+(0.0 if index%2==0 else PI)
-	var lift := maxf(0,cos(phase))*(8.0 if moving else 0.0)
+	var lift := maxf(0,cos(phase))*8.0*stride_amount()
 	var spread := 21.0 if chassis_kind()=="runner" else 31.0
-	var foot := Vector2(side*(spread+index%3*8)-sin(phase)*(9.0 if moving else 0.0),-3.0-lift)
+	var foot := Vector2(side*(spread+index%3*8)+stride_offset(phase,stride_per_radian()),-3.0-lift)
 	if is_instance_valid(motion) and not motion.pose.is_empty(): foot.x += side*float(motion.pose.foot)
 	return foot
 
@@ -459,15 +648,17 @@ func _draw_legs() -> void:
 		VehicleArt.draw_running_gear(self)
 		return
 	var count := int(profile.legs)
+	var amount := stride_amount()
 	for index in count:
 		var side := -1 if index < count/2.0 else 1
 		var offset := 0.0 if index % 2 == 0 else PI
-		var step := sin(gait + offset)
-		var lift := maxf(0, cos(gait + offset)) * (8 if moving else 0)
+		var step := sin(gait + offset)*amount
+		var lift := maxf(0, cos(gait + offset)) * 8.0 * amount
 		var root_pos := legs_part.to_local(body_part.to_global(Vector2(side*17,5)))
 		var spread := 21.0 if chassis_kind() == "runner" else 31.0
-		var knee := Vector2(side * (spread + index % 3 * 5) + step * 5, -body_height/visual_scale*0.48 - lift * 0.4)
 		var foot := leg_foot(index)
+		# The knee leads the foot through the swing and trails it in stance.
+		var knee := Vector2(side * (spread + index % 3 * 5) + (foot.x-side*(spread+index%3*8))*0.55 + step * 2.0, -body_height/visual_scale*0.48 - lift * 0.4)
 		if is_instance_valid(motion) and not motion.pose.is_empty():
 			knee.y += float(motion.pose.knee)
 		var far_side := index%2==1
@@ -483,26 +674,50 @@ func _draw_legs() -> void:
 		LIMB_ART.joint(legs_part,foot+Vector2(0,-3),3.5,far_side)
 		LIMB_ART.foot(legs_part,foot,heavy,far_side)
 
+## Where the painted chassis covers the body, in body units (before the
+## machine's visual scale).
+static func chassis_rect(machine_kind: String, machine_profile: Dictionary) -> Rect2:
+	var chassis := str(machine_profile.get("chassis",machine_kind))
+	var region: Rect2 = BODY_REGIONS.get(chassis,BODY_REGIONS.strider)
+	var width: float = machine_profile.body_size.x
+	if chassis == "colossus": width = 74.0
+	elif chassis == "siege": width = 79.0
+	elif chassis == "breaker": width = 78.0
+	var dimensions := Vector2(width,width*region.size.y/region.size.x)
+	return Rect2(Vector2(-dimensions.x*0.5,-24 if chassis != "runner" else -19),dimensions)
+
+## World size of a chassis drawn at `drawn_scale` (the machine's visual
+## scale): its bake key, one texel per world unit. The bastion's hull is
+## drawn 10 % wider (_pose_parts).
+static func chassis_texels(machine_kind: String, machine_profile: Dictionary, drawn_scale: float) -> Vector2i:
+	var size := chassis_rect(machine_kind,machine_profile).size*drawn_scale
+	if machine_kind == "bastion": size.x *= 1.10
+	return Vector2i(size.round())
+
 func _draw_chassis_art() -> void:
 	var region: Rect2 = BODY_REGIONS.get(chassis_kind(),BODY_REGIONS.strider)
-	var width: float = profile.body_size.x
-	if chassis_kind() == "colossus": width = 74.0
-	elif chassis_kind() == "siege": width = 79.0
-	elif chassis_kind() == "breaker": width = 78.0
-	var dimensions := Vector2(width,width*region.size.y/region.size.x)
-	var rect := Rect2(Vector2(-dimensions.x*0.5,-24 if chassis_kind() != "runner" else -19),dimensions)
-	var tint := Color(1.55,1.45,1.15) if hit_flash > 0.13 else Color.WHITE
-	body_part.draw_texture_rect_region(chassis_atlas,rect,region,tint)
+	var rect := chassis_rect(kind,profile)
+	# The hit shows as the whole machine's flash (machine_flash), not as an
+	# overexposed fill of the illustrated hull. The chassis is its bake at the
+	# drawn size in the nearest lean stance, upright on world texels; the
+	# graded atlas only for a size that was never baked.
+	if not WorldTexels.draw_stance(body_part,CHASSIS_PATH,region,rect,chassis_texels(kind,profile,visual_scale)):
+		body_part.draw_texture_rect_region(WorldTexels.fallback_source(CHASSIS_PATH),rect,region)
 	# Tiny live sensor light complements the fixed illustrated optics.
-	var sensor := Vector2(-dimensions.x*0.40,-3)
+	var sensor := Vector2(-rect.size.x*0.40,-3)
 	var pulse := 0.11+sin(age*4.8)*0.035+clampf(windup,0,0.6)*0.13
-	body_part.draw_circle(sensor,6,Color(1,0.15,0.04,pulse))
+	if PixelArt.supports_grid(body_part): PixelArt.grid_blob(body_part,sensor,6.0,Color(1,0.15,0.04,pulse))
+	else: body_part.draw_circle(sensor,6,Color(1,0.15,0.04,pulse))
+	# Marks on the plate in whole world texels of its upright frame.
+	body_part.draw_set_transform_matrix(WorldTexels.upright(body_part))
 	if elite:
-		Quads.rect(body_part,Rect2(-5,-27,16,4),Color("20251f"))
+		var bar := WorldTexels.upright_point(body_part,Vector2(-5,-27)).round()
+		Quads.rect(body_part,Rect2(bar,Vector2(16,4)),Color("20251f"))
 		for stripe in range(3):
-			Quads.rect(body_part,Rect2(-3+stripe*5,-27,3,3),Color("e6af55"))
+			Quads.rect(body_part,Rect2(bar+Vector2(2+stripe*5,0),Vector2(3,3)),Color("e6af55"))
 	if chassis_kind() == "assault" and burst_remaining > 0:
-		Quads.rect(body_part,Rect2(7,-11,3,3),Color("f3c270"))
+		Quads.rect(body_part,Rect2(WorldTexels.upright_point(body_part,Vector2(7,-11)).round(),Vector2(3,3)),Color("f3c270"))
+	body_part.draw_set_transform_matrix(Transform2D.IDENTITY)
 
 func _draw_body() -> void:
 	if VehicleArt.is_vehicle(kind):
@@ -626,57 +841,18 @@ func _draw_weapon() -> void:
 	_weapon_draw_chassis = chassis_kind()
 	_weapon_draw_flash = muzzle_flash > 0.0
 	_weapon_draw_charge = clampf(windup / float(profile.windup), 0.0, 1.0) if _weapon_draw_chassis == "siege" else 0.0
-	Quads.rect(weapon_part,Rect2(-19, -8, 28, 18), Art.INK)
-	MechanismArt.face(weapon_part,Rect2(-17,-6,24,12),"dark",2)
-	Quads.rect(weapon_part,Rect2(-34, -5, 20, 11), Art.INK)
-	MechanismArt.face(weapon_part,Rect2(-33,-3,18,6),"steel",3)
-	Quads.rect(weapon_part,Rect2(-35, -6, 7, 12), Color("263038"))
-	Quads.rect(weapon_part,Rect2(-35, -3, 3, 5), Color("e35842"))
-	Quads.rect(weapon_part,Rect2(-12, -5, 14, 2), Color("b2aa89"))
-	Quads.rect(weapon_part,Rect2(-9, 2, 6, 8), Color("202b32"))
-	if chassis_kind() in ["breaker", "colossus", "siege"]:
-		Quads.rect(weapon_part,Rect2(-31,6,23,7),Art.INK)
-		MechanismArt.face(weapon_part,Rect2(-29,7,19,3),"steel",1)
-		Quads.rect(weapon_part,Rect2(-23,-10,21,5),Color("85785c"))
-		weapon_part.draw_line(Vector2(-29,-6),Vector2(-25,7),Color("262f34"),3)
-		if chassis_kind() == "colossus":
-			Quads.rect(weapon_part,Rect2(-42,-8,11,17),Art.INK)
-			MechanismArt.face(weapon_part,Rect2(-40,-5,7,10),"brass",2)
-			Quads.rect(weapon_part,Rect2(-40,-2,4,5),Color("fa6c48"))
-	if chassis_kind() == "assault":
-		Quads.rect(weapon_part,Rect2(-38,-10,23,21),Art.INK)
-		for barrel_index in range(3):
-			var y := -7+barrel_index*6
-			MechanismArt.face(weapon_part,Rect2(-42,y,25,4),"steel",barrel_index)
-			Quads.rect(weapon_part,Rect2(-42,y+1,5,2),Color("252e29"))
-			Quads.rect(weapon_part,Rect2(-30,y,4,2),Color("b39562"))
-	if chassis_kind() == "siege":
-		Quads.rect(weapon_part,Rect2(-49,-11,37,23),Art.INK)
-		MechanismArt.face(weapon_part,Rect2(-47,-8,34,17),"dark",3)
-		Quads.rect(weapon_part,Rect2(-47,-8,34,3),Color("b4ab8b"))
-		Quads.rect(weapon_part,Rect2(-49,-9,8,20),Color("29312e"))
-		Quads.rect(weapon_part,Rect2(-50,-5,5,11),Color("a89770"))
-		for rib in range(4):
-			Quads.rect(weapon_part,Rect2(-38+rib*6,-9,3,19),Color("313b34"))
-			Quads.rect(weapon_part,Rect2(-38+rib*6,-8,2,3),Color("9e895f"))
-		var charge := clampf(windup/float(profile.windup),0,1)
-		Quads.rect(weapon_part,Rect2(-46,-2,3,5),Color("ef7c4f").lerp(Color("fff0bc"),charge))
-	# Small rust chips, worn edges and a vented receiver match the chassis palette.
-	for chip in range(34):
-		var chip_pos := Vector2(-28+(chip*11)%33,-5+(chip*7)%11)
-		var patina := Color("8a7551") if chip%3==0 else (Color("626750") if chip%2 else Color("30392e"))
-		Quads.rect(weapon_part,Rect2(chip_pos,Vector2(1+chip%2,1)),patina)
-	for vent in range(3):
-		Quads.rect(weapon_part,Rect2(-14+vent*5,-3,3,6),Color("1c251e"))
-		Quads.rect(weapon_part,Rect2(-14+vent*5,-3,3,1),Color("898f75"))
-	for screw in [Vector2(-18,-5),Vector2(4,-4),Vector2(3,5)]:
-		Quads.rect(weapon_part,Rect2(screw-Vector2.ONE,Vector2(3,3)),Color("242b22"))
-		Quads.rect(weapon_part,Rect2(screw,Vector2.ONE),Color("d5c095"))
-	if muzzle_flash > 0 and chassis_kind() == "siege":
-		var mouth := weapon_muzzle()
-		weapon_part.draw_colored_polygon(PackedVector2Array([mouth+Vector2(2,-5),mouth+Vector2(-19,-14),mouth+Vector2(-12,-3),mouth+Vector2(-44,0),mouth+Vector2(-14,5),mouth+Vector2(-21,14),mouth+Vector2(2,6)]),Color("ffac56"))
-		weapon_part.draw_line(mouth,mouth+Vector2(-28,0),Color("fff2c1"),4)
-	elif muzzle_flash > 0:
-		var mouth := weapon_muzzle()
-		weapon_part.draw_colored_polygon(PackedVector2Array([mouth+Vector2(1,-3),mouth+Vector2(-11,-8),mouth+Vector2(-7,-2),mouth+Vector2(-21,1),mouth+Vector2(-9,4),mouth+Vector2(-13,8),mouth+Vector2(1,4)]), Color("fb6a3f"))
-		weapon_part.draw_line(mouth,mouth+Vector2(-15,0),Color("ffd29a"),3)
+	var family := weapon_family()
+	if not is_instance_valid(weapon_keys) or weapon_keys.get_parent() != weapon_part:
+		# Wreck delegate or a replaced part: the level key turns with the node
+		# (the wreck's texel-block shader rasterises it on its own grid).
+		weapon_part.draw_set_transform_matrix(Transform2D(0.0,Vector2.ONE/WEAPON_DRAWN_SCALE,0.0,Vector2.ZERO))
+		_draw_weapon_key(weapon_part,family,0)
+		weapon_part.draw_set_transform_matrix(Transform2D.IDENTITY)
+	if muzzle_flash > 0:
+		# Shared layered flash: siege guns use the cannon class, walkers the rifle class.
+		var heavy := chassis_kind() == "siege"
+		var bore := Vector2(float(WEAPON_BORES[family])/WEAPON_DRAWN_SCALE,0.0)
+		# The node carries the walker's scale: a small walker's flash grows back
+		# towards the common size, so a runner's shot reads as a shot.
+		var reach := clampf(0.9/maxf(0.1,visual_scale),1.0,1.6)
+		WeaponEffectArt.muzzle(weapon_part,bore,muzzle_flash,0.19 if heavy else 0.09,-1,(1.3 if heavy else 0.8)*reach,attack_count,WeaponEffectArt.reduced(game))

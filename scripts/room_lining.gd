@@ -42,16 +42,16 @@ func prompt(_player) -> String:
 	if not is_instance_valid(site) or not site.excavated():
 		return LocaleText.text("RÜCKWAND · zuerst den Raum vollständig ausheben")
 	if _curing_tier > 0:
-		return LocaleText.format("%s · härtet %.1f s · danach Bunkerkern +%d HP", [spec(_curing_tier).label,curing_remaining,int(spec(_curing_tier).hp_bonus)])
+		return LocaleText.format("%s · härtet %.1f s · danach Bunkerkern +%d LP", [spec(_curing_tier).label,curing_remaining,int(spec(_curing_tier).hp_bonus)])
 	if tier >= 2:
-		return LocaleText.text("TRAGWERK · fertig · Bunkerkern dauerhaft +75 HP")
+		return LocaleText.text("TRAGWERK · fertig · Bunkerkern dauerhaft +75 LP")
 	var recipe := spec()
 	if complete_materials():
-		return LocaleText.format("%s · halten: einbauen · danach %.0f s härten · Bunkerkern +%d HP", [recipe.label,recipe.cure_time,int(recipe.hp_bonus)])
+		return LocaleText.format("%s · halten: einbauen · danach %.0f s härten · Bunkerkern +%d LP", [recipe.label,recipe.cure_time,int(recipe.hp_bonus)])
 	var amounts: Array[String] = []
 	for kind: String in recipe.cost:
 		amounts.append(LocaleText.format("%s %d/%d", [Balance.RESOURCE_NAMES[kind],int(materials.get(kind,0)),int(recipe.cost[kind])]))
-	return LocaleText.format("%s · %s · halten: einfüllen · Bunkerkern +%d HP nach Härten", [recipe.label," + ".join(amounts),int(recipe.hp_bonus)])
+	return LocaleText.format("%s · %s · halten: einfüllen · Bunkerkern +%d LP nach Härten", [recipe.label," + ".join(amounts),int(recipe.hp_bonus)])
 
 func interaction_progress(player) -> float:
 	if _curing_tier > 0:

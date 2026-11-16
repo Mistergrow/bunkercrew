@@ -51,7 +51,7 @@ func displays_guidance() -> bool:
 
 func card_layout() -> Dictionary:
 	if not displays_guidance(): return {}
-	var screen: Rect2 = hud.screen_rect()
+	var screen: Rect2 = hud.hud_rect() if hud.has_method("hud_rect") else hud.screen_rect()
 	var width := minf(380.0,screen.size.x-36.0)
 	var scale_factor := maxf(.1,hud.canvas.scale.x)
 	var body_size := maxi(17,ceili(13.0/scale_factor))

@@ -1,0 +1,37 @@
+{
+ "asset": "rock_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/rock.png",
+   "sha256": "f16f6451fa04c8218bd8fbabbb8cbd21e4308c739807539cb04033c451a2d74b"
+  }
+ ],
+ "params": {
+  "palette": 24,
+  "alpha": 0.0,
+  "sharpen": 0.35,
+  "orphan": 0.05,
+  "contour": 0.0
+ },
+ "ink": "#151b1e",
+ "size": [
+  480,
+  480
+ ],
+ "items": [
+  {
+   "name": "rock",
+   "key": "res://assets/rock.png|0,0,1254,1254|480x480",
+   "region": [
+    0,
+    0,
+    480,
+    480
+   ]
+  }
+ ]
+}

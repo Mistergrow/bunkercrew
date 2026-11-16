@@ -79,6 +79,12 @@ func output_kind() -> String:
 func interaction_point() -> Vector2:
 	return global_position + Vector2(0, -27)
 
+## Presentation only: the mixer's drum mouth as a global rect, which the name
+## tag of a worker operating it steps clear of (WorkerVisual).
+func label_keepout() -> Rect2:
+	if kind != "mixer": return Rect2()
+	return Rect2(to_global(Vector2(-33,-97)),Vector2(32,36)*global_scale.abs())
+
 func can_interact(_player) -> bool:
 	return true
 

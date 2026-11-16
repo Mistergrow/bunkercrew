@@ -1,7 +1,11 @@
 extends RefCounted
 ## Authored side-view modules share one pixel-coverage shader. All source regions
 ## retain their aspect ratio; moving panels crop through their fixed guide base.
-const ATLAS=preload("res://assets/perimeter/components_v2.png")
+## The painted module atlases are the sources: every module is drawn from its
+## offline bake at its world size (tools/world_density_bake.json, one texel
+## per world unit) on whole world texels; ATLAS_PATH is only loaded as the
+## fallback for a size without a bake.
+const ATLAS_PATH:="res://assets/perimeter/components_v2.png"
 const COMPACT=preload("res://assets/perimeter/components_v3.png")
 const C=preload("res://scripts/perimeter_catalog.gd")
 const PIXEL_SHADER=preload("res://shaders/perimeter_pixel.gdshader")
@@ -28,7 +32,22 @@ static func pixel_material() -> ShaderMaterial:
 
 static func _paint(node: CanvasItem,region: Rect2,at: Vector2,pixel_scale: float,tint: Color=Color.WHITE) -> void:
 	if not region.has_area(): return
-	node.draw_texture_rect_region(ATLAS,Rect2(at,region.size*pixel_scale),region,tint)
+	node.draw_texture_rect_region(WorldTexels.fallback_source(ATLAS_PATH),Rect2(at,region.size*pixel_scale),region,tint)
+
+## World size of a module region drawn at `pixel_scale`: its bake key.
+static func texels(region: Rect2,pixel_scale: float) -> Vector2i:
+	return Vector2i((region.size*pixel_scale).round())
+
+## Source pixels per world unit of a gate tier (70 units tall).
+static func gate_scale(tier: int) -> float:
+	return 70.0/Rect2(GATES[tier].region).size.y
+
+## A site's upright world-texel frame, mirrored by its side.
+static func site_frame(site: Node2D,mirrored: bool=true) -> Transform2D:
+	return WorldTexels.upright(site)*Transform2D(Vector2(-float(site.side) if mirrored else 1.0,0),Vector2.DOWN,Vector2.ZERO)
+
+## The leaf trim: the cut edge cap taken from the third tier's leaf.
+const TRIM:=Rect2(879,109,101,9)
 
 static func _condition(site: Node2D) -> Color:
 	var health:=clampf(site.hp/maxf(1,site.max_hp),0,1)
@@ -54,10 +73,20 @@ static func _empty(site: Node2D) -> void:
 		if site.role=="fence":
 			# Torn mesh stays low enough to clear the nearby gun's firing lane.
 			var rubble_size:=COURTYARD.module_size(COURTYARD.RUBBLE,15.0)
-			site.draw_texture_rect_region(COURTYARD.ATLAS,Rect2(Vector2(-rubble_size.x*.5,-rubble_size.y),rubble_size),COURTYARD.RUBBLE,_condition(site))
+			var rubble:=WorldTexels.texture(COURTYARD.ATLAS.resource_path,COURTYARD.RUBBLE,Vector2i(rubble_size.round()))
+			if rubble!=null:
+				site.draw_set_transform_matrix(site_frame(site,false))
+				site.draw_texture_rect(rubble,Rect2(Vector2(roundf(-rubble.get_size().x*.5),-rubble.get_size().y),rubble.get_size()),false,_condition(site))
+				site.draw_set_transform_matrix(Transform2D.IDENTITY)
+			else: site.draw_texture_rect_region(COURTYARD.ATLAS,Rect2(Vector2(-rubble_size.x*.5,-rubble_size.y),rubble_size),COURTYARD.RUBBLE,_condition(site))
 		else:
 			var pixel_scale:=68.0/WRECK.size.x
-			_paint(site,WRECK,Vector2(-34,-WRECK.size.y*pixel_scale),pixel_scale)
+			var wreck:=WorldTexels.texture(ATLAS_PATH,WRECK,texels(WRECK,pixel_scale))
+			if wreck!=null:
+				site.draw_set_transform_matrix(site_frame(site,false))
+				site.draw_texture_rect(wreck,Rect2(Vector2(-34,-wreck.get_size().y),wreck.get_size()),false)
+				site.draw_set_transform_matrix(Transform2D.IDENTITY)
+			else: _paint(site,WRECK,Vector2(-34,-WRECK.size.y*pixel_scale),pixel_scale)
 	else:
 		for x in [-26,24]:
 			site.draw_rect(Rect2(x,-11,3,11),INK)
@@ -73,9 +102,10 @@ static func _fence(site: Node2D) -> void:
 	var spec: Dictionary=GATES[site.tier]
 	var region: Rect2=spec.region
 	var leaf: Rect2=spec.leaf
-	var pixel_scale:=70.0/region.size.y
+	var pixel_scale:=gate_scale(site.tier)
 	var origin:=Vector2(-region.size.x*pixel_scale*.5,-70)
 	var tint:=_condition(site)
+	if _baked_fence(site,region,leaf,pixel_scale,tint): return
 	# The diagonal heel leans toward the bunker, away from the approaching enemy.
 	site.draw_set_transform(Vector2.ZERO,0,Vector2(-float(site.side),1))
 	var strips: Array[Rect2]=[
@@ -108,6 +138,12 @@ static func _fence(site: Node2D) -> void:
 static func _tower(site: Node2D) -> void:
 	var region: Rect2=BASES[clampi(site.slot_index%3,0,1)]
 	var pixel_scale:=52.0/region.size.x
+	var base:=WorldTexels.texture(COMPACT.resource_path,region,texels(region,pixel_scale))
+	if base!=null:
+		site.draw_set_transform_matrix(site_frame(site))
+		site.draw_texture_rect(base,Rect2(Vector2(-26,-base.get_size().y),base.get_size()),false,_condition(site))
+		site.draw_set_transform_matrix(Transform2D.IDENTITY)
+		return
 	site.draw_set_transform(Vector2.ZERO,0,Vector2(-float(site.side),1))
 	site.draw_texture_rect_region(COMPACT,Rect2(Vector2(-26,-region.size.y*pixel_scale),region.size*pixel_scale),region,_condition(site))
 	site.draw_set_transform(Vector2.ZERO)
@@ -115,5 +151,38 @@ static func _tower(site: Node2D) -> void:
 static func draw_barrel(site: Node2D) -> void:
 	if site.tier==0 or site.role=="fence": return
 	var barrel: Node2D=site.barrel
-	barrel.draw_texture_rect_region(COMPACT,Rect2((HEAD.position-HEAD_ANCHOR)*HEAD_SCALE-Vector2(site.recoil,0),HEAD.size*HEAD_SCALE),HEAD,_condition(site))
+	var head:=Rect2((HEAD.position-HEAD_ANCHOR)*HEAD_SCALE-Vector2(site.recoil,0),HEAD.size*HEAD_SCALE)
+	# The gun head turns through baked aim stances on world texels.
+	if not WorldTexels.draw_turned(barrel,COMPACT,HEAD,head,_condition(site)):
+		barrel.draw_texture_rect_region(COMPACT,head,HEAD,_condition(site))
 	WeaponEffectArt.muzzle(barrel,C.MUZZLE-Vector2(site.recoil,0),site.flash,.085,1,.65,site.shot_serial,WeaponEffectArt.reduced(site.game))
+
+## The gate from its bakes on whole world texels: the frame (the gate with the
+## leaf cut out), the leaf's two solid sections lowered by whole rows into the
+## guide base and clipped there, and the trim capping their cut edges.
+static func _baked_fence(site: Node2D,region: Rect2,leaf: Rect2,pixel_scale: float,tint: Color) -> bool:
+	var frame:=WorldTexels.texture(ATLAS_PATH,region,texels(region,pixel_scale))
+	var panel:=WorldTexels.texture(ATLAS_PATH,leaf,texels(leaf,pixel_scale))
+	var trim:=WorldTexels.texture(ATLAS_PATH,TRIM,texels(TRIM,pixel_scale))
+	if frame==null or panel==null or trim==null: return false
+	var origin:=Vector2(roundf(-frame.get_size().x*.5),-70)
+	var at:=origin+((leaf.position-region.position)*pixel_scale).round()
+	var rows:=int(panel.get_size().y)
+	var descent:=roundi(float(rows)*clampf(site.gate_amount,0,1))
+	var lift:=(leaf.position.y-region.position.y)*pixel_scale
+	var port_top:=roundi(C.FENCE_PORT_TOP+70.0-lift)
+	var port_bottom:=roundi(C.FENCE_PORT_BOTTOM+70.0-lift)
+	var leaf_tint:=tint.darkened(.17) if site.cure>0 else tint
+	# The diagonal heel leans toward the bunker, away from the approaching enemy.
+	site.draw_set_transform_matrix(site_frame(site))
+	site.draw_texture_rect(frame,Rect2(origin,frame.get_size()),false,tint)
+	for section: Vector2i in [Vector2i(0,port_top),Vector2i(port_bottom,rows)]:
+		var last:=mini(section.y,rows-descent)
+		if last<=section.x: continue
+		var band:=Vector2(panel.get_size().x,float(last-section.x))
+		site.draw_texture_rect_region(panel.atlas,Rect2(at+Vector2(0,section.x+descent),band),Rect2(panel.region.position+Vector2(0,section.x),band),leaf_tint)
+	var cap:=int(trim.get_size().y)
+	for edge in [port_top-cap,port_bottom]:
+		if edge+descent+cap<=rows: site.draw_texture_rect(trim,Rect2(at+Vector2(0,edge+descent),trim.get_size()),false,tint)
+	site.draw_set_transform_matrix(Transform2D.IDENTITY)
+	return true

@@ -18,7 +18,10 @@ func run() -> void:
 	check(Time.get_ticks_usec()-before<100000,"Leaving a room does not wait for native router work")
 	var cleanup=root.get_node("RouterMappingCleanup")
 	check(cleanup.jobs.size()==1 and job.stopped(),"Persistent cleanup retains and cancels the worker")
-	await create_timer(.5,true).timeout
+	# Wait in wall-clock time: the first frames after loading can carry a long
+	# delta, so a scene-tree timer could fire before the 350 ms worker returns.
+	var deadline := Time.get_ticks_msec()+500
+	while Time.get_ticks_msec()<deadline: await process_frame
 	check(cleanup.jobs.is_empty() and not job.thread.is_started(),"Finished workers are joined and released")
 	print("ROUTER CLEANUP: 4 checks, %d failures"%failures)
 	quit(1 if failures else 0)

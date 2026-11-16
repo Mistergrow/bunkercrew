@@ -10,8 +10,15 @@ const MAX_FIRE_SOURCES := 18
 const MAX_FALL_FRAGMENTS := 6
 const FALL_SECONDS := 1.05
 const FALL_FADE_SECONDS := .28
-const FIRE_STEP := 0.083333333
 const GROWTH := ["grass", "frost_grass", "reeds", "brush", "vines"]
+const BURN_SECONDS := preload("res://scripts/scenery_damage.gd").BURN_SECONDS
+## A standing tree catches from the foot up: each fire anchor lights after
+## IGNITE_BASE plus IGNITE_CLIMB times its share of the tree's height, and its
+## flames grow in over IGNITE_GROW seconds (presentation of the replicated
+## burn state; damage and burn time are untouched).
+const IGNITE_BASE := .10
+const IGNITE_CLIMB := 1.15
+const IGNITE_GROW := .38
 var props: Node2D
 var particles: Array[Dictionary] = []
 var elapsed := 0.0
@@ -30,10 +37,26 @@ var _origins: Array[Dictionary] = []
 var _sound_delay := 0.0
 var _fall_fragments: Dictionary = {}
 var fire_lighting: Node2D
+## Flames and embers are self-lit (unlit grid layer); their glow is additive.
+var flame_layer: Node2D
+var glow_layer: Node2D
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	# Smoke from burning props is drawn as texel-grid cel puffs; flames,
+	# debris and particles keep their own drawing (they pass through).
+	material = PixelArt.grid_material(PixelArt.GRID_LIT)
+	glow_layer = Node2D.new()
+	glow_layer.name = "FireGlow"
+	glow_layer.material = PixelArt.grid_material(PixelArt.GRID_ADD)
+	glow_layer.draw.connect(_draw_glow)
+	add_child(glow_layer)
+	flame_layer = Node2D.new()
+	flame_layer.name = "Flames"
+	flame_layer.material = PixelArt.grid_material(PixelArt.GRID_UNLIT)
+	flame_layer.draw.connect(_draw_flames)
+	add_child(flame_layer)
 	fire_lighting = FIRE_LIGHTING.new()
 	fire_lighting.name = "SceneryFireLighting"
 	fire_lighting.effects = self
@@ -55,7 +78,9 @@ func reset() -> void:
 	_sound_delay = 0.0
 	_entry_count = -1
 	_rng.seed = 217091 + (str(props.get("environment_id")).hash() if is_instance_valid(props) else 0)
-	queue_redraw()
+	# Smoke takes the tint of this world's sky.
+	if is_instance_valid(props): PixelArt.atmosphere_from(props.get("game"))
+	_redraw()
 
 func sync_replica(first_snapshot: bool) -> void:
 	if not first_snapshot or not is_instance_valid(props) or not is_instance_valid(props.get("reactions")):
@@ -71,13 +96,21 @@ func sync_replica(first_snapshot: bool) -> void:
 		var state: Dictionary = props.reactions.state_for(int(entry.index))
 		if not state.is_empty(): _seen[int(entry.index)] = _initial_record(entry, state)
 	if is_instance_valid(fire_lighting): fire_lighting.reset()
+	_redraw()
+
+func _redraw() -> void:
 	queue_redraw()
+	if is_instance_valid(flame_layer): flame_layer.queue_redraw()
+	if is_instance_valid(glow_layer): glow_layer.queue_redraw()
 
 func _initial_record(entry: Dictionary, state: Dictionary) -> Dictionary:
 	return {"serial":int(state.get("serial", 0)), "hp":float(state.get("hp", 1)),
 		"broken":bool(state.get("broken", false)), "fall_age":FALL_SECONDS,
 		"direction":_fall_direction(state, int(entry.index)), "ambient":_rng.randf_range(0.5, 2.8),
-		"charred":bool(state.get("charred", false)) or bool(state.get("burning", false))}
+		"charred":bool(state.get("charred", false)) or bool(state.get("burning", false)),
+		# A fire already burning when first seen (a joining guest, a world that
+		# starts in flames) shows at full height at once.
+		"ignite":99.0 if bool(state.get("burning", false)) else 0.0}
 
 func _process(delta: float) -> void:
 	if get_tree().paused or not is_instance_valid(props) or not is_finite(delta) or delta <= 0:
@@ -111,6 +144,11 @@ func _process(delta: float) -> void:
 			_seen[index] = _initial_record(entry, state)
 		var record: Dictionary = _seen[index]
 		record.charred = bool(record.charred) or bool(state.get("charred", false)) or bool(state.get("burning", false))
+		if bool(state.get("burning", false)):
+			# Time since ignition: the local clock, never behind the replicated
+			# burn time already spent (a paused or late-joining view catches up).
+			record.ignite = maxf(float(record.get("ignite", 0.0)) + delta, BURN_SECONDS - float(state.get("burn_left", BURN_SECONDS)))
+		else: record.ignite = 0.0
 		var became_broken: bool = not record.broken and bool(state.get("broken", false))
 		var changed: bool = int(record.serial) != int(state.get("serial", 0))
 		var visible_entry := _visible(entry)
@@ -137,9 +175,10 @@ func _process(delta: float) -> void:
 			for point: Vector2 in points:
 				if fire_budget <= 0:
 					break
+				if ignition(entry, state, point) < .5: continue
 				fire_budget -= 1
 				if not _reduced:
-					_spawn("smoke", point + Vector2(0, -8), Vector2(_gust * 8, -16 - _rng.randf() * 7), entry, 1.2 + _rng.randf() * 0.8)
+					_spawn("smoke", point + Vector2(_rng.randf_range(-3, 3), -16), Vector2(_gust * 8, -16 - _rng.randf() * 7), entry, 1.5 + _rng.randf() * 0.9)
 				_spawn("ember", point + Vector2(0, -3), Vector2(_gust * 12 + _rng.randf_range(-5, 5), -26 - _rng.randf() * 19), entry, .5 + _rng.randf() * .55)
 	var budget := REDUCED_PARTICLES if _reduced else MAX_PARTICLES
 	while particles.size() > budget:
@@ -148,7 +187,7 @@ func _process(delta: float) -> void:
 	_draw_clock += delta
 	if _draw_clock >= (1.0 / 12.0 if _reduced else 1.0 / 30.0):
 		_draw_clock = 0.0
-		queue_redraw()
+		_redraw()
 
 func _wind_strength() -> float:
 	var game = props.get("game")
@@ -342,6 +381,18 @@ func _update_particles(delta: float) -> void:
 			item.landed = true
 			item.life = minf(float(item.life), float(item.age) + (.12 if kind in ["spark", "ember"] else .8))
 
+## 0..1: how far the flames at `point` have grown in. Standing trees catch from
+## the foot up; everything else burns at once.
+func ignition(entry: Dictionary, state: Dictionary, point: Vector2) -> float:
+	if entry.kind != "tree" or bool(state.get("broken", false)): return 1.0
+	var record: Dictionary = _seen.get(int(entry.index), {})
+	var since := float(record.get("ignite", 99.0))
+	return smoothstep(0.0, IGNITE_GROW, since - _ignite_delay(entry, point.y))
+
+func _ignite_delay(entry: Dictionary, y: float) -> float:
+	var height := maxf(1.0, float(entry.size.y))
+	return IGNITE_BASE + IGNITE_CLIMB * clampf((float(entry.position.y) - y) / height, 0.0, 1.0)
+
 func fire_points(entry: Dictionary, state: Dictionary) -> PackedVector2Array:
 	var points := PackedVector2Array()
 	var root_point: Vector2 = entry.position
@@ -366,90 +417,96 @@ func fire_points(entry: Dictionary, state: Dictionary) -> PackedVector2Array:
 
 func _draw() -> void:
 	if not is_instance_valid(props) or not is_instance_valid(props.get("reactions")): return
-	var fire_budget := 5 if _reduced else MAX_FIRE_SOURCES
 	for entry: Dictionary in props.entries:
 		if not _visible(entry): continue
 		var state: Dictionary = props.reactions.state_for(int(entry.index))
 		if state.is_empty(): continue
-		if entry.kind == "tree" and foliage_kind(entry) == "snow" and not bool(state.get("broken", false)) and not bool(state.get("burning", false)) and not bool(state.get("charred", false)):
+		if entry.kind == "tree" and foliage_kind(entry) == "snow" and not bool(state.get("broken", false)) and (bool(state.get("burning", false)) or not bool(state.get("charred", false))):
 			_draw_snowcaps(entry, state)
 		if bool(state.get("broken", false)):
 			if entry.kind == "tree": _draw_broken_tree(entry, state)
 			else: _draw_wreck(entry, state)
-		if bool(state.get("burning", false)):
-			for point: Vector2 in fire_points(entry, state):
-				if fire_budget <= 0: break
-				fire_budget -= 1
-				_draw_fire(point, int(entry.index))
 	for item: Dictionary in particles:
-		_draw_particle(item)
+		if str(item.kind) != "ember": _draw_particle(item)
+
+## Burning entries within the fire budget, as (point, phase, heat) calls.
+func _each_fire(callback: Callable) -> void:
+	if not is_instance_valid(props) or not is_instance_valid(props.get("reactions")): return
+	var fire_budget := 5 if _reduced else MAX_FIRE_SOURCES
+	for entry: Dictionary in props.entries:
+		if not _visible(entry): continue
+		var state: Dictionary = props.reactions.state_for(int(entry.index))
+		if state.is_empty() or not bool(state.get("burning", false)): continue
+		# A fire about to go out shrinks and reddens over its last seconds.
+		var heat := lerpf(.30, 1.0, smoothstep(0.0, 2.0, float(state.get("burn_left", 8.0))))
+		var points := fire_points(entry, state)
+		for index in points.size():
+			if fire_budget <= 0: return
+			var grown := ignition(entry, state, points[index])
+			if grown <= .02: continue
+			fire_budget -= 1
+			callback.call(points[index], int(entry.index) * 5 + index, heat, grown)
+
+func _draw_flames() -> void:
+	_each_fire(_draw_fire)
+	for item: Dictionary in particles:
+		if str(item.kind) == "ember": _draw_particle(item, flame_layer)
+
+func _draw_glow() -> void:
+	if _reduced: return
+	_each_fire(_draw_fire_glow)
+
+func _draw_fire_glow(point: Vector2, phase: int, heat: float, grown: float = 1.0) -> void:
+	# The warm air around the flames, in dithered additive bands; daylight
+	# would wash a strong glow out, so it grows with the dark.
+	var flicker := .90 + .10 * float(posmod(PixelArt.flame_frame(elapsed, phase) * 7, 5)) / 4.0
+	PixelArt.grid_halo(glow_layer, point + Vector2(0, -12), 30.0 * (.7 + .3 * heat) * (.5 + .5 * grown), Color(1.0, .55, .22, (.08 + .22 * PixelArt.night()) * heat * flicker * grown), phase)
 
 func _draw_snowcaps(entry: Dictionary, state: Dictionary) -> void:
 	var points: PackedVector2Array = entry.get("emit_points", PackedVector2Array())
 	var count := mini(points.size(), clampi(ceili(float(state.get("hp", 0)) / 16.0), 1, 5))
 	if _reduced: count = mini(count, 2)
+	var burning := bool(state.get("burning", false))
 	for index in count:
 		var point := _canopy_point(entry, floori(float(index) * points.size() / count))
+		# Snow above the climbing fire front stays until the flames reach it.
+		if burning and ignition(entry, state, point) > 0.0: continue
 		_rect(point + Vector2(-2, -1), Vector2(4 + index % 2, 1), Color("b8ced6"))
 		_rect(point + Vector2(-1, -2), Vector2(2, 1), Color("d7e3df"))
 		if index % 2 == 0: _rect(point + Vector2(1, 0), Vector2(2, 1), Color("8eaab7"))
 
-func _draw_fire(point: Vector2, phase: int) -> void:
-	var clock := floorf(elapsed / FIRE_STEP) * FIRE_STEP
-	var seed_value := phase * 31 + roundi(point.x) * 13 + roundi(point.y) * 7
-	var bed_width := 10.0 + posmod(seed_value, 8)
-	if not _reduced:
-		PixelArt.glow(self, point + Vector2(0, -7), 21, Color(.83, .39, .12, .065), seed_value)
-	# A broken bed of coals follows the piece of wood. Broad, asymmetrical
-	# tongues overlap above it; separate anchors never share an animation phase.
-	_poly([point + Vector2(-bed_width * .55, -1), point + Vector2(-bed_width * .45, -4), point + Vector2(-3, -3), point + Vector2(0, -6), point + Vector2(4, -3), point + Vector2(bed_width * .48, -4), point + Vector2(bed_width * .55, 0), point + Vector2(1, -1)], Color("63351f"))
-	var count := 2 if _reduced else 3
-	for tongue in count:
-		var local_phase := float(posmod(seed_value + tongue * 137, 997)) * .173
-		var wave := sin(clock * (4.6 + tongue * .7) + local_phase) * .52 + sin(clock * 7.3 - local_phase) * .26
-		var height := 13.0 + posmod(seed_value + tongue * 11, 13) + (wave + .8) * 7
-		var width := 6.0 + posmod(seed_value + tongue * 3, 5)
-		var shift := (float(tongue) / maxf(1, count - 1) - .5) * bed_width * .56
-		var base := point + Vector2(shift, -posmod(seed_value + tongue, 3))
-		var lean := sin(clock * 3.2 + local_phase) * 3.0 + _gust * (2.0 + tongue)
-		var outer := _flame_polygon(base, width, height, lean, tongue)
-		draw_colored_polygon(outer, Color("b5662b") if tongue % 2 else Color("d18438"))
-		var core := _flame_polygon(base + Vector2(0, -1), width * .49, height * (.49 + tongue * .07), lean * .35, tongue + 1)
-		draw_colored_polygon(core, Color("edb660") if tongue % 2 else Color("ffe7a9"))
+func _draw_fire(point: Vector2, phase: int, heat: float = 1.0, grown: float = 1.0) -> void:
+	# A procedural flipbook of pixel flames on the texel grid: one main tongue
+	# and two lower side tongues over a bed of glowing coals, leaning with the
+	# wind; separate anchors never share an animation phase.
+	var frame := PixelArt.flame_frame(elapsed, phase)
+	var seed_value := posmod(phase * 31 + roundi(point.x) * 13 + roundi(point.y) * 7, 997)
+	var lean := _gust * 5.0 + float(seed_value % 5 - 2) * .6
+	var tall := (20.0 + float(seed_value % 9)) * (.55 + .45 * heat) * grown
+	var width := (11.0 + float(seed_value % 4)) * (.45 + .55 * grown)
+	for tongue in (2 if _reduced else 3):
+		# The side tongues are lower and sit a little further down the wood,
+		# so the cluster forms a mound around the main tongue.
+		var offset := 0.0 if tongue == 0 else (-1.0 if tongue == 1 else 1.0) * (width * .42 + float((seed_value + tongue) % 3))
+		var share := 1.0 if tongue == 0 else .42 + .07 * float((seed_value + tongue * 5) % 4)
+		PixelArt.grid_flame(flame_layer, point + Vector2(offset, 1.0 if tongue == 0 else 2.0), width * (1.0 if tongue == 0 else .70), tall * share, heat * (1.0 if tongue == 0 else .80), frame + tongue * 9, seed_value + tongue * 17, lean * share)
+	# Glowing coals along the burning wood, stepping with the flames.
+	var bed := width * .9
 	for coal in (2 if _reduced else 4):
-		var x := -bed_width * .4 + coal * bed_width * .23
-		_rect(point + Vector2(x, -1 - posmod(seed_value + coal, 3)), Vector2(2 + coal % 2, 1), Color("edb660") if coal % 2 else Color("d18438"))
+		var x := -bed * .5 + float(coal) * bed / 3.0 + float((seed_value + coal) % 3) - 1.0
+		var lit := posmod(frame + coal * 3, 5) > 1
+		flame_layer.draw_rect(Rect2((point + Vector2(x, -1 - float((seed_value + coal) % 2))).round(), Vector2(2 if coal % 2 else 1, 1)), Color("ffd27a") if lit else Color("d5602c"))
 
-func _flame_polygon(base: Vector2, width: float, height: float, lean: float, variant: int) -> PackedVector2Array:
-	var curl := 1.0 if variant % 2 == 0 else -1.0
-	# Matching height rows keep both sides separated even after pixel rounding;
-	# independent arbitrary notches can self-intersect on a narrow bright core.
-	var left: Array[Vector2] = []
-	var right: Array[Vector2] = []
-	for depth in [0.0, .18, .42, .64, .82]:
-		var center := lean * pow(depth, 1.5) + curl * width * .13 * sin(depth * PI)
-		var half_width := maxf(1.0, width * .49 * (1.0 - depth * .86))
-		left.append(Vector2(center - half_width, -height * depth))
-		right.append(Vector2(center + half_width, -height * depth))
-	var vertices: Array[Vector2] = left
-	vertices.append(Vector2(lean, -height))
-	right.reverse()
-	vertices.append_array(right)
-	var result := PackedVector2Array()
-	for vertex in vertices:
-		var pixel := (base + vertex).round()
-		if result.is_empty() or result[-1] != pixel: result.append(pixel)
-	return result
-
-func _draw_particle(item: Dictionary) -> void:
+func _draw_particle(item: Dictionary, layer: CanvasItem = self) -> void:
 	var point: Vector2 = item.position
 	var progress: float = float(item.age) / float(item.life)
 	var color: Color = item.color
 	color.a = clampf((1.0 - progress) * 3.0, 0, 1)
 	var kind := str(item.kind)
 	if kind == "smoke":
-		color.a *= .27
-		PixelArt.puff(self, point, 2.0 + progress * 5.0, color, int(item.entry), false)
+		# Wood smoke: a dark warm puff over the fire that rises, swells, leans
+		# downwind and tears into dithered wisps.
+		PixelArt.smoke_puff(self, point, 3.0 + progress * 9.0, Color(.25, .24, .22, .50), int(item.entry) * 3 + int(float(item.life) * 10.0), progress, clampf(1.0 - progress * 3.5, 0.0, 1.0) * .7, clampf(_gust * .35 * progress, 0.0, .4))
 	elif kind == "leaf":
 		var flip := sin(elapsed * 7.0 + float(item.phase))
 		var width := 1.0 if absf(flip) < .32 else 3.0
@@ -465,8 +522,8 @@ func _draw_particle(item: Dictionary) -> void:
 	elif kind == "needle":
 		_line(point, point + Vector2(3, 1), color)
 	else:
-		draw_rect(Rect2(point.round(), Vector2(1, 2)), color)
-		if kind == "ember" and progress < .5: draw_rect(Rect2(point.round(), Vector2.ONE), Color("ffe7a9"))
+		layer.draw_rect(Rect2(point.round(), Vector2(1, 2)), color)
+		if kind == "ember" and progress < .5: layer.draw_rect(Rect2(point.round(), Vector2.ONE), Color("ffe7a9"))
 
 func fallen_geometry(entry: Dictionary) -> Dictionary:
 	var record: Dictionary = _seen.get(int(entry.index), {})

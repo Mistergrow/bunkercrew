@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "branko",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "branko_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Wide planted gait, heavy settling shoulders",
     "walk_rate": 0.82,
@@ -64,7 +88,8 @@
     "branko_torso.png",
     "branko_head.png",
     "branko_back_torso.png",
-    "branko_back_head.png"
+    "branko_back_head.png",
+    "branko_turns.png"
   ],
   "sha256": {
     "branko_body.png": "497f870c24061675efca1d88812b91b8c7d6c453b570a80413da17315ef1772e",
@@ -72,7 +97,8 @@
     "branko_torso.png": "d36c93f9921810f5a19a001e7a931858da98230721909e63bdb1ec48a447e3cc",
     "branko_head.png": "eff09e322de57f94d0389e2dc3716944b3470c9debd3dc7fe25d5e49da09e2b2",
     "branko_back_torso.png": "c5c42b2cf757582665611f5025d4e19a8ed29527c8d71ff355d2b7301c64c376",
-    "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a"
+    "branko_back_head.png": "a5cc4d26d8a3d0c7bfe28baf1417b4376b5957dfc75b4135fd36e8d4df127c0a",
+    "branko_turns.png": "e5d6ffa0964129db948a091c7723ec583b842ca925fedbe4734f067efda100e3"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

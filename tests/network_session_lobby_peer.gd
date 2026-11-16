@@ -56,10 +56,19 @@ func publish_code() -> void:
 		return
 	file.store_string(game.network.room_code)
 	file.close()
+	# The room code is the short LAN invitation. Raw transport probes need the
+	# address and port, which only the direct code carries.
+	if not game.network.direct_code.is_empty():
+		var direct := FileAccess.open(coordination + ".direct",FileAccess.WRITE)
+		direct.store_string(game.network.direct_code)
+		direct.close()
 	print("LOBBY_HOST_READY")
 
 func run_rejection_probe() -> void:
-	var decoded: Dictionary = JOIN_CODE.decode(FileAccess.get_file_as_string(coordination + ".code"))
+	var decoded: Dictionary = JOIN_CODE.decode(FileAccess.get_file_as_string(coordination + ".direct"))
+	if not decoded.get("ok",false):
+		finish(false,"host published no direct code for the probe")
+		return
 	probe = TRANSPORT.new()
 	root.add_child(probe)
 	probe.error.connect(func(message: String): finish(false,message))
@@ -88,7 +97,8 @@ func observe() -> void:
 	if not host and not guest_selected:
 		guest_selected = true
 		network.send_command("character",{"id":"ivo"})
-	if game.selected_characters != ["branko","ivo"] or game.hud.scenario_options != OPTIONS:
+	# The roster always lists four seats; this lobby fills the first two.
+	if game.selected_characters[0] != "branko" or game.selected_characters[1] != "ivo" or game.hud.scenario_options != OPTIONS:
 		return
 	if network.local_player_id != (1 if host else 2) or game.started:
 		finish(false,"wrong player slot or premature match start")

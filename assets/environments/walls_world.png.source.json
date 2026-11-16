@@ -1,0 +1,95 @@
+{
+ "asset": "walls_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/environments/wall_bastion.png",
+   "sha256": "683ea2b6ef70479b49f65a270cada23ad22e76986626fb90fa6570ce5874eb45"
+  },
+  {
+   "file": "assets/environments/wall_stronghold.png",
+   "sha256": "0b718b907327f8855bce742c3475ac5ce61e2de8dc81fb8e1851dca8440e0b11"
+  },
+  {
+   "file": "assets/environments/wall_workshop.png",
+   "sha256": "ae1b50999acad9bfc458f6fa450aa22afdc5643cd2763b6ae5bbf017ebf6b7a5"
+  }
+ ],
+ "params": {
+  "palette": 12,
+  "alpha": 0.0,
+  "sharpen": 0.8,
+  "orphan": 0.1,
+  "contour": 0.0
+ },
+ "ink": "#151b1e",
+ "size": [
+  640,
+  1127
+ ],
+ "items": [
+  {
+   "name": "wall_bastion",
+   "key": "res://assets/environments/wall_bastion.png|0,0,1774,887|630x177",
+   "region": [
+    0,
+    594,
+    630,
+    177
+   ]
+  },
+  {
+   "name": "wall_bastion",
+   "key": "res://assets/environments/wall_bastion.png|0,0,1774,887|630x197",
+   "region": [
+    0,
+    0,
+    630,
+    197
+   ]
+  },
+  {
+   "name": "wall_workshop",
+   "key": "res://assets/environments/wall_workshop.png|0,0,1774,887|630x177",
+   "region": [
+    0,
+    772,
+    630,
+    177
+   ]
+  },
+  {
+   "name": "wall_workshop",
+   "key": "res://assets/environments/wall_workshop.png|0,0,1774,887|630x197",
+   "region": [
+    0,
+    198,
+    630,
+    197
+   ]
+  },
+  {
+   "name": "wall_stronghold",
+   "key": "res://assets/environments/wall_stronghold.png|0,0,1774,887|630x177",
+   "region": [
+    0,
+    950,
+    630,
+    177
+   ]
+  },
+  {
+   "name": "wall_stronghold",
+   "key": "res://assets/environments/wall_stronghold.png|0,0,1774,887|630x197",
+   "region": [
+    0,
+    396,
+    630,
+    197
+   ]
+  }
+ ]
+}

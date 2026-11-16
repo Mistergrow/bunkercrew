@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// Painted backdrop: keeps its authored value under world ambient and lamps.
+render_mode unshaded;
 uniform vec4 cloud_tint : source_color=vec4(0.54,0.58,0.60,0.19);
 uniform bool mask_landmarks=false;
 uniform sampler2D skyline : filter_nearest, repeat_disable;

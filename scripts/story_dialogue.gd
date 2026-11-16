@@ -266,7 +266,12 @@ func caption_layout() -> Dictionary:
 	var width := minf(670.0 if ending else 430.0,screen_size.x - 36.0)
 	var rows := UiArt.wrap_text(str(active.get("text","")),width - 32.0,15)
 	var height := 37.0 + rows.size() * 21.0
-	var at := Vector2((screen_size.x - width) * 0.5,screen_size.y - height - 24.0) if ending else Vector2(screen_size.x - width - 18.0,74.0)
+	# Side captions keep to the HUD's centred safe area (see hud.hud_rect()).
+	var safe_right := screen_size.x
+	if is_instance_valid(game) and "hud" in game and is_instance_valid(game.hud) and game.hud.has_method("hud_rect"):
+		var safe: Rect2 = game.hud.hud_rect()
+		safe_right = screen_size.x - (game.hud.screen_rect().end.x - safe.end.x)
+	var at := Vector2((screen_size.x - width) * 0.5,screen_size.y - height - 24.0) if ending else Vector2(safe_right - width - 18.0,74.0)
 	return {"rect":Rect2(at.round(),Vector2(width,height)),"rows":rows,"scale":scale_factor}
 
 

@@ -1,0 +1,44 @@
+{
+  "asset": "infantry_gun_turns_world.png",
+  "generator": "tools/bake_infantry_world.py",
+  "license": "Original Bunkercrew project art.",
+  "scale": 0.82,
+  "method": "RotSprite turns (3x Scale2x, one sample per texel) of infantry_parts_world.png at world density; Reduced from infantry_parts_v2.png to the drawn 0.82 size, one texel per world unit: anchor on a texel corner, box-filter alpha >= 1/2, importance-weighted majority colour of the source (no new colour), speck cleanup, 1-texel ink contour, hand-fixed crosses, ear cup and chin strap; the heavy gunner's ramps lifted x1.16 in OKLab lightness for readability.",
+  "steps_per_turn": 48,
+  "steps": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "cell": 86,
+  "size": [
+    1806,
+    516
+  ],
+  "source_sha256": {
+    "assets/enemies/infantry_parts_v2.png": "4c25c26e1c31650b60730f4cae9f7c2e626e9516715f7287f55f843028b896ad",
+    "tools/bake_infantry_world.py": "59e8f92f2a9f3d2924f75dd97263bcb3ac1f7eb7ac8cd0a60aaa29d9c412f794",
+    "tools/generate_infantry_parts_v2.py": "8b8707113a8eff8e920a93730b8cdadfdf84b34d078f07dbfc3761074d35bd44",
+    "tools/bake_infantry_turns.py": "0bae60db05c8123ea6f01923e82fee2715612dbe7e32faa0a42c1570aad32193",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "e82bf5ac87355cb6baeef107abe6a76cf12496216fa1e07a386ef8f6e6d8151a"
+}

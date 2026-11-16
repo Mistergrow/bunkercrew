@@ -44,12 +44,32 @@ static func recover_remaining(owner_game: Node) -> int:
 
 func _ready() -> void:
 	add_to_group("campaign_salvage")
-	z_index = 6
+	z_index = _layer()
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	material = PICKUP_ART.cutout_material()
 
+## A fresh drop waits until the defeated enemy has fallen (an infantry body
+## lands at 0.66 s and its arms settle by 0.8 s), then materialises behind the
+## remains instead of popping over the falling body. Once the remains have
+## dissolved (3 s) it returns to its readable layer above field structures.
+## Presentation only, from the replicated drop age; pickup reach is unchanged.
+const REVEAL_DELAY := 0.75
+const REVEAL_TIME := 0.3
+const BEHIND_REMAINS := 3.0
+var _reveal := -1.0
+
+func _layer() -> int:
+	return 3 if elapsed<BEHIND_REMAINS else 6
+
 func _process(delta: float) -> void:
 	elapsed += delta
+	# Texel-dither build-up after the fall.
+	var reveal := snappedf(clampf((elapsed-REVEAL_DELAY)/REVEAL_TIME,0.0,1.0),1.0/16.0)
+	if reveal!=_reveal:
+		_reveal = reveal
+		set_instance_shader_parameter(&"reveal",reveal)
+	var layer := _layer()
+	if z_index!=layer: z_index = layer
 	var indicator := PICKUP_ART.indicator_state(elapsed,2)
 	if indicator != _last_indicator:
 		_last_indicator = indicator

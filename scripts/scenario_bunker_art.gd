@@ -3,12 +3,17 @@ extends RefCounted
 ## Cutaway construction pieces. Backing, ribs, utilities and lights are drawn
 ## separately so the same assembly can serve a full room or a menu preview.
 const FALLBACK := preload("res://assets/bunker_wall.png")
+const LAMP_FRACTIONS := [0.17,0.54,0.85]
 static var _walls: Dictionary = {}
+
+const WALL_PATH := "res://assets/environments/wall_%s.png"
+## A room wall's whole painted source, the key of its bakes.
+const WALL_REGION := Rect2(0,0,1774,887)
 
 static func wall_texture(build_type: String) -> Texture2D:
 	if _walls.has(build_type):
 		return _walls[build_type]
-	var path := "res://assets/environments/wall_%s.png" % build_type
+	var path := WALL_PATH % build_type
 	if ResourceLoader.exists(path):
 		var texture: Texture2D = load(path)
 		_walls[build_type] = texture
@@ -21,9 +26,21 @@ static func draw_room(node: CanvasItem, rect: Rect2, build_type: String = "basti
 	# Only the recessed backing and attached utility layer move. Cut edges stay
 	# attached to physical floors and avoid gaps during camera parallax.
 	var inset := rear.grow(8)
-	node.draw_texture_rect(wall_texture(build_type),Rect2(inset.position-rear_shift.round()*0.5,inset.size),false,Color("a3a59b"))
+	# The backing is the wall's offline bake at the room's inset size (one
+	# texel per world unit, tools/world_density_bake.json) and its parallax
+	# moves it in whole world texels; the painted source only for a size that
+	# was never baked.
+	var backing := Rect2(inset.position-(rear_shift*0.5).round(),inset.size)
+	var baked := WorldTexels.texture(WALL_PATH % build_type,WALL_REGION,Vector2i(inset.size.round()))
+	node.draw_texture_rect(baked if baked != null else wall_texture(build_type),backing,false,Color("a3a59b"))
 	node.draw_rect(Rect2(rear.position,Vector2(rear.size.x,17)),Color(0.035,0.05,0.055,0.40))
 	node.draw_rect(Rect2(rear.position.x,rear.end.y-26,rear.size.x,26),Color(0.03,0.04,0.04,0.26))
+	# Stepped occlusion where the rear wall meets the side walls: three flat
+	# bands on the pixel grid, no gradient.
+	for band in 3:
+		var shade := Color(0.02,0.035,0.035,[0.22,0.13,0.06][band])
+		node.draw_rect(Rect2(rear.position.x+band*7,rear.position.y+17,7,rear.size.y-43),shade)
+		node.draw_rect(Rect2(rear.end.x-(band+1)*7,rear.position.y+17,7,rear.size.y-43),shade)
 	var pipe_y := rear.position.y+26
 	var shift := rear_shift.round()
 	for utility in 2:
@@ -48,11 +65,17 @@ static func draw_room(node: CanvasItem, rect: Rect2, build_type: String = "basti
 			node.draw_line(Vector2(x+15,rear.position.y+15),Vector2(x+39,rear.position.y+15),material.darkened(0.14),8)
 			for chip in 6:
 				node.draw_rect(Rect2(x+4+posmod(chip*7,11),rear.position.y+28+chip*21,3,2),material.darkened(0.17))
-	for fraction in [0.17,0.54,0.85]:
-		var lamp := Vector2(roundf(rect.position.x+rect.size.x*fraction-shift.x),rear.position.y+19-shift.y)
-		_draw_lamp(node,lamp,rect.end.y-8,elapsed,depth)
+	for lamp in lamp_points(rect):
+		_draw_lamp(node,lamp-shift,rect.end.y-8,elapsed,depth)
 	if frame:
 		draw_frame(node,rect,build_type,depth,passages)
+
+## Ceiling fixtures of a finished room; world lighting places its pools here.
+static func lamp_points(rect: Rect2) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for fraction in LAMP_FRACTIONS:
+		result.append(Vector2(roundf(rect.position.x+rect.size.x*float(fraction)),rect.position.y+36))
+	return result
 
 static func draw_frame(node: CanvasItem,rect: Rect2,build_type: String,depth: int = 0,passages: Array[Rect2] = []) -> void:
 	var top := rect.position.y

@@ -1,0 +1,91 @@
+{
+ "asset": "vehicle_hulls_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution; texels mostly covered by saturated accents keep the accents' mean colour, with accent palette entries",
+ "sources": [
+  {
+   "file": "assets/enemies/vehicle_hulls_v2.png",
+   "sha256": "b2db6d7b524499c805a7bec26df769e7af6384ae3b16f0b964b0c472611d07da"
+  }
+ ],
+ "params": {
+  "palette": 32,
+  "alpha": 0.45,
+  "sharpen": 0.65,
+  "orphan": 0.06,
+  "contour": 0.8,
+  "accent": 0.1,
+  "accent_share": 0.28,
+  "accent_light": 0.5,
+  "accent_palette": 6
+ },
+ "ink": "#151b1e",
+ "size": [
+  256,
+  97
+ ],
+ "items": [
+  {
+   "name": "battle_tank",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|103,556,1393,361|111x29",
+   "region": [
+    0,
+    68,
+    111,
+    29
+   ]
+  },
+  {
+   "name": "battle_tank",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|103,556,1393,361|122x32",
+   "region": [
+    109,
+    0,
+    122,
+    32
+   ]
+  },
+  {
+   "name": "mortar_carrier",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|103,1024,1393,361|111x29",
+   "region": [
+    112,
+    68,
+    111,
+    29
+   ]
+  },
+  {
+   "name": "mortar_carrier",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|103,1024,1393,361|122x32",
+   "region": [
+    0,
+    35,
+    122,
+    32
+   ]
+  },
+  {
+   "name": "scout_car",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|265,130,1055,330|99x31",
+   "region": [
+    123,
+    35,
+    99,
+    31
+   ]
+  },
+  {
+   "name": "scout_car",
+   "key": "res://assets/enemies/vehicle_hulls_v2.png|265,130,1055,330|108x34",
+   "region": [
+    0,
+    0,
+    108,
+    34
+   ]
+  }
+ ]
+}

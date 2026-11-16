@@ -50,6 +50,10 @@ func emit(kind: String,offset: Vector2) -> void:
 func run() -> void:
 	if "--no-profile-save" not in OS.get_cmdline_user_args() or "--no-upnp" not in OS.get_cmdline_user_args(): quit(1); return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
+	# The source layout is a live editor file; this listening proof measures the
+	# canonical reference mix like its sibling proofs, never a current fader edit.
+	var reference_path:="user://audio-complete-mix-reference-%d.tres"%OS.get_process_id()
+	check(preload("res://tests/audio_reference_fixture.gd").install(reference_path),"Complete mix uses the isolated reference layout, independent of live editor bus edits")
 	root.size=Vector2i(1440,900)
 	root.audio_listener_enable_2d=true
 	game=load("res://scenes/main.tscn").instantiate()
@@ -171,7 +175,14 @@ func run() -> void:
 	check(master.size()>AudioServer.get_mix_rate()*8.0 and measurements.Master.peak<=db_to_linear(-1)+.002,"Complete default mix reaches Master with the existing minus-one-decibel ceiling")
 	check(measurements.Master.rms<=float(measurements.Music.rms+measurements.Voice.rms+measurements.SFX.rms)*1.03,"Actual Master energy is accounted for by its three source buses, including the fixed shared pre-gain")
 	check(measurements.workshop_and_air_bed.rms<measurements.Music.rms*.5,"Quiet engine/workshop bed remains beneath the music instead of masking actions")
-	check(minimum_score< -10 and measurements.Voice.rms>measurements.Music.rms*.75,"Normal dialogue/reload ducking protects unchanged recorded speech")
+	# The chosen listening reference (Music 0.8, Voice 0.2 at the slider midpoint)
+	# replaced the earlier equal 0.5 channel gains. Remove that fixed channel choice
+	# so the original 0.75 speech-to-ducked-music source ratio is still enforced.
+	var reference: Dictionary=preload("res://scripts/audio_defaults.gd").REFERENCE_GAINS
+	var speech_source: float=measurements.Voice.rms/float(reference.Voice)
+	var music_source: float=measurements.Music.rms/float(reference.Music)
+	measurements["speech_to_music_source_ratio"]=speech_source/maxf(music_source,.00000001)
+	check(minimum_score< -10 and speech_source>music_source*.75,"Normal dialogue/reload ducking protects unchanged recorded speech")
 	check(audio.music_volume==.5 and audio.sfx_volume==.5 and audio.voice_volume==.5,"Every preference remains exactly fifty percent after the full source mix")
 	save(master)
 	for station in stations: station.working=false
@@ -190,6 +201,7 @@ func run() -> void:
 	for bus: String in taps: AudioServer.remove_bus_effect(AudioServer.get_bus_index(bus),int(tap_slots[bus]))
 	taps.clear()
 	check(await Cleanup.free_scene(game,self),"Full real source scene retires without a playback leak")
+	DirAccess.remove_absolute(reference_path)
 	var file:=FileAccess.open(OUTPUT+"/complete-mix-verification.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"checks":checks,"failures":failures,"measurements":measurements,"minimum_score_db":minimum_score,"default_sliders":[.5,.5,.5],"music_mix_trim_db":-7.172146296835499,"voice_mix_trim_db":-.9151498112135024,"master_pre_gain_db":linear_to_db(output_pre_gain),"master_fader_db":0.0,"stem_meter":"Source-bus capture times its fixed bus gain and shared output pre-gain; nominal contribution before shared limiting. Master capture is final output with zero post-limiter fader gain.","prepared_state":"Actual Aschewerk, two workers, normal paid-ready workshop state transition; held batch/flight simulation for exact placements, four source controllers and real recorded SAN dialog; combat music at18s; no microphones/online/public services"},"\t"))
 	print("COMPLETE AUDIO MIX: %d/%d checks passed"%[checks-failures,checks])

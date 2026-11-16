@@ -65,6 +65,8 @@ func _apply_material(item: CanvasItem, metal: bool, art_top: float=-10000.0, opa
 	var wet_material := WetMaterials.get_material(metal,art_top,opaque_only,cutoff)
 	item.material=wet_material
 	item.set_instance_shader_parameter("wetness",amount)
+	# Team read (silhouette edge, hostile crest) rides on the same material.
+	item.set_instance_shader_parameter("team",WetMaterials.team_of(actor))
 	_material_items.append(item)
 
 func weather():

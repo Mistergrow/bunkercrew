@@ -18,6 +18,7 @@ func check(value: bool, label: String) -> void:
 
 func run() -> void:
 	var palettes := {}
+	var geologies := {}
 	for entry: Dictionary in ScenarioCatalog.environments():
 		var game = load("res://scenes/main.tscn").instantiate()
 		root.add_child(game)
@@ -32,11 +33,13 @@ func run() -> void:
 			check(strata.show_behind_parent and strata.get_child_count() == 0 and strata.get_groups().is_empty(), "%s backing stays behind rooms and adds no collision or resource nodes" % entry.id)
 			check(strata.environment_id == entry.id and strata.material is ShaderMaterial, "%s uses the selected biome" % entry.id)
 			palettes[strata.material.get_shader_parameter("rock_tint")] = true
+			geologies[int(strata.material.get_shader_parameter("geology"))] = true
 		check(bunker.fields.size() == 1 and bunker.fields[0].remaining_count() == 30 and bunker.excavated_rects().size() == 2, "%s keeps the real excavation boundaries and thirty starter cells" % entry.id)
 		var widest := Rect2(Vector2(720, 430) - Vector2(2560, 1440) / 0.25 * 0.5, Vector2(2560, 1440) / 0.25)
 		var underground := Rect2(widest.position.x, 430, widest.size.x, widest.end.y - 430)
 		check(STRATA.FIELD.encloses(underground), "%s covers QHD at the widest 0.25 overview" % entry.id)
 		check(await preload("res://tests/scene_cleanup.gd").free_scene(game, self), "%s cleans up" % entry.id)
 	check(palettes.size() == ScenarioCatalog.environments().size(), "Each environment has its own rock palette")
+	check(geologies.size() >= 5, "The worlds' rock differs in structure, not only in tint (%d kinds)" % geologies.size())
 	print("TERRAIN RESULT: %d checks; %d failures" % [checks, failures])
 	quit(1 if failures else 0)

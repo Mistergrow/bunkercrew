@@ -25,6 +25,7 @@ var _bootstrapped := false
 var _shaft_index := -1
 var _built: Dictionary = {}
 var _rear_shift := Vector2.ZERO
+var lighting: Node2D
 const ROOF_Y := 245.0
 const WORLD_LEFT := -250.0
 const WORLD_RIGHT := 1690.0
@@ -36,6 +37,13 @@ func _ready() -> void:
 	if is_instance_valid(game) and "scenario_options" in game:
 		strata.environment_id = str(game.scenario_options.get("environment", "sector07"))
 	add_child(strata)
+	# Ambient, fixture lights and contact shadows are presentation only and are
+	# built identically on host and guests from this node's own layout.
+	lighting = preload("res://scripts/world_lighting.gd").new()
+	lighting.game = game
+	lighting.bunker = self
+	lighting.environment_id = strata.environment_id
+	add_child(lighting)
 
 func configure(style_key: String,position_key: String) -> void:
 	assert(not _bootstrapped,"A built bunker cannot be moved through living actors")
@@ -195,6 +203,24 @@ func excavated_rects() -> Array[Rect2]:
 		result.append(Rect2(room_left,ScenarioRoomCatalog.floor_y(index)-205,640,205))
 	return result
 
+## Finished (or poured and curing) rooms carry permanent ceiling lamps.
+func lit_room_rects() -> Array[Rect2]:
+	var result: Array[Rect2] = [Rect2(room_left,ROOF_Y,640,185)]
+	for index in excavation_depths:
+		var site: ScenarioRoomSite = modules[index] if index < modules.size() else null
+		if index < open_depths or (is_instance_valid(site) and site.curing): result.append(raw_rect(index))
+	return result
+
+## Open excavations have the single work light drawn by ExcavationRoomArt.
+func work_lamp_points() -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for index in range(open_depths,excavation_depths):
+		var site: ScenarioRoomSite = modules[index] if index < modules.size() else null
+		if is_instance_valid(site) and site.curing: continue
+		var rect := raw_rect(index)
+		result.append(Vector2(rect.position.x+87,rect.position.y+43))
+	return result
+
 func raw_rect(index: int) -> Rect2:
 	return Rect2(room_left,ScenarioRoomCatalog.floor_y(index)-205,640,205)
 
@@ -333,8 +359,12 @@ func _draw() -> void:
 	_draw_outer_edge()
 
 func _draw_floor_details(floor_y: float,depth: int) -> void:
-	var label: String = LocaleText.text("LEBENSRAUM / 00") if depth==0 else str(ScenarioRoomCatalog.spec(depth-1).title)
-	Art.text(self,Vector2(room_left+93,floor_y-(185 if depth==0 else 205)+12),label,9,Color("cec3a0"))
+	var label: String = LocaleText.text("WOHNTRAKT / 00") if depth==0 else str(ScenarioRoomCatalog.spec(depth-1).title)
+	# Stencilled on the beam: a dark recess under pale paint, so the room name
+	# keeps its contrast under the room light grades.
+	var label_at := Vector2(room_left+93,floor_y-(185 if depth==0 else 205)+13)
+	Art.text(self,label_at+Vector2.ONE,label,10,Color(.06,.07,.06,.85))
+	Art.text(self,label_at,label,10,Color("ece2bd"))
 	# Cabling, drains and inset landing grates follow the shared shaft. Room
 	# labels are painted on the wall, so active machine prompts remain readable.
 	draw_line(Vector2(room_left+89,floor_y-137),Vector2(room_left+89,floor_y-11),Color("373e32"),5)

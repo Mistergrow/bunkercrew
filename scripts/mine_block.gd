@@ -23,7 +23,9 @@ var collider: CollisionShape2D
 const CELL_SIZE := 48.0
 const HALF := 24.0
 const TEXTURE_PERIOD := 480.0
-const ROCK = preload("res://assets/rock.png")
+## The rock face at one texel per world unit (offline bake of rock.png, see
+## tools/world_density_bake.json), shared with the excavation art.
+static var _rock: Texture2D
 const MineralDeposits = preload("res://scripts/mineral_deposits.gd")
 const DIRECTIONS: Array[Vector2i] = [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]
 var _mineral_facets: Array[Dictionary] = []
@@ -186,10 +188,18 @@ func _draw() -> void:
 	if mining > 0:
 		_draw_work_cracks()
 
+static func rock() -> Texture2D:
+	if _rock == null:
+		var baked := ExcavationRoomArt.rock_texture()
+		# Polygons take the plain image: their UVs address the whole repeat.
+		_rock = (baked as AtlasTexture).atlas if baked is AtlasTexture else baked
+	return _rock
+
 func _draw_continuous_rock() -> void:
 	# Split only at the large texture repeat, keeping every 48px grid seam invisible.
 	var world_start := global_position-Vector2(HALF,HALF)
-	var source_scale := ROCK.get_size()/TEXTURE_PERIOD
+	var face := rock()
+	var source_scale := face.get_size()/TEXTURE_PERIOD
 	var y := 0.0
 	while y < CELL_SIZE-0.01:
 		var source_y := fposmod(world_start.y+y,TEXTURE_PERIOD)
@@ -200,7 +210,7 @@ func _draw_continuous_rock() -> void:
 			var width := minf(CELL_SIZE-x,TEXTURE_PERIOD-source_x)
 			var dest := Rect2(Vector2(x-HALF,y-HALF),Vector2(width,height))
 			var source := Rect2(Vector2(source_x,source_y)*source_scale,Vector2(width,height)*source_scale)
-			draw_texture_rect_region(ROCK,dest,source,Color(0.84,0.83,0.76))
+			draw_texture_rect_region(face,dest,source,Color(0.84,0.83,0.76))
 			x += width
 		y += height
 
@@ -224,7 +234,7 @@ func _draw_minerals() -> void:
 				facet.color = Color(tint.r*3.1,tint.g*3.1,tint.b*3.1,tint.a)
 	for facet in _mineral_facets:
 		if facet.textured:
-			draw_polygon(facet.points,PackedColorArray([facet.color]),facet.uvs,ROCK)
+			draw_polygon(facet.points,PackedColorArray([facet.color]),facet.uvs,rock())
 		else:
 			draw_colored_polygon(facet.points,facet.color)
 

@@ -5,6 +5,8 @@ const Quads := preload("res://scripts/canvas_quads.gd")
 const Pose := preload("res://scripts/enemy_motion_pose.gd")
 const Wreck := preload("res://scripts/enemy_motion_wreck.gd")
 const PixelArt = preload("res://scripts/pixel_effect_art.gd")
+## Body frames per second of the held hit reaction.
+const IMPACT_FPS := 12.0
 var machine: Node2D
 var airborne := false
 var identity := "strider"
@@ -22,11 +24,15 @@ var _purge_pending := false
 var _scan_pending := false
 var _scan_clock := 4.8
 var _redraw_clock := 0.0
+## Free-running presentation clock (exhaust, rotor smear): it advances on every
+## peer between snapshots, unlike the replicated age of a frozen guest copy.
+var clock := 0.0
 var _wreck_spawned := false
 var automatic := true
 var reduced_effects := false
 var _entered_view := false
 var _blend_from: Dictionary = {}
+const REDUCED_IMPACT := ["offset","roll","knee","foot","rotor"]
 
 func _ready() -> void:
 	machine = get_parent()
@@ -35,6 +41,9 @@ func _ready() -> void:
 	_previous_hp = machine.hp
 	_previous_attacks = machine.attack_count
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	# Vent steam steps in world texels on the turned hull (other drawing
+	# passes through the grid material unchanged).
+	material = PixelArt.grid_material(PixelArt.GRID_LIT)
 	z_index = 3
 	pose = Pose.sample(state,0,identity,airborne)
 	history.append(state)
@@ -53,6 +62,7 @@ func play(action: String, force: bool = false) -> bool:
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(machine) or machine.dead: return
+	clock += delta
 	# Spawns begin outside the arena. Hold the initial deployment until the
 	# hull enters the camera, so heavy walkers do not finish it off screen.
 	if automatic and not _entered_view:
@@ -90,7 +100,13 @@ func advance(delta: float) -> void:
 		elif _service_pending:
 			_service_pending = false
 			play("service")
-	pose = Pose.sample(state,elapsed/Pose.duration(state,identity),identity,airborne)
+	# The hit knock-back is held body frames (style bible 5: an impact pose
+	# and recovery frames); the other performances stay continuous.
+	var shown_elapsed := floorf(elapsed*IMPACT_FPS+0.0001)/IMPACT_FPS if state == "impact" else elapsed
+	pose = Pose.sample(state,shown_elapsed/Pose.duration(state,identity),identity,airborne)
+	if state == "impact" and reduced_effects:
+		# Reduced effects: the hit knock-back at half strength.
+		for key: String in REDUCED_IMPACT: pose[key] = pose[key]*0.5
 	if not _blend_from.is_empty() and elapsed<0.09 and not state.is_empty():
 		var blend := Pose.smooth(elapsed/0.09)
 		for key in pose:
@@ -155,7 +171,7 @@ func _draw() -> void:
 			var cycle := fposmod(elapsed*1.7+float(puff)*0.2,1.0)
 			var drift := sin(cycle*4.2+float(puff)*1.3)*cycle*2.0
 			var point := vent_origin+Vector2(4.0+cycle*13.0+drift,-5.0-cycle*23.0)
-			PixelArt.puff(self,point,1.0+cycle*4.0,Color(.58,.61,.55,steam*(1.0-cycle)*.45),puff,not reduced_effects)
+			PixelArt.smoke_puff(self,point,1.5+cycle*4.0,Color(.58,.61,.55,steam*.45),puff,cycle)
 	draw_set_transform(Vector2.ZERO)
 	if float(pose.slide)>0.0 or state=="service":
 		var gun: Node2D = machine.weapon_part

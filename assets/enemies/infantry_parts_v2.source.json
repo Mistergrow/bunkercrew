@@ -1,0 +1,41 @@
+{
+  "asset": "infantry_parts_v2.png",
+  "generator": "tools/generate_infantry_parts_v2.py",
+  "method": "Hand-placed native pixel art (character maps and stepped primitives in the generator), one texel per world unit, 1-texel ink contour from each piece's alpha. No generated imagery, no downscaling.",
+  "license": "Original Bunkercrew project art.",
+  "replaces": "infantry_parts_v1.png (kept for comparison; tools/bake_infantry_art.gd)",
+  "layout": {
+    "tile": 64,
+    "columns": 16,
+    "size": [
+      1024,
+      1024
+    ],
+    "roles": [
+      "rifle_guard",
+      "grenadier",
+      "scout",
+      "heavy_gunner",
+      "marksman",
+      "combat_medic"
+    ],
+    "head": "role*35 + slot*5 + sway",
+    "torso": "210 + role",
+    "rear": "216 + role*5 + sway",
+    "gun": "246 + role",
+    "body_origin": [
+      32,
+      32
+    ],
+    "gun_origin": [
+      12,
+      16
+    ],
+    "heads": 7,
+    "sways": 5
+  },
+  "source_sha256": {
+    "tools/generate_infantry_parts_v2.py": "8b8707113a8eff8e920a93730b8cdadfdf84b34d078f07dbfc3761074d35bd44"
+  },
+  "sha256": "4c25c26e1c31650b60730f4cae9f7c2e626e9516715f7287f55f843028b896ad"
+}

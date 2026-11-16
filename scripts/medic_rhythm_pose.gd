@@ -180,19 +180,19 @@ static func mix_pose(from: Dictionary, to: Dictionary, blend: float) -> Dictiona
 			result[key] = lerpf(float(from[key]), float(to[key]), blend)
 	return result
 
-func draw(canvas: Node2D, supplies: int, facing: float) -> bool:
+func draw(canvas: Node2D, supplies: int, facing: float, origin: Vector2 = Vector2.ZERO) -> bool:
 	if not is_active():
 		return false
 	canvas.draw_rect(Rect2(-18, -1, 36, 4), Color(0, 0, 0, 0.32))
 	var direction := -1.0 if facing < 0.0 else 1.0
 	var track_at: Vector2 = pose.track_offset
-	canvas.draw_set_transform(track_at, float(pose.track_angle))
+	canvas.draw_set_transform(origin + track_at, float(pose.track_angle))
 	EquipmentArt.tracks(canvas, float(pose.track_phase))
 	var angle := float(pose.body_angle) * direction
 	var pivot := Vector2(0, -12)
 	var body_at: Vector2 = pose.body_offset
 	body_at.x *= direction
-	canvas.draw_set_transform(body_at + pivot - pivot.rotated(angle), angle)
+	canvas.draw_set_transform(origin + body_at + pivot - pivot.rotated(angle), angle)
 	EquipmentArt.medic_body(canvas, 0.0, float(pose.look) * direction, supplies, false, float(pose.head_drop))
 	var shoulder := Vector2(13 * direction, -22)
 	var elbow: Vector2 = pose.elbow
@@ -203,5 +203,5 @@ func draw(canvas: Node2D, supplies: int, facing: float) -> bool:
 	EquipmentArt.linkage(canvas, elbow, hand, 3)
 	EquipmentArt.joint(canvas, elbow)
 	EquipmentArt.casing(canvas, Rect2(hand - Vector2(3, 2), Vector2(7, 5)), Color("929980"), 1)
-	canvas.draw_set_transform(Vector2.ZERO)
+	canvas.draw_set_transform(origin)
 	return true

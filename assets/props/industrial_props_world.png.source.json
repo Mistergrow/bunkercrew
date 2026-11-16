@@ -1,0 +1,447 @@
+{
+ "asset": "industrial_props_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/industrial_props.png",
+   "sha256": "eddb398e076e61d7afedb37d2b8d317865c400db8587e7b9bf4215ed215c12ec"
+  }
+ ],
+ "params": {
+  "palette": 24,
+  "alpha": 0.45,
+  "sharpen": 0.45,
+  "orphan": 0.07,
+  "contour": 0.8
+ },
+ "ink": "#151b1e",
+ "size": [
+  512,
+  355
+ ],
+ "items": [
+  {
+   "name": "cabinet",
+   "key": "res://assets/industrial_props.png|56,40,182,285|52x81",
+   "region": [
+    378,
+    0,
+    52,
+    81
+   ]
+  },
+  {
+   "name": "cabinet",
+   "key": "res://assets/industrial_props.png|56,40,182,285|27x43",
+   "region": [
+    388,
+    227,
+    27,
+    43
+   ]
+  },
+  {
+   "name": "workbench",
+   "key": "res://assets/industrial_props.png|288,130,318,197|96x59",
+   "region": [
+    366,
+    148,
+    96,
+    59
+   ]
+  },
+  {
+   "name": "workbench",
+   "key": "res://assets/industrial_props.png|288,130,318,197|84x52",
+   "region": [
+    61,
+    227,
+    84,
+    52
+   ]
+  },
+  {
+   "name": "workbench",
+   "key": "res://assets/industrial_props.png|288,130,318,197|126x78",
+   "region": [
+    0,
+    148,
+    126,
+    78
+   ]
+  },
+  {
+   "name": "workbench",
+   "key": "res://assets/industrial_props.png|288,130,318,197|98x61",
+   "region": [
+    232,
+    148,
+    98,
+    61
+   ]
+  },
+  {
+   "name": "pipes",
+   "key": "res://assets/industrial_props.png|628,168,328,137|69x29",
+   "region": [
+    0,
+    326,
+    69,
+    29
+   ]
+  },
+  {
+   "name": "pipes",
+   "key": "res://assets/industrial_props.png|628,168,328,137|57x24",
+   "region": [
+    290,
+    326,
+    57,
+    24
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|38x26",
+   "region": [
+    214,
+    326,
+    38,
+    26
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|40x27",
+   "region": [
+    173,
+    326,
+    40,
+    27
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|36x25",
+   "region": [
+    253,
+    326,
+    36,
+    25
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|41x28",
+   "region": [
+    70,
+    326,
+    41,
+    28
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|47x32",
+   "region": [
+    397,
+    284,
+    47,
+    32
+   ]
+  },
+  {
+   "name": "crate",
+   "key": "res://assets/industrial_props.png|984,143,236,162|26x18",
+   "region": [
+    348,
+    326,
+    26,
+    18
+   ]
+  },
+  {
+   "name": "barrel",
+   "key": "res://assets/industrial_props.png|77,392,163,255|29x46",
+   "region": [
+    312,
+    227,
+    29,
+    46
+   ]
+  },
+  {
+   "name": "barrel",
+   "key": "res://assets/industrial_props.png|77,392,163,255|26x40",
+   "region": [
+    44,
+    284,
+    26,
+    40
+   ]
+  },
+  {
+   "name": "barrel",
+   "key": "res://assets/industrial_props.png|77,392,163,255|31x48",
+   "region": [
+    230,
+    227,
+    31,
+    48
+   ]
+  },
+  {
+   "name": "lamp",
+   "key": "res://assets/industrial_props.png|401,367,120,248|18x38",
+   "region": [
+    71,
+    284,
+    18,
+    38
+   ]
+  },
+  {
+   "name": "lamp",
+   "key": "res://assets/industrial_props.png|401,367,120,248|17x35",
+   "region": [
+    362,
+    284,
+    17,
+    35
+   ]
+  },
+  {
+   "name": "lamp",
+   "key": "res://assets/industrial_props.png|401,367,120,248|16x34",
+   "region": [
+    380,
+    284,
+    16,
+    34
+   ]
+  },
+  {
+   "name": "lamp",
+   "key": "res://assets/industrial_props.png|401,367,120,248|15x32",
+   "region": [
+    445,
+    284,
+    15,
+    32
+   ]
+  },
+  {
+   "name": "lamp",
+   "key": "res://assets/industrial_props.png|401,367,120,248|17x36",
+   "region": [
+    344,
+    284,
+    17,
+    36
+   ]
+  },
+  {
+   "name": "fan",
+   "key": "res://assets/industrial_props.png|658,398,224,215|49x47",
+   "region": [
+    262,
+    227,
+    49,
+    47
+   ]
+  },
+  {
+   "name": "fan",
+   "key": "res://assets/industrial_props.png|658,398,224,215|43x41",
+   "region": [
+    0,
+    284,
+    43,
+    41
+   ]
+  },
+  {
+   "name": "fan",
+   "key": "res://assets/industrial_props.png|658,398,224,215|45x43",
+   "region": [
+    342,
+    227,
+    45,
+    43
+   ]
+  },
+  {
+   "name": "gas_bottles",
+   "key": "res://assets/industrial_props.png|1027,361,156,282|35x64",
+   "region": [
+    196,
+    148,
+    35,
+    64
+   ]
+  },
+  {
+   "name": "gas_bottles",
+   "key": "res://assets/industrial_props.png|1027,361,156,282|29x52",
+   "region": [
+    146,
+    227,
+    29,
+    52
+   ]
+  },
+  {
+   "name": "gas_bottles",
+   "key": "res://assets/industrial_props.png|1027,361,156,282|34x61",
+   "region": [
+    331,
+    148,
+    34,
+    61
+   ]
+  },
+  {
+   "name": "gas_bottles",
+   "key": "res://assets/industrial_props.png|1027,361,156,282|17x30",
+   "region": [
+    461,
+    284,
+    17,
+    30
+   ]
+  },
+  {
+   "name": "cement_sacks",
+   "key": "res://assets/industrial_props.png|28,730,271,176|55x36",
+   "region": [
+    222,
+    284,
+    55,
+    36
+   ]
+  },
+  {
+   "name": "wheelbarrow",
+   "key": "res://assets/industrial_props.png|318,705,374,209|65x36",
+   "region": [
+    156,
+    284,
+    65,
+    36
+   ]
+  },
+  {
+   "name": "junction_box",
+   "key": "res://assets/industrial_props.png|734,657,182,255|26x37",
+   "region": [
+    129,
+    284,
+    26,
+    37
+   ]
+  },
+  {
+   "name": "junction_box",
+   "key": "res://assets/industrial_props.png|734,657,182,255|26x36",
+   "region": [
+    317,
+    284,
+    26,
+    36
+   ]
+  },
+  {
+   "name": "console",
+   "key": "res://assets/industrial_props.png|975,682,248,239|68x66",
+   "region": [
+    127,
+    148,
+    68,
+    66
+   ]
+  },
+  {
+   "name": "console",
+   "key": "res://assets/industrial_props.png|975,682,248,239|38x37",
+   "region": [
+    90,
+    284,
+    38,
+    37
+   ]
+  },
+  {
+   "name": "console",
+   "key": "res://assets/industrial_props.png|975,682,248,239|60x56",
+   "region": [
+    0,
+    227,
+    60,
+    56
+   ]
+  },
+  {
+   "name": "console",
+   "key": "res://assets/industrial_props.png|975,682,248,239|53x51",
+   "region": [
+    176,
+    227,
+    53,
+    51
+   ]
+  },
+  {
+   "name": "scrap",
+   "key": "res://assets/industrial_props.png|261,1035,367,166|60x27",
+   "region": [
+    112,
+    326,
+    60,
+    27
+   ]
+  },
+  {
+   "name": "scrap",
+   "key": "res://assets/industrial_props.png|261,1035,367,166|93x42",
+   "region": [
+    416,
+    227,
+    93,
+    42
+   ]
+  },
+  {
+   "name": "cable_spool",
+   "key": "res://assets/industrial_props.png|650,957,254,240|38x36",
+   "region": [
+    278,
+    284,
+    38,
+    36
+   ]
+  },
+  {
+   "name": "mine_brace",
+   "key": "res://assets/industrial_props.png|946,980,280,217|186x144",
+   "region": [
+    191,
+    0,
+    186,
+    144
+   ]
+  },
+  {
+   "name": "mine_brace",
+   "key": "res://assets/industrial_props.png|946,980,280,217|190x147",
+   "region": [
+    0,
+    0,
+    190,
+    147
+   ]
+  }
+ ]
+}

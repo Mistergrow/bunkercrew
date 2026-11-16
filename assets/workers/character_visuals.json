@@ -332,7 +332,23 @@
       "head",
       "back_torso",
       "back_head"
-    ]
+    ],
+    "turns": {
+      "steps": 48,
+      "cell": 68,
+      "origin": [
+        34,
+        34
+      ],
+      "back_steps": [
+        -3,
+        3
+      ],
+      "supine_steps": [
+        -15,
+        -7
+      ]
+    }
   },
   "source_history": "identities/source-history-20261005.json"
 }

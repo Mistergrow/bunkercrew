@@ -21,6 +21,8 @@ class GameStub extends Node2D:
 		drops[kind] = int(drops.get(kind,0))+amount
 
 class Collector extends Node2D:
+	# Pickups serve only workers owned by their own game world.
+	var game
 	var inventory := {"sand":6}
 	func carried_count() -> int: return 6
 	func add_item(_kind, _amount):
@@ -160,6 +162,7 @@ func run_checks() -> void:
 	check(game.stats.kills == 6 and get_nodes_in_group("enemies").is_empty(), "Repeated death calls never duplicate rewards or leave a wave blocked")
 	var collector := Collector.new()
 	collector.position = Vector2(830,600)
+	collector.game = game
 	game.add_child(collector)
 	collector.add_to_group("players")
 	var pickup: ResourcePickup = load("res://scenes/resource_pickup.tscn").instantiate()

@@ -1,0 +1,100 @@
+{
+  "asset": "machine_weapons_world.png",
+  "generator": "tools/bake_machine_weapons_world.py",
+  "method": "The step-0 key of machine_weapons_v2.png at each drawn walker scale: palette-preserving box-filter vote (tools/bake_infantry_world.reduce_piece), 1-texel ink contour when reduced, RotSprite aim keys at that density.",
+  "license": "Original Bunkercrew project art.",
+  "scales": [
+    [
+      0,
+      0.54
+    ],
+    [
+      0,
+      0.594
+    ],
+    [
+      0,
+      0.72
+    ],
+    [
+      0,
+      0.75
+    ],
+    [
+      0,
+      0.792
+    ],
+    [
+      0,
+      0.81
+    ],
+    [
+      0,
+      0.825
+    ],
+    [
+      0,
+      0.891
+    ],
+    [
+      1,
+      0.96
+    ],
+    [
+      1,
+      1.056
+    ],
+    [
+      2,
+      1.163
+    ],
+    [
+      2,
+      1.279
+    ],
+    [
+      3,
+      0.72
+    ],
+    [
+      3,
+      0.792
+    ],
+    [
+      4,
+      1.11
+    ],
+    [
+      4,
+      1.221
+    ]
+  ],
+  "steps": [
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "steps_per_turn": 48,
+  "size": [
+    512,
+    493
+  ],
+  "source_sha256": {
+    "assets/enemies/machine_weapons_v2.png": "58621cf2834185af185bc8badc7eb167ff9aef3aa1535ca811a24697e22371f5",
+    "tools/bake_machine_weapons_world.py": "942eb6792cd0699ee1ee5697f0367d0fb3903668cc12594433a3749fc52f338c",
+    "tools/bake_infantry_world.py": "59e8f92f2a9f3d2924f75dd97263bcb3ac1f7eb7ac8cd0a60aaa29d9c412f794",
+    "scripts/enemy_catalog.gd": "d7ec684f901e65b646df8dcb072c7785db50b594720f4ec65aaef564e7d88496",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "007c0a2c867e6e9464b9034b964211daea644fe36ea997a01c37eb1904e8c11a"
+}

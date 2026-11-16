@@ -1,0 +1,91 @@
+{
+ "asset": "courtyard_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution; texels mostly covered by saturated accents keep the accents' mean colour, with accent palette entries",
+ "sources": [
+  {
+   "file": "assets/courtyard/modules_v1.png",
+   "sha256": "20dd8df74f86a535e4008fb8d9c91b1a2a9b42ac218ab0dae2bed22b423608e2"
+  }
+ ],
+ "params": {
+  "palette": 32,
+  "alpha": 0.45,
+  "sharpen": 0.75,
+  "orphan": 0.06,
+  "contour": 0.6,
+  "accent": 0.1,
+  "accent_share": 0.28,
+  "accent_light": 0.5,
+  "accent_palette": 6
+ },
+ "ink": "#151b1e",
+ "size": [
+  256,
+  92
+ ],
+ "items": [
+  {
+   "name": "paving",
+   "key": "res://assets/courtyard/modules_v1.png|35,592,570,93|55x9",
+   "region": [
+    0,
+    83,
+    55,
+    9
+   ]
+  },
+  {
+   "name": "fence_field",
+   "key": "res://assets/courtyard/modules_v1.png|98,159,446,238|98x53",
+   "region": [
+    46,
+    0,
+    98,
+    53
+   ]
+  },
+  {
+   "name": "fence_post",
+   "key": "res://assets/courtyard/modules_v1.png|543,129,67,281|15x62",
+   "region": [
+    30,
+    0,
+    15,
+    62
+   ]
+  },
+  {
+   "name": "bollards",
+   "key": "res://assets/courtyard/modules_v1.png|648,958,558,220|43x17",
+   "region": [
+    145,
+    0,
+    43,
+    17
+   ]
+  },
+  {
+   "name": "work_lamp",
+   "key": "res://assets/courtyard/modules_v1.png|240,754,151,424|29x82",
+   "region": [
+    0,
+    0,
+    29,
+    82
+   ]
+  },
+  {
+   "name": "rubble",
+   "key": "res://assets/courtyard/modules_v1.png|639,546,591,140|63x15",
+   "region": [
+    189,
+    0,
+    63,
+    15
+   ]
+  }
+ ]
+}

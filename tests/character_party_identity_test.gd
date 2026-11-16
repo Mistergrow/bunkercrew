@@ -122,7 +122,7 @@ func run() -> void:
 	session._context_peer = 303
 	session._handle_command("character",{"id":"mara"},3)
 	check(world.selected_characters[2]=="branko","authoritative race rejection preserves the established owner")
-	check(session.packets.any(func(packet): return packet.message.get("kind")=="notice" and packet.message.get("text")=="Diese Figur ist bereits in der Crew. Wähle eine andere."),"rejected guest receives a valid protocol notice")
+	check(session.packets.any(func(packet): return packet.message.get("kind")=="notice" and LocaleText.message_text(packet.message.get("message"))==LocaleText.text("Diese Figur ist bereits in der Crew. Wähle eine andere.")),"rejected guest receives a valid protocol notice")
 	check(session.packets.back().message.get("kind")=="lobby" and session.packets.back().message.characters==world.selected_characters,"rejection sends the authoritative roster back to restore prediction")
 	session._context_peer = 0
 	session._handle_command("character",{"id":"oskar"},3)

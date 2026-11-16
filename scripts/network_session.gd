@@ -19,6 +19,16 @@ const Social := preload("res://scripts/network_social.gd")
 const INPUT_INTERVAL := 1.0/30.0
 const SNAPSHOT_INTERVAL := 1.0/20.0
 const RECONNECT_SECONDS := 30.0
+const WorldSchema := preload("res://scripts/network_replication_schema.gd")
+# Malformed traffic ends an authenticated link after twelve packets and an
+# unanswered handshake after four; a blocked host frame is not the peer's delay.
+const STRIKES := 12
+const PENDING_STRIKES := 4
+const HANDSHAKE_STALL := 0.5
+const RELAY_BUFFER := Protocol.MAX_PACKET*2
+const RELAY_CONTROL_RESERVE := 65536
+const FLOOD_MESSAGE := "Zu viele Netzwerkdaten. Bitte erneut verbinden."
+const SNAPSHOT_LIMIT_MESSAGE := "Die Welt ist zu groß für die Netzwerkübertragung. Die Crew erhält keine Aktualisierung, bis weniger Objekte aktiv sind."
 var game
 var active := false
 var is_host := false
@@ -75,6 +85,8 @@ var _received_seq := -1
 var _shared_snapshot_sequence := 0
 var _snapshot_failures := 0
 var _last_resync_at := -100.0
+var _snapshot_limit := ""
+var _snapshot_limit_at := 0.0
 var _snapshot_ack := 0
 var _ack_clock := 0.0
 const MAX_PENDING_SNAPSHOTS := 4
@@ -601,6 +613,8 @@ func host_room(url := "") -> void:
 	_invite_secret = JoinCode.new_invitation()
 	if relay_url.is_empty():
 		_make_transport()
+		# Joining peers wait in spare slots until their Hello is accepted.
+		transport.admission_control = true
 		var auto_map := not ("--no-upnp" in OS.get_cmdline_user_args())
 		if transport.host(listen_port,auto_map)!=OK:
 			_fail("Der Netzwerkport ist belegt. Beende eine andere gehostete Sitzung und versuche es erneut.")
@@ -801,7 +815,7 @@ func _connected() -> void:
 	_voice_seen.clear()
 	_voice_highest=-1
 	if is_host:
-		_handshake_deadline = _clock+5.0
+		_handshake_deadline = _clock+PeerState.HANDSHAKE_SECONDS
 	elif not _hello_sent:
 		_hello_sent = true
 		_send({"kind":"hello","version":Protocol.VERSION,"build":Protocol.BUILD,"world_revision":Protocol.WORLD_REVISION,"content_fingerprint":Registry.fingerprint(),"resume":_client_token,"invite":_invite_secret,"name":display_name,"voice_member_keys":true})
@@ -866,8 +880,8 @@ func _connect_relay(action: String) -> void:
 		_fail("Für externe Vermittlungsserver ist eine verschlüsselte wss://-Adresse erforderlich.")
 		return
 	_websocket = WebSocketPeer.new()
-	_websocket.inbound_buffer_size = Protocol.MAX_PACKET*2
-	_websocket.outbound_buffer_size = Protocol.MAX_PACKET*2
+	_websocket.inbound_buffer_size = RELAY_BUFFER
+	_websocket.outbound_buffer_size = RELAY_BUFFER
 	_websocket.max_queued_packets = 64
 	_relay_requested = false
 	_relay_action = action
@@ -1098,6 +1112,20 @@ func _allow_message(kind: String) -> bool:
 	elif kind=="chat_history":
 		rate=1.0
 		capacity=4.0
+	elif kind=="resync":
+		# Each one costs a world capture and a reliable full snapshot. A guest
+		# asks at most once per second after a failed apply.
+		rate=1.0
+		capacity=2.0
+	elif kind=="!overflow":
+		# Allowance for messages beyond their own budget before the link ends.
+		rate=1.0
+		capacity=32.0
+	elif kind=="!pending":
+		# No build sends anything before its Hello is answered. Only a relay
+		# resume can race queued input and speech ahead of the new handshake.
+		rate=0.0
+		capacity=8.0 if relay_url.is_empty() else 96.0
 	var bucket:Dictionary=_packet_budgets.get(kind,{"at":_clock,"tokens":capacity})
 	bucket.tokens=minf(capacity,float(bucket.tokens)+maxf(0.0,_clock-float(bucket.at))*rate)
 	bucket.at=_clock
@@ -1109,7 +1137,14 @@ func _allow_message(kind: String) -> bool:
 func _packet(packet: PackedByteArray) -> void:
 	if not active or state=="error": return
 	var channel: int=transport.last_packet_channel if relay_url.is_empty() and is_instance_valid(transport) else -1
-	if not is_host and _decoder!=null:
+	if is_host:
+		if _rejecting: return
+		# Guest packets are decoded on the host's main thread, so they get the
+		# small control-envelope budget; before authentication the tightest one.
+		if _authenticated: _receive_packet_message(Protocol.decode(packet,Protocol.GUEST_DECODED,Protocol.GUEST_NODES),channel)
+		else: _receive_packet_message(Protocol.decode(packet,Protocol.PENDING_DECODED,Protocol.PENDING_NODES),channel)
+		return
+	if _decoder!=null:
 		if not _decoder.submit(packet,channel): _fail("Der Spielstand konnte nicht synchronisiert werden. Bitte erneut verbinden.")
 		return
 	_receive_packet_message(Protocol.decode(packet),channel)
@@ -1120,6 +1155,9 @@ func _receive_packet_message(message: Dictionary, channel: int) -> void:
 		_invalid_packet()
 		return
 	var kind := str(message.kind)
+	if is_host and not _authenticated and kind!="hello":
+		if not _rejecting and not _allow_message("!pending"): _reject_guest(FLOOD_MESSAGE)
+		return
 	# The room node outlives the mission scene. Keep room chat flowing while
 	# high-frequency world updates wait for the newly bound scene. A small
 	# reliable-control queue preserves handshakes and lobby changes in that gap.
@@ -1154,6 +1192,9 @@ func _receive_packet_message(message: Dictionary, channel: int) -> void:
 				_chat_reject_at[slot]=_clock+0.5
 				var repeated: bool=request_id==int(receipt.get("request",0)) and message.text==receipt.get("text") and str(message.get("preset", ""))==receipt.get("preset") and int(message.get("recipient_id", 0))==int(receipt.get("recipient_id", 0))
 				_send_chat_ack(request_id,repeated and bool(receipt.get("accepted",false)),str(receipt.get("error_code","stale")) if repeated else "stale")
+		# Speech is disposable and a renamed guest is coalesced above. Any other
+		# sustained excess is a flood, not a player: end that one link.
+		if is_host and kind not in ["voice","chat_name"] and not _rejecting and not _allow_message("!overflow"): _reject_guest(FLOOD_MESSAGE)
 		return
 	if kind=="hello" and is_host:
 		_accept_hello(message)
@@ -1313,7 +1354,7 @@ func _receive_packet_message(message: Dictionary, channel: int) -> void:
 
 func _invalid_packet() -> void:
 	_invalid_packets+=1
-	if _invalid_packets<12: return
+	if _invalid_packets<(PENDING_STRIKES if is_host and not _authenticated else STRIKES): return
 	if is_host:
 		if not _rejecting: _reject_guest("Ungültige Netzwerkdaten. Die Verbindung wurde beendet.")
 	else:
@@ -1364,6 +1405,10 @@ func _accept_hello(message: Dictionary) -> void:
 		for slot in range(2,max_players+1):
 			if not _slots.has(slot): assigned=slot; break
 	if assigned==0:
+		_reject_guest("Der Raum ist voll.")
+		return
+	# The transport holds joining peers apart from the three player links.
+	if relay_url.is_empty() and transport is NetworkTransport and _peers.has(_context_peer) and not transport.admit_peer(_context_peer):
 		_reject_guest("Der Raum ist voll.")
 		return
 	_handshake_deadline=0
@@ -1630,7 +1675,7 @@ func _handle_command(kind: String,args: Dictionary,player_id: int) -> void:
 			changed.emit()
 		elif CharacterCatalog.contains(id):
 			if player_id==1: game.notify(LocaleText.text("Diese Figur ist bereits in der Crew. Wähle eine andere."))
-			else: _send({"kind":"notice","text":"Diese Figur ist bereits in der Crew. Wähle eine andere."})
+			else: _send({"kind":"notice","message":LocaleText.message_payload("Diese Figur ist bereits in der Crew. Wähle eine andere.")})
 			_send_lobby()
 			changed.emit()
 		return
@@ -1748,13 +1793,15 @@ func _receive_input(message: Dictionary) -> void:
 	var seq := int(message.get("seq",-1))
 	if seq<=_remote_seq: return
 	var clean := sanitize_input(message.input)
-	if clean.is_empty(): return
+	if clean.is_empty():
+		_invalid_packet()
+		return
 	_remote_seq = seq
 	_last_input_at = _clock
 	_pending_remote = clean
 	if match_paused or (clean.pressed.is_empty() and clean.released.is_empty()): return
 	if _input_edges.size() >= MAX_PENDING_INPUT_EDGES:
-		_reject_guest("Zu viele Netzwerkdaten. Bitte erneut verbinden.")
+		_reject_guest(FLOOD_MESSAGE)
 		return
 	# Preserve independently numbered taps received in one poll. Latest held
 	# directions/aim still apply immediately; only action edges use this FIFO.
@@ -1767,7 +1814,7 @@ static func sanitize_input(input: Dictionary) -> Dictionary:
 	var aim = input.get("aim",null)
 	if not aim is Array or aim.size()!=2 or not (aim[0] is float or aim[0] is int) or not (aim[1] is float or aim[1] is int): return {}
 	if not is_finite(float(aim[0])) or not is_finite(float(aim[1])): return {}
-	var result := {"held":{},"pressed":[],"released":[],"aim":[clampf(float(aim[0]),-4096,4096),clampf(float(aim[1]),-4096,8192)],"mouse":true}
+	var result := {"held":{},"pressed":[],"released":[],"aim":[clampf(float(aim[0]),-4096,4096),clampf(float(aim[1]),-4096,8192)],"mouse":bool(input.get("mouse",true))}
 	for action: String in NetInput.ACTIONS:
 		var value = input.held.get(action,0.0)
 		if value is float or value is int:
@@ -1825,15 +1872,22 @@ func _flush_room_packets() -> void:
 		_receive_packet_message(packet.message,int(packet.channel))
 		if is_host: _leave_peer()
 
-func _advance_clock() -> void:
+func _advance_clock() -> float:
 	# Godot caps simulation delta after stalls. Transport deadlines and budgets
 	# must still measure real elapsed time, independently of gameplay speed.
 	var now := Time.get_ticks_usec()
-	_clock += float(maxi(0, now - _clock_updated_usec)) / 1000000.0
+	var step := float(maxi(0, now - _clock_updated_usec)) / 1000000.0
+	_clock += step
 	_clock_updated_usec = now
+	return step
 
 func _process(delta: float) -> void:
-	_advance_clock()
+	var step := _advance_clock()
+	if is_host and step>HANDSHAKE_STALL:
+		# A Hello that arrived during a blocked host frame is still queued in the
+		# transport. The short handshake window measures the peer, not this stall.
+		for link: Dictionary in _peers.values():
+			if not link._authenticated and float(link._handshake_deadline)>0: link._handshake_deadline=float(link._handshake_deadline)+step
 	_flush_room_packets()
 	if _decoder!=null:
 		for decoded in _decoder.take(): _receive_packet_message(decoded.message,int(decoded.channel))
@@ -1922,7 +1976,10 @@ func _send_snapshot_batch() -> void:
 	_shared_snapshot_sequence+=1
 	var message := {"kind":"snapshot","seq":_shared_snapshot_sequence,"generation":_generation,"paused":match_paused,"world":world.capture(),"achievements":_earned_achievement_ids()}
 	if is_instance_valid(game.audio.live_music): message.music=game.audio.live_music.get_music_state()
-	var encoded := Protocol.encode_trusted(message)
+	var encoded := _encode_snapshot(message)
+	if encoded.is_empty():
+		_leave_peer()
+		return
 	for id in targets:
 		if _send_encoded(encoded,false,int(id)):
 			_peers[id]._snapshot_seq=_shared_snapshot_sequence
@@ -1938,9 +1995,50 @@ func _send_snapshot(reliable := false,captured: Dictionary={}) -> void:
 	var next_sequence:=_shared_snapshot_sequence
 	var message := {"kind":"snapshot","seq":next_sequence,"generation":_generation,"paused":match_paused,"world":world.capture() if captured.is_empty() else captured,"achievements":_earned_achievement_ids()}
 	if is_instance_valid(game.audio.live_music): message.music=game.audio.live_music.get_music_state()
-	if _send(message,reliable):
+	var encoded := _encode_snapshot(message)
+	if encoded.is_empty(): return
+	# One shared relay socket carries every guest. A full snapshot that does
+	# not fit its send buffer is skipped (the guest asks again, and periodic
+	# states follow) instead of failing the write and closing the room.
+	if reliable and not relay_url.is_empty() and (_websocket==null or not relay_snapshot_fits(_websocket.get_current_outbound_buffered_amount(),encoded.size())): return
+	if _send_encoded(encoded,reliable):
 		_snapshot_seq=next_sequence
 		sent_snapshots += 1
+
+static func relay_snapshot_fits(buffered: int,size: int) -> bool:
+	return buffered+size+1<=RELAY_BUFFER-RELAY_CONTROL_RESERVE
+
+func _encode_snapshot(message: Dictionary) -> PackedByteArray:
+	# Guests enforce these limits while decoding and would refuse a larger state
+	# as malformed. Check the same constants here and report it on the host.
+	var entities=message.world.get("entities",[])
+	var reason := "entities" if entities is Array and entities.size()>WorldSchema.MAX_ENTITIES else ""
+	var packet := PackedByteArray()
+	if reason.is_empty():
+		var encoded := Protocol.encode_bounded(message)
+		packet=encoded.packet
+		reason=encoded.error
+	if not reason.is_empty():
+		_report_snapshot_limit(reason)
+		return PackedByteArray()
+	if not _snapshot_limit.is_empty():
+		_snapshot_limit=""
+		connection_hint=""
+		changed.emit()
+	return packet
+
+func _report_snapshot_limit(reason: String) -> void:
+	# The room stays open: everyone is told why the world stands still, and the
+	# log names the limit that was reached.
+	if reason==_snapshot_limit and _clock<_snapshot_limit_at: return
+	if reason!=_snapshot_limit:
+		push_error("Network snapshot withheld: the world exceeds the %s limit (entities %d, values %d, decoded bytes %d, packet bytes %d)." % [reason,WorldSchema.MAX_ENTITIES,Protocol.VariantGuard.MAX_NODES,Protocol.MAX_DECODED,Protocol.MAX_PACKET])
+	_snapshot_limit=reason
+	_snapshot_limit_at=_clock+5.0
+	connection_hint=LocaleText.text(SNAPSHOT_LIMIT_MESSAGE)
+	if is_instance_valid(game) and game.has_method("notify"): game.notify(connection_hint)
+	_send({"kind":"notice","message":LocaleText.message_payload(SNAPSHOT_LIMIT_MESSAGE)},true,-1)
+	changed.emit()
 
 func _earned_achievement_ids() -> Array:
 	var result: Array = []
@@ -2129,6 +2227,8 @@ func leave(restore_parent: bool = true) -> void:
 	_shared_snapshot_sequence=0
 	_snapshot_failures=0
 	_last_resync_at=-100.0
+	_snapshot_limit=""
+	_snapshot_limit_at=0.0
 	_expedition_payload.clear()
 	if is_instance_valid(game) and is_instance_valid(game.get("voice")): game.voice.reset()
 	remote_input.clear()

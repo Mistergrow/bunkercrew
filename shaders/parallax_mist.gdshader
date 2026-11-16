@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// Painted backdrop: keeps its authored value under world ambient and lamps.
+render_mode unshaded;
 uniform float scene_clock = 0.0;
 uniform float motion_gain = 1.0;
 uniform vec4 mist_color : source_color = vec4(.43,.46,.68,1.0);

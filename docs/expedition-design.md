@@ -49,7 +49,7 @@ entsprechenden Hinweis. Laden, Wiederverbindung und fremde Menüs behalten ihre
 eigene Anzeige und Pause. Nach einem gesicherten Zwischenhalt wird die Szene
 nicht wiederholt. Kampagnenschema und Netzwerkversion bleiben unverändert.
 
-[Vollständige Szenen mit Ton und Prüfbericht](../artifacts/travel-cinematics-20261004/index.html)
+Vollständige Szenen mit Ton und Prüfbericht (`artifacts/travel-cinematics-20261004/index.html`; lokale Prüfdaten, nicht im Repository)
 zeigen vorbereitete gültige Abfahrtspunkte mit natürlich ablaufender Szenenuhr;
 die echte Garagenübergabe und vier Prozesse direkt/über lokalen Relay sind
 separat geprüft.
@@ -108,10 +108,10 @@ ersetzen keine unendliche Welle. Der Gastgeber berechnet Schaden, Arbeit, Cursor
 Sitzplätze und Wiederaufnahme. Ein Gast kann weder Reparaturfortschritt noch
 erfolgreiche Zeitfenster als fertiges Ergebnis über das Netzwerk einreichen.
 
-[Neue Reifenwechsel-, Solo- und Koop-Prüfungen mit Bildern](../artifacts/convoy-defense-20261004/index.html)
+Neue Reifenwechsel-, Solo- und Koop-Prüfungen mit Bildern (`artifacts/convoy-defense-20261004/index.html`; lokale Prüfdaten, nicht im Repository)
 ergänzen die unten dokumentierten ursprünglichen Reiseprüfungen.
 
-[Aktuelle Fahrt-, Waffen-, Reifen- und Überflugprüfung mit bewegten Bildern](../artifacts/convoy-experience-20261004/index.html) dokumentiert die weitere Darstellungspolitur und ihre Grenzen.
+Aktuelle Fahrt-, Waffen-, Reifen- und Überflugprüfung mit bewegten Bildern (`artifacts/convoy-experience-20261004/index.html`; lokale Prüfdaten, nicht im Repository) dokumentiert die weitere Darstellungspolitur und ihre Grenzen.
 
 ## Orte und dauerhafte Belohnungen
 
@@ -239,6 +239,6 @@ Die Tests bereiten eine gesicherte Welle-20-Situation vor. Einsteigen, Countdown
 | Projektparser | 780 Skripte, 0 Fehler | Gesamter Bestand mit Debug- und unbenutzten-/unzugewiesenen-Variablen-Diagnostik, keine Warnungen |
 | Übersetzungsprüfung | DE/EN je 1985 Einträge, 0 Befunde | 1688 Text-API-Argumente, 2531 Quellvorkommen |
 
-[Bilder, Fahrtvideo, Klänge, Bildaufträge und vollständige Prüfberichte](../artifacts/convoy-journey/index.html). Die Grafikgalerie umfasst 56 PNGs: 45 vorbereitete Darstellungszustände und elf Bilder des tatsächlich ausgeführten Abfahrts-/Pannenablaufs. Die Soundvorschau ist eine Aufnahme des tatsächlichen Godot-Mixers mit kontrolliertem Fahrzustand.
+Bilder, Fahrtvideo, Klänge, Bildaufträge und vollständige Prüfberichte (`artifacts/convoy-journey/index.html`; lokale Prüfdaten, nicht im Repository). Die Grafikgalerie umfasst 56 PNGs: 45 vorbereitete Darstellungszustände und elf Bilder des tatsächlich ausgeführten Abfahrts-/Pannenablaufs. Die Soundvorschau ist eine Aufnahme des tatsächlichen Godot-Mixers mit kontrolliertem Fahrzustand.
 
 Alle Läufe verwenden getrennte temporäre Profile und `--no-profile-save --no-upnp`; explizite Speichertests schreiben ausschließlich eigene temporäre Kampagnendateien. Grafikaufnahmen laufen über Xvfb und Mesa llvmpipe im Compatibility-Renderer. Die bekannte VSync-Treiberwarnung dieser Aufnahmeumgebung ist dokumentiert. Dies ist kein Hardware-FPS-Benchmark oder vollständiger Kampagnen-Balancelauf. Die vorhandenen Windows-/Ubuntu-Betaarchive bleiben unverändert.

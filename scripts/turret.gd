@@ -261,9 +261,11 @@ func fire() -> bool:
 func _draw() -> void:
 	draw_ellipse_shadow()
 	MachineryArt.paint(self,"mount",Rect2(-32,-44,65,44))
-	draw_rect(Rect2(-32,-19,18,15),Color("30392e"))
-	for i in 5:
-		draw_rect(Rect2(-30+i*3,-17,2,9),Color("b69b60"))
+	# Open ammunition can beside the mount, hand-drawn at one texel per world
+	# unit (tools/world_density_bake.json, "ammo_box"); it stands on the roof.
+	var ammo_can := WorldTexels.authored("ammo_box")
+	if ammo_can != null:
+		draw_texture(ammo_can, Vector2(-33,-15))
 	if reload_timer > 0:
 		Art.bar(self, Rect2(-31, -72, 62, 4), 1.0 - reload_timer / 1.05, Art.AMBER)
 	if is_instance_valid(occupant):
@@ -276,5 +278,5 @@ func draw_ellipse_shadow() -> void:
 	draw_rect(Rect2(-36, 0, 72, 4), Color(0, 0, 0, 0.3))
 
 func _draw_weapon() -> void:
-	MachineryArt.paint(barrel,"barrel",Rect2(-25-recoil,-16,95,34))
+	MachineryArt.paint_turned(barrel,"barrel",Rect2(-25-recoil,-16,95,34))
 	WeaponEffectArt.muzzle(barrel,Vector2(70-recoil,0),flash,0.085,1,1.15,flash_tick,WeaponEffectArt.reduced(game))

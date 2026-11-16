@@ -41,11 +41,21 @@ func verify_court(game: Node2D, expected_fronts: int,label: String) -> void:
 	check(ends_join,label + ": continuous rear fence joins the bunker and overlaps the outer gate heel without open end gaps")
 	var lamps_correct := true
 	for lamp: Sprite2D in courtyard.lamps:
-		lamps_correct = lamps_correct and lamp.texture == CATALOG.ATLAS and lamp.material == ART.lamp_material()
-		lamps_correct = lamps_correct and is_equal_approx(lamp.position.y + lamp.region_rect.size.y * lamp.scale.y,game.perimeter.layout.ground_y)
+		# The lamp is its world-texel bake drawn 1:1 (tools/world_density_bake.json).
+		var baked: bool = lamp.texture is AtlasTexture and (lamp.texture as AtlasTexture).atlas.resource_path.ends_with("courtyard_world.png") and lamp.scale == Vector2.ONE and not lamp.region_enabled
+		lamps_correct = lamps_correct and baked and lamp.material == ART.lamp_material()
+		lamps_correct = lamps_correct and is_equal_approx(lamp.position.y + lamp.texture.get_height(),game.perimeter.layout.ground_y)
 	check(lamps_correct,label + ": lamp feet stay on ground and share the GPU animation material")
 	check(courtyard.find_children("*","CollisionObject2D",true,false).is_empty() and not courtyard.is_processing() and not courtyard.is_physics_processing(),label + ": courtyard adds no collision bodies or per-frame loops")
 	check(courtyard.z_index < 0 and courtyard.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST,label + ": rear mesh remains behind figures with sharp texture sampling")
+	# Machines approach from outside the perimeter: gates, mesh and towers sit
+	# one z step below them, whichever node entered the tree first.
+	var site_z := -100
+	for site in game.perimeter.sites: site_z = maxi(site_z,site.z_index)
+	for scene_path: String in ["res://scenes/enemy.tscn","res://scenes/ground_infantry.tscn","res://scenes/air_enemy.tscn"]:
+		var probe: Node2D = load(scene_path).instantiate()
+		check(site_z < probe.z_index,label + ": perimeter gates and mesh draw behind " + scene_path.get_file())
+		probe.free()
 	var before: Array = courtyard.sections.duplicate(true)
 	var lamp_ids: Array[int] = []
 	for lamp in courtyard.lamps: lamp_ids.append(lamp.get_instance_id())

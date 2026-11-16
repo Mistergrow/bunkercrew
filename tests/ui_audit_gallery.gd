@@ -5,7 +5,7 @@ const L := preload("res://scripts/locale_text.gd")
 const Roster := preload("res://scripts/crew_roster.gd")
 const Cleanup := preload("res://tests/scene_cleanup.gd")
 var output_directory := "res://artifacts/ui-hardening/"
-const RESOLUTIONS := [Vector2i(960,600),Vector2i(1440,900),Vector2i(1920,1080)]
+var resolutions: Array[Vector2i] = [Vector2i(960,600),Vector2i(1440,900),Vector2i(1920,1080)]
 var game
 var view: SubViewport
 var phase := "baseline"
@@ -280,6 +280,13 @@ func run() -> void:
 			output_directory = argument.trim_prefix("--output=").simplify_path().trim_suffix("/")+"/"
 			if not output_directory.begins_with("res://artifacts/"): quit(2); return
 		if argument.begins_with("--only="): requested_screens = argument.trim_prefix("--only=").split(",",false)
+		# Optional extra outputs, e.g. --resolutions=2560x1440,3440x1440 (QHD, ultrawide).
+		if argument.begins_with("--resolutions="):
+			resolutions.clear()
+			for entry in argument.trim_prefix("--resolutions=").split(",",false):
+				var parts := entry.split("x")
+				if parts.size()==2 and int(parts[0])>=640 and int(parts[1])>=400: resolutions.append(Vector2i(int(parts[0]),int(parts[1])))
+			if resolutions.is_empty(): quit(2); return
 	if phase not in ["baseline","final"]: quit(2); return
 	capture_enabled = "--capture" in OS.get_cmdline_user_args() and DisplayServer.get_name()!="headless"
 	AudioServer.set_bus_mute(0,true)
@@ -291,9 +298,11 @@ func run() -> void:
 	view.size_2d_override_stretch = true
 	view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(view)
-	for resolution: Vector2i in RESOLUTIONS:
+	for resolution: Vector2i in resolutions:
 		view.size = resolution
-		view.size_2d_override = Vector2i(1600,900) if resolution.x==1920 else Vector2i(1440,900)
+		# Same result as the project's canvas_items/expand stretch from 1440x900.
+		var stretch := minf(resolution.x/1440.0,resolution.y/900.0)
+		view.size_2d_override = Vector2i(roundi(resolution.x/stretch),roundi(resolution.y/stretch))
 		for locale in ["de","en"]:
 			L.set_locale(locale,false)
 			await fixture()

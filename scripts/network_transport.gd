@@ -28,6 +28,17 @@ const MAX_POLL_BYTES := 512 * 1024
 const MAX_POLL_USEC := 2000
 const MAX_BACKLOG_PACKETS := 128
 const MAX_MAPPING_JOBS := 2
+# The player cap is three guests. With admission control, a joining peer waits
+# in one of the spare native slots until the session accepts its handshake, so
+# connections without a valid invitation cannot occupy a player link.
+const MAX_GUESTS := 3
+const MAX_PENDING_PEERS := 12
+const MAX_PENDING_PER_ADDRESS := 3
+const PENDING_SECONDS := 4.0
+const PENDING_STALL := 0.25
+# A joining peer sends one Hello. This allowance is never refilled.
+const PENDING_PACKET_BURSTS := [8.0, 4.0, 4.0]
+const PENDING_BYTE_BURSTS := [16384.0, 4096.0, 4096.0]
 # Reliable state/control, sequenced input, and independent voice have separate
 # budgets. Voice cannot consume the input/control allowance.
 # Reliable input can catch up after two seconds at 60 physics ticks/second,
@@ -65,6 +76,10 @@ var remote_peers: Dictionary = {}
 var _disconnecting_peers: Dictionary = {}
 var _peer_budgets: Dictionary = {}
 var dropped_voice_packets := 0
+var admission_control := false
+var refused_peers := 0
+var _pending: Dictionary = {}
+var _pending_updated_usec := 0
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -81,7 +96,8 @@ func host(server_port: int = DEFAULT_PORT, auto_map: bool = true) -> Error:
 		error.emit("Bitte einen UDP-Port zwischen 1024 und 65535 wählen.")
 		return ERR_INVALID_PARAMETER
 	peer = ENetMultiplayerPeer.new()
-	var result := peer.create_server(server_port, 3, CHANNEL_COUNT, BANDWIDTH_BYTES*3, BANDWIDTH_BYTES*3)
+	var slots := MAX_GUESTS + (MAX_PENDING_PEERS if admission_control else 0)
+	var result := peer.create_server(server_port, slots, CHANNEL_COUNT, BANDWIDTH_BYTES*3, BANDWIDTH_BYTES*3)
 	if result != OK:
 		peer = null
 		error.emit(LocaleText.format("UDP-Port %d ist nicht verfügbar. Bitte einen anderen Port wählen.",server_port))
@@ -170,6 +186,8 @@ func close() -> void:
 	remote_peers.clear()
 	_disconnecting_peers.clear()
 	_peer_budgets.clear()
+	_pending.clear()
+	refused_peers = 0
 	connected_peer = 0
 	_disconnecting = false
 	_connecting = false
@@ -186,9 +204,57 @@ func close() -> void:
 func disconnect_guest(id: int = 0) -> void:
 	var target := id if id>0 else connected_peer
 	if peer == null or not is_host or not remote_peers.has(target): return
+	if _pending.has(target):
+		_drop_pending(target)
+		return
 	_disconnecting_peers[target]=true
 	_disconnecting=_disconnecting_peers.has(connected_peer)
 	peer.disconnect_peer(target)
+
+func admit_peer(id: int) -> bool:
+	# Called once the session has authenticated this peer's handshake.
+	if peer == null or not is_host or not remote_peers.has(id) or _disconnecting_peers.has(id): return false
+	if not _pending.has(id): return true
+	if admitted_peer_count() >= MAX_GUESTS: return false
+	_pending.erase(id)
+	_peer_budgets[id]=_new_budget(false)
+	return true
+
+func admitted_peer_count() -> int:
+	var count := 0
+	for id in remote_peers:
+		if not _pending.has(id) and not _disconnecting_peers.has(id): count += 1
+	return count
+
+func pending_peer_count() -> int:
+	return _pending.size()
+
+func _new_budget(pending: bool) -> Dictionary:
+	return {"packets":(PENDING_PACKET_BURSTS if pending else PACKET_BURSTS).duplicate(),"bytes":(PENDING_BYTE_BURSTS if pending else BYTE_BURSTS).duplicate(),"updated":Time.get_ticks_usec(),"voice":VoiceGuard.new(),"pending":pending}
+
+func _release_now(id: int, remote: ENetPacketPeer) -> void:
+	# A graceful disconnect keeps the native slot until the remote acknowledges
+	# it or times out. A peer that never authenticated gets no such grace.
+	peer.disconnect_peer(id,true)
+	if remote != null and remote.is_active(): remote.peer_disconnect_now()
+
+func _drop_pending(id: int) -> void:
+	var remote: ENetPacketPeer=remote_peers.get(id)
+	_release_now(id,remote)
+	# The forced path raises no native disconnect event; publish it here.
+	_peer_disconnected(id,_signal_epoch)
+
+func _expire_pending() -> void:
+	var now := Time.get_ticks_usec()
+	# A blocked host frame is not the joining peer's delay.
+	var step := minf(float(now-_pending_updated_usec)/1000000.0,PENDING_STALL)
+	_pending_updated_usec=now
+	for id in _pending.keys():
+		var entry: Dictionary=_pending[id]
+		entry.age=float(entry.age)+step
+		if float(entry.age)>=PENDING_SECONDS:
+			refused_peers += 1
+			_drop_pending(int(id))
 
 func round_trip_ms(id: int=0) -> float:
 	var remote: ENetPacketPeer=remote_peers.get(id if id>0 else connected_peer)
@@ -201,12 +267,24 @@ func _attach_signals() -> void:
 func _peer_connected(id: int, epoch: int) -> void:
 	if epoch != _signal_epoch or peer == null: return
 	if remote_peers.has(id): return
-	if remote_peers.size()>=(3 if is_host else 1):
+	var remote: ENetPacketPeer=peer.get_peer(id)
+	var pending := is_host and admission_control
+	if pending:
+		var address := remote.get_remote_address() if remote != null else ""
+		var same_address := 0
+		for entry: Dictionary in _pending.values():
+			if entry.address==address: same_address += 1
+		if _pending.size()>=MAX_PENDING_PEERS or same_address>=MAX_PENDING_PER_ADDRESS:
+			refused_peers += 1
+			_release_now(id,remote)
+			return
+		if _pending.is_empty(): _pending_updated_usec=Time.get_ticks_usec()
+		_pending[id]={"address":address,"age":0.0}
+	elif remote_peers.size()>=(MAX_GUESTS if is_host else 1):
 		peer.disconnect_peer(id,true)
 		return
-	var remote: ENetPacketPeer=peer.get_peer(id)
 	remote_peers[id]=remote
-	_peer_budgets[id]={"packets":PACKET_BURSTS.duplicate(),"bytes":BYTE_BURSTS.duplicate(),"updated":Time.get_ticks_usec(),"voice":VoiceGuard.new()}
+	_peer_budgets[id]=_new_budget(pending)
 	if connected_peer==0:
 		connected_peer=id
 	_connecting=false
@@ -224,6 +302,7 @@ func _peer_disconnected(id: int, epoch: int) -> void:
 	if epoch != _signal_epoch or not remote_peers.has(id): return
 	remote_peers.erase(id)
 	_peer_budgets.erase(id)
+	_pending.erase(id)
 	_disconnecting_peers.erase(id)
 	connected_peer=int(remote_peers.keys()[0]) if not remote_peers.is_empty() else 0
 	_disconnecting=_disconnecting_peers.has(connected_peer)
@@ -268,6 +347,9 @@ func _process(_delta: float) -> void:
 			close()
 			error.emit("Keine Verbindung. Gastgeber, Code und UDP-Freigabe prüfen; ein LAN-Code funktioniert nur im selben Netzwerk.")
 			return
+	if not _pending.is_empty():
+		_expire_pending()
+		if peer == null or poll_epoch != _signal_epoch: return
 	if peer.get_available_packet_count() > MAX_BACKLOG_PACKETS and remote_peers.size()==1:
 		if _backlog_started==0: _backlog_started=Time.get_ticks_usec()
 		elif Time.get_ticks_usec()-_backlog_started>1000000:
@@ -294,9 +376,10 @@ func _process(_delta: float) -> void:
 				continue
 		_packet_tokens=budget.packets
 		_byte_tokens=budget.bytes
-		_budget_updated_usec=int(budget.updated)
-		_refill_budgets(Time.get_ticks_usec())
-		budget.updated=_budget_updated_usec
+		if not budget.pending:
+			_budget_updated_usec=int(budget.updated)
+			_refill_budgets(Time.get_ticks_usec())
+			budget.updated=_budget_updated_usec
 		if not _accept_packet(channel, mode, data.size()):
 			if channel == VOICE_CHANNEL and _valid_packet_envelope(channel,mode,data.size()):
 				# Speech is disposable: a rendering stall must not terminate a match.
@@ -323,8 +406,8 @@ func _reset_budgets() -> void:
 	_byte_tokens = BYTE_BURSTS.duplicate()
 	_budget_updated_usec = Time.get_ticks_usec()
 	for budget: Dictionary in _peer_budgets.values():
-		budget.packets=PACKET_BURSTS.duplicate()
-		budget.bytes=BYTE_BURSTS.duplicate()
+		budget.packets=(PENDING_PACKET_BURSTS if budget.pending else PACKET_BURSTS).duplicate()
+		budget.bytes=(PENDING_BYTE_BURSTS if budget.pending else BYTE_BURSTS).duplicate()
 		budget.updated=_budget_updated_usec
 		budget.voice=VoiceGuard.new()
 

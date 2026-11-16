@@ -1,0 +1,6961 @@
+{
+ "asset": "chassis_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution; texels mostly covered by saturated accents keep the accents' mean colour, with accent palette entries",
+ "sources": [
+  {
+   "file": "assets/enemies/chassis_atlas_v2.png",
+   "sha256": "ccf9d4db00d7a861f05310c8a14968bb3770373df057a96ede134819042f6862"
+  }
+ ],
+ "params": {
+  "palette": 32,
+  "alpha": 0.45,
+  "sharpen": 0.65,
+  "orphan": 0.06,
+  "contour": 0.8,
+  "accent": 0.1,
+  "accent_share": 0.28,
+  "accent_light": 0.5,
+  "accent_palette": 6
+ },
+ "ink": "#151b1e",
+ "size": [
+  1024,
+  1850
+ ],
+ "items": [
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-172",
+   "region": [
+    370,
+    1666,
+    50,
+    34
+   ],
+   "offset": [
+    -25.0,
+    -17.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-155",
+   "region": [
+    421,
+    1666,
+    50,
+    34
+   ],
+   "offset": [
+    -25.0,
+    -17.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-138",
+   "region": [
+    472,
+    1666,
+    50,
+    34
+   ],
+   "offset": [
+    -25.0,
+    -17.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-120",
+   "region": [
+    266,
+    1666,
+    51,
+    34
+   ],
+   "offset": [
+    -25.0,
+    -17.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-103",
+   "region": [
+    318,
+    1666,
+    51,
+    34
+   ],
+   "offset": [
+    -25.0,
+    -17.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-86",
+   "region": [
+    439,
+    1701,
+    52,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-69",
+   "region": [
+    492,
+    1701,
+    52,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-52",
+   "region": [
+    110,
+    1735,
+    52,
+    32
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-34",
+   "region": [
+    163,
+    1735,
+    52,
+    32
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:-17",
+   "region": [
+    887,
+    1735,
+    52,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -15.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:0",
+   "region": [
+    940,
+    1735,
+    52,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -15.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:17",
+   "region": [
+    0,
+    1768,
+    52,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -15.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:34",
+   "region": [
+    216,
+    1735,
+    52,
+    32
+   ],
+   "offset": [
+    -26.0,
+    -15.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:52",
+   "region": [
+    53,
+    1768,
+    52,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -14.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:69",
+   "region": [
+    725,
+    1735,
+    53,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -14.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:86",
+   "region": [
+    779,
+    1735,
+    53,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -14.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:103",
+   "region": [
+    326,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:120",
+   "region": [
+    380,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:138",
+   "region": [
+    434,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:155",
+   "region": [
+    869,
+    1768,
+    53,
+    29
+   ],
+   "offset": [
+    -26.0,
+    -12.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|53x32|turn:172",
+   "region": [
+    923,
+    1768,
+    52,
+    29
+   ],
+   "offset": [
+    -26.0,
+    -12.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-172",
+   "region": [
+    115,
+    1517,
+    54,
+    38
+   ],
+   "offset": [
+    -27.0,
+    -19.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-155",
+   "region": [
+    59,
+    1517,
+    55,
+    38
+   ],
+   "offset": [
+    -27.0,
+    -19.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-138",
+   "region": [
+    114,
+    1594,
+    55,
+    36
+   ],
+   "offset": [
+    -27.0,
+    -18.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-120",
+   "region": [
+    875,
+    1556,
+    56,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-103",
+   "region": [
+    932,
+    1556,
+    56,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-86",
+   "region": [
+    0,
+    1594,
+    56,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-69",
+   "region": [
+    57,
+    1594,
+    56,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-52",
+   "region": [
+    801,
+    1594,
+    56,
+    35
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-34",
+   "region": [
+    627,
+    1594,
+    57,
+    35
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:-17",
+   "region": [
+    685,
+    1594,
+    57,
+    35
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:0",
+   "region": [
+    743,
+    1594,
+    57,
+    35
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:17",
+   "region": [
+    120,
+    1631,
+    58,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:34",
+   "region": [
+    179,
+    1631,
+    58,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:52",
+   "region": [
+    238,
+    1631,
+    58,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:69",
+   "region": [
+    297,
+    1631,
+    58,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:86",
+   "region": [
+    883,
+    1666,
+    58,
+    33
+   ],
+   "offset": [
+    -29.0,
+    -15.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:103",
+   "region": [
+    0,
+    1701,
+    57,
+    33
+   ],
+   "offset": [
+    -28.0,
+    -15.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:120",
+   "region": [
+    665,
+    1701,
+    57,
+    32
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:138",
+   "region": [
+    723,
+    1701,
+    57,
+    32
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:155",
+   "region": [
+    781,
+    1701,
+    57,
+    32
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|58x35|turn:172",
+   "region": [
+    447,
+    1735,
+    57,
+    31
+   ],
+   "offset": [
+    -28.0,
+    -13.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-172",
+   "region": [
+    965,
+    1594,
+    50,
+    35
+   ],
+   "offset": [
+    -25.0,
+    -18.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-155",
+   "region": [
+    282,
+    1594,
+    51,
+    36
+   ],
+   "offset": [
+    -25.0,
+    -18.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-138",
+   "region": [
+    54,
+    1666,
+    52,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-120",
+   "region": [
+    107,
+    1666,
+    52,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-103",
+   "region": [
+    160,
+    1666,
+    52,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-86",
+   "region": [
+    213,
+    1666,
+    52,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-69",
+   "region": [
+    745,
+    1631,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-52",
+   "region": [
+    799,
+    1631,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-34",
+   "region": [
+    223,
+    1701,
+    53,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:-17",
+   "region": [
+    277,
+    1701,
+    53,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:0",
+   "region": [
+    58,
+    1701,
+    54,
+    33
+   ],
+   "offset": [
+    -27.0,
+    -16.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:17",
+   "region": [
+    839,
+    1701,
+    54,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:34",
+   "region": [
+    894,
+    1701,
+    54,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:52",
+   "region": [
+    949,
+    1701,
+    54,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:69",
+   "region": [
+    0,
+    1735,
+    54,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:86",
+   "region": [
+    505,
+    1735,
+    54,
+    31
+   ],
+   "offset": [
+    -27.0,
+    -14.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:103",
+   "region": [
+    833,
+    1735,
+    53,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -14.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:120",
+   "region": [
+    488,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:138",
+   "region": [
+    542,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:155",
+   "region": [
+    596,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|54x33|turn:172",
+   "region": [
+    650,
+    1768,
+    53,
+    30
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-172",
+   "region": [
+    358,
+    1477,
+    56,
+    39
+   ],
+   "offset": [
+    -28.0,
+    -20.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-155",
+   "region": [
+    126,
+    1477,
+    57,
+    39
+   ],
+   "offset": [
+    -28.0,
+    -20.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-138",
+   "region": [
+    184,
+    1477,
+    57,
+    39
+   ],
+   "offset": [
+    -28.0,
+    -20.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-120",
+   "region": [
+    801,
+    1477,
+    58,
+    38
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-103",
+   "region": [
+    860,
+    1477,
+    58,
+    38
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-86",
+   "region": [
+    919,
+    1477,
+    58,
+    38
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-69",
+   "region": [
+    0,
+    1517,
+    58,
+    38
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-52",
+   "region": [
+    916,
+    1517,
+    58,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-34",
+   "region": [
+    616,
+    1517,
+    59,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:-17",
+   "region": [
+    676,
+    1517,
+    59,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:0",
+   "region": [
+    736,
+    1517,
+    59,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:17",
+   "region": [
+    394,
+    1556,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -17.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:34",
+   "region": [
+    455,
+    1556,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -17.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:52",
+   "region": [
+    516,
+    1556,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -17.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:69",
+   "region": [
+    386,
+    1594,
+    60,
+    35
+   ],
+   "offset": [
+    -30.0,
+    -16.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:86",
+   "region": [
+    447,
+    1594,
+    60,
+    35
+   ],
+   "offset": [
+    -30.0,
+    -16.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:103",
+   "region": [
+    508,
+    1594,
+    59,
+    35
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:120",
+   "region": [
+    0,
+    1631,
+    59,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -15.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:138",
+   "region": [
+    60,
+    1631,
+    59,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -15.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:155",
+   "region": [
+    523,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -29.0,
+    -14.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "assault",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|508,626,442,271|60x37|turn:172",
+   "region": [
+    583,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -29.0,
+    -14.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-172",
+   "region": [
+    0,
+    554,
+    86,
+    82
+   ],
+   "offset": [
+    -44.0,
+    -41.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-155",
+   "region": [
+    87,
+    554,
+    86,
+    82
+   ],
+   "offset": [
+    -44.0,
+    -41.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-138",
+   "region": [
+    174,
+    554,
+    86,
+    82
+   ],
+   "offset": [
+    -44.0,
+    -41.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-120",
+   "region": [
+    261,
+    554,
+    86,
+    82
+   ],
+   "offset": [
+    -44.0,
+    -41.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-103",
+   "region": [
+    720,
+    554,
+    86,
+    80
+   ],
+   "offset": [
+    -44.0,
+    -40.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-86",
+   "region": [
+    807,
+    554,
+    86,
+    80
+   ],
+   "offset": [
+    -44.0,
+    -40.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-69",
+   "region": [
+    894,
+    554,
+    86,
+    80
+   ],
+   "offset": [
+    -44.0,
+    -40.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-52",
+   "region": [
+    632,
+    554,
+    87,
+    80
+   ],
+   "offset": [
+    -44.0,
+    -40.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-34",
+   "region": [
+    892,
+    637,
+    87,
+    78
+   ],
+   "offset": [
+    -44.0,
+    -39.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:-17",
+   "region": [
+    0,
+    718,
+    87,
+    78
+   ],
+   "offset": [
+    -44.0,
+    -39.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:0",
+   "region": [
+    447,
+    718,
+    86,
+    77
+   ],
+   "offset": [
+    -43.0,
+    -38.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:17",
+   "region": [
+    264,
+    718,
+    86,
+    78
+   ],
+   "offset": [
+    -43.0,
+    -38.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:34",
+   "region": [
+    88,
+    718,
+    87,
+    78
+   ],
+   "offset": [
+    -43.0,
+    -38.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:52",
+   "region": [
+    176,
+    718,
+    87,
+    78
+   ],
+   "offset": [
+    -43.0,
+    -38.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:69",
+   "region": [
+    449,
+    637,
+    86,
+    79
+   ],
+   "offset": [
+    -42.0,
+    -38.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:86",
+   "region": [
+    536,
+    637,
+    86,
+    79
+   ],
+   "offset": [
+    -42.0,
+    -38.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:103",
+   "region": [
+    623,
+    637,
+    86,
+    79
+   ],
+   "offset": [
+    -42.0,
+    -38.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:120",
+   "region": [
+    710,
+    637,
+    85,
+    79
+   ],
+   "offset": [
+    -41.0,
+    -38.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:138",
+   "region": [
+    0,
+    637,
+    85,
+    80
+   ],
+   "offset": [
+    -41.0,
+    -38.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:155",
+   "region": [
+    86,
+    637,
+    85,
+    80
+   ],
+   "offset": [
+    -41.0,
+    -38.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|87x78|turn:172",
+   "region": [
+    172,
+    637,
+    85,
+    80
+   ],
+   "offset": [
+    -41.0,
+    -38.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-172",
+   "region": [
+    95,
+    196,
+    94,
+    90
+   ],
+   "offset": [
+    -48.0,
+    -45.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-155",
+   "region": [
+    190,
+    196,
+    94,
+    90
+   ],
+   "offset": [
+    -48.0,
+    -45.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-138",
+   "region": [
+    285,
+    196,
+    94,
+    90
+   ],
+   "offset": [
+    -48.0,
+    -45.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-120",
+   "region": [
+    380,
+    196,
+    94,
+    90
+   ],
+   "offset": [
+    -48.0,
+    -45.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-103",
+   "region": [
+    475,
+    196,
+    94,
+    89
+   ],
+   "offset": [
+    -48.0,
+    -45.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-86",
+   "region": [
+    666,
+    196,
+    94,
+    88
+   ],
+   "offset": [
+    -48.0,
+    -44.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-69",
+   "region": [
+    761,
+    196,
+    94,
+    88
+   ],
+   "offset": [
+    -48.0,
+    -44.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-52",
+   "region": [
+    570,
+    196,
+    95,
+    88
+   ],
+   "offset": [
+    -48.0,
+    -44.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-34",
+   "region": [
+    620,
+    379,
+    95,
+    86
+   ],
+   "offset": [
+    -48.0,
+    -43.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:-17",
+   "region": [
+    716,
+    379,
+    95,
+    86
+   ],
+   "offset": [
+    -48.0,
+    -43.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:0",
+   "region": [
+    518,
+    467,
+    94,
+    85
+   ],
+   "offset": [
+    -47.0,
+    -42.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:17",
+   "region": [
+    908,
+    379,
+    94,
+    86
+   ],
+   "offset": [
+    -47.0,
+    -42.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:34",
+   "region": [
+    812,
+    379,
+    95,
+    86
+   ],
+   "offset": [
+    -47.0,
+    -42.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:52",
+   "region": [
+    802,
+    290,
+    95,
+    87
+   ],
+   "offset": [
+    -47.0,
+    -42.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:69",
+   "region": [
+    898,
+    290,
+    94,
+    87
+   ],
+   "offset": [
+    -46.0,
+    -42.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:86",
+   "region": [
+    0,
+    379,
+    94,
+    87
+   ],
+   "offset": [
+    -46.0,
+    -42.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:103",
+   "region": [
+    95,
+    379,
+    94,
+    87
+   ],
+   "offset": [
+    -46.0,
+    -42.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:120",
+   "region": [
+    856,
+    196,
+    93,
+    88
+   ],
+   "offset": [
+    -45.0,
+    -42.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:138",
+   "region": [
+    0,
+    290,
+    93,
+    88
+   ],
+   "offset": [
+    -45.0,
+    -42.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:155",
+   "region": [
+    94,
+    290,
+    93,
+    88
+   ],
+   "offset": [
+    -45.0,
+    -42.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x86|turn:172",
+   "region": [
+    188,
+    290,
+    93,
+    88
+   ],
+   "offset": [
+    -45.0,
+    -42.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-172",
+   "region": [
+    630,
+    290,
+    85,
+    88
+   ],
+   "offset": [
+    -43.0,
+    -44.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-155",
+   "region": [
+    716,
+    290,
+    85,
+    88
+   ],
+   "offset": [
+    -43.0,
+    -44.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-138",
+   "region": [
+    282,
+    290,
+    86,
+    88
+   ],
+   "offset": [
+    -44.0,
+    -44.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-120",
+   "region": [
+    369,
+    290,
+    86,
+    88
+   ],
+   "offset": [
+    -44.0,
+    -44.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-103",
+   "region": [
+    456,
+    290,
+    86,
+    88
+   ],
+   "offset": [
+    -44.0,
+    -44.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-86",
+   "region": [
+    543,
+    290,
+    86,
+    88
+   ],
+   "offset": [
+    -44.0,
+    -44.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-69",
+   "region": [
+    0,
+    467,
+    86,
+    86
+   ],
+   "offset": [
+    -44.0,
+    -43.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-52",
+   "region": [
+    174,
+    467,
+    85,
+    86
+   ],
+   "offset": [
+    -43.0,
+    -43.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-34",
+   "region": [
+    260,
+    467,
+    85,
+    86
+   ],
+   "offset": [
+    -43.0,
+    -43.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:-17",
+   "region": [
+    873,
+    467,
+    86,
+    84
+   ],
+   "offset": [
+    -43.0,
+    -42.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:0",
+   "region": [
+    613,
+    467,
+    86,
+    85
+   ],
+   "offset": [
+    -43.0,
+    -42.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:17",
+   "region": [
+    700,
+    467,
+    86,
+    85
+   ],
+   "offset": [
+    -43.0,
+    -42.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:34",
+   "region": [
+    787,
+    467,
+    85,
+    85
+   ],
+   "offset": [
+    -42.0,
+    -41.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:52",
+   "region": [
+    346,
+    467,
+    85,
+    86
+   ],
+   "offset": [
+    -42.0,
+    -42.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:69",
+   "region": [
+    432,
+    467,
+    85,
+    86
+   ],
+   "offset": [
+    -42.0,
+    -42.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:86",
+   "region": [
+    87,
+    467,
+    86,
+    86
+   ],
+   "offset": [
+    -42.0,
+    -42.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:103",
+   "region": [
+    190,
+    379,
+    85,
+    87
+   ],
+   "offset": [
+    -41.0,
+    -42.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:120",
+   "region": [
+    276,
+    379,
+    85,
+    87
+   ],
+   "offset": [
+    -41.0,
+    -42.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:138",
+   "region": [
+    362,
+    379,
+    85,
+    87
+   ],
+   "offset": [
+    -41.0,
+    -42.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:155",
+   "region": [
+    448,
+    379,
+    85,
+    87
+   ],
+   "offset": [
+    -41.0,
+    -42.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|86x85|turn:172",
+   "region": [
+    534,
+    379,
+    85,
+    87
+   ],
+   "offset": [
+    -41.0,
+    -42.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-172",
+   "region": [
+    0,
+    0,
+    94,
+    98
+   ],
+   "offset": [
+    -48.0,
+    -49.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-155",
+   "region": [
+    95,
+    0,
+    94,
+    98
+   ],
+   "offset": [
+    -48.0,
+    -49.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-138",
+   "region": [
+    190,
+    0,
+    94,
+    98
+   ],
+   "offset": [
+    -48.0,
+    -49.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-120",
+   "region": [
+    285,
+    0,
+    94,
+    97
+   ],
+   "offset": [
+    -48.0,
+    -49.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-103",
+   "region": [
+    380,
+    0,
+    94,
+    97
+   ],
+   "offset": [
+    -48.0,
+    -49.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-86",
+   "region": [
+    475,
+    0,
+    94,
+    96
+   ],
+   "offset": [
+    -48.0,
+    -48.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-69",
+   "region": [
+    570,
+    0,
+    94,
+    96
+   ],
+   "offset": [
+    -48.0,
+    -48.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-52",
+   "region": [
+    94,
+    99,
+    95,
+    95
+   ],
+   "offset": [
+    -48.0,
+    -48.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-34",
+   "region": [
+    475,
+    99,
+    95,
+    94
+   ],
+   "offset": [
+    -48.0,
+    -47.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:-17",
+   "region": [
+    571,
+    99,
+    95,
+    94
+   ],
+   "offset": [
+    -48.0,
+    -47.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:0",
+   "region": [
+    0,
+    196,
+    94,
+    93
+   ],
+   "offset": [
+    -47.0,
+    -46.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:17",
+   "region": [
+    859,
+    99,
+    94,
+    94
+   ],
+   "offset": [
+    -47.0,
+    -46.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:34",
+   "region": [
+    667,
+    99,
+    95,
+    94
+   ],
+   "offset": [
+    -47.0,
+    -46.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:52",
+   "region": [
+    763,
+    99,
+    95,
+    94
+   ],
+   "offset": [
+    -47.0,
+    -46.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:69",
+   "region": [
+    190,
+    99,
+    94,
+    95
+   ],
+   "offset": [
+    -46.0,
+    -46.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:86",
+   "region": [
+    285,
+    99,
+    94,
+    95
+   ],
+   "offset": [
+    -46.0,
+    -46.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:103",
+   "region": [
+    380,
+    99,
+    94,
+    95
+   ],
+   "offset": [
+    -46.0,
+    -46.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:120",
+   "region": [
+    665,
+    0,
+    93,
+    96
+   ],
+   "offset": [
+    -45.0,
+    -46.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:138",
+   "region": [
+    759,
+    0,
+    93,
+    96
+   ],
+   "offset": [
+    -45.0,
+    -46.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:155",
+   "region": [
+    853,
+    0,
+    93,
+    96
+   ],
+   "offset": [
+    -45.0,
+    -46.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "colossus",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|47,513,433,428|95x94|turn:172",
+   "region": [
+    0,
+    99,
+    93,
+    96
+   ],
+   "offset": [
+    -45.0,
+    -46.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-172",
+   "region": [
+    620,
+    1120,
+    71,
+    47
+   ],
+   "offset": [
+    -36.0,
+    -24.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-155",
+   "region": [
+    466,
+    1169,
+    71,
+    46
+   ],
+   "offset": [
+    -36.0,
+    -23.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-138",
+   "region": [
+    318,
+    1216,
+    72,
+    45
+   ],
+   "offset": [
+    -36.0,
+    -23.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-120",
+   "region": [
+    392,
+    1307,
+    73,
+    43
+   ],
+   "offset": [
+    -37.0,
+    -22.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-103",
+   "region": [
+    466,
+    1307,
+    73,
+    43
+   ],
+   "offset": [
+    -37.0,
+    -22.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-86",
+   "region": [
+    0,
+    1394,
+    74,
+    41
+   ],
+   "offset": [
+    -37.0,
+    -21.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-69",
+   "region": [
+    617,
+    1394,
+    74,
+    40
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-52",
+   "region": [
+    857,
+    1436,
+    74,
+    39
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-34",
+   "region": [
+    222,
+    1517,
+    74,
+    37
+   ],
+   "offset": [
+    -37.0,
+    -19.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:-17",
+   "region": [
+    604,
+    1477,
+    74,
+    38
+   ],
+   "offset": [
+    -37.0,
+    -19.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:0",
+   "region": [
+    297,
+    1517,
+    74,
+    37
+   ],
+   "offset": [
+    -37.0,
+    -18.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:17",
+   "region": [
+    781,
+    1436,
+    75,
+    39
+   ],
+   "offset": [
+    -37.0,
+    -19.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:34",
+   "region": [
+    465,
+    1394,
+    75,
+    40
+   ],
+   "offset": [
+    -37.0,
+    -19.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:52",
+   "region": [
+    541,
+    1394,
+    75,
+    40
+   ],
+   "offset": [
+    -37.0,
+    -19.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:69",
+   "region": [
+    242,
+    1351,
+    75,
+    42
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:86",
+   "region": [
+    318,
+    1351,
+    75,
+    42
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:103",
+   "region": [
+    316,
+    1307,
+    75,
+    43
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:120",
+   "region": [
+    762,
+    1216,
+    75,
+    44
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:138",
+   "region": [
+    838,
+    1216,
+    75,
+    44
+   ],
+   "offset": [
+    -37.0,
+    -20.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:155",
+   "region": [
+    239,
+    1169,
+    75,
+    46
+   ],
+   "offset": [
+    -37.0,
+    -21.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|75x38|turn:172",
+   "region": [
+    391,
+    1169,
+    74,
+    46
+   ],
+   "offset": [
+    -36.0,
+    -21.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-172",
+   "region": [
+    464,
+    1017,
+    77,
+    51
+   ],
+   "offset": [
+    -39.0,
+    -26.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-155",
+   "region": [
+    250,
+    1070,
+    79,
+    49
+   ],
+   "offset": [
+    -40.0,
+    -25.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-138",
+   "region": [
+    330,
+    1070,
+    79,
+    49
+   ],
+   "offset": [
+    -40.0,
+    -25.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-120",
+   "region": [
+    385,
+    1120,
+    79,
+    47
+   ],
+   "offset": [
+    -40.0,
+    -24.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-103",
+   "region": [
+    0,
+    1169,
+    80,
+    46
+   ],
+   "offset": [
+    -40.0,
+    -23.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-86",
+   "region": [
+    0,
+    1216,
+    80,
+    45
+   ],
+   "offset": [
+    -40.0,
+    -23.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-69",
+   "region": [
+    0,
+    1307,
+    81,
+    43
+   ],
+   "offset": [
+    -41.0,
+    -22.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-52",
+   "region": [
+    752,
+    1351,
+    81,
+    41
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-34",
+   "region": [
+    586,
+    1351,
+    82,
+    41
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:-17",
+   "region": [
+    382,
+    1394,
+    82,
+    40
+   ],
+   "offset": [
+    -41.0,
+    -20.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:0",
+   "region": [
+    669,
+    1351,
+    82,
+    41
+   ],
+   "offset": [
+    -41.0,
+    -20.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:17",
+   "region": [
+    0,
+    1351,
+    82,
+    42
+   ],
+   "offset": [
+    -41.0,
+    -20.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:34",
+   "region": [
+    937,
+    1262,
+    82,
+    43
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:52",
+   "region": [
+    679,
+    1216,
+    82,
+    44
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:69",
+   "region": [
+    848,
+    1169,
+    83,
+    45
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:86",
+   "region": [
+    932,
+    1169,
+    83,
+    45
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:103",
+   "region": [
+    301,
+    1120,
+    83,
+    47
+   ],
+   "offset": [
+    -41.0,
+    -22.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:120",
+   "region": [
+    726,
+    1070,
+    83,
+    48
+   ],
+   "offset": [
+    -41.0,
+    -22.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:138",
+   "region": [
+    810,
+    1070,
+    82,
+    48
+   ],
+   "offset": [
+    -40.0,
+    -22.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:155",
+   "region": [
+    84,
+    1070,
+    82,
+    49
+   ],
+   "offset": [
+    -40.0,
+    -22.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|82x41|turn:172",
+   "region": [
+    167,
+    1070,
+    82,
+    49
+   ],
+   "offset": [
+    -40.0,
+    -22.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-172",
+   "region": [
+    893,
+    1070,
+    73,
+    48
+   ],
+   "offset": [
+    -37.0,
+    -24.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-155",
+   "region": [
+    544,
+    1120,
+    75,
+    47
+   ],
+   "offset": [
+    -38.0,
+    -24.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-138",
+   "region": [
+    315,
+    1169,
+    75,
+    46
+   ],
+   "offset": [
+    -38.0,
+    -23.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-120",
+   "region": [
+    241,
+    1216,
+    76,
+    45
+   ],
+   "offset": [
+    -38.0,
+    -23.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-103",
+   "region": [
+    162,
+    1307,
+    76,
+    43
+   ],
+   "offset": [
+    -38.0,
+    -22.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-86",
+   "region": [
+    239,
+    1307,
+    76,
+    43
+   ],
+   "offset": [
+    -38.0,
+    -22.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-69",
+   "region": [
+    913,
+    1351,
+    77,
+    41
+   ],
+   "offset": [
+    -39.0,
+    -21.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-52",
+   "region": [
+    703,
+    1436,
+    77,
+    39
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-34",
+   "region": [
+    466,
+    1436,
+    78,
+    39
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:-17",
+   "region": [
+    525,
+    1477,
+    78,
+    38
+   ],
+   "offset": [
+    -39.0,
+    -19.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:0",
+   "region": [
+    545,
+    1436,
+    78,
+    39
+   ],
+   "offset": [
+    -39.0,
+    -19.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:17",
+   "region": [
+    624,
+    1436,
+    78,
+    39
+   ],
+   "offset": [
+    -39.0,
+    -19.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:34",
+   "region": [
+    834,
+    1351,
+    78,
+    41
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:52",
+   "region": [
+    163,
+    1351,
+    78,
+    42
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:69",
+   "region": [
+    83,
+    1351,
+    79,
+    42
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:86",
+   "region": [
+    82,
+    1307,
+    79,
+    43
+   ],
+   "offset": [
+    -39.0,
+    -20.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:103",
+   "region": [
+    81,
+    1216,
+    79,
+    45
+   ],
+   "offset": [
+    -39.0,
+    -21.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:120",
+   "region": [
+    161,
+    1216,
+    79,
+    45
+   ],
+   "offset": [
+    -39.0,
+    -21.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:138",
+   "region": [
+    81,
+    1169,
+    78,
+    46
+   ],
+   "offset": [
+    -38.0,
+    -21.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:155",
+   "region": [
+    160,
+    1169,
+    78,
+    46
+   ],
+   "offset": [
+    -38.0,
+    -21.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|78x39|turn:172",
+   "region": [
+    465,
+    1120,
+    78,
+    47
+   ],
+   "offset": [
+    -38.0,
+    -21.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-172",
+   "region": [
+    888,
+    948,
+    81,
+    53
+   ],
+   "offset": [
+    -41.0,
+    -27.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-155",
+   "region": [
+    0,
+    1017,
+    82,
+    52
+   ],
+   "offset": [
+    -41.0,
+    -26.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-138",
+   "region": [
+    380,
+    1017,
+    83,
+    51
+   ],
+   "offset": [
+    -42.0,
+    -26.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-120",
+   "region": [
+    0,
+    1070,
+    83,
+    49
+   ],
+   "offset": [
+    -42.0,
+    -25.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-103",
+   "region": [
+    641,
+    1070,
+    84,
+    48
+   ],
+   "offset": [
+    -42.0,
+    -24.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-86",
+   "region": [
+    216,
+    1120,
+    84,
+    47
+   ],
+   "offset": [
+    -42.0,
+    -24.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-69",
+   "region": [
+    762,
+    1169,
+    85,
+    45
+   ],
+   "offset": [
+    -43.0,
+    -23.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-52",
+   "region": [
+    851,
+    1262,
+    85,
+    43
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-34",
+   "region": [
+    677,
+    1262,
+    86,
+    43
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:-17",
+   "region": [
+    867,
+    1307,
+    86,
+    42
+   ],
+   "offset": [
+    -43.0,
+    -21.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:0",
+   "region": [
+    764,
+    1262,
+    86,
+    43
+   ],
+   "offset": [
+    -43.0,
+    -21.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:17",
+   "region": [
+    592,
+    1216,
+    86,
+    44
+   ],
+   "offset": [
+    -43.0,
+    -21.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:34",
+   "region": [
+    675,
+    1169,
+    86,
+    45
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:52",
+   "region": [
+    900,
+    1120,
+    86,
+    46
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:69",
+   "region": [
+    128,
+    1120,
+    87,
+    47
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:86",
+   "region": [
+    553,
+    1070,
+    87,
+    48
+   ],
+   "offset": [
+    -43.0,
+    -23.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:103",
+   "region": [
+    858,
+    1017,
+    87,
+    49
+   ],
+   "offset": [
+    -43.0,
+    -23.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:120",
+   "region": [
+    542,
+    1017,
+    87,
+    50
+   ],
+   "offset": [
+    -43.0,
+    -23.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:138",
+   "region": [
+    630,
+    1017,
+    86,
+    50
+   ],
+   "offset": [
+    -42.0,
+    -23.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:155",
+   "region": [
+    293,
+    1017,
+    86,
+    51
+   ],
+   "offset": [
+    -42.0,
+    -23.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "breaker",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|1012,232,489,245|86x43|turn:172",
+   "region": [
+    801,
+    948,
+    86,
+    53
+   ],
+   "offset": [
+    -42.0,
+    -24.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-172",
+   "region": [
+    170,
+    1517,
+    51,
+    38
+   ],
+   "offset": [
+    -25.0,
+    -20.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-155",
+   "region": [
+    342,
+    1556,
+    51,
+    37
+   ],
+   "offset": [
+    -25.0,
+    -19.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-138",
+   "region": [
+    334,
+    1594,
+    51,
+    36
+   ],
+   "offset": [
+    -25.0,
+    -19.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-120",
+   "region": [
+    912,
+    1594,
+    52,
+    35
+   ],
+   "offset": [
+    -26.0,
+    -18.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-103",
+   "region": [
+    858,
+    1594,
+    53,
+    35
+   ],
+   "offset": [
+    -26.0,
+    -18.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-86",
+   "region": [
+    853,
+    1631,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-69",
+   "region": [
+    907,
+    1631,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -17.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-52",
+   "region": [
+    331,
+    1701,
+    53,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-34",
+   "region": [
+    55,
+    1735,
+    54,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -16.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:-17",
+   "region": [
+    560,
+    1735,
+    54,
+    31
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:0",
+   "region": [
+    615,
+    1735,
+    54,
+    31
+   ],
+   "offset": [
+    -27.0,
+    -15.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:17",
+   "region": [
+    106,
+    1768,
+    54,
+    30
+   ],
+   "offset": [
+    -27.0,
+    -14.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:34",
+   "region": [
+    670,
+    1735,
+    54,
+    31
+   ],
+   "offset": [
+    -27.0,
+    -14.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:52",
+   "region": [
+    161,
+    1768,
+    54,
+    30
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:69",
+   "region": [
+    216,
+    1768,
+    54,
+    30
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:86",
+   "region": [
+    271,
+    1768,
+    54,
+    30
+   ],
+   "offset": [
+    -27.0,
+    -12.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:103",
+   "region": [
+    704,
+    1768,
+    54,
+    29
+   ],
+   "offset": [
+    -27.0,
+    -11.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:120",
+   "region": [
+    759,
+    1768,
+    54,
+    29
+   ],
+   "offset": [
+    -27.0,
+    -11.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:138",
+   "region": [
+    0,
+    1800,
+    54,
+    28
+   ],
+   "offset": [
+    -27.0,
+    -10.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:155",
+   "region": [
+    814,
+    1768,
+    54,
+    29
+   ],
+   "offset": [
+    -27.0,
+    -10.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|54x31|turn:172",
+   "region": [
+    55,
+    1800,
+    53,
+    28
+   ],
+   "offset": [
+    -27.0,
+    -9.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-172",
+   "region": [
+    326,
+    1394,
+    55,
+    41
+   ],
+   "offset": [
+    -27.0,
+    -22.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-155",
+   "region": [
+    247,
+    1436,
+    56,
+    40
+   ],
+   "offset": [
+    -27.0,
+    -21.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-138",
+   "region": [
+    189,
+    1436,
+    57,
+    40
+   ],
+   "offset": [
+    -28.0,
+    -21.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-120",
+   "region": [
+    242,
+    1477,
+    57,
+    39
+   ],
+   "offset": [
+    -28.0,
+    -20.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-103",
+   "region": [
+    300,
+    1477,
+    57,
+    39
+   ],
+   "offset": [
+    -28.0,
+    -20.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-86",
+   "region": [
+    0,
+    1556,
+    58,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-69",
+   "region": [
+    59,
+    1556,
+    58,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -19.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-52",
+   "region": [
+    757,
+    1556,
+    58,
+    36
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-34",
+   "region": [
+    816,
+    1556,
+    58,
+    36
+   ],
+   "offset": [
+    -29.0,
+    -18.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:-17",
+   "region": [
+    568,
+    1594,
+    58,
+    35
+   ],
+   "offset": [
+    -29.0,
+    -17.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:0",
+   "region": [
+    942,
+    1666,
+    58,
+    33
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:17",
+   "region": [
+    356,
+    1631,
+    58,
+    34
+   ],
+   "offset": [
+    -29.0,
+    -16.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:34",
+   "region": [
+    643,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -30.0,
+    -15.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:52",
+   "region": [
+    703,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -30.0,
+    -15.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:69",
+   "region": [
+    763,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -30.0,
+    -14.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:86",
+   "region": [
+    545,
+    1701,
+    59,
+    32
+   ],
+   "offset": [
+    -30.0,
+    -13.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:103",
+   "region": [
+    823,
+    1666,
+    59,
+    33
+   ],
+   "offset": [
+    -30.0,
+    -13.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:120",
+   "region": [
+    605,
+    1701,
+    59,
+    32
+   ],
+   "offset": [
+    -30.0,
+    -12.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:138",
+   "region": [
+    269,
+    1735,
+    59,
+    31
+   ],
+   "offset": [
+    -30.0,
+    -11.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:155",
+   "region": [
+    329,
+    1735,
+    58,
+    31
+   ],
+   "offset": [
+    -29.0,
+    -11.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|59x34|turn:172",
+   "region": [
+    388,
+    1735,
+    58,
+    31
+   ],
+   "offset": [
+    -29.0,
+    -10.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-172",
+   "region": [
+    300,
+    1800,
+    33,
+    25
+   ],
+   "offset": [
+    -16.0,
+    -13.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-155",
+   "region": [
+    451,
+    1800,
+    33,
+    24
+   ],
+   "offset": [
+    -16.0,
+    -12.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-138",
+   "region": [
+    598,
+    1800,
+    33,
+    23
+   ],
+   "offset": [
+    -16.0,
+    -12.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-120",
+   "region": [
+    563,
+    1800,
+    34,
+    23
+   ],
+   "offset": [
+    -17.0,
+    -12.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-103",
+   "region": [
+    710,
+    1800,
+    34,
+    22
+   ],
+   "offset": [
+    -17.0,
+    -11.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-86",
+   "region": [
+    745,
+    1800,
+    34,
+    22
+   ],
+   "offset": [
+    -17.0,
+    -11.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-69",
+   "region": [
+    780,
+    1800,
+    34,
+    22
+   ],
+   "offset": [
+    -17.0,
+    -11.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-52",
+   "region": [
+    0,
+    1829,
+    34,
+    21
+   ],
+   "offset": [
+    -17.0,
+    -10.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-34",
+   "region": [
+    35,
+    1829,
+    34,
+    21
+   ],
+   "offset": [
+    -17.0,
+    -10.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:-17",
+   "region": [
+    70,
+    1829,
+    34,
+    21
+   ],
+   "offset": [
+    -17.0,
+    -10.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:0",
+   "region": [
+    514,
+    1829,
+    34,
+    19
+   ],
+   "offset": [
+    -17.0,
+    -9.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:17",
+   "region": [
+    335,
+    1829,
+    34,
+    20
+   ],
+   "offset": [
+    -17.0,
+    -9.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:34",
+   "region": [
+    263,
+    1829,
+    35,
+    20
+   ],
+   "offset": [
+    -18.0,
+    -9.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:52",
+   "region": [
+    370,
+    1829,
+    35,
+    19
+   ],
+   "offset": [
+    -18.0,
+    -8.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:69",
+   "region": [
+    406,
+    1829,
+    35,
+    19
+   ],
+   "offset": [
+    -18.0,
+    -8.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:86",
+   "region": [
+    299,
+    1829,
+    35,
+    20
+   ],
+   "offset": [
+    -18.0,
+    -8.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:103",
+   "region": [
+    442,
+    1829,
+    35,
+    19
+   ],
+   "offset": [
+    -18.0,
+    -7.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:120",
+   "region": [
+    478,
+    1829,
+    35,
+    19
+   ],
+   "offset": [
+    -18.0,
+    -7.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:138",
+   "region": [
+    549,
+    1829,
+    34,
+    18
+   ],
+   "offset": [
+    -17.0,
+    -6.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:155",
+   "region": [
+    584,
+    1829,
+    34,
+    18
+   ],
+   "offset": [
+    -17.0,
+    -6.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|35x20|turn:172",
+   "region": [
+    619,
+    1829,
+    34,
+    18
+   ],
+   "offset": [
+    -17.0,
+    -5.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-172",
+   "region": [
+    109,
+    1800,
+    37,
+    27
+   ],
+   "offset": [
+    -18.0,
+    -14.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-155",
+   "region": [
+    147,
+    1800,
+    37,
+    27
+   ],
+   "offset": [
+    -18.0,
+    -14.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-138",
+   "region": [
+    185,
+    1800,
+    37,
+    26
+   ],
+   "offset": [
+    -18.0,
+    -13.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-120",
+   "region": [
+    262,
+    1800,
+    37,
+    25
+   ],
+   "offset": [
+    -18.0,
+    -13.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-103",
+   "region": [
+    223,
+    1800,
+    38,
+    25
+   ],
+   "offset": [
+    -19.0,
+    -13.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-86",
+   "region": [
+    334,
+    1800,
+    38,
+    24
+   ],
+   "offset": [
+    -19.0,
+    -12.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-69",
+   "region": [
+    373,
+    1800,
+    38,
+    24
+   ],
+   "offset": [
+    -19.0,
+    -12.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-52",
+   "region": [
+    412,
+    1800,
+    38,
+    24
+   ],
+   "offset": [
+    -19.0,
+    -12.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-34",
+   "region": [
+    485,
+    1800,
+    38,
+    23
+   ],
+   "offset": [
+    -19.0,
+    -11.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:-17",
+   "region": [
+    524,
+    1800,
+    38,
+    23
+   ],
+   "offset": [
+    -19.0,
+    -11.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:0",
+   "region": [
+    975,
+    1800,
+    38,
+    21
+   ],
+   "offset": [
+    -19.0,
+    -10.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:17",
+   "region": [
+    632,
+    1800,
+    38,
+    22
+   ],
+   "offset": [
+    -19.0,
+    -10.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:34",
+   "region": [
+    671,
+    1800,
+    38,
+    22
+   ],
+   "offset": [
+    -19.0,
+    -10.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:52",
+   "region": [
+    815,
+    1800,
+    39,
+    21
+   ],
+   "offset": [
+    -20.0,
+    -9.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:69",
+   "region": [
+    855,
+    1800,
+    39,
+    21
+   ],
+   "offset": [
+    -20.0,
+    -9.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:86",
+   "region": [
+    895,
+    1800,
+    39,
+    21
+   ],
+   "offset": [
+    -20.0,
+    -8.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:103",
+   "region": [
+    935,
+    1800,
+    39,
+    21
+   ],
+   "offset": [
+    -20.0,
+    -8.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:120",
+   "region": [
+    105,
+    1829,
+    39,
+    20
+   ],
+   "offset": [
+    -20.0,
+    -7.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:138",
+   "region": [
+    145,
+    1829,
+    39,
+    20
+   ],
+   "offset": [
+    -20.0,
+    -7.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:155",
+   "region": [
+    185,
+    1829,
+    38,
+    20
+   ],
+   "offset": [
+    -19.0,
+    -7.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "runner",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|96,243,344,198|39x22|turn:172",
+   "region": [
+    224,
+    1829,
+    38,
+    20
+   ],
+   "offset": [
+    -19.0,
+    -6.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-172",
+   "region": [
+    304,
+    1436,
+    53,
+    40
+   ],
+   "offset": [
+    -27.0,
+    -19.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-155",
+   "region": [
+    358,
+    1436,
+    53,
+    40
+   ],
+   "offset": [
+    -27.0,
+    -19.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-138",
+   "region": [
+    412,
+    1436,
+    53,
+    40
+   ],
+   "offset": [
+    -27.0,
+    -19.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-120",
+   "region": [
+    415,
+    1477,
+    54,
+    39
+   ],
+   "offset": [
+    -27.0,
+    -19.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-103",
+   "region": [
+    470,
+    1477,
+    54,
+    39
+   ],
+   "offset": [
+    -27.0,
+    -19.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-86",
+   "region": [
+    232,
+    1556,
+    54,
+    37
+   ],
+   "offset": [
+    -27.0,
+    -18.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-69",
+   "region": [
+    287,
+    1556,
+    54,
+    37
+   ],
+   "offset": [
+    -27.0,
+    -18.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-52",
+   "region": [
+    176,
+    1556,
+    55,
+    37
+   ],
+   "offset": [
+    -28.0,
+    -18.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-34",
+   "region": [
+    170,
+    1594,
+    55,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:-17",
+   "region": [
+    226,
+    1594,
+    55,
+    36
+   ],
+   "offset": [
+    -28.0,
+    -18.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:0",
+   "region": [
+    415,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -17.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:17",
+   "region": [
+    470,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -17.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:34",
+   "region": [
+    525,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -17.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:52",
+   "region": [
+    113,
+    1701,
+    54,
+    33
+   ],
+   "offset": [
+    -27.0,
+    -16.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:69",
+   "region": [
+    580,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -16.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:86",
+   "region": [
+    635,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -16.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:103",
+   "region": [
+    690,
+    1631,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -16.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:120",
+   "region": [
+    168,
+    1701,
+    54,
+    33
+   ],
+   "offset": [
+    -27.0,
+    -16.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:138",
+   "region": [
+    961,
+    1631,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -16.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:155",
+   "region": [
+    385,
+    1701,
+    53,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -16.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|55x35|turn:172",
+   "region": [
+    0,
+    1666,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -16.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-172",
+   "region": [
+    619,
+    1262,
+    57,
+    44
+   ],
+   "offset": [
+    -29.0,
+    -21.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-155",
+   "region": [
+    559,
+    1262,
+    59,
+    44
+   ],
+   "offset": [
+    -30.0,
+    -21.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-138",
+   "region": [
+    747,
+    1307,
+    59,
+    43
+   ],
+   "offset": [
+    -30.0,
+    -21.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-120",
+   "region": [
+    807,
+    1307,
+    59,
+    43
+   ],
+   "offset": [
+    -30.0,
+    -21.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-103",
+   "region": [
+    526,
+    1351,
+    59,
+    42
+   ],
+   "offset": [
+    -30.0,
+    -20.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-86",
+   "region": [
+    266,
+    1394,
+    59,
+    41
+   ],
+   "offset": [
+    -30.0,
+    -20.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-69",
+   "region": [
+    205,
+    1394,
+    60,
+    41
+   ],
+   "offset": [
+    -30.0,
+    -20.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-52",
+   "region": [
+    128,
+    1436,
+    60,
+    40
+   ],
+   "offset": [
+    -30.0,
+    -20.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-34",
+   "region": [
+    65,
+    1477,
+    60,
+    39
+   ],
+   "offset": [
+    -30.0,
+    -19.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:-17",
+   "region": [
+    679,
+    1477,
+    60,
+    38
+   ],
+   "offset": [
+    -30.0,
+    -19.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:0",
+   "region": [
+    740,
+    1477,
+    60,
+    38
+   ],
+   "offset": [
+    -30.0,
+    -19.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:17",
+   "region": [
+    372,
+    1517,
+    60,
+    37
+   ],
+   "offset": [
+    -30.0,
+    -18.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:34",
+   "region": [
+    433,
+    1517,
+    60,
+    37
+   ],
+   "offset": [
+    -30.0,
+    -18.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:52",
+   "region": [
+    494,
+    1517,
+    60,
+    37
+   ],
+   "offset": [
+    -30.0,
+    -18.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:69",
+   "region": [
+    555,
+    1517,
+    60,
+    37
+   ],
+   "offset": [
+    -30.0,
+    -18.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:86",
+   "region": [
+    577,
+    1556,
+    59,
+    36
+   ],
+   "offset": [
+    -29.0,
+    -17.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:103",
+   "region": [
+    637,
+    1556,
+    59,
+    36
+   ],
+   "offset": [
+    -29.0,
+    -17.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:120",
+   "region": [
+    697,
+    1556,
+    59,
+    36
+   ],
+   "offset": [
+    -29.0,
+    -17.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:138",
+   "region": [
+    796,
+    1517,
+    59,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:155",
+   "region": [
+    856,
+    1517,
+    59,
+    37
+   ],
+   "offset": [
+    -29.0,
+    -18.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|60x38|turn:172",
+   "region": [
+    118,
+    1556,
+    57,
+    37
+   ],
+   "offset": [
+    -28.0,
+    -18.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-172",
+   "region": [
+    0,
+    1120,
+    63,
+    48
+   ],
+   "offset": [
+    -32.0,
+    -23.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-155",
+   "region": [
+    64,
+    1120,
+    63,
+    48
+   ],
+   "offset": [
+    -32.0,
+    -23.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-138",
+   "region": [
+    836,
+    1120,
+    63,
+    47
+   ],
+   "offset": [
+    -32.0,
+    -23.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-120",
+   "region": [
+    610,
+    1169,
+    64,
+    46
+   ],
+   "offset": [
+    -32.0,
+    -22.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-103",
+   "region": [
+    462,
+    1216,
+    64,
+    45
+   ],
+   "offset": [
+    -32.0,
+    -22.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-86",
+   "region": [
+    527,
+    1216,
+    64,
+    45
+   ],
+   "offset": [
+    -32.0,
+    -22.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-69",
+   "region": [
+    493,
+    1262,
+    65,
+    44
+   ],
+   "offset": [
+    -33.0,
+    -22.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-52",
+   "region": [
+    681,
+    1307,
+    65,
+    43
+   ],
+   "offset": [
+    -33.0,
+    -21.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-34",
+   "region": [
+    394,
+    1351,
+    65,
+    42
+   ],
+   "offset": [
+    -33.0,
+    -21.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:-17",
+   "region": [
+    460,
+    1351,
+    65,
+    42
+   ],
+   "offset": [
+    -33.0,
+    -21.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:0",
+   "region": [
+    692,
+    1394,
+    64,
+    40
+   ],
+   "offset": [
+    -32.0,
+    -20.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:17",
+   "region": [
+    75,
+    1394,
+    64,
+    41
+   ],
+   "offset": [
+    -32.0,
+    -20.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:34",
+   "region": [
+    140,
+    1394,
+    64,
+    41
+   ],
+   "offset": [
+    -32.0,
+    -20.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:52",
+   "region": [
+    757,
+    1394,
+    64,
+    40
+   ],
+   "offset": [
+    -32.0,
+    -19.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:69",
+   "region": [
+    822,
+    1394,
+    64,
+    40
+   ],
+   "offset": [
+    -32.0,
+    -19.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:86",
+   "region": [
+    932,
+    1436,
+    64,
+    39
+   ],
+   "offset": [
+    -32.0,
+    -18.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:103",
+   "region": [
+    0,
+    1477,
+    64,
+    39
+   ],
+   "offset": [
+    -32.0,
+    -18.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:120",
+   "region": [
+    887,
+    1394,
+    63,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -19.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:138",
+   "region": [
+    951,
+    1394,
+    63,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -19.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:155",
+   "region": [
+    0,
+    1436,
+    63,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -19.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|65x41|turn:172",
+   "region": [
+    64,
+    1436,
+    63,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -19.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-172",
+   "region": [
+    83,
+    1017,
+    69,
+    52
+   ],
+   "offset": [
+    -35.0,
+    -25.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-155",
+   "region": [
+    153,
+    1017,
+    69,
+    52
+   ],
+   "offset": [
+    -35.0,
+    -25.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-138",
+   "region": [
+    223,
+    1017,
+    69,
+    52
+   ],
+   "offset": [
+    -35.0,
+    -25.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-120",
+   "region": [
+    788,
+    1017,
+    69,
+    50
+   ],
+   "offset": [
+    -35.0,
+    -24.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-103",
+   "region": [
+    717,
+    1017,
+    70,
+    50
+   ],
+   "offset": [
+    -35.0,
+    -24.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-86",
+   "region": [
+    482,
+    1070,
+    70,
+    49
+   ],
+   "offset": [
+    -35.0,
+    -24.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-69",
+   "region": [
+    410,
+    1070,
+    71,
+    49
+   ],
+   "offset": [
+    -36.0,
+    -24.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-52",
+   "region": [
+    692,
+    1120,
+    71,
+    47
+   ],
+   "offset": [
+    -36.0,
+    -23.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-34",
+   "region": [
+    764,
+    1120,
+    71,
+    47
+   ],
+   "offset": [
+    -36.0,
+    -23.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:-17",
+   "region": [
+    538,
+    1169,
+    71,
+    46
+   ],
+   "offset": [
+    -36.0,
+    -23.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:0",
+   "region": [
+    914,
+    1216,
+    70,
+    44
+   ],
+   "offset": [
+    -35.0,
+    -22.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:17",
+   "region": [
+    0,
+    1262,
+    70,
+    44
+   ],
+   "offset": [
+    -35.0,
+    -22.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:34",
+   "region": [
+    391,
+    1216,
+    70,
+    45
+   ],
+   "offset": [
+    -35.0,
+    -22.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:52",
+   "region": [
+    71,
+    1262,
+    70,
+    44
+   ],
+   "offset": [
+    -35.0,
+    -21.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:69",
+   "region": [
+    142,
+    1262,
+    70,
+    44
+   ],
+   "offset": [
+    -35.0,
+    -21.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:86",
+   "region": [
+    540,
+    1307,
+    70,
+    43
+   ],
+   "offset": [
+    -35.0,
+    -20.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:103",
+   "region": [
+    611,
+    1307,
+    69,
+    43
+   ],
+   "offset": [
+    -34.0,
+    -20.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:120",
+   "region": [
+    213,
+    1262,
+    69,
+    44
+   ],
+   "offset": [
+    -34.0,
+    -21.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:138",
+   "region": [
+    283,
+    1262,
+    69,
+    44
+   ],
+   "offset": [
+    -34.0,
+    -21.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:155",
+   "region": [
+    353,
+    1262,
+    69,
+    44
+   ],
+   "offset": [
+    -34.0,
+    -21.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "strider",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|558,220,396,252|71x45|turn:172",
+   "region": [
+    423,
+    1262,
+    69,
+    44
+   ],
+   "offset": [
+    -34.0,
+    -21.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-172",
+   "region": [
+    0,
+    873,
+    85,
+    74
+   ],
+   "offset": [
+    -41.0,
+    -37.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-155",
+   "region": [
+    776,
+    797,
+    86,
+    74
+   ],
+   "offset": [
+    -42.0,
+    -37.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-138",
+   "region": [
+    863,
+    797,
+    86,
+    74
+   ],
+   "offset": [
+    -42.0,
+    -37.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-120",
+   "region": [
+    271,
+    873,
+    86,
+    72
+   ],
+   "offset": [
+    -42.0,
+    -36.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-103",
+   "region": [
+    183,
+    873,
+    87,
+    72
+   ],
+   "offset": [
+    -43.0,
+    -36.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-86",
+   "region": [
+    358,
+    873,
+    87,
+    71
+   ],
+   "offset": [
+    -43.0,
+    -36.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-69",
+   "region": [
+    446,
+    873,
+    87,
+    71
+   ],
+   "offset": [
+    -43.0,
+    -36.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-52",
+   "region": [
+    534,
+    873,
+    88,
+    69
+   ],
+   "offset": [
+    -44.0,
+    -35.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-34",
+   "region": [
+    623,
+    873,
+    88,
+    69
+   ],
+   "offset": [
+    -44.0,
+    -35.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:-17",
+   "region": [
+    712,
+    873,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:0",
+   "region": [
+    801,
+    873,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:17",
+   "region": [
+    890,
+    873,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:34",
+   "region": [
+    0,
+    948,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:52",
+   "region": [
+    89,
+    948,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:69",
+   "region": [
+    178,
+    948,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:86",
+   "region": [
+    267,
+    948,
+    88,
+    68
+   ],
+   "offset": [
+    -44.0,
+    -34.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:103",
+   "region": [
+    356,
+    948,
+    88,
+    67
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:120",
+   "region": [
+    445,
+    948,
+    88,
+    67
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:138",
+   "region": [
+    534,
+    948,
+    88,
+    67
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:155",
+   "region": [
+    623,
+    948,
+    88,
+    67
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|88x68|turn:172",
+   "region": [
+    712,
+    948,
+    88,
+    67
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-172",
+   "region": [
+    538,
+    554,
+    93,
+    81
+   ],
+   "offset": [
+    -45.0,
+    -40.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-155",
+   "region": [
+    348,
+    554,
+    94,
+    81
+   ],
+   "offset": [
+    -46.0,
+    -40.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-138",
+   "region": [
+    443,
+    554,
+    94,
+    81
+   ],
+   "offset": [
+    -46.0,
+    -40.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-120",
+   "region": [
+    354,
+    637,
+    94,
+    79
+   ],
+   "offset": [
+    -46.0,
+    -39.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-103",
+   "region": [
+    258,
+    637,
+    95,
+    79
+   ],
+   "offset": [
+    -47.0,
+    -39.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-86",
+   "region": [
+    796,
+    637,
+    95,
+    78
+   ],
+   "offset": [
+    -47.0,
+    -39.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-69",
+   "region": [
+    351,
+    718,
+    95,
+    77
+   ],
+   "offset": [
+    -47.0,
+    -38.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-52",
+   "region": [
+    631,
+    718,
+    95,
+    76
+   ],
+   "offset": [
+    -47.0,
+    -38.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-34",
+   "region": [
+    534,
+    718,
+    96,
+    76
+   ],
+   "offset": [
+    -48.0,
+    -38.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:-17",
+   "region": [
+    727,
+    718,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:0",
+   "region": [
+    824,
+    718,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:17",
+   "region": [
+    921,
+    718,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:34",
+   "region": [
+    0,
+    797,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:52",
+   "region": [
+    97,
+    797,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:69",
+   "region": [
+    194,
+    797,
+    96,
+    75
+   ],
+   "offset": [
+    -48.0,
+    -37.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:86",
+   "region": [
+    291,
+    797,
+    96,
+    74
+   ],
+   "offset": [
+    -48.0,
+    -36.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:103",
+   "region": [
+    388,
+    797,
+    96,
+    74
+   ],
+   "offset": [
+    -48.0,
+    -36.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:120",
+   "region": [
+    485,
+    797,
+    96,
+    74
+   ],
+   "offset": [
+    -48.0,
+    -36.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:138",
+   "region": [
+    582,
+    797,
+    96,
+    74
+   ],
+   "offset": [
+    -48.0,
+    -36.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:155",
+   "region": [
+    679,
+    797,
+    96,
+    74
+   ],
+   "offset": [
+    -48.0,
+    -36.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "siege",
+   "key": "res://assets/enemies/chassis_atlas_v2.png|987,525,530,412|96x75|turn:172",
+   "region": [
+    86,
+    873,
+    96,
+    72
+   ],
+   "offset": [
+    -48.0,
+    -35.5
+   ],
+   "angle": 17.188726000000003
+  }
+ ]
+}

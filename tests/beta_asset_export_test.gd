@@ -16,7 +16,7 @@ const ConvoyArt := preload("res://scripts/convoy_vehicle_art.gd")
 const Crafting := preload("res://scripts/crafting_catalog.gd")
 const ReleaseNotes := preload("res://scripts/release_notes_catalog.gd")
 const Content := preload("res://scripts/content_registry.gd")
-const CRAFTING_SOURCE := "res://assets/ui/crafting/crafting_items_v1.source.json"
+const CRAFTING_SOURCE := "res://assets/ui/crafting/crafting_icons_v1.source.json"
 const RAW_METADATA := [
 	"res://assets/releases/changelog.json",
 	"res://assets/environments/catalog.json",

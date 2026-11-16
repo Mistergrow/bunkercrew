@@ -1,0 +1,57 @@
+{
+ "asset": "authored_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/machinery/components.png",
+   "sha256": "a65b0c0bc2884cddc2bbed2ae8feb895c52536a77730e81f902a0c8bf7226aca"
+  }
+ ],
+ "params": {
+  "palette": 28,
+  "alpha": 0.45,
+  "sharpen": 0.45,
+  "orphan": 0.07,
+  "contour": 0.8
+ },
+ "ink": "#151b1e",
+ "size": [
+  160,
+  139
+ ],
+ "items": [
+  {
+   "name": "ammo_box",
+   "key": "authored:ammo_box",
+   "region": [
+    117,
+    0,
+    18,
+    15
+   ]
+  },
+  {
+   "name": "press_frame",
+   "key": "authored:press_frame",
+   "region": [
+    0,
+    0,
+    116,
+    124
+   ]
+  },
+  {
+   "name": "press_ram",
+   "key": "authored:press_ram",
+   "region": [
+    0,
+    125,
+    41,
+    14
+   ]
+  }
+ ]
+}

@@ -88,6 +88,11 @@ func _run() -> void:
 	surface.set_shader_parameter("surface_enabled",true)
 	surface.set_shader_parameter("water_glint",0.0)
 	surface.set_shader_parameter("flow_glint",0.0)
+	# The exact-transport checks below see the texel shifts alone; the light
+	# carried by moving water and the endless fall scroll are checked after.
+	surface.set_shader_parameter("flow_foam",0.0)
+	surface.set_shader_parameter("water_foam",0.0)
+	surface.set_shader_parameter("flow_scroll",0.0)
 	surface.set_shader_parameter("pixel_clarity",0.0)
 	surface.set_shader_parameter("detail_strength",0.0)
 	surface.set_shader_parameter("contour_strength",0.0)
@@ -168,6 +173,30 @@ func _run() -> void:
 	for frame in 8: await process_frame
 	var later_held := await rendered(viewport)
 	check(held.get_data()==later_held.get_data(),"An unchanged caller clock freezes all shader animation")
+	# Moving-water light and the endless fall scroll: still only inside their
+	# own masks, visibly moving, and gone with reduced effects.
+	surface.set_shader_parameter("flow_foam",0.65)
+	surface.set_shader_parameter("water_foam",0.6)
+	surface.set_shader_parameter("flow_scroll",46.0)
+	var lively_outside := 0
+	var lively_flow := 0
+	var lively_ice := 0
+	for seconds: float in [1.25,3.5]:
+		surface.set_shader_parameter("scene_clock",seconds)
+		surface.set_shader_parameter("motion_gain",1.0)
+		var lively := await rendered(viewport)
+		for y in SOURCE_SIZE.y:
+			for x in SOURCE_SIZE.x:
+				var kind := mask.get_pixel(x,y)
+				var changed := not same_rgb(pixel(stationary,Vector2i(x,y)),pixel(lively,Vector2i(x,y)))
+				if kind.r==0.0 and kind.g==0.0 and kind.b==0.0 and changed: lively_outside+=1
+				elif kind.g>0.5 and changed: lively_flow+=1
+				elif kind.b>0.5 and kind.r==0.0 and kind.g==0.0 and not is_equal_approx(pixel(stationary,Vector2i(x,y)).a,pixel(lively,Vector2i(x,y)).a): lively_ice+=1
+	check(lively_outside==0,"Fall scroll and water light never touch buildings, banks or alpha holes")
+	check(lively_flow>flow.get_area()/2,"The fall scroll moves most of the painted fall (%d texel changes)"%lively_flow)
+	check(lively_ice==0,"Ice keeps its silhouette alpha under the moving-water light")
+	surface.set_shader_parameter("motion_gain",0.0)
+	check((await rendered(viewport)).get_data()==stationary.get_data(),"Reduced effects also stops the fall scroll and the water light")
 	var result := {"checks":checks,"failures":failures,"renderer":RenderingServer.get_video_adapter_name(),"prepared":"64x48 synthetic painted blue surface at4x nearest scale; exact RGB effect mask; blue building island inside water, alpha hole, separate verticalflow and colored solidice; light/detail effects disabled; explicit scene time and reduced effects", "source_size":SOURCE_SIZE,"measurements":measurements}
 	var report := FileAccess.open(OUTPUT+"/verification.json",FileAccess.WRITE)
 	report.store_string(JSON.stringify(result,"\t"))

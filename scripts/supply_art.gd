@@ -19,7 +19,10 @@ static func texture() -> AtlasTexture:
 static func draw(canvas: CanvasItem, kind: String, amount: int) -> void:
 	var tint := Color.WHITE if amount > 0 else Color(0.70, 0.73, 0.69)
 	canvas.draw_rect(Rect2(-28, -2, 56, 3), Color(0.015, 0.02, 0.015, 0.30))
-	canvas.draw_texture_rect(texture(), BOUNDS, false, tint)
+	# The world-texel bake (one texel per unit) at exactly BOUNDS; the 969 px
+	# source region is only loaded when that bake is missing.
+	var baked := WorldTexels.texture(SOURCE, REGION, Vector2i(BOUNDS.size))
+	canvas.draw_texture_rect(baked if baked != null else texture(), BOUNDS, false, tint)
 	# A small physical material plate sits between the straps. It has no frame
 	# ornaments or separate icon vocabulary; count and state stay in the label.
 	canvas.draw_rect(Rect2(-11, -25, 16, 15), Color(0.10, 0.13, 0.12, 0.82))

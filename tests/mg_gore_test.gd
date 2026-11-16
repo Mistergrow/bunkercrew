@@ -78,9 +78,13 @@ func run():
 	var hp_before: float=soldier.hp
 	var cover_before: float=cover.hp
 	var serial_before: int=game._gore_serial
+	var contact_absent: bool=not cover.has_meta("impact_contact_frame")
+	var frame_before: int=Engine.get_physics_frames()
 	await shoot(gun)
 	check(soldier.hp==hp_before and soldier.gore_mask==0,"Intervening real concrete protects the human target")
-	check(cover.hp<cover_before,"Swept projectile contacts and damages the first concrete collider")
+	# Own concrete stops crew rounds without structural friendly damage; the
+	# projectile records its precise contact on the collider it actually struck.
+	check(contact_absent and int(cover.get_meta("impact_contact_frame",-1))>frame_before and cover.hp==cover_before,"Swept projectile contacts the first concrete collider without friendly structural damage")
 	check(game._gore_serial==serial_before and game.combat_gore.particles.is_empty() and game.combat_gore.parts.is_empty(),"Blocked MG shot creates no false human blood or dismemberment event")
 	cover.queue_free()
 	await frames(2)

@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "levin",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "levin_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Light scouting stride with frequent radio checks",
     "walk_rate": 1.16,
@@ -64,7 +88,8 @@
     "levin_torso.png",
     "levin_head.png",
     "levin_back_torso.png",
-    "levin_back_head.png"
+    "levin_back_head.png",
+    "levin_turns.png"
   ],
   "sha256": {
     "levin_body.png": "8a57160561190bdc9c4d5dd02b46bf3145824154d4762a01c360bd00d11a793d",
@@ -72,7 +97,8 @@
     "levin_torso.png": "49f6173986a4fe3307e02e743837f2a1fc913a96b88ebaf483d6d61909a7fd72",
     "levin_head.png": "1c11ff3551143516b57a8fb9072f156fae936c80d28d6c4e40284915a541806e",
     "levin_back_torso.png": "3cd32274645f9a0dfb47a8205da33624eef16f83366e9ba7b98f5aa34c48f0f9",
-    "levin_back_head.png": "dea569d84c75093763ee815662e6fe868c8c2a410d132a9797f82e41de72a56e"
+    "levin_back_head.png": "dea569d84c75093763ee815662e6fe868c8c2a410d132a9797f82e41de72a56e",
+    "levin_turns.png": "c0650dc2a373885a93210b8b048124c07e0ec987b090ff377d89b49ae4c0ca7d"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

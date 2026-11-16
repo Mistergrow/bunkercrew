@@ -1,6 +1,6 @@
 # Versionen und Änderungsverlauf
 
-`application/config/version` in `project.godot` bleibt die einzige Quelle für die aktuelle Spielversion. Hauptmenü, Spielansicht und Fehlerbericht zeigen diese Version. Exportierte Ubuntu- und Windows-Paare zeigen zusätzlich die ersten zwölf Zeichen ihres gemeinsamen `source_sha256` aus `BUILD_INFO.json`; Quellläufe tragen `Build dev`. Die Netzwerkkennung beschreibt getrennt die Transportkompatibilität und wird durch einen gewöhnlichen Versionswechsel nicht verändert.
+`application/config/version` in `project.godot` bleibt die einzige Quelle für die aktuelle Spielversion. Hauptmenü, Optionen, Pausenmenü und Fehlerbericht zeigen diese Version; im laufenden Spiel bleibt die Anzeige aus dem Bild. Exportierte Ubuntu- und Windows-Paare zeigen zusätzlich die ersten zwölf Zeichen ihres gemeinsamen `source_sha256` aus `BUILD_INFO.json`; Quellläufe tragen `Build dev`. Die Netzwerkkennung beschreibt getrennt die Transportkompatibilität und wird durch einen gewöhnlichen Versionswechsel nicht verändert.
 
 Ein abgeschlossener Meilenstein erhält ausdrücklich eine neue Beta-Version. Das geschieht nach dem Inhalts- und Prüfabschluss, niemals beim Starten des Spiels. Ein Versionswechsel veröffentlicht kein Paket und bestätigt keine Internet-, Leistungs- oder menschliche Spielabnahme. Vorhandene Paketordner bleiben erhalten.
 

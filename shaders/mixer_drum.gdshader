@@ -9,6 +9,14 @@ uniform vec4 paddle_region = vec4(0.0, 0.0, 1.0, 1.0);
 uniform bool has_shell = false;
 uniform bool has_paddle = false;
 uniform float turn_phase = 0.0;
+// 0 empty .. 1 loaded: wet concrete churning in the lower part of the mouth.
+uniform float fill = 0.0;
+// Texels between the lighting taps around a shell texel: 1 on the world-texel
+// bake, 5 on the 4.35x source region.
+uniform float light_tap = 5.0;
+// Welded plate seams around the drum: they travel across the shell as it
+// turns, so the rotation reads even where the painted skin is plain.
+const float SEAMS = 6.0;
 varying vec4 modulation;
 
 void vertex() {
@@ -53,12 +61,30 @@ void fragment() {
 		skin = mix(skin, texture(shell_texture, vec2(skin_uv.x, fract(skin_uv.y + 0.5))).rgb, seam_blend);
 		// Original shadows remain tied to the room lights. A small neighbourhood
 		// keeps fixed scratches from fighting with the moving painted steel.
-		vec2 tap = TEXTURE_PIXEL_SIZE * 5.0;
+		vec2 tap = TEXTURE_PIXEL_SIZE * light_tap;
 		vec3 lighting = (original.rgb + texture(TEXTURE, UV + vec2(tap.x, 0.0)).rgb + texture(TEXTURE, UV - vec2(tap.x, 0.0)).rgb + texture(TEXTURE, UV + vec2(0.0, tap.y)).rgb + texture(TEXTURE, UV - vec2(0.0, tap.y)).rgb) * 0.2;
 		float shade = clamp(dot(lighting, vec3(0.62, 0.28, 0.10)) / 0.64, 0.24, 1.13);
 		float edge = smoothstep(0.055, 0.20, max(original.r, max(original.g, original.b)));
 		float shell_mask = edge * smoothstep(1.30, 1.43, mouth_radius) * (1.0 - smoothstep(42.0, 45.0, along));
-		result = mix(result, skin * shade, shell_mask * 0.92);
+		// Seam on this world texel when a plate joint falls between it and
+		// the next texel across the drum: one crisp line per joint, darker,
+		// with the raised plate edge lit on the texel before it.
+		float next_side = clamp((across + 1.0) / cylinder_radius, -0.995, 0.995);
+		float here = (around + turn_phase) * SEAMS;
+		float ahead = (asin(next_side) / TAU + turn_phase) * SEAMS;
+		float prev_side = clamp((across - 1.0) / cylinder_radius, -0.995, 0.995);
+		float behind = (asin(prev_side) / TAU + turn_phase) * SEAMS;
+		vec3 plated = skin * shade;
+		// Alternate plates carry a darker coat of paint, so the drum reads as
+		// broad bands sweeping round it even at play zoom (pass 6A-2). One
+		// plate in six wears a pale primer band (pass 7A-crew): a single mark
+		// that crosses the visible face once per turn, so the rotation reads
+		// in two frames a twelfth of a second apart.
+		if (mod(floor(here), 2.0) > 0.5) plated *= 0.58;
+		if (mod(floor(here), SEAMS) < 0.5) plated = mix(plated, vec3(0.80, 0.74, 0.60) * shade, 0.55);
+		if (floor(here) != floor(ahead)) plated *= 0.38;
+		else if (floor(here) != floor(behind)) plated = min(plated * 1.30 + vec3(0.04), vec3(1.0));
+		result = mix(result, plated, shell_mask * 0.92);
 	}
 	if (has_paddle && mouth_radius < 0.84 && original.a > 0.5) {
 		float turn = turn_phase * TAU;
@@ -67,6 +93,21 @@ void fragment() {
 		float recess = 0.46 + 0.16 * clamp(-mouth.y, -1.0, 1.0);
 		result = mix(result, blade_a.rgb * recess, blade_a.a * 0.94);
 		result = mix(result, blade_b.rgb * recess, blade_b.a * 0.94);
+		if (fill > 0.01) {
+			// Wet concrete lies level in the lower part of the opening (screen
+			// down, whatever the drum's tilt); the blades turn under it and
+			// streaks of the mix are carried round with the drum.
+			float level = mix(12.0, 1.0, fill);
+			if (from_mouth.y > level) {
+				float depth = from_mouth.y - level;
+				float streak = fract(from_mouth.x * 0.11 + depth * 0.19 - turn_phase * 3.0);
+				vec3 concrete = vec3(0.50, 0.48, 0.44);
+				concrete *= streak < 0.24 ? 1.14 : (streak > 0.80 ? 0.86 : 1.0);
+				// The wet top row catches the room light; deeper in it sinks into shadow.
+				concrete *= depth < 1.0 ? 1.18 : (0.92 - 0.035 * min(depth, 8.0));
+				result = concrete * 0.70;
+			}
+		}
 	}
 	COLOR = vec4(result, original.a) * modulation;
 }

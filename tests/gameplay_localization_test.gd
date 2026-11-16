@@ -1,6 +1,7 @@
 extends SceneTree
 ## Existing objects switch languages without changing their gameplay identifiers.
 const Cleanup := preload("res://tests/scene_cleanup.gd")
+const InputLabels := preload("res://scripts/input_labels.gd")
 var checks := 0
 var failures := 0
 var game
@@ -60,7 +61,9 @@ func run() -> void:
 	LocaleText.set_locale("en",false)
 	check(game.core.prompt(worker).begins_with("Bunker core"),"Existing bunker core changes to English")
 	check(steel_crate.prompt(worker).contains("Stockpile") and steel_crate.controls_hint(worker).contains("store"),"Existing supply and selected deposit controls change to English")
-	check(game.story.objective().contains("forms"),"Existing story objective translates before wrapping")
+	# The objective names the player's bound interact key, so its catalog entry is the "%s" template.
+	var objective_en: String=game.story.objective()
+	check(objective_en==LocaleText.format("Am markierten Bauplatz %s halten: Schalung stellen.",InputLabels.action(worker,"interact")) and objective_en.contains("formwork") and objective_en!=mission_de and not objective_en.contains("Schalung") and not objective_en.contains("%s"),"Existing story objective translates before wrapping")
 	check(game.story.relay.prompt(worker).contains("FIELD RADIO"),"Radio state uses a complete translated template")
 	check(game.turret.prompt(worker).contains("Roof turret") and field_gun.prompt(worker).contains("Field turret"),"Turret identities do not depend on replacing German words")
 	check(game.turret.prompt(worker).contains("rounds"),"Turret rounds use translated formatting")

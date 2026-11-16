@@ -75,16 +75,39 @@ func run() -> void:
 	var scenery := ScenarioScenery.new()
 	scenery.environment_id = "sector07"
 	scenery.game = world
+	# Fixed framing without the moving depth plates is the view in which
+	# chimney smoke is drawn; the plates hide every plume mesh.
+	scenery.adaptive_background = false
 	world.add_child(scenery)
 	scenery.set_process(false)
 	scenery.self_modulate.a = 0
 	scenery.cloud_texture = null
-	for layer in [scenery.panorama,scenery.cloud_layer,scenery.surface_layer,scenery.particle_layer,scenery.props_layer]: layer.hide()
+	# Only the mist layer owns the plumes. Hide every other scenery layer,
+	# including vegetation, fauna and lighting, which were added later.
+	for layer in scenery.get_children():
+		if layer is CanvasItem and layer!=scenery.mist_layer: layer.hide()
 	var reference := Node2D.new()
 	reference.position = world.position
 	expected.add_child(reference)
 	reference.draw.connect(draw_reference.bind(reference,scenery))
-	check(scenery.smoke_nodes.size()==5,"All five authored chimney plumes are retained")
+	# Catalog version 3 repainted every panorama and authors no chimney
+	# anchors, so the five original skyline chimneys are supplied here as the
+	# anchors of an add-on world; the mesh comparison itself is unchanged.
+	check(scenery.data.get("smoke_anchors",[]).is_empty() and scenery.smoke_nodes.is_empty(),"A world without chimney anchors builds no plume mesh")
+	var anchors: Array = []
+	for chimney: Vector2 in BackgroundAtmosphere.CHIMNEYS:
+		var top := Vector2(chimney.x,chimney.y*400.0/683.0)-world.position
+		var anchor := (top-scenery.panorama_rect.position)/scenery.panorama_rect.size
+		anchors.append([anchor.x,anchor.y])
+	scenery.data = scenery.data.duplicate(true)
+	scenery.data["smoke_anchors"] = anchors
+	scenery._prepare_smoke()
+	check(scenery.smoke_nodes.size()==5 and scenery.smoke_nodes.all(func(smoke): return smoke.is_visible_in_tree()),"All five supplied chimney plumes are built and shown")
+	if scenery.smoke_nodes.size()!=5:
+		# Every later comparison indexes the five plumes: fail now, never hang.
+		print("SMOKE: %d/%d checks passed"%[checks-failures,checks])
+		quit(1)
+		return
 	check(scenery.smoke_nodes[0].mesh==scenery.smoke_nodes[4].mesh,"Every chimney shares the immutable mesh")
 	for reduced in [false,true]:
 		world.weather.reduced_effects = reduced

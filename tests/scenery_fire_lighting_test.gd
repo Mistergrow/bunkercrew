@@ -63,7 +63,8 @@ func run() -> void:
 	for lamp: PointLight2D in lights.lights:
 		check(lamp.texture == lights.lights[0].texture and lamp.texture.get_size() == Vector2(128, 128), "Lights share one native 128px radial falloff")
 		check(lamp.range_z_min == -8 and lamp.range_z_max == 20 and lamp.range_layer_min == 0 and lamp.range_layer_max == 0, "Only foreground world items receive fire, excluding panorama and HUD")
-		check(lamp.shadow_enabled and lamp.shadow_item_cull_mask == (lights.OCCLUDER_MASK | 1), "Local fire respects physical blockers on default foreground receivers")
+		# Actor art moved to its own light mask must keep receiving the shadows.
+		check(lamp.shadow_enabled and lamp.shadow_item_cull_mask == (lights.OCCLUDER_MASK | 1 | preload("res://scripts/world_lighting.gd").ACTOR_MASK), "Local fire respects physical blockers on default foreground receivers and actors")
 	var trees: Array[int] = []
 	for entry: Dictionary in props.entries:
 		if entry.kind != "tree": continue

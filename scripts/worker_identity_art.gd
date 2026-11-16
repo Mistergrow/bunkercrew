@@ -66,6 +66,79 @@ const BACK_HEAD := {
 	"rika":preload("res://assets/workers/rika_back_head.png"),
 }
 
+## Head/torso in every leaning, bending and lying attitude, authored upright on
+## the texel grid by generate_character_workers.py (turned_sheet): row 0 torso
+## and row 1 head in TURN_STEPS steps from 0, row 2 the rear pieces for a
+## ladder sway of -BACK_TURNS..BACK_TURNS steps (torso first, then head),
+## row 3 the supine coat from SUPINE_FIRST to SUPINE_LAST.
+const TURNS := {
+	"mara":preload("res://assets/workers/mara_turns.png"),
+	"branko":preload("res://assets/workers/branko_turns.png"),
+	"ivo":preload("res://assets/workers/ivo_turns.png"),
+	"nora":preload("res://assets/workers/nora_turns.png"),
+	"levin":preload("res://assets/workers/levin_turns.png"),
+	"selma":preload("res://assets/workers/selma_turns.png"),
+	"oskar":preload("res://assets/workers/oskar_turns.png"),
+	"rika":preload("res://assets/workers/rika_turns.png"),
+}
+## Follow-through layers (assets/workers/generate_crew_layers.py): coat
+## without gear, gear at rest/swung back/swung forward, head without hanging
+## hair, hair at rest/back/forward, each for steps -LAYER_STEPS..LAYER_STEPS.
+const LAYERS := {
+	"mara":preload("res://assets/workers/mara_layers.png"),
+	"branko":preload("res://assets/workers/branko_layers.png"),
+	"ivo":preload("res://assets/workers/ivo_layers.png"),
+	"nora":preload("res://assets/workers/nora_layers.png"),
+	"levin":preload("res://assets/workers/levin_layers.png"),
+	"selma":preload("res://assets/workers/selma_layers.png"),
+	"oskar":preload("res://assets/workers/oskar_layers.png"),
+	"rika":preload("res://assets/workers/rika_layers.png"),
+}
+const LAYER_STEPS := 3
+const LAYER_ROWS := {"coat":0, "gear":1, "head":4, "hair":5}
+const TURN_STEPS := 48
+const TURN_CELL := 68
+const TURN_ORIGIN := Vector2(34,34)
+const BACK_TURNS := 3
+## Steps around lying on the back (-12) that use the supine coat (row 3),
+## whose pack is pressed flat under the back instead of sticking into the floor.
+const SUPINE_FIRST := -15
+const SUPINE_LAST := -7
+
+static func turns(id: String) -> Texture2D:
+	return TURNS.get(CharacterCatalog.presentation_id(id,"visual"),TURNS.mara)
+
+## Nearest authored attitude of a rotation (radians, clockwise on screen).
+static func turn_step(angle: float) -> int:
+	return roundi(angle/TAU*TURN_STEPS)
+
+static func turn_angle(step: int) -> float:
+	return float(step)*TAU/TURN_STEPS
+
+## Atlas cell of a piece ("torso"/"head") at a step, or an empty rect when the
+## rear piece leans further than its authored ladder sway.
+static func turn_region(piece: String, step: int, back: bool=false) -> Rect2:
+	if back:
+		if absi(step)>BACK_TURNS: return Rect2()
+		var column := step+BACK_TURNS+(2*BACK_TURNS+1 if piece=="head" else 0)
+		return Rect2(Vector2(column,2)*TURN_CELL,Vector2.ONE*TURN_CELL)
+	if piece=="torso":
+		var lying := posmod(step-SUPINE_FIRST,TURN_STEPS)
+		if lying<=SUPINE_LAST-SUPINE_FIRST: return Rect2(Vector2(lying,3)*TURN_CELL,Vector2.ONE*TURN_CELL)
+	return Rect2(Vector2(posmod(step,TURN_STEPS),0 if piece=="torso" else 1)*TURN_CELL,Vector2.ONE*TURN_CELL)
+
+static func layers(id: String) -> Texture2D:
+	return LAYERS.get(CharacterCatalog.presentation_id(id,"visual"),LAYERS.mara)
+
+## Cell of a follow-through layer ("coat", "gear", "head", "hair") at a turn
+## step, swung -1 (behind), 0 or +1 (forward); empty beyond LAYER_STEPS.
+static func layer_region(layer: String, step: int, swing: int=0) -> Rect2:
+	if absi(step)>LAYER_STEPS: return Rect2()
+	var row: int = LAYER_ROWS[layer]
+	if layer in ["gear","hair"]:
+		row += 1 if swing<0 else (2 if swing>0 else 0)
+	return Rect2(Vector2(step+LAYER_STEPS,row)*TURN_CELL,Vector2.ONE*TURN_CELL)
+
 static func body(id: String) -> Texture2D:
 	return BODY.get(CharacterCatalog.presentation_id(id,"visual"),BODY.mara)
 

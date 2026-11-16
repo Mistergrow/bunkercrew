@@ -9,6 +9,8 @@
     "plate_active.png": "Retired authoring output; no longer installed in the game. Original procedural fallback highlighted frame",
     "plate_pressed.png": "Retired authoring output; no longer installed in the game. Original procedural fallback pressed frame"
   },
+  "materials": "materials/materials_v1.png: generated inventory pictures (steel, concrete, scrap, ammunition) reduced by tools/build_material_icons.py. Generator, date, style reference, prompt, regions and hashes in materials/materials_v1.source.json; the original generated atlas is preserved as materials/materials_v1_source.png and excluded from export.",
   "metal_panel": "Retired generated texture; no longer installed. See metal_panel_source.json for preserved original generation metadata. The live UI uses code-authored UiArt steel grain and native styleboxes.",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "crafting": "crafting/crafting_icons_v1.png: the generated workbench plan pictures (crafting/crafting_items_v1.png, kept for extension packs) reduced to 50 px pixel icons by tools/build_crafting_icons.py. Generator, prompt, regions and hashes in crafting/crafting_icons_v1.source.json."
 }

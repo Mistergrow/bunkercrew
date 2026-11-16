@@ -3,6 +3,7 @@ extends RefCounted
 ## and metal surfaces. Fixed material tiles keep animated equipment caches bounded.
 const PoseArt := preload("res://scripts/worker_pose_art.gd")
 const Metal := preload("res://scripts/machine_surface_details.gd")
+const Quads := preload("res://scripts/canvas_quads.gd")
 const INK := Color("202926")
 const CLOTH := preload("res://assets/workers/branko_torso.png")
 const BASE := {"torso":"mara", "stride":9.0, "lift":6.0, "bob":1.4, "lean":2.0, "spread":10.0,
@@ -147,17 +148,9 @@ static func face(canvas: Node2D, head: Transform2D, kind: String, squad_slot: in
 		else:
 			fabric(canvas,head,[Vector2(-7,7),Vector2(5,7),Vector2(6,11),Vector2(-5,13),Vector2(-9,17)],Color(.76,.59,.46))
 
-static func limb_wear(canvas: Node2D, a: Vector2, b: Vector2, arm: bool, front: bool) -> void:
-	var joint := PoseArt._joint(a,b,11 if arm else 12,12,1 if arm else -1)
-	var light := Color("8a917d") if front else Color("5e685c")
-	for segment in [[a,joint],[joint,b]]:
-		var midpoint: Vector2 = Vector2(segment[0]).lerp(segment[1],.55)
-		PoseArt._box(canvas,midpoint+Vector2(-1,-1),Vector2(1,2),light)
-		PoseArt._box(canvas,midpoint+Vector2(2,1),Vector2(1,1),Color("343d34"))
-	if not arm:
-		PoseArt._box(canvas,joint+Vector2(-1,-1),Vector2(3,2),Color("686f5d"))
-
-static func gun(canvas: Node2D, tx: Transform2D, kind: String, deployed: float, firing: bool, reload_phase: float, dynamic: bool = true) -> void:
+## The v1 procedural weapon (tools/bake_infantry_art.gd); the live details
+## of the drawn kit are gun_details below.
+static func gun(canvas: Node2D, tx: Transform2D, kind: String, _deployed: float = 0.0, _firing: bool = false, _reload_phase: float = 0.0, _dynamic: bool = false) -> void:
 	var muzzle: Vector2 = spec(kind).muzzle
 	var long_gun := kind in ["heavy_gunner","marksman"]
 	var barrel_start := 18.0 if long_gun else 13.0
@@ -194,38 +187,56 @@ static func gun(canvas: Node2D, tx: Transform2D, kind: String, deployed: float, 
 		PoseArt._patch(canvas,tx,Vector2(-11,0),Vector2(6,1),Color("aaa181"))
 	else:
 		PoseArt._patch(canvas,tx,Vector2(3,4),Vector2(4,7),Color("59614f"))
-	if dynamic: gun_details(canvas,tx,kind,deployed,firing,reload_phase)
 
-static func gun_details(canvas: Node2D, tx: Transform2D, kind: String, deployed: float, firing: bool, reload_phase: float) -> void:
-	if kind == "heavy_gunner":
-		var fold := lerpf(1.0,11.0,deployed)
-		for end in [Vector2(24-fold,4+fold),Vector2(31+fold*.5,4+fold)]:
-			PoseArt._line(canvas,tx*Vector2(29,2),tx*end,INK,3)
-			PoseArt._line(canvas,tx*Vector2(29,2),tx*end,Color("8c917c"))
-		var cover := sin(reload_phase*PI)*8.0
-		PoseArt._line(canvas,tx*Vector2(3,-5),tx*Vector2(14,-5-cover),Color("909781"),2)
-	if firing:
-		var muzzle: Vector2 = spec(kind).muzzle
-		PoseArt._panel(canvas,tx,[muzzle+Vector2(0,-2),muzzle+Vector2(6,-3),muzzle+Vector2(4,0),muzzle+Vector2(9,1),muzzle+Vector2(3,3),muzzle+Vector2(0,2)],Color("efc887"))
+## Live weapon details on world texels (GroundInfantryArt's art frame,
+## `art` maps rig units into it): the heavy gunner's bipod folding out as it
+## settles and the feed cover lifting off the receiver while reloading.
+static func gun_details(canvas: CanvasItem, art: Transform2D, tx: Transform2D, kind: String, deployed: float, reload_phase: float) -> void:
+	if kind != "heavy_gunner": return
+	var fold := lerpf(1.0,11.0,deployed)
+	var root := art*(tx*Vector2(29,2))
+	for end in [Vector2(24-fold,4+fold),Vector2(31+fold*.5,4+fold)]:
+		texel_line(canvas,root,art*(tx*end),INK,Color("6d7377"))
+	var cover := sin(reload_phase*PI)*8.0
+	if cover > 0.5:
+		texel_line(canvas,art*(tx*Vector2(2,-8)),art*(tx*Vector2(14,-8-cover)),INK,Color("a3a9a8"))
 
-static func front_kit(canvas: Node2D, pose: Dictionary, body: Transform2D, gun_tx: Transform2D, kind: String, treating: bool, reload_phase: float, hidden_limbs: int=0) -> void:
+## A stepped line one texel wide in `color`, inked one texel either side
+## across its run (the native rig's 3-wide ink, 1-wide steel at world size).
+static func texel_line(canvas: CanvasItem, a: Vector2, b: Vector2, ink: Color, color: Color) -> void:
+	var from := a.floor()
+	var to := b.floor()
+	var steps := maxi(1,int(maxf(absf(to.x-from.x),absf(to.y-from.y))))
+	var across := Vector2(1,0) if absf(to.y-from.y) > absf(to.x-from.x) else Vector2(0,1)
+	var points: Array[Vector2] = []
+	for index in steps+1: points.append(from.lerp(to,float(index)/steps).round())
+	for point in points: Quads.rect(canvas,Rect2(point-across,Vector2.ONE+across*2.0),ink)
+	for point in points: Quads.rect(canvas,Rect2(point,Vector2.ONE),color)
+
+## Front kit on world texels (art frame): the medic's armband and dressing,
+## the heavy gunner's ammunition belt from the pack to the feed, and the
+## grenadier's round on its way from the pouch to the breech.
+static func front_kit(canvas: CanvasItem, art: Transform2D, pose: Dictionary, body: Transform2D, gun_tx: Transform2D, kind: String, treating: bool, reload_phase: float, hidden_limbs: int=0) -> void:
 	if kind == "combat_medic":
 		if not hidden_limbs&2:
-			var upper: Vector2 = Vector2(pose.shoulder).lerp(pose.hands[1],.28)
-			PoseArt._box(canvas,upper+Vector2(-3,-2),Vector2(7,4),Color("cfc9ad"))
-			PoseArt._box(canvas,upper+Vector2(-1,-1),Vector2(3,2),Color("667b69"))
+			var upper := (art*Vector2(pose.shoulder).lerp(pose.hands[1],.28)).round()
+			Quads.rect(canvas,Rect2(upper+Vector2(-2,-2),Vector2(5,3)),Color("d8d2b8"))
+			Quads.rect(canvas,Rect2(upper+Vector2(-1,-1),Vector2(2,1)),Color("3d6a4a"))
 		if treating and not hidden_limbs&1:
-			PoseArt._box(canvas,Vector2(pose.hands[0])+Vector2(-3,-3),Vector2(7,5),Color("d9d0b1"))
-			PoseArt._line(canvas,Vector2(pose.hands[0])+Vector2(-2,0),Vector2(pose.hands[0])+Vector2(2,0),Color("8c9883"))
+			var hand := (art*Vector2(pose.hands[0])).round()
+			Quads.rect(canvas,Rect2(hand+Vector2(-3,-2),Vector2(6,4)),Color("d9d0b1"))
+			Quads.rect(canvas,Rect2(hand+Vector2(-2,0),Vector2(4,1)),Color("8c9883"))
 	elif kind == "heavy_gunner":
-		var start := body*Vector2(-11,9)
-		var end := gun_tx*Vector2(7,5)
-		for index in 9:
-			var amount := index/8.0
-			var at := start.lerp(end,amount)+Vector2(0,sin(amount*PI)*7)
-			PoseArt._box(canvas,at-Vector2(1,1),Vector2(3,5),INK)
-			PoseArt._box(canvas,at,Vector2(1,3),Color("b7a071"))
-	elif kind == "grenadier" and reload_phase>.15 and reload_phase<.75:
-		var at: Vector2 = pose.hands[0]
-		PoseArt._box(canvas,at+Vector2(-2,-4),Vector2(4,8),Color("999464"))
-		PoseArt._box(canvas,at+Vector2(-1,-4),Vector2(2,2),Color("c4b782"))
+		var start := art*(body*Vector2(-11,9))
+		var end := art*(gun_tx*Vector2(7,5))
+		for index in 8:
+			var amount := index/7.0
+			var at := (start.lerp(end,amount)+Vector2(0,sin(amount*PI)*6.0)).round()
+			Quads.rect(canvas,Rect2(at-Vector2(1,1),Vector2(3,4)),INK)
+			Quads.rect(canvas,Rect2(at,Vector2(1,2)),Color("c79a52"))
+			Quads.rect(canvas,Rect2(at,Vector2(1,1)),Color("e8c47a"))
+	elif kind == "grenadier" and reload_phase>.27 and reload_phase<.70:
+		var at := (art*Vector2(pose.hands[0])).round()
+		Quads.rect(canvas,Rect2(at+Vector2(-1,-3),Vector2(3,6)),Color("c79a52"))
+		Quads.rect(canvas,Rect2(at+Vector2(-1,-3),Vector2(3,2)),Color("545b50"))
+		Quads.rect(canvas,Rect2(at+Vector2(0,-3),Vector2(1,1)),Color("717a6c"))

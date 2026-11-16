@@ -11,6 +11,8 @@ func check(ok: bool,label: String) -> void:
 	if not ok: failures+=1
 func frames(count: int=4) -> void:
 	for frame in count: await process_frame
+func lift() -> float:
+	return CameraRig.follow_lift(root.get_visible_rect().size.y/game.camera.zoom.y)
 func wheel(button: MouseButton) -> void:
 	var event:=InputEventMouseButton.new()
 	event.button_index=button
@@ -38,7 +40,10 @@ func run() -> void:
 	check(is_equal_approx(game.camera_settings().zoom,initial),"One wheel step back restores the requested magnification")
 	game.players[0].global_position=Vector2(1100,430)
 	game.player_camera.update_view(1,true)
-	check(game.camera.position.distance_to(Vector2(1160,335))<.1,"Follow camera tracks the worker with room to see ahead")
+	# The settled whole-pixel view decides the lift: the designed 95 units, more
+	# when a taller view would otherwise fill with rock below the feet.
+	check(game.camera.position.distance_to(Vector2(1160,430-lift()))<.6,"Follow camera tracks the worker with room to see ahead")
+	check(lift()>=CameraRig.LIFT and root.get_visible_rect().size.y/game.camera.zoom.y*.5-lift()<=CameraRig.BELOW_FEET+.5,"Follow view keeps the sky above and limits the rock below the feet")
 	var previous:Vector2=game.camera.position
 	game.players[0].global_position=Vector2(650,800)
 	game.player_camera.update_view(.016)
@@ -89,7 +94,7 @@ func run() -> void:
 	game.network.local_player_id=2
 	game.player_camera.update_view(1,true)
 	check(game.player_camera.follow_players()==[game.players[1]],"Guest follows only its own player")
-	check(game.camera.position.distance_to(game.players[1].global_position+Vector2(60,-95))<.1,"Frozen client simulation still supports local camera framing")
+	check(game.camera.position.distance_to(game.players[1].global_position+Vector2(60,-lift()))<.6,"Frozen client simulation still supports local camera framing")
 	game.players[1].position+=Vector2(60,20)
 	var before:Vector2=game.camera.position
 	await frames(6)

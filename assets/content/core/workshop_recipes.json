@@ -11,12 +11,12 @@
       "note": "3 Auslösungen · bremst Maschinen",
       "amount": 1,
       "art": {
-        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "texture": "res://assets/ui/crafting/crafting_icons_v1.png",
         "region": [
           0,
           0,
-          512,
-          512
+          50,
+          50
         ]
       }
     },
@@ -32,12 +32,12 @@
       "note": "Einmalig · Explosion gegen Maschinen",
       "amount": 1,
       "art": {
-        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "texture": "res://assets/ui/crafting/crafting_icons_v1.png",
         "region": [
-          512,
+          50,
           0,
-          512,
-          512
+          50,
+          50
         ]
       }
     },
@@ -53,12 +53,12 @@
       "note": "Persönlicher Schutz · dauerhaft für diese Runde",
       "amount": 1,
       "art": {
-        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "texture": "res://assets/ui/crafting/crafting_icons_v1.png",
         "region": [
-          1024,
+          100,
           0,
-          512,
-          512
+          50,
+          50
         ]
       }
     },
@@ -75,12 +75,12 @@
       "note": "Benötigt Stahlweste I · stärkerer Schutz",
       "amount": 1,
       "art": {
-        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "texture": "res://assets/ui/crafting/crafting_icons_v1.png",
         "region": [
+          150,
           0,
-          512,
-          512,
-          512
+          50,
+          50
         ]
       }
     },
@@ -96,12 +96,12 @@
       "note": "Manuell bedienen · Munition separat mitnehmen",
       "amount": 1,
       "art": {
-        "texture": "res://assets/ui/crafting/crafting_items_v1.png",
+        "texture": "res://assets/ui/crafting/crafting_icons_v1.png",
         "region": [
-          512,
-          512,
-          512,
-          512
+          200,
+          0,
+          50,
+          50
         ]
       }
     }

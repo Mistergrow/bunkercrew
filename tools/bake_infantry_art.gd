@@ -37,9 +37,9 @@ func run() -> void:
 	viewport.add_child(Sheet.new())
 	for frame in 3: await RenderingServer.frame_post_draw
 	var result := viewport.get_texture().get_image()
-	var code := result.save_png(Atlas.PATH)
+	var code := result.save_png(Atlas.LEGACY_PATH)
 	if code==OK:
-		var metadata_path:=Atlas.PATH.get_basename()+".source.json"
+		var metadata_path:=Atlas.LEGACY_PATH.get_basename()+".source.json"
 		var metadata:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(metadata_path))
 		var hashes:Dictionary={}
 		for path: String in metadata.source_sha256:hashes[path]=FileAccess.get_sha256("res://"+path)

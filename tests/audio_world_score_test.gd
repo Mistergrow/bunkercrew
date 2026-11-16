@@ -90,7 +90,7 @@ func run() -> void:
 	var playing_scores := 0
 	for player in audio.music_players:
 		if player.playing: playing_scores += 1
-	check(playing_scores == 1 and audio.get_child_count() == audio.MAX_VOICES + 6 and audio.movement.get_parent() == audio and audio.movement.voices.size() == 4 and audio.upgrade_audio.voices.size() == 2 and audio.live_music.get_parent() == audio and audio.menu_music.get_parent() == audio and not audio.menu_music.playing, "Repeated world changes preserve one active world score and bounded movement/research/live/menu controllers without creating players")
+	check(playing_scores == 1 and audio.get_child_count() == audio.MAX_VOICES + 9 and audio.acoustics.spatial_listener.get_parent() == audio and audio.movement.get_parent() == audio and audio.movement.voices.size() == 4 and audio.upgrade_audio.voices.size() == 2 and audio.aircraft_audio.get_parent() == audio and audio.aircraft_audio.voices.size() == 4 and audio.aircraft_audio.get_child_count() == 4 and audio.machinery_audio.get_parent() == audio and audio.machinery_audio.voices.size() == 2 and audio.machinery_audio.get_child_count() == 2 and audio.live_music.get_parent() == audio and audio.menu_music.get_parent() == audio and not audio.menu_music.playing, "Repeated world changes preserve one active world score and bounded movement/research/listener/aircraft/machinery/live/menu controllers without creating players")
 	for score_id: String in audio._score_streams:
 		check(audio._score_streams[score_id].get_instance_id() == score_ids[score_id], "%s transition reuses the cached resource" % score_id)
 	# The main menu pauses world simulation, but must keep its authored music level.

@@ -43,13 +43,19 @@ def default_database() -> str:
     return str(Path(data) / "bunkercrew-relay" / "social.sqlite3")
 
 
-def safe_name(value: object) -> str | None:
-    if not isinstance(value, str) or value != value.strip():
+def safe_name(value: object, trim: bool = False) -> str | None:
+    """The one display-name rule for friend profiles and relay seats."""
+    if not isinstance(value, str) or len(value) > 4096:
+        return None
+    # Checked before trimming: a leading line break is not mere padding.
+    if any(unicodedata.category(char).startswith("C") or char in "\u2028\u2029" for char in value):
+        return None
+    if trim:
+        value = value.strip()
+    elif value != value.strip():
         return None
     value = unicodedata.normalize("NFC", value)
     if not 1 <= len(value) <= 24 or len(value.encode("utf-8")) > 96:
-        return None
-    if any(unicodedata.category(char).startswith("C") or char in "\u2028\u2029" for char in value):
         return None
     return value
 
@@ -132,10 +138,23 @@ class SocialError(Exception):
         self.code = code
 
 
+DAY = 86400.0
+# A profile seen within this time is never removed, however full the table is.
+RECENT_SECONDS = DAY
+PRUNE_RETRY_SECONDS = 60.0
+
+
 class Store:
-    def __init__(self, path: str, max_profiles: int = 100000):
+    def __init__(self, path: str, max_profiles: int = 100000,
+                 unused_seconds: float = 30*DAY, active_seconds: float = 180*DAY):
         self.path = path
         self.max_profiles = max_profiles
+        # Without friends, requests or own blocks a profile is dropped after
+        # unused_seconds. A profile with relationships is only dropped to make
+        # room in a full table, and never within active_seconds of its last login.
+        self.unused_seconds = unused_seconds
+        self.active_seconds = max(active_seconds, RECENT_SECONDS)
+        self.pressure_checked = float("-inf")
         self.connection: sqlite3.Connection | None = None
         self.lock = asyncio.Lock()
         self.waiting = 0
@@ -181,6 +200,14 @@ class Store:
             CREATE INDEX IF NOT EXISTS block_target ON blocks(target);
         """)
         self.connection.commit()
+        # Databases written before last-login tracking: nothing is known about
+        # their profiles, so all count as seen now and get the full protection
+        # period. Older servers ignore the added column and index.
+        with self.connection:
+            if not any(row["name"] == "seen" for row in self.connection.execute("PRAGMA table_info(profiles)")):
+                self.connection.execute("ALTER TABLE profiles ADD COLUMN seen INTEGER NOT NULL DEFAULT 0")
+            self.connection.execute("UPDATE profiles SET seen=? WHERE seen=0", (int(time.time()),))
+            self.connection.execute("CREATE INDEX IF NOT EXISTS profile_seen ON profiles(seen)")
         if self.path != ":memory:":
             os.chmod(self.path, 0o600)
 
@@ -208,23 +235,76 @@ class Store:
                 await asyncio.to_thread(self.connection.close)
                 self.connection = None
 
-    def _profile(self, secret_hash: str, name: str) -> dict:
+    def _profile(self, secret_hash: str, name: str, create: bool = True, online: tuple = ()) -> dict | None:
+        """Log in. With create=False an unknown credential yields None, so the
+        caller can charge its new-profile allowance before a row is written."""
         db = self.connection
-        row = db.execute("SELECT id,code,name FROM profiles WHERE secret_hash=?", (secret_hash,)).fetchone()
+        now = int(time.time())
+        row = db.execute("SELECT id,code,name,seen FROM profiles WHERE secret_hash=?", (secret_hash,)).fetchone()
         if row:
-            return dict(row)
+            if now-row["seen"] >= 600:
+                with db:
+                    db.execute("UPDATE profiles SET seen=? WHERE id=?", (now,row["id"]))
+            return {"id":row["id"], "code":row["code"], "name":row["name"]}
+        if not create:
+            return None
         if db.execute("SELECT COUNT(*) FROM profiles").fetchone()[0] >= self.max_profiles:
-            raise SocialError("service_unavailable")
+            # Bounded work when the table stays full of protected profiles.
+            if time.monotonic()-self.pressure_checked < PRUNE_RETRY_SECONDS:
+                raise SocialError("service_unavailable")
+            self.pressure_checked = time.monotonic()
+            self._prune(online, True)
+            if db.execute("SELECT COUNT(*) FROM profiles").fetchone()[0] >= self.max_profiles:
+                raise SocialError("service_unavailable")
         with db:
             for _ in range(8):
                 code = "".join(secrets.choice(ALPHABET) for _ in range(12))
                 try:
-                    cursor = db.execute("INSERT INTO profiles(secret_hash,code,name,created) VALUES(?,?,?,?)",
-                                        (secret_hash, code, name, int(time.time())))
+                    cursor = db.execute("INSERT INTO profiles(secret_hash,code,name,created,seen) VALUES(?,?,?,?,?)",
+                                        (secret_hash, code, name, now, now))
                     return {"id":cursor.lastrowid, "code":code, "name":name}
                 except sqlite3.IntegrityError:
                     continue
         raise SocialError("service_unavailable")
+
+    UNUSED = """id NOT IN (SELECT a FROM friends UNION SELECT b FROM friends
+        UNION SELECT sender FROM requests UNION SELECT target FROM requests
+        UNION SELECT owner FROM blocks)"""
+
+    def _prune(self, online: tuple = (), pressure: bool = False) -> int:
+        """Remove profiles nobody uses; connected profiles are never removed.
+
+        Always: profiles without relationships, not seen for unused_seconds.
+        Only when the table is full (pressure), until 1/64 of it is free again:
+        least recently seen first, profiles without relationships that have
+        been away for a day, then profiles with relationships that have been
+        away for active_seconds. If neither exists the table stays full.
+        """
+        db = self.connection
+        now = int(time.time())
+        with db:
+            if online:
+                # Long sessions count as seen, which also protects them below.
+                db.executemany("UPDATE profiles SET seen=? WHERE id=?", [(now,identity) for identity in online])
+            doomed = [row[0] for row in db.execute(
+                "SELECT id FROM profiles WHERE seen<? AND "+self.UNUSED, (now-self.unused_seconds,))]
+            if pressure:
+                wanted = db.execute("SELECT COUNT(*) FROM profiles").fetchone()[0]-len(doomed)-self.max_profiles+max(1,self.max_profiles//64)
+                for condition,age in ((self.UNUSED,min(RECENT_SECONDS,self.unused_seconds)), ("1",self.active_seconds)):
+                    if wanted > 0:
+                        known = set(doomed)
+                        rows = [row[0] for row in db.execute(
+                            "SELECT id FROM profiles WHERE seen<? AND "+condition+" ORDER BY seen,id LIMIT ?",
+                            (now-age,wanted+len(known))) if row[0] not in known][:wanted]
+                        doomed += rows
+                        wanted -= len(rows)
+            protected = set(online)
+            doomed = [(identity,) for identity in doomed if identity not in protected]
+            db.executemany("DELETE FROM friends WHERE a=?1 OR b=?1", doomed)
+            db.executemany("DELETE FROM requests WHERE sender=?1 OR target=?1", doomed)
+            db.executemany("DELETE FROM blocks WHERE owner=?1 OR target=?1", doomed)
+            db.executemany("DELETE FROM profiles WHERE id=?", doomed)
+        return len(doomed)
 
     def _view(self, profile_id: int) -> dict:
         db = self.connection
@@ -338,7 +418,11 @@ class SocialService:
     def __init__(self, relay, database: str, game_build: str):
         self.relay = relay
         self.game_build = game_build
-        self.store = Store(database)
+        settings = relay.settings
+        self.store = Store(database, settings.max_profiles,
+                           settings.unused_profile_days*DAY, settings.active_profile_days*DAY)
+        self.addresses: dict[str,int] = {}
+        self.pruned = time.monotonic()
         self.sessions: set[Session] = set()
         self.online: dict[int,Session] = {}
         self.invites: dict[str,dict] = {}
@@ -510,7 +594,13 @@ class SocialService:
             name = safe_name(payload.get("name"))
             if not isinstance(secret,str) or re.fullmatch(r"[a-f0-9]{64}",secret) is None or name is None:
                 raise SocialError("invalid_request")
-            profile = await self.store.call("profile",hashlib.sha256(bytes.fromhex(secret)).hexdigest(),name)
+            secret_hash = hashlib.sha256(bytes.fromhex(secret)).hexdigest()
+            profile = await self.store.call("profile",secret_hash,name,False)
+            if profile is None:
+                # Only a credential the server has never seen costs a new row.
+                if not self.relay.budget(session.address).profiles.take():
+                    raise SocialError("rate_limited")
+                profile = await self.store.call("profile",secret_hash,name,True,tuple(self.online))
             current = self.online.get(profile["id"])
             if current and not current.socket.closed:
                 # Existing session remains authoritative. A second login is
@@ -669,22 +759,40 @@ class SocialService:
         budget = self.relay.budget(address)
         if not budget.handshakes.take():
             raise web.HTTPTooManyRequests(text="Connection rate exceeded")
-        if (len(self.sessions)+self.pending>=256 or
-                len(self.sessions)+self.pending+len(self.relay.connections)+self.relay.pending>=self.relay.settings.max_connections or
-                budget.active+budget.pending>=self.relay.settings.max_connections_per_ip):
+        settings = self.relay.settings
+        if (len(self.sessions)+self.pending>=settings.max_social_sessions or
+                len(self.sessions)+self.pending+len(self.relay.connections)+self.relay.pending>=settings.max_connections or
+                budget.active+budget.pending>=settings.max_connections_per_ip or
+                self.addresses.get(address,0)>=settings.max_social_sessions_per_ip):
             raise web.HTTPServiceUnavailable(text="Social capacity reached")
         socket = web.WebSocketResponse(heartbeat=15,receive_timeout=35,timeout=1,max_msg_size=MAX_MESSAGE,compress=False)
         self.pending += 1
         budget.pending += 1
+        # Counts this address's sessions from the handshake until teardown.
+        self.addresses[address] = self.addresses.get(address,0)+1
+        session = None
         try:
-            await asyncio.wait_for(socket.prepare(request),self.relay.settings.handshake_timeout)
+            try:
+                await asyncio.wait_for(socket.prepare(request),settings.handshake_timeout)
+            finally:
+                self.pending -= 1
+                budget.pending -= 1
+            session = Session(socket,address,request.host.lower())
+            budget.active += 1
+            self.sessions.add(session)
+            session.sender = asyncio.create_task(self.writer(session))
+            await self.serve(session)
         finally:
-            self.pending -= 1
-            budget.pending -= 1
-        session = Session(socket,address,request.host.lower())
-        budget.active += 1
-        self.sessions.add(session)
-        session.sender = asyncio.create_task(self.writer(session))
+            if self.addresses[address] <= 1:
+                del self.addresses[address]
+            else:
+                self.addresses[address] -= 1
+            if session is not None:
+                await self.finish(session,budget)
+        return socket
+
+    async def serve(self, session: Session) -> None:
+        socket = session.socket
         try:
             async for message in socket:
                 session.touched = time.monotonic()
@@ -718,38 +826,44 @@ class SocialService:
                     await self.error(session,"service_unavailable")
         except (ConnectionError,asyncio.TimeoutError):
             pass
-        finally:
-            self.sessions.discard(session)
-            budget.active = max(0,budget.active-1)
-            if session.sender:
-                session.sender.cancel()
-                with contextlib.suppress(asyncio.CancelledError):
-                    await session.sender
-            if session.profile and self.online.get(session.profile["id"]) is session:
-                profile_id = session.profile["id"]
-                self.online.pop(profile_id,None)
-                self.revoke_room(profile_id)
-                affected = {row["target"] for row in self.invites.values() if row["sender"]==profile_id}
-                self.invites = {key:row for key,row in self.invites.items() if profile_id not in (row["sender"],row["target"])}
-                if not self.stopping:
-                    try:
-                        await self.publish(profile_id,False)
-                    except (SocialError,sqlite3.Error):
-                        # Presence invalidation remains queued for the sweeper;
-                        # transient storage pressure cannot leak a web traceback.
-                        pass
-                    for target in affected:
-                        if target in self.online:
-                            try:
-                                await self.state(self.online[target])
-                            except (SocialError,sqlite3.Error):
-                                pass
-        return socket
+
+    async def finish(self, session: Session, budget) -> None:
+        self.sessions.discard(session)
+        budget.active = max(0,budget.active-1)
+        if session.sender:
+            session.sender.cancel()
+            with contextlib.suppress(asyncio.CancelledError):
+                await session.sender
+        if session.profile and self.online.get(session.profile["id"]) is session:
+            profile_id = session.profile["id"]
+            self.online.pop(profile_id,None)
+            self.revoke_room(profile_id)
+            affected = {row["target"] for row in self.invites.values() if row["sender"]==profile_id}
+            self.invites = {key:row for key,row in self.invites.items() if profile_id not in (row["sender"],row["target"])}
+            if not self.stopping:
+                try:
+                    await self.publish(profile_id,False)
+                except (SocialError,sqlite3.Error):
+                    # Presence invalidation remains queued for the sweeper;
+                    # transient storage pressure cannot leak a web traceback.
+                    pass
+                for target in affected:
+                    if target in self.online:
+                        try:
+                            await self.state(self.online[target])
+                        except (SocialError,sqlite3.Error):
+                            pass
 
     async def sweep(self) -> None:
         while True:
             await asyncio.sleep(1)
             now = time.monotonic()
+            if now-self.pruned >= 600:
+                self.pruned = now
+                try:
+                    await self.store.call("prune",tuple(self.online))
+                except (SocialError,sqlite3.Error):
+                    pass
             for _code,room in list(self.room_aliases.items()):
                 if room["expires"] <= time.time():
                     self.revoke_room(room["owner"])

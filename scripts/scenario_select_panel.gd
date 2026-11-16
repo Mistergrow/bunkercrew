@@ -5,6 +5,8 @@ const Scenery := preload("res://scripts/menu_scenery.gd")
 ## Choose a real landscape first; the controls sit quietly over that same world.
 const LOCATION_RECT := Rect2(82, 210, 388, 49)
 const CONFIGURATION_X := 1024.0
+## The selected site's description card (bottom aligned; grows upward).
+const DESCRIPTION_RECT := Rect2(516, 586, 452, 178)
 var game
 var hud
 var options: Dictionary
@@ -177,11 +179,11 @@ func _draw_selected(choice: Button, height: float = 18.0) -> void:
 
 func _draw_location(choice: Button, index: int) -> void:
 	_draw_selected(choice)
-	UiArt.text(choice, Vector2(10, 30), "%02d" % (index + 1), 11, UiArt.AMBER if _is_selected(choice) else UiArt.MUTED)
+	UiArt.text(choice, Vector2(8, 30), "%02d" % (index + 1), UiArt.TEXT_LABEL, UiArt.AMBER if _is_selected(choice) else UiArt.MUTED)
 
 func _draw_detail(choice: Button, detail: String, baseline: float = 44.0) -> void:
 	_draw_selected(choice, 26)
-	UiArt.text(choice, Vector2(18, baseline), detail, 13, UiArt.MUTED)
+	UiArt.text(choice, Vector2(18, baseline), detail, UiArt.TEXT_NOTE, UiArt.MUTED)
 
 func _draw_construction() -> void:
 	# The exact gameplay assembly gives each material an honest, detailed preview.
@@ -316,30 +318,36 @@ func _draw_foreground() -> void:
 	decoration.draw_polygon(PackedVector2Array([bounds.position, Vector2(bounds.end.x, bounds.position.y), Vector2(bounds.end.x, 188), Vector2(bounds.position.x, 188)]), PackedColorArray([Color(ink, .74), Color(ink, .74), Color(ink, 0), Color(ink, 0)]))
 	decoration.draw_polygon(PackedVector2Array([Vector2(bounds.position.x, 542), Vector2(bounds.end.x, 542), bounds.end, Vector2(bounds.position.x, bounds.end.y)]), PackedColorArray([Color(ink, 0), Color(ink, 0), Color(ink, .96), Color(ink, .96)]))
 	UiArt.text(decoration, Vector2(100, 120), "Plane deine Schicht", 34, UiArt.IVORY, UiArt.MENU_FONT)
-	UiArt.text(decoration, Vector2(100, 188), "Schauplatz", 13, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 201), "Bauart", 13, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 536), "Position im Gelände", 13, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 188), "Schauplatz", UiArt.TEXT_NOTE, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 201), "Bauart", UiArt.TEXT_NOTE, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 536), "Position im Gelände", UiArt.TEXT_NOTE, UiArt.MUTED)
 	if str(options.position) == "center":
-		var attack_detail := UiArt.wrap_text("Mittellage: gleiche Gesamtzahl an Gegnern, auf zwei Fronten verteilt.", 316, 10)
-		for line in mini(attack_detail.size(), 2): UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 755 + line * 13), attack_detail[line], 10, UiArt.MUTED)
-	var story_detail := UiArt.wrap_text("Story: Mauerbau, Funkaufträge und 20 Wellen.", 316, 13)
-	for line in mini(story_detail.size(), 2): UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 157 + line * 17), story_detail[line], 13, UiArt.MUTED)
+		var attack_detail := UiArt.wrap_text("Mittellage: gleiche Gesamtzahl an Gegnern, auf zwei Fronten verteilt.", 316, UiArt.TEXT_LABEL)
+		for line in mini(attack_detail.size(), 2): UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 757 + line * 16), attack_detail[line], UiArt.TEXT_LABEL, UiArt.MUTED)
+	var story_detail := UiArt.wrap_text("Story: Mauerbau, Funkaufträge und 20 Wellen.", 316, UiArt.TEXT_NOTE)
+	for line in mini(story_detail.size(), 2): UiArt.text(decoration, Vector2(CONFIGURATION_X + 18, 158 + line * 19), story_detail[line], UiArt.TEXT_NOTE, UiArt.MUTED)
 	var selected: Dictionary = ScenarioCatalog.environment(str(options.environment))
 	var location_number := 0
 	for index in environments.size():
 		if str(environments[index].id) == str(options.environment): location_number = index + 1
-	UiArt.text(decoration, Vector2(540, 617), "%02d / %02d" % [location_number, environments.size()], 12, UiArt.MUTED)
+	# The selected site's card: number, name and description on the menus'
+	# plate surface, so the column reads over any panorama.
+	var detail := UiArt.wrap_text(str(selected.get("detail", "")), DESCRIPTION_RECT.size.x - 40, UiArt.TEXT_NOTE)
+	var card := DESCRIPTION_RECT
+	card.size.y = 102 + mini(detail.size(), 3) * 21
+	card.position.y = DESCRIPTION_RECT.end.y - card.size.y
+	UiArt.plate(decoration, card, true, .9)
+	UiArt.text(decoration, card.position + Vector2(20, 28), "%02d / %02d" % [location_number, environments.size()], UiArt.TEXT_LABEL, UiArt.MUTED)
 	var title := L.text(str(selected.title)).capitalize()
 	var title_size := 29
-	while title_size > 18 and UiArt.MENU_FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, title_size).x > 442: title_size -= 1
-	UiArt.text(decoration, Vector2(538, 655), title, title_size, UiArt.IVORY, UiArt.MENU_FONT)
-	var detail := UiArt.wrap_text(str(selected.get("detail", "")), 396, 13)
-	for line in mini(detail.size(), 4): UiArt.text(decoration, Vector2(540, 684 + line * 18), detail[line], 13, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(100, 713), "Du beginnst mit einem Raum.", 14, UiArt.IVORY)
-	UiArt.text(decoration, Vector2(100, 737), "Weitere Räume kosten Beton und Stahl.", 11, UiArt.MUTED)
+	while title_size > 18 and UiArt.MENU_FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, title_size).x > card.size.x - 40: title_size -= 1
+	UiArt.text(decoration, card.position + Vector2(18, 64), title, title_size, UiArt.IVORY, UiArt.MENU_FONT)
+	for line in mini(detail.size(), 3): UiArt.text(decoration, card.position + Vector2(20, 94 + line * 21), detail[line], UiArt.TEXT_NOTE, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 713), "Du beginnst mit einem Raum.", UiArt.TEXT_LEAD, UiArt.IVORY)
+	UiArt.text(decoration, Vector2(100, 738), "Weitere Räume kosten Beton und Stahl.", UiArt.TEXT_NOTE, UiArt.MUTED)
 	# A single quiet footer rule establishes the action hierarchy.
 	decoration.draw_line(Vector2(100, 781), Vector2(1358, 781), Color(UiArt.MUTED, .18), 1)
-	UiArt.text(decoration, Vector2(100, 879), "Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen", 12, UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(100, 879),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)
 
 func refresh_locale() -> void:
 	environments = ScenarioCatalog.environments()

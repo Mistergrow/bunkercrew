@@ -2,9 +2,14 @@ extends RefCounted
 ## Existing painted machine surfaces keep defensive structures in the same
 ## material family as the furnace, gun mount and bunker equipment.
 const Surface := preload("res://scripts/station_surface_art.gd")
-const CONSOLE := preload("res://assets/props/console.tres")
+const CONSOLE_PATH := "res://assets/props/console.tres"
 const FLAK_CONSOLE_BOUNDS := Rect2(-26,-59,53,51)
 const INK := Color("182221")
+
+## The console artwork drawn at `size` world units: its world-texel bake
+## (one texel per unit), or the source region for a size never baked.
+static func console(size: Vector2) -> Texture2D:
+	return WorldTexels.resource_or_load(CONSOLE_PATH, Vector2i(size.round()))
 const STEEL := Color("596254")
 const EDGE := Color("a9aa8d")
 static var _glass: Texture2D
@@ -72,7 +77,7 @@ static func dome_console(canvas: Node2D, site: Vector2, frame_built: bool, built
 	var plate := Rect2(site+Vector2(-32,-136),Vector2(65,62))
 	canvas.draw_rect(plate.grow(2),Color(0,0,0,.26))
 	Surface.panel(canvas,plate,Color("38443c"),3)
-	canvas.draw_texture_rect(CONSOLE,Rect2(site+Vector2(-30,-134),Vector2(60,56)),false)
+	canvas.draw_texture_rect(console(Vector2(60,56)),Rect2((site+Vector2(-30,-134)).round(),Vector2(60,56)),false)
 	beam(canvas,site+Vector2(19,-76),site+Vector2(19,-36),4,2)
 	beam(canvas,site+Vector2(19,-36),site+Vector2(7,-36),4,2)
 	Surface.panel(canvas,Rect2(site+Vector2(-9,-47),Vector2(22,22)),Color("3e493e"),1)
@@ -93,7 +98,7 @@ static func dome_console(canvas: Node2D, site: Vector2, frame_built: bool, built
 
 static func flak_console(canvas: Node2D, tier: int, built: bool, operational: bool) -> void:
 	Surface.panel(canvas,Rect2(-25,-9,50,8),Color("414c43"),4)
-	canvas.draw_texture_rect(CONSOLE,FLAK_CONSOLE_BOUNDS,false)
+	canvas.draw_texture_rect(console(FLAK_CONSOLE_BOUNDS.size),FLAK_CONSOLE_BOUNDS,false)
 	Surface.face(canvas,Rect2(-15,-26,29,13),Color("344038"),1)
 	canvas.draw_rect(Rect2(-12,-24,21,9),Color("172525"))
 	# Engraved twin barrels and a traverse mark identify the AA station even

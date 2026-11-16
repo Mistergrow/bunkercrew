@@ -23,6 +23,8 @@ from relay import (
     create_app,
     VoiceGuard,
 )
+from relay import safe_name as SAFE_NAME
+from social import safe_name
 
 
 class RelayIntegration(unittest.IsolatedAsyncioTestCase):
@@ -711,6 +713,303 @@ class RelayIntegration(unittest.IsolatedAsyncioTestCase):
             (await asyncio.wait_for(guest.receive(), 0.5)).type, WSMsgType.CLOSE
         )
         self.assertEqual(guest.close_code, 1013)
+
+    async def wait_until(self, predicate, seconds=2.0):
+        deadline = asyncio.get_running_loop().time() + seconds
+        while not predicate():
+            self.assertLess(asyncio.get_running_loop().time(), deadline, "condition not reached")
+            await asyncio.sleep(0.005)
+
+    async def test_one_address_cannot_hold_every_room(self):
+        server = await self.start_server(
+            max_rooms_per_ip=2, trusted_proxies=("127.0.0.1/32",)
+        )
+        relay = server.app[RELAY_KEY]
+        mine = []
+        for _ in range(2):
+            host = await self.connect(server)
+            await self.command(host, "host")
+            await self.receive(host, "hosted")
+            mine.append(host)
+        refused = await self.connect(server)
+        await self.command(refused, "host")
+        self.assertEqual((await self.receive(refused, "error"))["code"], "server_full")
+        self.assertEqual(len(relay.rooms), 2)
+        # IPv6 privacy addresses of one /64 count as the same address.
+        for index, address in enumerate(("2001:db8:7::1", "2001:db8:7::2", "2001:db8:7::3")):
+            other = await self.connect(server, headers={"X-Forwarded-For": address})
+            await self.command(other, "host")
+            answer = await self.receive(other)
+            self.assertEqual(answer["op"], "hosted" if index < 2 else "error", answer)
+        self.assertEqual(len(relay.rooms), 4)
+        # A closed room returns its place to the address.
+        await self.command(mine[0], "leave")
+        await self.receive(mine[0], "room_closed")
+        await self.receive(mine[0], "left")
+        await self.command(refused, "host")
+        await self.receive(refused, "hosted")
+
+    async def test_lobby_without_guest_expires_but_occupied_room_stays(self):
+        server = await self.start_server(
+            lobby_idle_seconds=0.25, solo_room_seconds=0.6, grace_seconds=0.2
+        )
+        relay = server.app[RELAY_KEY]
+        host, guest, hosted, _ = await self.room(server)
+        lonely = await self.connect(server)
+        await self.command(lonely, "host")
+        abandoned = await self.receive(lonely, "hosted")
+        started = await self.connect(server)
+        await self.command(started, "host")
+        running = await self.receive(started, "hosted")
+        await self.command(started, "status", started=True)
+        await self.receive(started, "status")
+        closed = await self.receive(lonely, "room_closed")
+        self.assertEqual(closed["reason"], "host_timeout")
+        self.assertNotIn(abandoned["code"], relay.rooms)
+        # The started room without guests outlives the lobby period only.
+        self.assertIn(running["code"], relay.rooms)
+        self.assertEqual((await self.receive(started, "room_closed"))["reason"], "host_timeout")
+        self.assertEqual(set(relay.rooms), {hosted["code"]})
+        self.assertEqual(len(relay.tokens), 2)
+        # The lobby period restarts when the last guest leaves.
+        await self.command(guest, "leave")
+        await self.receive(host, "peer_left")
+        await asyncio.sleep(0.1)
+        self.assertIn(hosted["code"], relay.rooms)
+        self.assertEqual((await self.receive(host, "room_closed"))["reason"], "host_timeout")
+        disabled = await self.start_server(lobby_idle_seconds=0, grace_seconds=0.2)
+        forever = await self.connect(disabled)
+        await self.command(forever, "host")
+        await self.receive(forever, "hosted")
+        await asyncio.sleep(0.3)
+        self.assertEqual(len(disabled.app[RELAY_KEY].rooms), 1)
+
+    async def test_global_outbound_budget_sheds_slowest_receiver_only(self):
+        server = await self.start_server(max_outbound_bytes=3000)
+        relay = server.app[RELAY_KEY]
+        host, guest, hosted, _ = await self.room(server)
+        third = await self.connect(server)
+        await self.command(third, "join", code=hosted["code"])
+        await self.receive(third, "joined")
+        await self.receive(host, "peer_joined")
+        await self.receive(third, "peer_joined")
+        slow = relay.rooms[hosted["code"]].seats["guest"].connection
+
+        async def blocked(_data, **_kwargs):
+            await asyncio.Event().wait()
+
+        slow.socket.send_bytes = blocked
+        await host.send_bytes(b"\x02" + b"r" * 2500)
+        await self.wait_until(lambda: relay.outbound_bytes == 2501)
+        # Droppable voice is discarded while the budget is exhausted.
+        await host.send_bytes(b"\x83" + b"v" * 1000)
+        await host.send_bytes(b"\x03small")
+        self.assertEqual(await asyncio.wait_for(third.receive_bytes(), 1), b"\x01small")
+        self.assertFalse(slow.released)
+        # Reliable data for a healthy receiver evicts the backlog instead.
+        await host.send_bytes(b"\x03" + b"R" * 1000)
+        self.assertEqual(
+            await asyncio.wait_for(third.receive_bytes(), 1), b"\x01" + b"R" * 1000
+        )
+        self.assertEqual((await asyncio.wait_for(guest.receive(), 2)).type, WSMsgType.CLOSE)
+        self.assertEqual(guest.close_code, 1013)
+        await self.wait_until(lambda: slow not in relay.connections)
+        self.assertEqual(relay.outbound_bytes, 0)
+        self.assertEqual(slow.outbound_bytes, 0)
+        self.assertFalse(host.closed)
+        self.assertFalse(third.closed)
+
+    async def test_outbound_accounting_returns_to_zero_after_traffic_and_disconnect(self):
+        host, guest, hosted, _ = await self.room()
+        relay = self.server.app[RELAY_KEY]
+        for index in range(20):
+            await host.send_bytes(b"\x02" + bytes([index]) * 5000)
+        for index in range(20):
+            self.assertEqual(await guest.receive_bytes(), b"\x01" + bytes([index]) * 5000)
+        await self.wait_until(lambda: relay.outbound_bytes == 0)
+        connection = relay.rooms[hosted["code"]].seats["guest"].connection
+
+        async def blocked(_data, **_kwargs):
+            await asyncio.Event().wait()
+
+        connection.socket.send_bytes = blocked
+        for _ in range(3):
+            await host.send_bytes(b"\x02" + b"q" * 4000)
+        await self.wait_until(lambda: relay.outbound_bytes == 3 * 4001)
+        await guest.close()
+        await self.wait_until(lambda: connection not in relay.connections)
+        self.assertEqual(connection.outbound_bytes, 0)
+        await self.receive(host, "peer_left")
+        await self.wait_until(lambda: relay.outbound_bytes == 0)
+
+    async def test_full_address_table_evicts_idle_entries_instead_of_failing(self):
+        server = await self.start_server(
+            trusted_proxies=("127.0.0.1/32",), max_addresses=2
+        )
+        relay = server.app[RELAY_KEY]
+        first = await self.connect(server, headers={"X-Forwarded-For": "198.51.100.1"})
+        await self.connect(server, headers={"X-Forwarded-For": "198.51.100.2"})
+        await first.close()
+        await self.wait_until(lambda: not relay.addresses["198.51.100.1"].active)
+        # Far inside the 600 s idle lifetime, yet the new address is served.
+        await self.connect(server, headers={"X-Forwarded-For": "198.51.100.3"})
+        self.assertEqual(set(relay.addresses), {"198.51.100.2", "198.51.100.3"})
+        with self.assertRaises(WSServerHandshakeError) as error:
+            await self.connect(server, headers={"X-Forwarded-For": "198.51.100.4"})
+        self.assertEqual(error.exception.status, 503)
+
+    async def test_ipv6_is_aggregated_per_48_under_table_pressure(self):
+        server = await self.start_server(
+            trusted_proxies=("127.0.0.1/32",), max_addresses=8
+        )
+        relay = server.app[RELAY_KEY]
+        await self.connect(server, headers={"X-Forwarded-For": "2001:db8:1:1::1"})
+        self.assertEqual(set(relay.addresses), {"2001:db8:1:1::/64"})
+        for index in range(5):
+            await self.connect(server, headers={"X-Forwarded-For": f"198.51.100.{index + 1}"})
+        for subnet in range(2, 40):
+            await self.connect(server, headers={"X-Forwarded-For": f"2001:db8:2:{subnet:x}::1"})
+        self.assertEqual(len(relay.addresses), 7)
+        self.assertIn("2001:db8:2::/48", relay.addresses)
+        self.assertEqual(relay.addresses["2001:db8:2::/48"].active, 38)
+        # A prefix known before the pressure keeps its own entry.
+        await self.connect(server, headers={"X-Forwarded-For": "2001:db8:1:1::2"})
+        self.assertEqual(relay.addresses["2001:db8:1:1::/64"].active, 2)
+
+    async def test_forgetting_a_stale_seat_keeps_its_successor(self):
+        host, guest, hosted, _ = await self.room()
+        relay = self.server.app[RELAY_KEY]
+        room = relay.rooms[hosted["code"]]
+        stale = room.seats["guest"]
+        await self.command(host, "kick")
+        await self.receive(guest, "room_closed")
+        await self.receive(host, "peer_left")
+        await self.receive(host, "kicked")
+        replacement = await self.connect()
+        await self.command(replacement, "join", code=hosted["code"])
+        joined = await self.receive(replacement, "joined")
+        successor = room.seats["guest"]
+        self.assertIsNot(successor, stale)
+        relay.forget_seat(stale)
+        self.assertIs(room.seats.get("guest"), successor)
+        self.assertIs(relay.tokens.get(joined["resume_token"]), successor)
+        self.assertIs(successor.connection.seat, successor)
+
+    async def test_relay_names_follow_the_profile_name_rule(self):
+        self.assertIs(SAFE_NAME, safe_name)
+        client = await self.connect()
+        for name in ("Ma\u2028ra", "Ma\u2029ra", "Ma\u200bra", "  ", "", 7, None, "e\u0301" * 25):
+            await self.command(client, "host", name=name)
+            self.assertEqual((await self.receive(client, "error"))["code"], "invalid_name", repr(name))
+        await self.command(client, "host", name="  A\u030asa  ")
+        hosted = await self.receive(client, "hosted")
+        guest = await self.connect()
+        await self.command(guest, "join", code=hosted["code"], name="Ivo")
+        await self.receive(guest, "joined")
+        await self.receive(client, "peer_joined")
+        self.assertEqual((await self.receive(guest, "peer_joined"))["name"], "\u00c5sa")
+
+    async def kicked_guest(self, server, host, hosted, address, **kick):
+        guest = await self.connect(server, headers={"X-Forwarded-For": address})
+        await self.command(guest, "join", code=hosted["code"])
+        answer = await self.receive(guest)
+        if answer["op"] == "error":
+            return answer["code"]
+        await self.receive(host, "peer_joined")
+        await self.receive(guest, "peer_joined")
+        await self.command(host, "kick", player_id=answer["player_id"], **kick)
+        self.assertEqual((await self.receive(guest, "room_closed"))["reason"], "host_rejected")
+        await self.receive(host, "peer_left")
+        await self.receive(host, "kicked")
+        return "kicked"
+
+    async def test_repeated_kick_bans_the_address_for_the_room_lifetime(self):
+        server = await self.start_server(
+            trusted_proxies=("127.0.0.1/32",), kicks_before_ban=2
+        )
+        host = await self.connect(server, headers={"X-Forwarded-For": "192.0.2.1"})
+        await self.command(host, "host")
+        hosted = await self.receive(host, "hosted")
+        # The client kicks automatically, e.g. after a handshake timeout, so
+        # one kick still allows a retry.
+        self.assertEqual(await self.kicked_guest(server, host, hosted, "198.51.100.7"), "kicked")
+        self.assertEqual(await self.kicked_guest(server, host, hosted, "198.51.100.7"), "kicked")
+        for _ in range(2):
+            self.assertEqual(
+                await self.kicked_guest(server, host, hosted, "198.51.100.7"), "host_rejected"
+            )
+        # Other addresses and other rooms are unaffected.
+        self.assertEqual(await self.kicked_guest(server, host, hosted, "198.51.100.8"), "kicked")
+        other = await self.connect(server, headers={"X-Forwarded-For": "192.0.2.2"})
+        await self.command(other, "host")
+        elsewhere = await self.receive(other, "hosted")
+        self.assertEqual(await self.kicked_guest(server, other, elsewhere, "198.51.100.7"), "kicked")
+        # The ban covers a whole IPv6 /64 and an explicit ban needs one kick.
+        self.assertEqual(
+            await self.kicked_guest(server, host, hosted, "2001:db8:5::1", ban=True), "kicked"
+        )
+        self.assertEqual(
+            await self.kicked_guest(server, host, hosted, "2001:db8:5::99"), "host_rejected"
+        )
+        await self.command(host, "kick", player_id=2, ban="yes")
+        self.assertEqual((await self.receive(host, "error"))["code"], "invalid_request")
+
+    async def test_kick_ban_covers_a_disconnected_guest_and_spares_loopback(self):
+        server = await self.start_server(
+            trusted_proxies=("127.0.0.1/32",), kicks_before_ban=1
+        )
+        host = await self.connect(server)
+        await self.command(host, "host")
+        hosted = await self.receive(host, "hosted")
+        guest = await self.connect(server, headers={"X-Forwarded-For": "198.51.100.9"})
+        await self.command(guest, "join", code=hosted["code"])
+        await self.receive(guest, "joined")
+        await self.receive(host, "peer_joined")
+        await guest.close()
+        self.assertEqual((await self.receive(host, "peer_left"))["reason"], "connection_lost")
+        await self.command(host, "kick", player_id=2)
+        await self.receive(host, "peer_left")
+        await self.receive(host, "kicked")
+        again = await self.connect(server, headers={"X-Forwarded-For": "198.51.100.9"})
+        await self.command(again, "join", code=hosted["code"])
+        self.assertEqual((await self.receive(again, "error"))["code"], "host_rejected")
+        # All loopback peers are the same machine; the address names nobody.
+        for _ in range(2):
+            local = await self.connect(server)
+            await self.command(local, "join", code=hosted["code"])
+            await self.receive(local, "joined")
+            await self.receive(host, "peer_joined")
+            await self.receive(local, "peer_joined")
+            await self.command(host, "kick", player_id=2)
+            await self.receive(local, "room_closed")
+            await self.receive(host, "peer_left")
+            await self.receive(host, "kicked")
+
+    async def test_sweep_does_not_wait_for_clogged_sockets(self):
+        server = await self.start_server(
+            idle_seconds=0.1, grace_seconds=0.2, send_timeout=1.5
+        )
+        relay = server.app[RELAY_KEY]
+        clogged = [await self.connect(server) for _ in range(6)]
+        await self.wait_until(lambda: len(relay.connections) == 6)
+
+        async def blocked(_data, **_kwargs):
+            await asyncio.Event().wait()
+
+        for connection in relay.connections:
+            connection.socket.send_json = blocked
+        healthy = await self.connect(server)
+        host, guest, hosted, _ = await self.room(server)
+        await guest.close()
+        await self.receive(host, "peer_left")
+        started = asyncio.get_running_loop().time()
+        # Guest expiry and a healthy idle connection are served within the
+        # same passes that find six sockets which never accept their notice.
+        self.assertEqual((await self.receive(host, "peer_left"))["reason"], "timeout")
+        self.assertEqual((await self.receive(healthy, "error"))["code"], "idle_timeout")
+        self.assertEqual((await healthy.receive()).type, WSMsgType.CLOSE)
+        self.assertLess(asyncio.get_running_loop().time() - started, 1.0)
+        self.assertFalse(any(socket.closed for socket in clogged))
 
 
 if __name__ == "__main__":

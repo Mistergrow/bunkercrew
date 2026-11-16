@@ -94,7 +94,7 @@ func run() -> void:
 	lining.interact(p2,100)
 	lining._process(100)
 	check(lining.materials == partial and p2.carried_count() == 2 and lining.tier == 0, "A partial recipe persists without consuming surplus steel or granting free progress")
-	check(lining.prompt(p1).contains("Beton 1/2") and lining.prompt(p1).contains("+30 HP"), "The selected back-wall prompt shows missing material and its real benefit")
+	check(lining.prompt(p1).contains("Beton 1/2") and lining.prompt(p1).contains("+30 LP"), "The selected back-wall prompt shows missing material and its real benefit")
 	lining.interact(p1,0.31)
 	check(lining.complete_materials() and p1.carried_count() == 1 and p2.carried_count() == 2, "Full tier-one buffer accepts only the exact recipe")
 	lining.interact(p1,0.6)
@@ -108,7 +108,9 @@ func run() -> void:
 	lining.interact(p1,100)
 	lining.interact(p2,100)
 	check(not lining.can_interact(p1) and p1.inventory == p1_before and p2.inventory == p2_before and lining.curing_remaining == 8, "Neither partner can deposit or finish the same layer again during curing")
-	check(lining.prompt(p1).contains("härtet 8.0 s"), "The curing prompt gives remaining time")
+	# German shows the remaining time with a decimal comma (LocaleText).
+	var remaining := "8,0" if LocaleText.current_locale() == "de" else "8.0"
+	check(lining.prompt(p1).contains("härtet %s s" % remaining), "The curing prompt gives remaining time")
 	lining._process(7.9)
 	check(lining.tier == 0 and game.core.max_hp == 450 and lining.interaction_progress(p1) > 0.98, "Curing progression is visible but the bonus waits for completion")
 	lining._process(0.2)
@@ -150,7 +152,7 @@ func run() -> void:
 	lining.interact(p1,1000)
 	lining.interact(p2,1000)
 	check(not lining.can_interact(p1) and lining.materials.is_empty() and p1.carried_count() == 1 and p2.carried_count() == 1 and game.core.max_hp == 525, "Maximum lining neither consumes extra cargo nor duplicates durability")
-	check(lining.prompt(p1).contains("+75 HP") and lining.interaction_progress(p1) == 1, "Completed lining reports its exact permanent total benefit")
+	check(lining.prompt(p1).contains("+75 LP") and lining.interaction_progress(p1) == 1, "Completed lining reports its exact permanent total benefit")
 	check(signal_state.count > 10, "Material, construction, curing and tier changes notify the parent room")
 	var another_site := TestSite.new()
 	another_site.cleared = true

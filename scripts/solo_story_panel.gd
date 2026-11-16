@@ -397,18 +397,18 @@ func _process(delta: float) -> void:
 
 func _draw_foreground() -> void:
 	var screen: Rect2 = hud.screen_rect()
-	SocialUiArt.reading_shade(decoration,screen,410,600)
+	SocialUiArt.reading_shade(decoration,screen,410,600,bool(game.get("started")))
 	decoration.draw_rect(Rect2(440,218,944,540),Color(.024,.040,.044,.54))
 	UiArt.text(decoration,Vector2(80,111),"Begegnung" if mode=="encounter" else "Missionslogbuch",36,UiArt.IVORY,UiArt.MENU_FONT)
 	UiArt.text(decoration,Vector2(82,151),"Menschen finden. Orte sichern. Das Signal weitertragen.",17,UiArt.MUTED)
 	if mode=="encounter":
 		UiArt.text(decoration,Vector2(80,220),str(_encounter.get("name","")),28,UiArt.AMBER,UiArt.MENU_FONT)
 		var character := str(_encounter.get("character",""))
-		if CharacterCatalog.contains(character): Portraits.draw_portrait(decoration,character,Rect2(94,282,278,278),_elapsed)
+		if CharacterCatalog.contains(character): Portraits.draw_bust(decoration,character,Rect2(94,282,278,278),_elapsed)
 		else: UiArt.icon(decoration,"radio",Vector2(161,328),128,UiArt.MUTED)
 		var subtitle := UiArt.wrap_text(str(_encounter.get("subtitle","")),328,17)
 		for index in subtitle.size(): UiArt.text(decoration,Vector2(80,605+index*23),subtitle[index],17,UiArt.MUTED)
 	else:
 		UiArt.text(decoration,Vector2(80,217),L.format("%d Orte",_entries.size()),16,UiArt.MUTED)
 	UiArt.divider(decoration,Vector2(80,757),Vector2(1360,757))
-	UiArt.text(decoration,Vector2(80,861),"Pfeile / Steuerkreuz wählen · Rechts lesen · Esc zurück",14,UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(80,861),preload("res://scripts/input_labels.gd").reading_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)

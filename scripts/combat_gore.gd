@@ -179,7 +179,7 @@ func present(event: Dictionary,target: Node=null,actor_id: String="") -> void:
 		if particles.size()>=cap: break
 		var velocity:=direction.rotated(_rng.randf_range(-.8,.8))*_rng.randf_range(36,115)*sqrt(strength)
 		velocity.y-=_rng.randf_range(12,60)
-		particles.append({"point":point,"velocity":velocity,"age":0.0,"life":_rng.randf_range(.3,.85),"material":material_kind,"tint":color.lightened(_rng.randf_range(-.18,.1)),"size":1 if index%3 else 2})
+		particles.append({"point":point,"velocity":velocity,"age":0.0,"life":_rng.randf_range(.3,.85),"material":material_kind,"tint":color.lightened(_rng.randf_range(-.18,.1)),"size":1 if index%3 else 2,"chip":material_kind=="oil" and index%3==1})
 		if reduced and index>=5: break
 	if material_kind=="flesh" and level==Settings.FULL and int(event.get("part",0))>0:
 		if int(event.player_id)>0:
@@ -301,6 +301,25 @@ func _support_valid(entry: Dictionary) -> bool:
 	if entry.has("support_gate") and not is_equal_approx(float(support.gate_amount),float(entry.support_gate)): return false
 	return true
 
+## A machine bleeds shaded pieces on the texel grid, not flat dark squares:
+## oil drops with a wet sheen texel on top, and torn steel flakes that tumble
+## between a flat and an edge-on key with one lit texel.
+const OIL_SHEEN := Color("8f8574")
+const FLAKE := Color("5f6866")
+const FLAKE_LIT := Color("b4b8aa")
+
+func _draw_oil(point: Vector2,bit: Dictionary,tint: Color) -> void:
+	if bool(bit.get("chip",false)):
+		var flat: bool=posmod(floori(float(bit.age)*12.0),2)==0
+		var flake:=Vector2(2,1) if flat else Vector2(1,2)
+		draw_rect(Rect2(point,flake),Color(FLAKE,tint.a))
+		draw_rect(Rect2(point,Vector2.ONE),Color(FLAKE_LIT,tint.a))
+		return
+	var size: float=bit.size
+	draw_rect(Rect2(point,Vector2(size,size+1)),tint)
+	draw_rect(Rect2(point,Vector2.ONE),Color(OIL_SHEEN,tint.a*.85))
+	if size>1.5: draw_rect(Rect2(point+Vector2(1,2),Vector2.ONE),Color(tint.darkened(.35),tint.a))
+
 func _add_stain(hit: Dictionary,bit: Dictionary) -> void:
 	if not is_instance_valid(hit.get("collider")) or Vector2(hit.normal).length_squared()<.1: return
 	if stains.size()>= (20 if _reduced() else MAX_STAINS): stains.pop_front()
@@ -319,6 +338,9 @@ func _draw() -> void:
 		var tint: Color=bit.tint
 		tint.a=1.0-smoothstep(float(bit.life)*.7,bit.life,bit.age)
 		var point:=to_local(bit.point).round()
+		if bit.material=="oil":
+			_draw_oil(point,bit,tint)
+			continue
 		draw_rect(Rect2(point,Vector2(bit.size,bit.size+1)),tint)
 	for part in parts:
 		var previous: Dictionary=WorkerPoseArt.colors

@@ -1,0 +1,105 @@
+{
+  "generator": "Meshy image-to-image, model gpt-image-2",
+  "generated_at": "2026-11-14",
+  "asset": "materials_v1.png",
+  "source_asset": "materials_v1_source.png",
+  "style_reference": "assets/ui/crafting/crafting_items_v1.png",
+  "prompt": "Production game UI item sprite atlas in exactly the same detailed industrial pixel-art style, palette, outline weight, lighting direction and level of wear as the reference image. One clean sprite atlas, square composition, exactly 2 columns by 2 rows with four equally sized cells, no visible grid, no borders, no text, no labels, no backdrop, no glow, plain transparent background. Four separate inventory material illustrations at consistent scale, three-quarter view, centered with generous padding, each readable as a simple bold silhouette at 32 px. Top left: stack of three rolled steel plates, cool steel grey with rust-orange edges and rivets. Top right: dented steel bucket filled with wet grey concrete, wire handle, drips. Bottom left: small heap of machine scrap: bent gear, cut pipe, torn plate, bolts. Bottom right: olive-drab metal ammunition box, open lid, belt of brass rifle cartridges. Crisp square pixel clusters, dark charcoal outlines, muted olive, brown and steel greys, warm brass and rust-orange highlights, no smooth gradients.",
+  "purpose": "Original Bunkercrew inventory material icons (steel, concrete, scrap, ammunition) matching the painted crafting plans.",
+  "atlas_size": [
+    160,
+    68
+  ],
+  "source_size": [
+    1024,
+    1024
+  ],
+  "source_cells": {
+    "steel": [
+      0,
+      0,
+      512,
+      512
+    ],
+    "concrete": [
+      512,
+      0,
+      512,
+      512
+    ],
+    "scrap": [
+      0,
+      512,
+      512,
+      512
+    ],
+    "ammo": [
+      512,
+      512,
+      512,
+      512
+    ]
+  },
+  "regions": {
+    "steel": {
+      "40": [
+        0,
+        0,
+        40,
+        40
+      ],
+      "28": [
+        0,
+        40,
+        28,
+        28
+      ]
+    },
+    "concrete": {
+      "40": [
+        40,
+        0,
+        40,
+        40
+      ],
+      "28": [
+        40,
+        40,
+        28,
+        28
+      ]
+    },
+    "scrap": {
+      "40": [
+        80,
+        0,
+        40,
+        40
+      ],
+      "28": [
+        80,
+        40,
+        28,
+        28
+      ]
+    },
+    "ammo": {
+      "40": [
+        120,
+        0,
+        40,
+        40
+      ],
+      "28": [
+        120,
+        40,
+        28,
+        28
+      ]
+    }
+  },
+  "references": "No third-party artwork used. The style reference is the project's own generated crafting atlas.",
+  "postprocessing": "tools/build_material_icons.py: silhouette crop, premultiplied area reduction to 40/28 px, mild tone lift, hard alpha, re-inked 1 px outline. Original generated RGBA PNG preserved as materials_v1_source.png (not exported).",
+  "sha256": "1e593e52405fcf50eec4f6bde6d68440a11923e747b6cb79c2b54b8bc8bff7ef",
+  "source_sha256": "00f5883412199ab6688b9bbbb9917e752e1e5cffc71e8bc305eb3106a8e32f70"
+}

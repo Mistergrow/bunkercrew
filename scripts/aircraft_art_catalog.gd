@@ -2,7 +2,14 @@ class_name AircraftArtCatalog
 extends RefCounted
 ## Regions sample the immutable generated aircraft plate; each crop includes only
 ## its own alpha island, rather than relying on approximate atlas grid cells.
-const TEXTURE_PATH := "res://assets/enemies/aircraft_hulls_v1.png"
+## v2 is the same plate graded per type for value contrast against the
+## backdrops (tools/grade_enemy_hulls.py); alpha and regions are unchanged.
+## It is the source (and bake key) only: the game draws WORLD_PATH, every hull
+## baked offline at its drawn world size in attitude stances
+## (tools/world_density_bake.json), and loads the plate only as the fallback
+## for a size without a bake.
+const TEXTURE_PATH := "res://assets/enemies/aircraft_hulls_v2.png"
+const WORLD_PATH := "res://assets/enemies/aircraft_hulls_world.png"
 const REGIONS := {
 	"scout_drone":Rect2(48,137,281,150),
 	"gunship":Rect2(368,123,383,167),

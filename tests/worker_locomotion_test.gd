@@ -96,12 +96,23 @@ func _run() -> void:
 			if action=="stop": check(previous.feet[0].y<-2.99 and previous.feet[0].y>-3.01 and visual.locomotion.kind=="idle", id+" stop settles without skating")
 		visual.crouched=true
 		visual.ceiling_height=43
+		# Pass 3: a worker moving at pace under a low lintel or through an adit
+		# ducks and keeps running bent double (head up, crown below the probe's
+		# ceiling); a slow or resting one still goes down on hands and knees.
 		actor.velocity.x=95
 		for frame in 60:
 			actor.position.x+=95.0/60.0
 			visual._process(1.0/60.0)
+			_anatomy(visual.pose_skeleton, id+" duck")
+		var ducked: Dictionary = visual.pose_skeleton
+		var crown: Vector2 = PoseArt.head_transform(ducked)*Vector2(-1,-11)
+		check(visual.locomotion.kind=="duck" and ducked.shoulder.x>ducked.hip.x+12 and ducked.shoulder.y>-26 and crown.y>-43.0, id+" low tunnels at pace use a ducking run under the ceiling (crown %.1f)"%crown.y)
+		actor.velocity.x=40
+		for frame in 60:
+			actor.position.x+=40.0/60.0
+			visual._process(1.0/60.0)
 			_anatomy(visual.pose_skeleton, id+" crawl")
-		check(visual.locomotion.kind=="crawl" and visual.pose_skeleton.shoulder.y>-22 and visual.pose_skeleton.shoulder.x>visual.pose_skeleton.hip.x+12, id+" very low tunnels use actual hands-and-knees crawl")
+		check(visual.locomotion.kind=="crawl" and visual.pose_skeleton.shoulder.y>-22 and visual.pose_skeleton.shoulder.x>visual.pose_skeleton.hip.x+12, id+" very low tunnels at a slow pace use actual hands-and-knees crawl")
 		visual.crouched=false
 		visual.ceiling_height=128
 		signatures.append(signature)
@@ -226,7 +237,7 @@ func _clearance_checks(actor: Worker, visual: WorkerVisual, world: Node2D) -> vo
 	actor.get_node("WorkerWeapon").aiming=false
 	actor.get_node("WorkerWeapon").recoil=0
 	for frame in 30: visual._process(1.0/60.0)
-	check(visual.locomotion.kind=="crawl","Actual roof clearance selects crawl in the integrated visual")
+	check(visual.locomotion.kind=="duck","Actual roof clearance selects the ducking run at full pace in the integrated visual")
 	actor.position.x=150
 	visual._clearance_time=0
 	visual._physics_process(0.1)

@@ -1,0 +1,187 @@
+{
+  "asset": "aircraft_hulls_v2.png",
+  "generator": "tools/grade_enemy_hulls.py",
+  "source": "assets/enemies/aircraft_hulls_v1.png",
+  "method": "Colour and value grade of the painted hull plate per region: per-type paint hue, S-curve value structure, lit top edge one world texel thick, ground contact shade or lighter aircraft belly, red sensor lamp on aircraft. Alpha unchanged; no generated imagery.",
+  "license": "Same as the source plate (see its source metadata).",
+  "regions": {
+    "scout_drone": {
+      "box": [
+        48,
+        137,
+        281,
+        150
+      ],
+      "source_px_per_world_texel": 5.8,
+      "paint_hue_sat_gain": [
+        84,
+        1.05,
+        1.06
+      ]
+    },
+    "gunship": {
+      "box": [
+        368,
+        123,
+        383,
+        167
+      ],
+      "source_px_per_world_texel": 5.4,
+      "paint_hue_sat_gain": [
+        74,
+        1.0,
+        1.04
+      ]
+    },
+    "bomber": {
+      "box": [
+        773,
+        73,
+        409,
+        219
+      ],
+      "source_px_per_world_texel": 5.0,
+      "paint_hue_sat_gain": [
+        46,
+        1.0,
+        1.12
+      ]
+    },
+    "interceptor": {
+      "box": [
+        1211,
+        96,
+        431,
+        194
+      ],
+      "source_px_per_world_texel": 7.4,
+      "paint_hue_sat_gain": [
+        58,
+        0.45,
+        1.08
+      ]
+    },
+    "shield_airship": {
+      "box": [
+        30,
+        385,
+        340,
+        212
+      ],
+      "source_px_per_world_texel": 3.2,
+      "paint_hue_sat_gain": [
+        40,
+        1.05,
+        1.1
+      ]
+    },
+    "sky_fortress": {
+      "box": [
+        387,
+        374,
+        434,
+        214
+      ],
+      "source_px_per_world_texel": 3.8,
+      "paint_hue_sat_gain": [
+        58,
+        0.85,
+        1.0
+      ]
+    },
+    "rocket_drone": {
+      "box": [
+        881,
+        406,
+        270,
+        157
+      ],
+      "source_px_per_world_texel": 4.4,
+      "paint_hue_sat_gain": [
+        92,
+        0.95,
+        1.06
+      ]
+    },
+    "patrol_plane": {
+      "box": [
+        1209,
+        401,
+        424,
+        171
+      ],
+      "source_px_per_world_texel": 5.4,
+      "paint_hue_sat_gain": [
+        50,
+        0.95,
+        1.14
+      ]
+    },
+    "tiltrotor": {
+      "box": [
+        44,
+        656,
+        345,
+        211
+      ],
+      "source_px_per_world_texel": 4.2,
+      "paint_hue_sat_gain": [
+        100,
+        0.8,
+        1.06
+      ]
+    },
+    "dive_bomber": {
+      "box": [
+        407,
+        667,
+        396,
+        191
+      ],
+      "source_px_per_world_texel": 4.8,
+      "paint_hue_sat_gain": [
+        26,
+        1.0,
+        1.06
+      ]
+    },
+    "pulse_fighter": {
+      "box": [
+        823,
+        664,
+        348,
+        223
+      ],
+      "source_px_per_world_texel": 3.9,
+      "paint_hue_sat_gain": [
+        30,
+        0.35,
+        0.86
+      ]
+    },
+    "heavy_zeppelin": {
+      "box": [
+        1193,
+        676,
+        463,
+        213
+      ],
+      "source_px_per_world_texel": 3.2,
+      "paint_hue_sat_gain": [
+        66,
+        0.85,
+        1.04
+      ]
+    }
+  },
+  "contrast": 1.4,
+  "size": [
+    1672,
+    941
+  ],
+  "source_sha256": {
+    "assets/enemies/aircraft_hulls_v1.png": "6cdbdfb052e71d7ec200a167248455be355163f52fa47e6bda8a16a07c544221",
+    "tools/grade_enemy_hulls.py": "3b01f38bfa13f4785c4c37bb997dab0413e3083a990ecf10f25702158fb72f12"
+  },
+  "sha256": "8b624f9b2f407e4ddab9a6679b2593aff1388d3f976909e75525c177dcc06243"
+}

@@ -14,6 +14,34 @@ var _support_shape: WeakRef
 var _support_transform := Transform2D.IDENTITY
 var _support_clock := 0.0
 var support_queries := 0
+## A drop left by a defeated enemy materialises texel by texel (the ordered
+## dither of pickup_cutout's `reveal`) instead of popping in at full size:
+## inside the blast of a machine, after the fall of a soldier. It is found
+## from the fresh remains next to it, which host and guests both create, and
+## a presentation child runs the build-up (a guest's replica is frozen).
+## Settled piles, mined material and worker drops appear as before.
+const REVEAL_TIME := 0.30
+const REVEAL_AFTER_BLAST := 0.06
+const REVEAL_AFTER_FALL := 0.70
+const REVEAL_REACH := 40.0
+var _reveal_checked := false
+
+class DropReveal extends Node:
+	var delay := 0.0
+	var duration := 0.3
+	var age := 0.0
+	var shown := -1.0
+	func _ready() -> void:
+		_apply()
+	func _process(delta: float) -> void:
+		age += delta
+		_apply()
+	func _apply() -> void:
+		var value := snappedf(clampf((age-delay)/duration,0.0,1.0),1.0/16.0)
+		if value != shown:
+			shown = value
+			(get_parent() as CanvasItem).set_instance_shader_parameter(&"reveal",value)
+		if value >= 1.0: queue_free()
 
 func _ready() -> void:
 	add_to_group("interactables")
@@ -22,7 +50,33 @@ func _ready() -> void:
 	material = PICKUP_ART.cutout_material()
 	set_process(kind=="core")
 	_support_clock = float(get_instance_id()%15)/60.0
+	# A guest may receive the drop just before the remains: look once more
+	# after this frame's snapshot has been applied.
+	if not _start_reveal(): _start_reveal.call_deferred()
 	queue_redraw()
+
+func _start_reveal() -> bool:
+	if _reveal_checked or not is_inside_tree(): return false
+	var delay := _fresh_remains_delay()
+	if delay < 0.0: return false
+	_reveal_checked = true
+	var reveal := DropReveal.new()
+	reveal.name = "DropReveal"
+	reveal.delay = delay
+	reveal.duration = REVEAL_TIME
+	add_child(reveal)
+	return true
+
+## Reveal delay for a drop beside remains that are still settling, -1 when
+## there are none (any other pile).
+func _fresh_remains_delay() -> float:
+	for wreck in get_tree().get_nodes_in_group("enemy_motion_wrecks"):
+		if wreck is Node2D and float(wreck.get("elapsed")) < .25 and absf((wreck as Node2D).global_position.x-global_position.x) < REVEAL_REACH*1.5:
+			return REVEAL_AFTER_BLAST
+	for body in get_tree().get_nodes_in_group("infantry_remains"):
+		if body is Node2D and float(body.get("corpse_age")) < .25 and absf((body as Node2D).global_position.x-global_position.x) < REVEAL_REACH:
+			return REVEAL_AFTER_FALL
+	return -1.0
 
 func _process(delta: float) -> void:
 	elapsed += delta

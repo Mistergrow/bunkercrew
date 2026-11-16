@@ -2,6 +2,10 @@ extends Control
 ## Open settings navigation over the existing world, with native input controls.
 const L := preload("res://scripts/locale_text.gd")
 const TABS := ["Bild","Kamera","Ton","Takt","Sprache"]
+## The page card: from above the page title across the rows, down to just
+## below each page's last row (notes and commands included).
+const PAGE_CARD := Rect2(452,116,932,0)
+const PAGE_BOTTOMS: Array[float] = [740.0,606.0,632.0,792.0,630.0]
 var game
 var hud
 var tab := 0
@@ -34,13 +38,20 @@ var music_lab: CanvasLayer
 var cinematic_player: CanvasLayer
 var audio_sliders: Array[HSlider] = []
 var decoration: Control
+## The open page's drawn rows (title, labels, notes). A separate canvas item so
+## a new page slides in with its controls while the column and shade stay put.
+var page_text: Control
+var _shown_tab := -1
 var _landscape: Dictionary = {}
 var _syncing := false
 var _modal_visibility: Dictionary = {}
 var _modal_opener: Control
 var _active_slider: HSlider
 var _focus_signature := ""
+var _marker_y := -1.0
 var _presentation_values: Array = []
+## Type grows in small windows (UiArt.compact_boost); 1 at 1440x900 and up.
+var _text_boost := 1.0
 
 func _ready() -> void:
 	name = "OptionsPanel"
@@ -55,6 +66,12 @@ func _ready() -> void:
 	decoration.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	decoration.draw.connect(_draw_foreground)
 	add_child(decoration)
+	page_text = Control.new()
+	page_text.name = "PageText"
+	page_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	page_text.size = size
+	page_text.draw.connect(_draw_page)
+	add_child(page_text)
 	for index in TABS.size():
 		var button := _button(TABS[index],Rect2(80,224+index*64,290,50),func(): select_tab(index))
 		SocialUiArt.button(button,24,"",0)
@@ -100,6 +117,7 @@ func _choice(rect: Rect2,values: Array[String],parent: Node) -> OptionButton:
 	choice.position = rect.position
 	choice.size = rect.size
 	SocialUiArt.button(choice,17,"",12)
+	_field(choice)
 	SocialUiArt.popup(choice.get_popup())
 	for value in values: choice.add_item(L.text(value))
 	parent.add_child(choice)
@@ -112,11 +130,27 @@ func _check(title: String,at: Vector2,callback: Callable,parent: Node) -> CheckB
 	control.set_meta("setting_title",title)
 	control.tooltip_text = L.text(title)
 	SocialUiArt.button(control,17,"",12)
+	_field(control)
 	for icon_name in ["checked","checked_disabled","unchecked","unchecked_disabled","checked_mirrored","unchecked_mirrored"]:
 		control.add_theme_icon_override(icon_name,UiArt.switch_icon(icon_name.begins_with("checked")))
 	control.toggled.connect(callback)
 	parent.add_child(control)
 	return control
+
+## Value controls read as fields before they are focused: a faint inset box
+## with a lower edge. Hover lifts the edge; focus keeps its amber underline.
+func _field(control: Button) -> void:
+	for state in ["normal","hover","pressed","hover_pressed","disabled"]:
+		var style := (control.get_theme_stylebox(state) as StyleBoxFlat).duplicate() as StyleBoxFlat
+		style.bg_color = Color(.13,.165,.15,.86) if state in ["hover","hover_pressed"] else Color(.085,.112,.103,.74) if state!="disabled" else Color(.05,.07,.065,.5)
+		style.border_width_bottom = 1
+		style.border_color = Color(UiArt.AMBER,.6) if state in ["hover","pressed","hover_pressed"] else Color(UiArt.MUTED,.32 if state!="disabled" else .14)
+		control.add_theme_stylebox_override(state,style)
+	# Over the field box the shared focus wash alone is faint: add the edge.
+	var focus := (control.get_theme_stylebox("focus") as StyleBoxFlat).duplicate() as StyleBoxFlat
+	focus.border_width_bottom = 2
+	focus.border_color = UiArt.AMBER
+	control.add_theme_stylebox_override("focus",focus)
 
 func _slider(rect: Rect2,value: float,callback: Callable,parent: Node,min_value: float=0,max_value: float=1) -> HSlider:
 	var slider := HSlider.new()
@@ -150,6 +184,7 @@ func _build_display() -> void:
 		var full := get_window().mode in [Window.MODE_FULLSCREEN,Window.MODE_EXCLUSIVE_FULLSCREEN]
 		if full!=(index==1): hud.display_settings.toggle_fullscreen())
 	standalone_button = _button("Eigenes Fenster",Rect2(1000,290,360,38),func(): hud.display_settings.open_standalone(),pages[0])
+	SocialUiArt.action(standalone_button)
 	standalone_button.visible = hud.display_settings.is_embedded()
 	vsync = _check("Vertikale Synchronisation",Vector2(1000,344),func(value: bool):
 		if not _syncing:
@@ -167,6 +202,7 @@ func _build_display() -> void:
 	renderer_restart = _button("Neu starten",Rect2(1000,673,360,40),func():
 		if hud.display_settings.has_method("restart_with_renderer"):
 			hud.display_settings.restart_with_renderer("vulkan" if renderer_choice.selected==1 else "compatibility"),pages[0])
+	SocialUiArt.action(renderer_restart)
 
 func _build_camera() -> void:
 	camera_mode = _choice(Rect2(1000,242,360,44),["Spielern folgen","Bunkerübersicht"],pages[1])
@@ -174,8 +210,9 @@ func _build_camera() -> void:
 		if not _syncing and game.has_method("set_camera_mode"): game.set_camera_mode("follow" if index==0 else "overview"))
 	zoom_slider = _slider(Rect2(480,410,880,36),1.0,func(value: float):
 		if not _syncing and game.has_method("set_camera_zoom"): game.set_camera_zoom(value),pages[1],.5,2.0)
-	_button("Kamera zurücksetzen",Rect2(1000,536,360,44),func():
+	var reset_camera := _button("Kamera zurücksetzen",Rect2(1000,536,360,44),func():
 		if game.has_method("reset_camera_view"): game.reset_camera_view(),pages[1])
+	SocialUiArt.action(reset_camera)
 
 func _build_audio() -> void:
 	for index in 3:
@@ -196,14 +233,16 @@ func _build_rhythm() -> void:
 		if not _syncing: game.audio.set_music_style(genres.SELECTIONS[index]))
 	rhythm_reduced_check = _check("Taktbewegungen reduzieren",Vector2(1000,414),func(value: bool):
 		if not _syncing: game.audio.set_rhythm_motion_reduced(value),pages[3])
-	dance_gain_slider = _slider(Rect2(480,531,880,30),game.audio.dance_intensity,func(value: float):
+	dance_gain_slider = _slider(Rect2(480,549,880,30),game.audio.dance_intensity,func(value: float):
 		if not _syncing: game.audio.set_dance_configuration(value,preload("res://scripts/worker_dance_catalog.gd").normalized_profiles(game.audio.dance_profiles)),pages[3],0.0,1.5)
 	calibration_button = _button("Abstimmen",Rect2(1000,592,360,40),_open_calibration,pages[3])
 	music_lab_button = _button("Musik-Labor",Rect2(480,681,240,42),_open_music_lab,pages[3])
 	music_lab_button.tooltip_text = L.text("Musik-Labor im Hauptmenü öffnen.")
 	cinematic_player_button = _button("Sequenz-Studio",Rect2(742,681,240,42),_open_cinematic_player,pages[3])
 	cinematic_player_button.tooltip_text = L.text("Zwischensequenzen im Hauptmenü ansehen und prüfen.")
-	_button("Ausgleich zurücksetzen",Rect2(1000,681,360,42),func(): game.audio.set_music_calibration(0.0),pages[3])
+	var reset_calibration := _button("Ausgleich zurücksetzen",Rect2(1000,681,360,42),func(): game.audio.set_music_calibration(0.0),pages[3])
+	# Commands on the page read as buttons, not as labels beside the fields.
+	for command: Button in [calibration_button,music_lab_button,cinematic_player_button,reset_calibration]: SocialUiArt.action(command)
 
 func _build_language() -> void:
 	for index in 2:
@@ -223,9 +262,18 @@ func select_tab(index: int) -> void:
 		if is_instance_valid(previous_focus) and page.is_ancestor_of(previous_focus): page_had_focus=true
 	tab = clampi(index,0,4)
 	hud.options_tab = tab
+	# A new page (rows and controls together) replaces the old one in the same
+	# frame and slides in from the right, fully opaque: two pages never show
+	# through each other. Its controls are usable immediately. Reopening the
+	# same page (after a sub-panel) does not move.
+	var turning := _shown_tab>=0 and _shown_tab!=tab
+	_shown_tab = tab
 	for current in pages.size():
 		pages[current].visible = current==tab
 		tab_buttons[current].set_pressed_no_signal(current==tab)
+	if turning:
+		UiMotion.rise(page_text,Vector2(UiMotion.SLIDE*2.5,0),UiMotion.BASE)
+		UiMotion.rise(pages[tab],Vector2(UiMotion.SLIDE*2.5,0),UiMotion.BASE)
 	if page_had_focus and is_instance_valid(previous_focus) and not previous_focus.is_visible_in_tree():
 		tab_buttons[tab].grab_focus.call_deferred()
 	_focus_signature = ""
@@ -304,7 +352,13 @@ func _wire_focus() -> void:
 	if is_instance_valid(focus) and is_ancestor_of(focus) and not focus in active:
 		tab_buttons[tab].grab_focus.call_deferred()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_sync_text_boost()
+	# The category marker settles onto the chosen tab; repaint only while it moves.
+	var marker_target: float = tab_buttons[tab].position.y
+	if _marker_y>=0.0 and not is_equal_approx(_marker_y,marker_target):
+		_marker_y = UiMotion.approach(_marker_y,marker_target,delta)
+		decoration.queue_redraw()
 	_syncing = true
 	SocialUiArt.layout_landscape(_landscape,hud)
 	display_mode.select(1 if get_window().mode in [Window.MODE_FULLSCREEN,Window.MODE_EXCLUSIVE_FULLSCREEN] else 0)
@@ -348,6 +402,17 @@ func _process(_delta: float) -> void:
 		_presentation_values=presentation
 		_redraw()
 
+## At 960x600 the page's notes, labels and controls land at 10-11 real
+## pixels; they grow with the window scale like the main menu's helper copy.
+func _sync_text_boost(force: bool = false) -> void:
+	var boost := UiArt.compact_boost(self)
+	if not force and is_equal_approx(boost, _text_boost): return
+	_text_boost = SocialUiArt.boost_fonts(self, boost)
+	_redraw()
+
+func _sz(base: float) -> int:
+	return roundi(base * _text_boost)
+
 func refresh_locale() -> void:
 	if is_instance_valid(support_panel): support_panel.refresh_locale()
 	if is_instance_valid(release_panel): release_panel.refresh_locale()
@@ -364,24 +429,33 @@ func refresh_locale() -> void:
 
 func _redraw() -> void:
 	if is_instance_valid(decoration): decoration.queue_redraw()
+	if is_instance_valid(page_text): page_text.queue_redraw()
 
 func _draw_foreground() -> void:
 	if has_modal_subpanel(): return
 	var bounds: Rect2 = SocialUiArt.bounds(hud)
-	decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
-	SocialUiArt.reading_shade(decoration,bounds,420,800)
-	UiArt.text(decoration,Vector2(80,112),"Optionen",36,UiArt.IVORY,UiArt.TITLE_FONT)
+	# Over the match the HUD curtain is the only dimming (see match_sheet).
+	if not bool(game.get("started")): decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
+	# The open page is one card sized to its rows; around it the site stays
+	# visible instead of the page dissolving into a dark, mostly empty field.
+	SocialUiArt.reading_shade(decoration,bounds,420,1640,bool(game.get("started")))
+	UiArt.plate(decoration,Rect2(PAGE_CARD.position,Vector2(PAGE_CARD.size.x,PAGE_BOTTOMS[tab]-PAGE_CARD.position.y)),false,.94)
+	UiArt.text(decoration,Vector2(80,112),"Optionen",UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	var button: Button = tab_buttons[tab]
-	decoration.draw_line(Vector2(64,button.position.y+14),Vector2(64,button.position.y+button.size.y-14),UiArt.AMBER,2)
-	UiArt.text(decoration,Vector2(480,160),TABS[tab],30,UiArt.IVORY,UiArt.MENU_FONT)
-	UiArt.text(decoration,Vector2(80,819),"Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen",13,UiArt.MUTED)
+	if _marker_y<0.0: _marker_y = button.position.y
+	decoration.draw_line(Vector2(64,_marker_y+14),Vector2(64,_marker_y+button.size.y-14),UiArt.AMBER,2)
+	UiArt.hints(decoration,Vector2(80,819),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,_sz(UiArt.TEXT_BODY))
 	decoration.draw_line(Vector2(80,724),Vector2(360,724),Color(UiArt.MUTED,.22),1)
+
+func _draw_page() -> void:
+	if has_modal_subpanel(): return
+	UiArt.text(page_text,Vector2(480,160),TABS[tab],30,UiArt.IVORY,UiArt.MENU_FONT)
 	match tab:
 		0:
 			_note("F11 oder Alt + Enter wechselt jederzeit das Vollbild." if not hud.display_settings.is_embedded() else "Eigenes Fenster: Vollbild aus dem Hauptmenü starten.",Vector2(480,195),880)
 			_row("Anzeigemodus",270,"Fenster oder Vollbild.")
 			_row("Vertikale Synchronisation",372,"Verhindert Bildrisse.")
-			_row("Wettereffekte reduzieren",462,"F3: weniger Partikel und ruhigere Pflanzen.")
+			_row("Wettereffekte reduzieren",462,"F3: weniger Partikel, ruhigere Pflanzen, Menüs ohne Bewegung.")
 			_row("Gewaltdarstellung",552,"Nur auf deinem Bildschirm. Schaden und Spielregeln bleiben gleich.")
 			_row("Grafikrenderer",642,"Neustart erforderlich · nur im Hauptmenü")
 			_note("Kompatibilität ist die Standardeinstellung.",Vector2(480,701),480)
@@ -403,8 +477,9 @@ func _draw_foreground() -> void:
 			_row("Live-Musik pro Schauplatz",270,"")
 			_row("Musikstil · nächste Schicht",356,"")
 			_row("Taktbewegungen reduzieren",442,"")
-			_label("Stärke der Taktbewegungen",510)
-			_value(L.format("%d %%",roundi(dance_gain_slider.value*100)),510)
+			# One row pitch (86) below the last switch row, clear of its rule.
+			_label("Stärke der Taktbewegungen",528)
+			_value(L.format("%d %%",roundi(dance_gain_slider.value*100)),528)
 			_label("Takt und Bild abstimmen",620)
 			_note(L.format("Ausgleich: %d ms",roundi(game.audio.music_calibration_seconds*1000)),Vector2(480,648),480)
 			_note("Im Musik-Labor kannst du jede Figur einzeln abstimmen und die Einstellungen teilen.",Vector2(480,760),880)
@@ -418,20 +493,30 @@ func _gore():
 	return game.combat_gore if "combat_gore" in game and is_instance_valid(game.combat_gore) else null
 
 func _label(value: String,y: float) -> void:
-	UiArt.text(decoration,Vector2(480,y),value,19)
+	UiArt.text(page_text,Vector2(480,y),value,_sz(19))
 
 func _value(value: String,y: float) -> void:
-	var width := UiArt.FONT.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,19).x
-	UiArt.text(decoration,Vector2(1360-width,y),value,19,UiArt.AMBER)
+	var width := UiArt.FONT.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,_sz(19)).x
+	UiArt.text(page_text,Vector2(1360-width,y),value,_sz(19),UiArt.AMBER)
 
 func _row(title: String,y: float,detail: String) -> void:
 	_label(title,y)
-	if not detail.is_empty(): _note(detail,Vector2(480,y+29),480)
-	decoration.draw_line(Vector2(480,y+62),Vector2(1360,y+62),Color(UiArt.MUTED,.16),1)
+	if not detail.is_empty(): _note(detail,Vector2(480,y+29),510)
+	page_text.draw_line(Vector2(480,y+62),Vector2(1360,y+62),Color(UiArt.MUTED,.16),1)
 
+## Notes grow with the controls in small windows, but never onto more lines
+## than at 1.2x, so a row's note stays beside its control in both languages.
+## There they also step up from the muted tone toward ivory: thin 12 px type
+## needs the extra contrast that 15 px type at 1080p does not.
 func _note(value: String,at: Vector2,width: float) -> void:
-	var lines := UiArt.wrap_text(value,width,15)
-	for index in lines.size(): UiArt.text(decoration,at+Vector2(0,index*21),lines[index],15,UiArt.MUTED)
+	var size_now := roundi(UiArt.TEXT_NOTE*minf(_text_boost,1.2))
+	var lines := UiArt.wrap_text(value,width,size_now)
+	var grown := roundi(UiArt.TEXT_NOTE*_text_boost)
+	if grown>size_now and UiArt.wrap_text(value,width,grown).size()<=lines.size():
+		size_now = grown
+		lines = UiArt.wrap_text(value,width,size_now)
+	var tone := UiArt.MUTED.lerp(UiArt.IVORY,clampf((_text_boost-1.0)/0.25,0.0,1.0)*0.5)
+	for index in lines.size(): UiArt.text(page_text,at+Vector2(0,index*roundi(21.0*minf(_text_boost,1.2))),lines[index],size_now,tone)
 
 func _open_calibration() -> void:
 	if has_modal_subpanel(): return

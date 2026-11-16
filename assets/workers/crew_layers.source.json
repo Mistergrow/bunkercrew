@@ -1,0 +1,95 @@
+{
+  "source": "generate_crew_layers.py",
+  "source_sha256": "d05197c15e29b66ddb16468bf949ff4e9fa1ec2ce57157a2c4469c5417211de1",
+  "author": "generate_character_workers.py",
+  "author_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
+  "method": "Follow-through layers: the canonical torso()/head() drawing calls are recorded, split where the gear and the hanging hair end, and replayed; swung variants replay the same calls bent one step about the part's root (hanging parts trail below it, Nora's tube and Levin's aerial bend above it, rigid packs unchanged). RotSprite-turned like the turns sheets. No new colour, no imported image.",
+  "rows": [
+    "coat",
+    "gear",
+    "gear_back",
+    "gear_forward",
+    "head",
+    "hair",
+    "hair_back",
+    "hair_forward"
+  ],
+  "steps": [
+    -3,
+    3
+  ],
+  "cell": 68,
+  "origin": [
+    34,
+    34
+  ],
+  "hair_swing": {
+    "mara": [
+      38,
+      18,
+      2,
+      1
+    ],
+    "nora": [
+      39,
+      8,
+      1,
+      1
+    ],
+    "selma": [
+      39,
+      8,
+      1,
+      1
+    ],
+    "rika": [
+      37,
+      6,
+      1,
+      1
+    ]
+  },
+  "gear_swing": {
+    "mara": [
+      56,
+      8,
+      1,
+      1
+    ],
+    "nora": [
+      73,
+      31,
+      1,
+      -1
+    ],
+    "levin": [
+      54,
+      26,
+      2,
+      -1
+    ],
+    "selma": [
+      54,
+      2,
+      1,
+      1
+    ],
+    "rika": [
+      66,
+      4,
+      1,
+      1
+    ]
+  },
+  "sha256": {
+    "mara_layers.png": "7b1819283b0c6ab41b9c9876757e79613be3f5424d1b06ca2d74100bf60e5f6c",
+    "branko_layers.png": "6c6a91c5651ab82710088a2cd2facd4496913114db1def9228b62bc3523a503b",
+    "ivo_layers.png": "c4b6fc323380367b0cf3727ad5eaa42c42c3d1b5bf9235e3fd29546a23d14100",
+    "nora_layers.png": "37ed5064fab8b2bff4b5579d56fa5a3b6add30d360c6d16c64f91d6997557014",
+    "levin_layers.png": "8e22444c1edd63cf87b22f02627cd9a2c4ffd8285c0d4b7d5ab794e06bed7b1c",
+    "selma_layers.png": "9ce9d54ba9ce963b00ddecb98e0e259a78aa76859dcf817f1e36900005a58028",
+    "oskar_layers.png": "cd89ed4cca7130f753084c60118a1501a2516b327697a95b6cb45717d66cb8b2",
+    "rika_layers.png": "207fbedd7220d425d0206cefef2b34f41ef379ca6a411373c6f7eba408b9504f"
+  },
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted."
+}

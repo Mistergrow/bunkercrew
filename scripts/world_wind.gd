@@ -3,6 +3,9 @@ extends Node2D
 ## stay in the camera and above real shelter; no textures or rectangular quads.
 const MAX_PARTICLES := 72
 const MAX_PLUMES := 8
+## Dust and snow banks lie in the ground haze behind every actor (enemies at
+## z 5, crew at 15); only the small loose flakes and leaves pass in front.
+const HAZE_Z := 4
 const COVER_GRID := 8.0
 const PROFILES := {
 	"storm_dam":{"kind":"spray","count":44,"plumes":5,"tint":Color("9db7c1"),"haze":Color("7b919d"),"gain":1.35},
@@ -10,7 +13,7 @@ const PROFILES := {
 	"radar_highlands":{"kind":"snow","count":52,"plumes":5,"tint":Color("c5c8df"),"haze":Color("929ab9"),"gain":1.2},
 	"buried_megafactory":{"kind":"grit","count":46,"plumes":5,"tint":Color("b88f7c"),"haze":Color("8c6d61"),"gain":1.0},
 	"sector07":{"kind":"grit","count":44,"plumes":5,"tint":Color("a39776"),"haze":Color("777566"),"gain":1.0},
-	"ash_foundry":{"kind":"ash","count":48,"plumes":6,"tint":Color("bca58a"),"haze":Color("8a7a68"),"gain":1.1},
+	"ash_foundry":{"kind":"ash","count":48,"plumes":6,"tint":Color("85786a"),"haze":Color("8a7a68"),"gain":1.1},
 	"abandoned_harbor":{"kind":"spray","count":32,"plumes":4,"tint":Color("94b3b4"),"haze":Color("728e92"),"gain":1.15},
 	"basalt_quarry":{"kind":"grit","count":56,"plumes":7,"tint":Color("b3a49c"),"haze":Color("938c87"),"gain":.9},
 	"overgrown_steelworks":{"kind":"leaf","count":42,"plumes":3,"tint":Color("a9af68"),"haze":Color("7f8861"),"gain":.9},
@@ -33,6 +36,7 @@ var _cover: Dictionary = {}
 var _cover_clock := 1.0
 var _draw_clock := 0.0
 var _primed := false
+var haze_layer: Node2D
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -40,6 +44,13 @@ func _ready() -> void:
 	z_as_relative = false
 	z_index = 11
 	_rng.seed = 194611
+	haze_layer = Node2D.new()
+	haze_layer.name = "GroundHaze"
+	haze_layer.z_as_relative = false
+	haze_layer.z_index = HAZE_Z
+	haze_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	haze_layer.draw.connect(_draw_haze)
+	add_child(haze_layer)
 
 func configure_environment(environment: Dictionary) -> void:
 	environment_id = str(environment.get("id","sector07"))
@@ -57,6 +68,7 @@ func set_reduced(value: bool) -> void:
 		plumes.clear()
 	_primed = false
 	queue_redraw()
+	if is_instance_valid(haze_layer): haze_layer.queue_redraw()
 
 func _reduced() -> bool:
 	return not is_instance_valid(weather) or bool(weather.reduced_effects)
@@ -136,6 +148,7 @@ func _process(delta: float) -> void:
 	if _draw_clock>=1.0/30.0:
 		_draw_clock = 0.0
 		queue_redraw()
+		haze_layer.queue_redraw()
 
 func _move(bucket: Array[Dictionary],delta: float,plume: bool) -> void:
 	for index in range(bucket.size()-1,-1,-1):
@@ -157,10 +170,13 @@ func _fade(item: Dictionary) -> float:
 
 func _draw() -> void:
 	if _reduced(): return
-	for item in plumes:
-		_draw_plume(item)
 	for item in particles:
 		_draw_particle(item)
+
+func _draw_haze() -> void:
+	if _reduced(): return
+	for item in plumes:
+		_draw_plume(item)
 
 func _draw_plume(item: Dictionary) -> void:
 	var center: Vector2 = item.point
@@ -183,7 +199,7 @@ func _draw_plume(item: Dictionary) -> void:
 				polygon.append((at+Vector2(cos(angle)*width,sin(angle)*height)).round())
 			var color := tint.lightened(.10 if ring==1 else 0.0)
 			color.a = alpha*(.48 if ring==0 else .64)*(1.0-absf(float(puff-3))*.13)
-			draw_colored_polygon(polygon,color)
+			haze_layer.draw_colored_polygon(polygon,color)
 
 func _draw_particle(item: Dictionary) -> void:
 	var point: Vector2 = Vector2(item.point).round()
@@ -193,16 +209,18 @@ func _draw_particle(item: Dictionary) -> void:
 	tint.a = _fade(item)*smoothstep(.01,.25,weather.gust_at(point))*(.82 if item.kind in ["leaf","snow"] else .62)
 	var size := float(item.size)
 	if item.kind=="leaf":
+		# A tumbling leaf on the world texel grid: its width steps with the
+		# turn (edge-on to flat), a dark underside row below the lit blade.
 		var angle := elapsed*4.5+float(item.phase)
-		var wide := maxf(1,absf(cos(angle))*5.0)*size
-		var vertices := PackedVector2Array([point+Vector2(-wide,0),point+Vector2(-1,-3),point+Vector2(wide,-1),point+Vector2(1,2)])
-		draw_colored_polygon(vertices,tint)
-		draw_line(point-Vector2(1,0),point+Vector2(2,-1),Color(tint.r*.5,tint.g*.5,tint.b*.5,tint.a),1,false)
+		var wide := maxf(1.0,roundf(absf(cos(angle))*4.0*size))
+		var left := point.x-floorf(wide*.5)
+		draw_rect(Rect2(left,point.y-1.0,wide,1.0),tint)
+		draw_rect(Rect2(left+(1.0 if wide > 2.0 else 0.0),point.y,maxf(1.0,wide-1.0),1.0),Color(tint.r*.5,tint.g*.5,tint.b*.5,tint.a))
 	elif item.kind=="snow":
 		draw_rect(Rect2(point,Vector2(2,2)*size),tint)
 		if size>1.15: draw_rect(Rect2(point+Vector2(-1,1),Vector2(4,1)),Color(tint.r,tint.g,tint.b,tint.a*.7))
 	else:
-		draw_rect(Rect2(point,Vector2(2 if size>1 else 1,1 if item.kind=="spray" else 2)),tint)
+		draw_rect(Rect2(point,Vector2(2 if size>1 else 1,1 if item.kind in ["spray","ash"] else 2)),tint)
 		if size>1.1: draw_rect(Rect2(point+Vector2(-3,1),Vector2(1,1)),Color(tint.r,tint.g,tint.b,tint.a*.45))
 
 func diagnostics() -> Dictionary:

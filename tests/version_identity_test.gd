@@ -125,8 +125,16 @@ func _run() -> void:
 	game.rounds.set_process(false)
 	game.story.set_process(false)
 	await frames(6)
-	check(badge.is_visible_in_tree() and game.hud.version_badge==badge,"The same identity remains visible after the real mission starts")
+	# The identity is a menu fact, not a watermark over play: hidden in the
+	# running match, shown again by the same node in its pause menu.
+	check(not badge.is_visible_in_tree() and game.hud.version_badge==badge,"The same identity node stays out of the running mission's picture")
 	await key(KEY_ESCAPE)
+	check(game.hud.overlay=="pause" and badge.is_visible_in_tree(),"The pause menu shows the identity again")
+	game.hud.overlay="audio"
+	await frames()
+	check(badge.is_visible_in_tree(),"The options show the identity")
+	game.hud.overlay="pause"
+	await frames()
 	for action: String in ["restart","menu"]:
 		var opener: Button=game.hud.pause_buttons["restart" if action=="restart" else "main_menu"]
 		opener.grab_focus()
@@ -145,11 +153,12 @@ func _run() -> void:
 	await key(KEY_ENTER)
 	if not await reloaded(previous_scene_id,true): quit(1); return
 	badge=game.hud.version_badge
-	check(game.players.size()==1 and badge.is_visible_in_tree() and badge.text==expected_identity and previous_badge.get_ref()==null,"A confirmed mission restart replaces the old scene while preserving its visible identity")
+	check(game.players.size()==1 and not badge.is_visible_in_tree() and badge.text==expected_identity and previous_badge.get_ref()==null,"A confirmed mission restart replaces the old scene while preserving its identity, out of the running match's picture")
 	game.rounds.running=false
 	game.rounds.set_process(false)
 	game.story.set_process(false)
 	await key(KEY_ESCAPE)
+	check(badge.is_visible_in_tree(),"The restarted mission's pause menu shows the identity")
 	game.hud.pause_buttons.main_menu.grab_focus()
 	await key(KEY_ENTER)
 	game.hud.restart_dialog.confirm_button.grab_focus()

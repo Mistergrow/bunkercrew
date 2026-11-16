@@ -6,6 +6,7 @@ const Personality := preload("res://scripts/worker_personality.gd")
 const Catalog := preload("res://scripts/worker_dance_catalog.gd")
 const PoseArt := preload("res://scripts/worker_pose_art.gd")
 const Moves := preload("res://scripts/worker_dance_moves.gd")
+const Keys := preload("res://scripts/worker_motion_keys.gd")
 const PROFILES := {
 	"mara": {"sway": 0.35, "shoulder": 0.65, "bounce": 0.65, "nod": 0.040, "wrist": 0.35, "offset": 0.0},
 	"branko": {"sway": 0.75, "shoulder": 1.10, "bounce": 0.38, "nod": 0.020, "wrist": 0.45, "offset": 0.12},
@@ -33,6 +34,14 @@ var _reaction := 0.0
 var _beat_period := 0.55
 var _transition_pose: Dictionary = {}
 var _transition_beat := -INF
+## The move a repertoire change leaves (its groove sway hands over).
+var _transition_from := ""
+## Gate of the keyed groove layer (arms, step, lean), rate-limited over the
+## heard beats: a dance that snaps between its own stages (an authored freeze
+## taking over from its entry) never snaps the thrown arms with it.
+var _arm_gate := 0.0
+var _arm_gate_beats := -INF
+const ARM_GATE_RATE := 4.0
 const TRANSITION_BEATS := .5
 
 func configure(id: String) -> void:
@@ -52,6 +61,7 @@ func reset() -> void:
 	_reaction = 0.0
 	_transition_pose.clear()
 	_transition_beat = -INF
+	_arm_gate_beats = -INF
 
 func follows_kicks(frame: Dictionary) -> bool:
 	# Idle fidgets must not repeatedly replace a dance that the player is
@@ -78,6 +88,7 @@ func advance(delta: float, allowed: bool, frame: Dictionary) -> float:
 		if _dance_blend>0 and _movement in Catalog.FULL_BODY_STYLES:
 			_transition_beat = _audible_beats(frame)
 			_transition_pose = choreography(_movement,_transition_beat,character_id,clampf(weight,1.0,1.5))
+			_transition_from = _movement
 		else:
 			_transition_pose.clear()
 		_movement = selected
@@ -199,7 +210,8 @@ func _apply_head_nod(pose: Dictionary,frame: Dictionary,head_only: bool = false)
 	var amount := weight*standing
 	if amount<=0.0:
 		return # Floor work and held freezes keep their authored head/support pose.
-	var angle := 0.20 if head_only or _movement=="head_nod" else 0.12+float(PROFILES.get(CharacterCatalog.presentation_id(character_id,"dance"),PROFILES.mara).nod)
+	# A full-body dance nods two drawn head steps on the kick (pass 7A-crew).
+	var angle := 0.20 if head_only or _movement=="head_nod" else (0.22 if _movement in Catalog.FULL_BODY_STYLES else 0.12)+float(PROFILES.get(CharacterCatalog.presentation_id(character_id,"dance"),PROFILES.mara).nod)
 	pose.head_tilt += nod*angle*amount
 	pose.head_shift += Vector2(nod*0.20,nod*0.80)*amount
 	# The clean head textures are anchored at the helmet. Rotate about the
@@ -255,10 +267,90 @@ func _apply_choreography(pose: Dictionary,frame: Dictionary) -> void:
 	if target.has("elbows"):
 		pose.elbows = target.elbows if blend>=1.0 else [original_elbows[0].lerp(target.elbows[0],blend),original_elbows[1].lerp(target.elbows[1],blend)]
 	pose.dance_style = _movement
+	pose.arm_chain = float(target.get("arm_chain",0.0))
 	pose.dance_stage = target.get("dance_stage","standing")
 	pose.continuous = true
-	if blend<1.0:
+	# Floor work and freezes keep their authored support; the groove fades
+	# out continuously with the standing height and torso lean.
+	var lean := absf(PoseArt.torso_transform(pose).get_rotation())
+	var upright := smoothstep(16.0,21.0,-float(pose.hip.y))*(1.0-smoothstep(0.45,0.95,lean))
+	# The thrown arms fade over a wider band of hip heights and lean, and rest
+	# through a repertoire change, so a drop into floorwork lowers them over a
+	# beat instead of in a few milliseconds.
+	var gate := smoothstep(12.0,22.0,-float(pose.hip.y))*(1.0-smoothstep(0.3,1.2,lean))*_arm_calm(beats)
+	var elapsed := beats-_arm_gate_beats
+	_arm_gate = gate if not is_finite(elapsed) or elapsed<0.0 or elapsed>1.0 else move_toward(_arm_gate,gate,elapsed*ARM_GATE_RATE)
+	_arm_gate_beats = beats
+	var arms := _arm_gate
+	if upright>0.0 or arms>0.0:
+		# A drill step's pinned pelvis hands its sway over across the change.
+		var sway := float(GROOVE_SWAY.get(_movement,1.0))
+		var since := beats-_transition_beat
+		if is_finite(since) and since>=0.0 and since<TRANSITION_BEATS:
+			sway = lerpf(float(GROOVE_SWAY.get(_transition_from,1.0)),sway,smoothstep(0.0,TRANSITION_BEATS,since))
+		_apply_groove(pose,beats,blend*upright,_movement,blend*arms,sway)
 		_constrain(pose)
+	elif blend<1.0:
+		_constrain(pose)
+
+## Whole-body groove over every standing step: the knees give on each kick,
+## and the authored one-bar rhythm poses of WorkerMotionKeys.DANCE_KEYS step
+## the weight from foot to foot, answer it with the shoulders, look the head up
+## and down and throw both arms up, down, to a point and forward (pass
+## 7A-crew; the earlier sine pump read as small arm and bob changes only).
+## Boots keep the authored contacts; a free glove moves to its key within its
+## arm's reach, an authored arm chain turns rigidly about its shoulder. The reduced
+## rhythm-motion setting scales it through `weight`. Drill steps that pin the
+## pelvis keep it pinned.
+const GROOVE_SWAY := {"branko_foundry_stomp":0.0}
+
+## Arm keys rest through a repertoire change: out before the step change's
+## planted midpoint (where an authored arm chain may hand over to a plain
+## one), back in over the following beat.
+func _arm_calm(beats: float) -> float:
+	var since := beats-_transition_beat
+	if not is_finite(since) or since<0.0 or since>1.5: return 1.0
+	return 1.0-smoothstep(0.0,0.25,since)*(1.0-smoothstep(0.75,1.75,since))
+
+static func _apply_groove(pose: Dictionary,beats: float,amount: float,style: String="",arms: float=-1.0,sway: float=-1.0) -> void:
+	if arms<0.0: arms = amount
+	if amount<=0.0 and arms<=0.0: return
+	if sway<0.0: sway = float(GROOVE_SWAY.get(style,1.0))
+	var pulse := kick_accent(beats)
+	var key := Keys.dance_key(beats)
+	var step: Vector2 = key.hip
+	var before := PoseArt.torso_transform(pose)
+	var roots: Array[Vector2] = [before*PoseArt.shoulder_local(pose,0),before*PoseArt.shoulder_local(pose,1)]
+	# The knees give on the kick with the standing groove; the keyed step,
+	# lean, look and heels fade with the arm keys' smoother gate.
+	pose.hip += Vector2(step.x*sway*arms,(pulse*3.0)*amount+step.y*arms)
+	pose.shoulder += Vector2((step.x*0.5+float(key.lean))*sway*arms,pulse*2.4*amount+step.y*arms)
+	pose.head_shift += Vector2(0.0,pulse*0.8)*amount
+	pose.head_tilt += float(key.look)*arms
+	var heels: Array = key.heels
+	var angles: Array = pose.get("foot_angles",[0.0,0.0])
+	pose.foot_angles = [float(angles[0])+float(heels[0])*arms*sway,float(angles[1])+float(heels[1])*arms*sway]
+	var body := PoseArt.torso_transform(pose)
+	for index in 2:
+		var root := body*PoseArt.shoulder_local(pose,index)
+		var move := root-roots[index]
+		var shift: Vector2 = Vector2(key.hands[index])*arms
+		var hand: Vector2 = Vector2(pose.hands[index])+move
+		# A free glove moves to its key, held to the arm's reach (a raised or
+		# punching arm straightens, its elbow solved as the renderer bends a
+		# free arm). An authored arm chain (popping, waves; arm_chain 1, mixed
+		# continuously through transitions) keeps its exact segments: the
+		# raising keys lift it as a rigid arm about the shoulder, towards
+		# whichever side the hand points (no flip below it).
+		var free_hand := root+(hand+shift-root).limit_length(22.9)
+		var turn := clampf(-shift.y/60.0,0.0,0.55)*-clampf((hand.x-root.x)/10.0,-1.0,1.0)
+		var chain := clampf(float(pose.get("arm_chain",0.0)),0.0,1.0)
+		pose.hands[index] = free_hand.lerp(root+(hand-root).rotated(turn),chain)
+		if pose.has("elbows") and pose.elbows[index] is Vector2:
+			var held := root+(Vector2(pose.elbows[index])+move-root).rotated(turn)
+			# The solved free elbow takes over with the arm keys themselves.
+			var free_elbow := held.lerp(PoseArt.joint_position(root,free_hand,11.0,12.0,1.0),clampf(arms*3.0,0.0,1.0))
+			pose.elbows[index] = free_elbow.lerp(held,chain)
 
 static func _audible_beats(frame: Dictionary) -> float:
 	return maxf(0.0,float(frame.get("bar",0)))*4.0+maxf(0.0,float(frame.get("beat",0)))+float(frame.get("phase",0.0))
@@ -354,6 +446,7 @@ static func _mix(a: Dictionary,b: Dictionary,t: float) -> Dictionary:
 	pose.foot_angles = [lerpf(float(a.foot_angles[0]),float(b.foot_angles[0]),blend),lerpf(float(a.foot_angles[1]),float(b.foot_angles[1]),blend)]
 	if a.has("elbows") or b.has("elbows"):
 		pose.elbows = PoseArt.blend_arm_elbows(a,b,blend)
+	pose.arm_chain = lerpf(float(a.get("arm_chain",0.0)),float(b.get("arm_chain",0.0)),blend)
 	return pose
 
 static func choreography(style: String,beats: float,crew_id: String="mara",intensity: float=1.0) -> Dictionary:
@@ -366,6 +459,9 @@ static func choreography(style: String,beats: float,crew_id: String="mara",inten
 		# Skip the legacy pose, joint arrays, and unused legacy wave evaluation.
 		var authored := Moves.choreography(style,beats,crew_id,amplitude)
 		authored.head_tilt += sin(articulated_beat*TAU+float(temperament.offset)*TAU)*.016*personality
+		# An arm chain authored with explicit elbows (before _constrain adds
+		# solved ones to every pose) takes the groove's rigid arm lift.
+		authored.arm_chain = float(authored.get("arm_chain",1.0 if authored.has("elbows") else 0.0))
 		_constrain(authored)
 		return authored
 	var pose := PoseArt.neutral()
@@ -466,6 +562,7 @@ static func choreography(style: String,beats: float,crew_id: String="mara",inten
 	# characters select the same dance, without disturbing the contact path.
 	pose.head_tilt += sin(articulated_beat*TAU+float(temperament.offset)*TAU)*0.020*personality+(pulse-.5)*float(temperament.nod)*.75
 	pose.dance_style = style
+	pose.arm_chain = float(pose.get("arm_chain",1.0 if pose.has("elbows") else 0.0))
 	_constrain(pose)
 	return pose
 

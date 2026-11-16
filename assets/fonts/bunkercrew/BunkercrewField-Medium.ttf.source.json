@@ -1,6 +1,6 @@
 {
   "name": "Bunkercrew Field Medium",
-  "version": "2.000",
+  "version": "2.100",
   "type": "original pixel outline font",
   "generator": "tools/generate_bunkercrew_font.py",
   "source": "Original authored grid patterns in generator; no third-party or traced font outlines.",
@@ -18,5 +18,5 @@
   ],
   "rendering": "112px MSDF atlas with 4px range preserves small grid contours at fractional scales",
   "glyph_count": 239,
-  "sha256": "745ceb016a6b1ca32560613f7c6c913ba34bd009bd2db59e83d0bc41a87c75d9"
+  "sha256": "f521e71d29b05eda0c32811e6f4f59ce2ca20cf52ec63be90335be5ddb97182e"
 }

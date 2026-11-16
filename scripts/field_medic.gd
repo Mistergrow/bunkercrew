@@ -65,6 +65,15 @@ func _ready() -> void:
 	wetness=ActorWetness.new()
 	wetness.name="Wetness"
 	add_child(wetness)
+	# The callsign rides above the crew and everything they hold (workers draw
+	# at z 15, their guns at 17, shots at 16) and below combat effects, so a
+	# worker standing in front never hides it; the HUD hides it under menus.
+	var callsign:=Node2D.new()
+	callsign.name="Callsign"
+	callsign.z_as_relative=false
+	callsign.z_index=19
+	callsign.draw.connect(func(): UiArt.callsign(callsign,Vector2(0,-54),"SAN-1"))
+	add_child(callsign)
 
 func can_act() -> bool:
 	return is_inside_tree() and not is_queued_for_deletion()
@@ -116,7 +125,32 @@ func _process(delta: float) -> void:
 	_observed_blocked = blocked
 	var redraw := expression.advance(delta)
 	redraw = rhythm_pose.advance(delta, dance_allowed(), RhythmPresentation.frame_for(self), dance_level()) or redraw
+	var room := move_toward(_room, _room_target(), delta * ROOM_SPEED)
+	if not is_equal_approx(room, _room):
+		_room = room
+		redraw = true
+	var callsign := get_node_or_null("Callsign") as Node2D
+	if callsign != null: callsign.position.x = roundf(_room)
 	if redraw: queue_redraw()
+
+## Presentation only: SAN-1 parks beside the core, where a worker often stands.
+## While it idles and a worker's body covers its own, it is drawn a short step
+## aside (to the nearer clear side; its body, position and collision never
+## move), so its red-cross case never reads as an icon on that worker's legs.
+## Every peer derives the same step from replicated positions.
+const ROOM_REACH := 36.0
+const ROOM_SPEED := 90.0
+var _room := 0.0
+func _room_target() -> float:
+	if treating or climbing or not route.is_empty() or velocity.length() >= 4.0 or not "players" in game: return 0.0
+	for worker in game.players:
+		if not is_instance_valid(worker) or not worker is Node2D: continue
+		var dx: float = (worker as Node2D).global_position.x - global_position.x
+		if absf(dx) >= ROOM_REACH or absf((worker as Node2D).global_position.y - global_position.y) > 24.0: continue
+		var left := dx - ROOM_REACH
+		var right := dx + ROOM_REACH
+		return left if absf(left) < absf(right) else right
+	return 0.0
 
 func take_medical_supply() -> bool:
 	if medical_supplies<=0: return false
@@ -407,8 +441,10 @@ func _land_at_passage() -> bool:
 	return true
 
 func _draw() -> void:
-	if rhythm_pose.draw(self, medical_supplies, facing):
-		UiArt.centered(self,Vector2(0,-54),"SAN-1",9,Color("b7c4aa"))
+	# The idle step aside (see _room_target) moves the drawing only.
+	var room := Vector2(roundf(_room), 0)
+	draw_set_transform(room)
+	if rhythm_pose.draw(self, medical_supplies, facing, room):
 		expression.draw(self)
 		return
 	var bob:=roundf(sin(elapsed*2.2)*.65) if not climbing else 0.0
@@ -443,7 +479,6 @@ func _draw() -> void:
 		UiArt.bar(self,Rect2(-19,-48,38,3),refill_progress/refill_duration(),UiArt.AMBER)
 	elif logistics_progress>0:
 		UiArt.bar(self,Rect2(-19,-48,38,3),logistics_progress/logistics.handoff_time(),Art.CYAN)
-	UiArt.centered(self,Vector2(0,-54),"SAN-1",9,Color("b7c4aa"))
 	expression.draw(self)
 
 func _inspection_arm_pose(bob: float) -> Dictionary:

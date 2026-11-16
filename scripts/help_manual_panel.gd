@@ -4,6 +4,14 @@ extends Control
 const L := preload("res://scripts/locale_text.gd")
 const Catalog := preload("res://scripts/help_manual_catalog.gd")
 const READER_RECT := Rect2(456,222,904,542)
+## Running text keeps a comfortable measure (about 90 characters at 18 px)
+## inside the wider reader; tables and action rows still use the full width.
+const MEASURE := 700.0
+## Lines leaving the reader fade over about two body lines, and the band at
+## its very edge is solid: whatever line the edge cuts sits fully under ink
+## there, so no half glyph ever shows.
+const READER_FADE := 48.0
+const READER_SOLID := 18.0
 var game: Node
 var hud: Node
 var page_id := "first_shift"
@@ -78,7 +86,7 @@ func _ready() -> void:
 	advice_heading = _label("",22,UiArt.AMBER)
 	advice_heading.name = "CurrentAdviceTitle"
 	reading_content.add_child(advice_heading)
-	advice_body = _label("",18,UiArt.IVORY)
+	advice_body = _measured(_label("",18,UiArt.IVORY))
 	advice_body.name = "CurrentAdviceBody"
 	reading_content.add_child(advice_body)
 	context_button = _button("Mehr dazu",Rect2(),_open_advice,reading_content)
@@ -89,7 +97,7 @@ func _ready() -> void:
 	tutorial_content.name = "SoloTutorialControls"
 	tutorial_content.add_theme_constant_override("separation",10)
 	tutorial_content.add_child(_label(L.text("Solo-Tutorial"),22,UiArt.IVORY))
-	tutorial_status = _label("",18,UiArt.MUTED)
+	tutorial_status = _measured(_label("",18,UiArt.MUTED))
 	tutorial_status.name = "TutorialStatus"
 	tutorial_content.add_child(tutorial_status)
 	tutorial_actions = HBoxContainer.new()
@@ -101,7 +109,7 @@ func _ready() -> void:
 	for button: Button in [tutorial_start_button,tutorial_stop_button,tutorial_restart_button]:
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.custom_minimum_size = Vector2(0,43)
-		SocialUiArt.button(button,17,"",0)
+		SocialUiArt.action(button,17)
 	tutorial_start_button.name = "TutorialStart"
 	tutorial_stop_button.name = "TutorialStop"
 	tutorial_restart_button.name = "TutorialRestart"
@@ -110,7 +118,19 @@ func _ready() -> void:
 	section_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	section_content.add_theme_constant_override("separation",26)
 	reading_content.add_child(section_content)
+	# The end of a page scrolls clear of the lower fade.
+	var tail := Control.new()
+	tail.custom_minimum_size = Vector2(0,READER_FADE)
+	tail.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	reading_content.add_child(tail)
+	# Lines scrolled past either edge dissolve instead of being cut mid-glyph
+	# (the upper fade only once the page has scrolled).
+	add_child(_reader_fade("ReaderFade",false))
+	var top_fade := _reader_fade("ReaderTopFade",true)
+	add_child(top_fade)
 	var scrollbar := reading_scroll.get_v_scroll_bar()
+	scrollbar.value_changed.connect(func(value: float): top_fade.visible = value>0.0)
+	top_fade.visible = false
 	scrollbar.focus_mode = Control.FOCUS_ALL
 	scrollbar.gui_input.connect(_reader_input)
 	scrollbar.value_changed.connect(_scroll_changed)
@@ -125,6 +145,23 @@ func _ready() -> void:
 	_rebuild_content()
 	_layout()
 	_restore_focus.call_deferred()
+
+## Ink band over one edge of the reader (left of its scrollbar): solid along
+## the edge for READER_SOLID, then a ramp to clear.
+func _reader_fade(fade_name: String,top: bool) -> Control:
+	var fade := Control.new()
+	fade.name = fade_name
+	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade.position = Vector2(READER_RECT.position.x,READER_RECT.position.y if top else READER_RECT.end.y-READER_FADE)
+	fade.size = Vector2(READER_RECT.size.x-16,READER_FADE)
+	fade.draw.connect(func():
+		var ink := Color(.024,.040,.044)
+		var ramp := READER_FADE-READER_SOLID
+		var clear_y := READER_FADE if top else 0.0
+		var solid_y := READER_SOLID if top else ramp
+		fade.draw_polygon(PackedVector2Array([Vector2(0,clear_y),Vector2(fade.size.x,clear_y),Vector2(fade.size.x,solid_y),Vector2(0,solid_y)]),PackedColorArray([Color(ink,0),Color(ink,0),ink,ink]))
+		fade.draw_rect(Rect2(0.0,0.0 if top else ramp,fade.size.x,READER_SOLID),ink))
+	return fade
 
 func _page_ids() -> Array[String]:
 	var ids: Array[String] = []
@@ -155,6 +192,11 @@ func _label(message: String,font_size: int,color: Color) -> Label:
 	label.add_theme_font_size_override("font_size",font_size)
 	label.add_theme_color_override("font_color",color)
 	label.add_theme_constant_override("line_spacing",5)
+	return label
+
+func _measured(label: Label) -> Label:
+	label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	label.custom_minimum_size.x = MEASURE
 	return label
 
 func select_page(id: String) -> void:
@@ -195,7 +237,7 @@ func _rebuild_content() -> void:
 		block.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		block.add_theme_constant_override("separation",10)
 		block.add_child(_label(str(section.title),22,UiArt.IVORY))
-		block.add_child(_label(str(section.body),18,UiArt.MUTED))
+		block.add_child(_measured(_label(str(section.body),18,UiArt.MUTED)))
 		section_content.add_child(block)
 	for index in page_buttons.size():
 		page_buttons[index].text = L.text(str(Catalog.PAGES[index].title))
@@ -233,7 +275,10 @@ func _control_cell(message: String,index: int,color: Color) -> Label:
 func _refresh_advice() -> void:
 	var show_advice := page_id=="first_shift" and not _advice.is_empty()
 	var link_had_focus := context_button.has_focus()
-	advice_heading.visible = show_advice
+	# The advice heading is a sub-heading of the page; when it only restates the
+	# page title ("Deine erste Schicht" under "Erste Schicht") it is left out.
+	var page_title := L.text(str(Catalog.PAGES[_page_index()].title)).to_lower()
+	advice_heading.visible = show_advice and not L.text(str(_advice.get("title",""))).to_lower().contains(page_title)
 	advice_body.visible = show_advice
 	context_button.visible = show_advice and _page_ids().has(str(_advice.get("page",""))) and str(_advice.get("page",""))!=page_id
 	advice_heading.text = str(_advice.get("title",""))
@@ -440,12 +485,12 @@ func refresh_locale() -> void:
 
 func _draw_foreground() -> void:
 	var screen: Rect2 = hud.screen_rect()
-	SocialUiArt.reading_shade(decoration,screen,410,600)
+	SocialUiArt.reading_shade(decoration,screen,410,600,bool(game.get("started")))
 	decoration.draw_rect(Rect2(432,192,952,604),Color(.024,.040,.044,.54))
 	UiArt.text(decoration,Vector2(80,111),"Feldhandbuch",36,UiArt.IVORY,UiArt.MENU_FONT)
 	UiArt.text(decoration,Vector2(82,151),"Deine Crew. Dein Bunker. Der nächste Schritt.",17,UiArt.MUTED)
 	var entry: Dictionary = Catalog.PAGES[_page_index()]
 	UiArt.text(decoration,Vector2(456,196),str(entry.title),25,UiArt.IVORY,UiArt.MENU_FONT)
 	UiArt.divider(decoration,Vector2(80,663),Vector2(398,663))
-	UiArt.text(decoration,Vector2(80,847),"Pfeile / Steuerkreuz wählen · Rechts lesen · Esc zurück",14,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(456,804),"Mausrad / oben unten: scrollen · Tab: nächstes Element",13,UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(80,847),preload("res://scripts/input_labels.gd").reading_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)
+	UiArt.text(decoration,Vector2(456,806),"Mausrad / oben unten: scrollen · Tab: nächstes Element",UiArt.TEXT_NOTE,UiArt.MUTED)

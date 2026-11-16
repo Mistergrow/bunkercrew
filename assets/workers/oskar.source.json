@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "oskar",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "oskar_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Broad dustcoat stance, short weighty stride, lamp and pack checks",
     "walk_rate": 0.9,
@@ -64,7 +88,8 @@
     "oskar_torso.png",
     "oskar_head.png",
     "oskar_back_torso.png",
-    "oskar_back_head.png"
+    "oskar_back_head.png",
+    "oskar_turns.png"
   ],
   "sha256": {
     "oskar_body.png": "2e4d9f3af04bfc5ae5c7192f382840e0315eb2da7839b6b5ee4c7bad1c795768",
@@ -72,7 +97,8 @@
     "oskar_torso.png": "b3c21682a727e3cb40fd983a0c355c9c9640da9bfc115d9bc286ccefc9d2795e",
     "oskar_head.png": "bd5c3969beb4e607e83ce355ebd9df0c3952f0eec33c85081bef0531232ebba8",
     "oskar_back_torso.png": "2bb53c2d7eff5ea1d75cf4b5d75559b214b9016137303380fbc3276b52ffd9d8",
-    "oskar_back_head.png": "e3e1687c64dedd1babf9a30cc04c5640effd323e13de2c2c5c4c238467b593a0"
+    "oskar_back_head.png": "e3e1687c64dedd1babf9a30cc04c5640effd323e13de2c2c5c4c238467b593a0",
+    "oskar_turns.png": "810dc8644a84cb706a479fa8af7988ef3141d6aa4581e80636aba52c5e4ef336"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

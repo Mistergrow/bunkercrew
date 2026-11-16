@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "selma",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "selma_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Balanced medical kit carry and deliberate equipment checks",
     "walk_rate": 1.02,
@@ -64,7 +88,8 @@
     "selma_torso.png",
     "selma_head.png",
     "selma_back_torso.png",
-    "selma_back_head.png"
+    "selma_back_head.png",
+    "selma_turns.png"
   ],
   "sha256": {
     "selma_body.png": "74d43c72e6985ed33d702830017b87e67930a337e17d866c0fea6be09fd52c90",
@@ -72,7 +97,8 @@
     "selma_torso.png": "d5d134e6ba99268ce3e989aa30481d1bb3a59c6e22704f3ba9026dd790467f6e",
     "selma_head.png": "80c4fac03b79f5867f215baa2df431e659fa5e12de2b1f992de6cb83cb046d1b",
     "selma_back_torso.png": "59dd0b130cc761ff4428c6046f7615b9cf3ae36ee8379da3d3ef40776606d9ad",
-    "selma_back_head.png": "53bcd9569e341d8f21745503892314f1ddce79371b27dc6c2fc18b7018808678"
+    "selma_back_head.png": "53bcd9569e341d8f21745503892314f1ddce79371b27dc6c2fc18b7018808678",
+    "selma_turns.png": "f75e91d262a4a438795d1447e0b51ea0aa15a37a4a0c157a44bec33cdfff1d95"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

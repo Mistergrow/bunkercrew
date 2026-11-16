@@ -23,6 +23,10 @@ func _run() -> void:
 	LocaleText.set_locale("de",false)
 	check(LocaleText.text("BUNKERCREW")=="BUNKERCREW","German title uses the new shared brand")
 	check(LocaleText.text("KO")=="KO","German compact downed label is explicit")
+	# German decimals take a comma; whole numbers, text and %% stay as they are.
+	check(LocaleText.format("Herstellung · noch %.1f s",3.25)=="Herstellung · noch 3,2 s" or LocaleText.format("Herstellung · noch %.1f s",3.25)=="Herstellung · noch 3,3 s","German one-decimal values use a decimal comma")
+	check(LocaleText.format("RMS %+.1f dBFS · Spitze %+.1f dBFS",[-12.5,-3.0])=="RMS -12,5 dBFS · Spitze -3,0 dBFS","Signed German decimals keep sign and comma")
+	check(LocaleText.format("%d %%",125)=="125 %" and LocaleText.format("P%d %s",[4,"Mara"])=="P4 Mara","Whole numbers, text and percent signs are untouched")
 	var native:=Button.new()
 	native.text="Beton"
 	root.add_child(native)
@@ -30,6 +34,7 @@ func _run() -> void:
 	check(LocaleText.text("BUNKERCREW")=="BUNKERCREW","English title preserves the same brand")
 	check(LocaleText.text("KO")=="DOWN","English compact downed label follows the downed timer")
 	check(LocaleText.format("P%d %s",[4,"Mara"])=="P4 Mara","Lobby crew format preserves slot and name")
+	check(LocaleText.format("RMS %+.1f dBFS · Spitze %+.1f dBFS",[-12.5,-3.0])=="RMS -12.5 dBFS · Peak -3.0 dBFS" or LocaleText.format("RMS %+.1f dBFS · Spitze %+.1f dBFS",[-12.5,-3.0]).contains("-12.5"),"English decimals keep the decimal point")
 	check(LocaleText.text("Spielt mit zwei bis vier Personen an einem Rechner.")=="Play with two to four people on one computer.","Local co-op description matches the supported crew size")
 	check(str(TranslationServer.translate(native.text))=="Concrete","Native controls share the Godot translation server")
 	check(LocaleText.text("Beton")=="Concrete" and LocaleText.text("BETON")=="CONCRETE","Case variants translate before text measurement")

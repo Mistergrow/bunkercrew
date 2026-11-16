@@ -1,0 +1,44 @@
+{
+  "asset": "machine_weapons_v2.png",
+  "generator": "tools/generate_machine_weapons_v2.py",
+  "method": "Hand-placed native pixel art for five walker weapon families at world size (one texel per world unit), RotSprite-turned (3x Scale2x, one sample per native texel) into aim keys. Replaces the procedural slabs of SiegeMachine._draw_weapon.",
+  "license": "Original Bunkercrew project art.",
+  "families": [
+    "light",
+    "heavy",
+    "colossus",
+    "assault",
+    "siege"
+  ],
+  "steps": [
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "steps_per_turn": 48,
+  "cell": 96,
+  "centre": [
+    48,
+    48
+  ],
+  "size": [
+    1248,
+    480
+  ],
+  "source_sha256": {
+    "tools/generate_machine_weapons_v2.py": "48f7b70ec9a14837af4bc0b642eca54c9725c4d33f5c2625c1c9f7231380ef4f",
+    "tools/generate_infantry_parts_v2.py": "8b8707113a8eff8e920a93730b8cdadfdf84b34d078f07dbfc3761074d35bd44",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "58621cf2834185af185bc8badc7eb167ff9aef3aa1535ca811a24697e22371f5"
+}

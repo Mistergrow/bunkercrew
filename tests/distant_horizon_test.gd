@@ -47,7 +47,23 @@ func _run() -> void:
 		check(horizon.layers.size()==3,entry.id+" has three textured distance layers")
 		palettes[horizon.profile.shadow] = true
 		var water: Array = entry.get("water_regions",[])
-		var expected_base := roundf(-64.0+float(water[0][1])*576.0) if not water.is_empty() else Horizon.LAND_BASE
+		# Continuous panoramas keep their painted shoreline ("water_extend" false),
+		# so only a world that extends its water lowers the surrounding land.
+		var extends_water := not water.is_empty() and bool(entry.get("water_extend",true))
+		var expected_base := roundf(-64.0+float(water[0][1])*576.0) if extends_water else Horizon.LAND_BASE
+		if not water.is_empty():
+			var extended: Dictionary = entry.duplicate(true)
+			extended["water_extend"] = not extends_water
+			scenery.data = extended
+			horizon.configure(scenery)
+			var other_base := Horizon.LAND_BASE if extends_water else roundf(-64.0+float(water[0][1])*576.0)
+			check(is_equal_approx(horizon.baseline,other_base) and is_equal_approx(horizon.block_rect(0,-2).end.y,other_base) and not is_equal_approx(other_base,expected_base),entry.id+" extended water moves the landscape to the exact water surface")
+			extended.erase("water_extend")
+			horizon.configure(scenery)
+			check(is_equal_approx(horizon.baseline,roundf(-64.0+float(water[0][1])*576.0)),entry.id+" water extends by default when the world does not opt out")
+			scenery.data = entry
+			horizon.configure(scenery)
+			horizon.update_view(wide,.25)
 		check(is_equal_approx(horizon.baseline,expected_base),entry.id+" landscape joins the land or exact water surface")
 		var count := 0
 		for depth in 3:

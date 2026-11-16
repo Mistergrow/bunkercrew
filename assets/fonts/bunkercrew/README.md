@@ -16,6 +16,13 @@ the German and English locale files. A separately licensed existing mono face is
 the fallback for characters outside this set. All three faces remain original
 pixel outlines; letters do not switch to a smooth office font in translated copy.
 
+Confusable pairs are kept apart by construction: `A` has a narrow stepped apex
+and a low bar (never an `R`), `l` carries a foot and `i` a left flag (neither a
+`1` nor a fused stem), `m` has three even stems, `S` hooks both terminals where
+`5` keeps a flat bar, and `%` is two closed square rings on one diagonal.
+`tests/ui_font_legibility_gallery.gd` renders an old/new specimen at 11–36 px
+for 960, 1440 and 2560 pixel outputs.
+
 The design uses 10-square capitals and 7-square lowercase. One design square
 equals one pixel at 14 px; small-text stems have a quarter-square weight allowance.
 Use 14–16 px for primary copy and 28 px for menu actions. Existing 11–13 px helper

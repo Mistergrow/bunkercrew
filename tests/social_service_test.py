@@ -520,10 +520,91 @@ class SocialIntegration(unittest.IsolatedAsyncioTestCase):
         await self.receive(loopback,"ready")
         self.assertIn("::1",proxy.app[RELAY_KEY].addresses)
 
+    async def test_sessions_are_capped_per_address(self):
+        server = await self.start_server(max_social_sessions_per_ip=2,trusted_proxies=("127.0.0.1/32",))
+        social = server.app[SOCIAL_KEY]
+        first,_,_ = await self.connect("Mara",server=server)
+        await self.connect("Ivo",server=server)
+        with self.assertRaises(WSServerHandshakeError) as denied:
+            await self.clients.ws_connect(server.make_url("/social"))
+        self.assertEqual(denied.exception.status,503)
+        self.assertEqual(social.addresses,{"127.0.0.1":2})
+        # Another address is not affected by the first one's sessions.
+        other = await self.clients.ws_connect(server.make_url("/social"),headers={"X-Forwarded-For":"8.8.4.4","X-Forwarded-Proto":"https"})
+        self.sockets.append(other)
+        self.assertEqual(social.addresses,{"127.0.0.1":2,"8.8.4.4":1})
+        await first.close()
+        for _ in range(200):
+            if social.addresses.get("127.0.0.1") == 1:
+                break
+            await asyncio.sleep(.005)
+        await self.connect("Lena",server=server)
+        # A handshake that fails releases its reservation again.
+        async with self.clients.get(server.make_url("/social"),headers={"X-Forwarded-For":"8.8.4.5","X-Forwarded-Proto":"https"}) as response:
+            self.assertEqual(response.status,400)
+        self.assertNotIn("8.8.4.5",social.addresses)
+        self.assertEqual(social.pending,0)
+
+    async def test_new_profiles_are_rationed_per_address_but_logins_are_not(self):
+        server = await self.start_server(new_profiles_per_hour=0,new_profile_burst=2)
+        known = []
+        for name in ("Mara","Ivo"):
+            socket,ready,secret = await self.connect(name,server=server)
+            known.append((socket,ready,secret))
+        fresh = await self.clients.ws_connect(server.make_url("/social"))
+        self.sockets.append(fresh)
+        await fresh.send_json({"op":"auth","version":1,"build":GAME_BUILD,"secret":secrets.token_hex(32),"name":"Lena"})
+        self.assertEqual((await self.receive(fresh,"error"))["code"],"rate_limited")
+        store = server.app[SOCIAL_KEY].store
+        self.assertEqual(store.connection.execute("SELECT COUNT(*) FROM profiles").fetchone()[0],2)
+        # Returning players keep logging in while the allowance is spent.
+        for socket,ready,secret in known:
+            await socket.close()
+        for _ in range(200):
+            if not server.app[SOCIAL_KEY].online:
+                break
+            await asyncio.sleep(.005)
+        for _socket,ready,secret in known:
+            _again,state,_ = await self.connect(ready["name"],secret=secret,server=server)
+            self.assertEqual(state["code"],ready["code"])
+
+    async def test_full_profile_table_makes_room_without_touching_connected_players(self):
+        server = await self.start_server(max_profiles=3,new_profile_burst=16)
+        store = server.app[SOCIAL_KEY].store
+        online,ready,_ = await self.connect("Mara",server=server)
+        gone,stale,stale_secret = await self.connect("Ivo",server=server)
+        await gone.close()
+        _third,_,_ = await self.connect("Lena",server=server)
+        for _ in range(200):
+            if len(server.app[SOCIAL_KEY].online) == 2:
+                break
+            await asyncio.sleep(.005)
+        # Full, and every profile was seen within the last day: fail closed.
+        refused = await self.clients.ws_connect(server.make_url("/social"))
+        self.sockets.append(refused)
+        await refused.send_json({"op":"auth","version":1,"build":GAME_BUILD,"secret":secrets.token_hex(32),"name":"Noor"})
+        self.assertEqual((await self.receive(refused,"error"))["code"],"service_unavailable")
+        # Two days later the unused, disconnected profile yields its place;
+        # the connected one is kept although its row looks just as old.
+        store.connection.execute("UPDATE profiles SET seen=seen-2*86400")
+        store.connection.commit()
+        store.pressure_checked = float("-inf")
+        _new,created,_ = await self.connect("Noor",server=server)
+        codes = {row[0] for row in store.connection.execute("SELECT code FROM profiles")}
+        self.assertIn(ready["code"],codes)
+        self.assertIn(created["code"],codes)
+        self.assertNotIn(stale["code"],codes)
+        self.assertEqual(len(codes),3)
+        await self.command(online,"ping")
+        await self.receive(online,"pong")
 
 class SocialValidation(unittest.TestCase):
     def test_names_and_urls(self):
         self.assertEqual(safe_name("Ma\u0308ra"),"Mära")
+        self.assertEqual(safe_name("  Mara ",trim=True),"Mara")
+        self.assertIsNone(safe_name("  Mara "))
+        self.assertIsNone(safe_name("\nMara",trim=True))
+        self.assertIsNone(safe_name("Ma\u2028ra",trim=True))
         for name in ("", "x"*25,"Mara\n","Mara\u202e","Mara\u061c"):
             self.assertIsNone(safe_name(name))
         for url in ("wss://play.example.com/ws","ws://127.0.0.1:8765/ws",""):

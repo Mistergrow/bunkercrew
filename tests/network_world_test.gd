@@ -53,7 +53,7 @@ func run():
 	p.progression.skills.combat=2
 	p.medical.bleeding=2
 	p.medical.fractured=true
-	p.medical.state="injured"
+	p.medical.state="wounded"
 	p.get_node("WorkerWeapon").loaded.rifle=7
 	host.players[1].mounted_turret=host.turret
 	host.turret.occupant=host.players[1]

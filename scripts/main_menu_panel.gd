@@ -9,7 +9,29 @@ const MODE_DETAILS := ["Beginne eine neue Solo-Schicht. Wähle Schauplatz und Cr
 const UTILITY_DETAILS := ["Steuerung, Bunkerbau und Zusammenarbeit nachlesen.", "Ton, Anzeige, Grafik und Eingabe einstellen.", "Charakterstufen, Tänze und Erfolge ansehen."]
 const STORY_DETAIL := "Das letzte Signal: zwölf Orte, persönliche Rettungen und neue Crewmitglieder. Beginne die Solo-Geschichte im Aschewerk."
 const PREVIEW_DETAIL := "Die Vorschau zeigt den Schauplatz. Deine Spielauswahl bleibt unverändert."
-const WORDMARK_RECT := Rect2(98, 133, 494, 59)
+const InputLabels := preload("res://scripts/input_labels.gd")
+const SHADE_EDGE := 0.92
+const SHADE_COLUMN := 0.80
+const SHADE_COLUMN_END := 560.0
+const SHADE_RELEASE := 300.0
+## Room of the logo lockup between the tagline (baseline 108) and the
+## subtitle (baseline 230); the lockup is drawn at whole real pixels per texel.
+const WORDMARK_RECT := Rect2(92, 120, 520, 96)
+const LOGO := preload("res://assets/ui/logo/bunkercrew_logo_v1.png")
+const LOGO_SMALL := preload("res://assets/ui/logo/bunkercrew_logo_v1_small.png")
+## Secondary links: two rows packed at their natural widths from the action
+## column's edge (help, options, file, friends; then quit and changes), under
+## one hairline, instead of a fixed grid whose cells left ragged gaps.
+const LINKS_LEFT := 84.0
+const LINK_ROWS := [608.0, 656.0]
+const LINK_GAP := 10.0
+## The location preview card sits in the crew band, right-aligned to the
+## centred 16:9 safe area (hud_rect), so on wide and ultrawide screens the
+## composition spans the safe area instead of bunching in its left part.
+const CARD_SIZE := Vector2(458, 114)
+const CARD_TOP := 722.0
+const CARD_MARGIN := 84.0
+var _card := Rect2(Vector2(898, CARD_TOP), CARD_SIZE)
 const WORDMARK_MAX_SCALE := 1.04
 const WORDMARK_SWAY_DISTANCE := 2.2
 var game
@@ -35,9 +57,12 @@ var environments: Array = []
 var _redraw_clock := 0.0
 var _wordmark_clock := 0.0
 var _wordmark_pose: Dictionary = {}
+var _wordmark_pixels := 0.0
 var _screen_bounds := Rect2()
 var _campaign_preview: Dictionary = {}
 var _resume_error := ""
+## Helper copy grows in small windows (see UiArt.compact_boost); 1 at 1440x900+.
+var _text_boost := 1.0
 var _quitting := false
 
 func _ready() -> void:
@@ -61,15 +86,16 @@ func _ready() -> void:
 	decoration.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	decoration.draw.connect(_draw_foreground)
 	add_child(decoration)
-	# Keep the original lettering on its own canvas item. Its beat response
-	# never transforms the landscape, action column or any hit targets.
+	# Keep the logo on its own canvas item. Its beat response never
+	# transforms the landscape, action column or any hit targets.
 	wordmark = Control.new()
 	wordmark.name = "BeatWordmark"
 	wordmark.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	wordmark.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	wordmark.position = WORDMARK_RECT.position
 	wordmark.size = WORDMARK_RECT.size
 	wordmark.pivot_offset = wordmark.size * 0.5
-	wordmark.draw.connect(func(): UiArt.wordmark(wordmark, Rect2(Vector2.ZERO, wordmark.size)))
+	wordmark.draw.connect(func(): draw_logo(wordmark, Rect2(Vector2.ZERO, wordmark.size)))
 	decoration.add_child(wordmark)
 	_apply_wordmark_pose(pose_for_menu_rhythm({}, false))
 	var has_save := _has_campaign_save()
@@ -85,19 +111,22 @@ func _ready() -> void:
 	story_button.tooltip_text = STORY_DETAIL
 	var utilities: Array[Callable] = [hud._toggle_help, hud._toggle_audio, hud._toggle_personnel]
 	for index in 3:
-		var button := _button(["Hilfe · F1", "Optionen · F4", "Akte · P"][index], Rect2(84 + index * 156, 612, 146, 40), utilities[index], 13, ["help", "options", "personal"][index])
+		var button := _button(["Hilfe · F1", "Optionen · F4", "Akte · P"][index], Rect2(LINKS_LEFT, LINK_ROWS[0], 146, 40), utilities[index], 13, ["help", "options", "personal"][index])
 		button.tooltip_text = UTILITY_DETAILS[index]
 		utility_buttons.append(button)
-	friends_button = _button("Freunde · F7",Rect2(552,612,156,40),hud._open_social,13,"friends")
+	friends_button = _button("Freunde · F7",Rect2(LINKS_LEFT,LINK_ROWS[0],156,40),hud._open_social,13,"friends")
 	friends_button.tooltip_text = "Freunde finden, Anfragen annehmen und gemeinsam spielen."
-	quit_button = _button("Beenden", Rect2(84, 670, 146, 40), _quit_game, 16, "quit")
+	quit_button = _button("Beenden", Rect2(LINKS_LEFT, LINK_ROWS[1], 146, 40), _quit_game, 16, "quit")
 	quit_button.tooltip_text = "Bunkercrew schließen."
-	release_button = _button("Änderungen",Rect2(250,670,235,40),_open_release_notes,16,"release_notes")
+	release_button = _button("Änderungen",Rect2(LINKS_LEFT,LINK_ROWS[1],235,40),_open_release_notes,16,"release_notes")
 	release_button.tooltip_text = "Neue Versionen und Verbesserungen nachlesen."
+	for link: Button in [utility_buttons[0], utility_buttons[1], utility_buttons[2], friends_button, quit_button, release_button]: _style_link(link)
 	preview_previous = _button("‹", Rect2(1232, 680, 46, 42), func(): browse_environment(-1), 26, "preview_previous")
 	preview_next = _button("›", Rect2(1292, 680, 46, 42), func(): browse_environment(1), 26, "preview_next")
+	_layout_card()
 	preview_previous.tooltip_text = "Vorherigen Schauplatz ansehen"
 	preview_next.tooltip_text = "Nächsten Schauplatz ansehen"
+	_sync_text_boost(true)
 	refresh_locale()
 	_wire_focus()
 	(continue_button if is_instance_valid(continue_button) else mode_buttons[0]).grab_focus.call_deferred()
@@ -189,8 +218,12 @@ func _process(delta: float) -> void:
 	if _redraw_clock < 1.0 / (12.0 if reduced else 30.0): return
 	_redraw_clock = 0.0
 	if _screen_bounds != hud.screen_rect(): _layout_scenery()
+	_sync_text_boost()
 	var unread: int=hud.social_pending_count()
-	friends_button.text = L.format("Freunde · %d",unread) if unread>0 else L.text("Freunde · F7")
+	var friends_text := L.format("Freunde · %d",unread) if unread>0 else L.text("Freunde · F7")
+	if friends_button.text != friends_text:
+		friends_button.text = friends_text
+		_layout_links()
 	decoration.queue_redraw()
 
 static func pose_for_menu_rhythm(frame: Dictionary, reduced_motion: bool) -> Dictionary:
@@ -244,9 +277,29 @@ func _apply_wordmark_pose(pose: Dictionary) -> void:
 	wordmark.scale = Vector2.ONE * float(pose.scale)
 	wordmark.position = WORDMARK_RECT.position + Vector2(float(pose.get("horizontal_offset", 0.0)), 0.0)
 	var tint: Color = pose.tint
-	# UiArt draws the unchanged ivory title. Canvas modulation adds only the
-	# requested restrained accent and keeps the established font untouched.
+	# The lockup is drawn unchanged; canvas modulation adds only the requested
+	# restrained accent on a beat.
 	wordmark.modulate = Color(tint.r / UiArt.IVORY.r, tint.g / UiArt.IVORY.g, tint.b / UiArt.IVORY.b)
+	# The lockup is laid out in whole real pixels per texel for the current
+	# window and pulse scale, so it is redrawn whenever that changes.
+	var pixels := UiArt.output_scale(wordmark)
+	if not is_equal_approx(pixels, _wordmark_pixels):
+		_wordmark_pixels = pixels
+		wordmark.queue_redraw()
+
+## The logo lockup (tools/build_bunkercrew_logo.py) at the largest whole
+## number of real pixels per texel that fits `room`, left-aligned and centred
+## vertically. Without a whole step for the title cut, the small cut is used.
+static func draw_logo(node: CanvasItem, room: Rect2) -> Rect2:
+	var art: Texture2D = LOGO
+	var units := UiArt.pixel_fit(node, Vector2(art.get_size()), room.size)
+	if units * UiArt.output_scale(node) < 0.999:
+		art = LOGO_SMALL
+		units = UiArt.pixel_fit(node, Vector2(art.get_size()), room.size)
+	var drawn := Vector2(art.get_size()) * units
+	var at := UiArt.pixel_snap(node, room.position + Vector2(0.0, (room.size.y - drawn.y) * 0.5))
+	node.draw_texture_rect(art, Rect2(at, drawn), false)
+	return Rect2(at, drawn)
 
 func wordmark_state() -> Dictionary:
 	var state := _wordmark_pose.duplicate()
@@ -278,6 +331,80 @@ func _layout_scenery() -> void:
 	# Compose each painted site around its own landmark, not the gameplay floor.
 	preview.transform = preload("res://scripts/menu_composition.gd").frame(
 		preview.environment_id, preview.panorama_rect, _screen_bounds)
+	_layout_card()
+
+## The preview card and its two arrows, right-aligned to the safe area.
+func _layout_card() -> void:
+	var safe: Rect2 = hud.hud_rect() if hud.has_method("hud_rect") else Rect2(0, 0, 1440, 900)
+	_card = Rect2(Vector2(roundf(maxf(896.0, safe.end.x - CARD_MARGIN - CARD_SIZE.x)), CARD_TOP), CARD_SIZE)
+	if is_instance_valid(preview_previous):
+		preview_previous.position = _card.position + Vector2(CARD_SIZE.x - 118, 58)
+		preview_next.position = _card.position + Vector2(CARD_SIZE.x - 62, 58)
+		preview_previous.size = Vector2(46, 42)
+		preview_next.size = Vector2(46, 42)
+
+## Packs the two link rows at their natural widths (type size and language
+## change them), starting at the action column's edge.
+func _layout_links() -> void:
+	var rows: Array = [[utility_buttons[0], utility_buttons[1], utility_buttons[2], friends_button], [quit_button, release_button]]
+	for row in rows.size():
+		var x := LINKS_LEFT
+		for button: Button in rows[row]:
+			var width := ceilf(_link_content_width(button)) + 16.0 + 14.0
+			button.position = Vector2(x, LINK_ROWS[row])
+			button.size = Vector2(width, 40)
+			x += width + LINK_GAP
+
+## Secondary links read as controls, not loose text: the name in the body face
+## and its shortcut as the HUD's keycap glyph (an unread friend count as a small
+## amber tab), drawn by the link itself in its state colour: ivory, bright on
+## hover, amber with focus or while pressed, muted when disabled. The plate
+## wash and amber rule of the actions above mark hover, focus and press. The
+## native text stays (translation, tooltips, tests); only its painting moves.
+const LINK_KEY_GAP := 8.0
+
+func _style_link(button: Button) -> void:
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_hover_pressed_color", "font_disabled_color"]:
+		button.add_theme_color_override(state, Color.TRANSPARENT)
+	button.draw.connect(_draw_link.bind(button))
+
+## [name, shortcut] of a link in the current language ("Hilfe · F1").
+func _link_parts(button: Button) -> PackedStringArray:
+	var shown := L.text(button.text)
+	var at := shown.rfind(" · ")
+	if at < 0: return PackedStringArray([shown, ""])
+	return PackedStringArray([shown.left(at), shown.substr(at + 3)])
+
+func _link_key_size(button: Button) -> int:
+	return maxi(11, button.get_theme_font_size("font_size") - 3)
+
+func _link_content_width(button: Button) -> float:
+	var parts := _link_parts(button)
+	var width := UiArt.FONT.get_string_size(parts[0], HORIZONTAL_ALIGNMENT_LEFT, -1, button.get_theme_font_size("font_size")).x
+	if not parts[1].is_empty(): width += LINK_KEY_GAP + UiArt.prompt_width(parts[1], false, _link_key_size(button))
+	return width
+
+func _draw_link(button: Button) -> void:
+	var parts := _link_parts(button)
+	var font_size := button.get_theme_font_size("font_size")
+	var focused := button.has_focus()
+	var color := UiArt.IVORY
+	if button.disabled: color = Color(UiArt.MUTED, .7)
+	elif focused or button.is_pressed(): color = UiArt.AMBER
+	elif button.is_hovered(): color = UiArt.TEXT_HOVER
+	var baseline := roundf(button.size.y * 0.5 + font_size * 0.36)
+	button.draw_string(UiArt.FONT, Vector2(16, baseline), parts[0], HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	if parts[1].is_empty(): return
+	var key_size := _link_key_size(button)
+	var x := 16.0 + UiArt.FONT.get_string_size(parts[0], HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x + LINK_KEY_GAP
+	if parts[1].is_valid_int():
+		var width := UiArt.prompt_width(parts[1], false, key_size)
+		var tab := Rect2(Vector2(roundf(x), roundf(baseline - key_size - 1.0)), Vector2(width, key_size + 5.0))
+		button.draw_rect(tab, UiArt.AMBER if not button.disabled else Color(UiArt.MUTED, .5))
+		var inner := UiArt.FONT.get_string_size(parts[1], HORIZONTAL_ALIGNMENT_LEFT, -1, key_size).x
+		button.draw_string(UiArt.FONT, Vector2(roundf(tab.position.x + (width - inner) * 0.5), baseline), parts[1], HORIZONTAL_ALIGNMENT_LEFT, -1, key_size, UiArt.INK)
+		return
+	UiArt.prompt(button, Vector2(x, baseline), parts[1], false, key_size, UiArt.IVORY if not button.disabled else Color(UiArt.MUTED, .7))
 
 func _button(title: String, rect: Rect2, callback: Callable, font_size: int = 24, focus_key: String = "") -> Button:
 	var button := Button.new()
@@ -397,24 +524,39 @@ func selection_hint() -> String:
 func _draw() -> void:
 	draw_rect(hud.screen_rect(), Color("111c20"))
 
+## Re-sizes the small menu actions when the window scale changes. The design
+## canvas keeps one layout; only the helper type grows when it would otherwise
+## land below ~11 real pixels.
+func _sync_text_boost(force: bool = false) -> void:
+	var boost := UiArt.compact_boost(self)
+	if not force and is_equal_approx(boost, _text_boost): return
+	_text_boost = boost
+	var small: Array[Button] = []
+	small.append_array(utility_buttons)
+	small.append(friends_button)
+	for button in small: button.add_theme_font_size_override("font_size", _sz(16))
+	for button: Button in [quit_button, release_button]: button.add_theme_font_size_override("font_size", _sz(16))
+	_layout_links()
+	if is_instance_valid(decoration): decoration.queue_redraw()
+
+func _sz(base: float) -> int:
+	return roundi(base * _text_boost)
+
 func _shade(rect: Rect2, left: Color, right: Color) -> void:
 	decoration.draw_polygon(PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]), PackedColorArray([left, right, right, left]))
 
-func _landscape_text(at: Vector2, value: String, font_size: int, font: Font = UiArt.FONT) -> void:
-	# Snow and reflected water can be bright behind these unframed labels.
-	var translated := L.text(value)
-	decoration.draw_string_outline(font, at, translated, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 2, Color(.025, .04, .04, .72))
-	UiArt.text(decoration, at, translated, font_size, UiArt.IVORY, font)
-
 func _draw_foreground() -> void:
 	var bounds: Rect2 = hud.screen_rect()
-	_shade(Rect2(bounds.position, Vector2(600 - bounds.position.x, bounds.size.y)), Color(.024, .040, .044, .96), Color(.024, .040, .044, .79))
-	_shade(Rect2(600, bounds.position.y, 470, bounds.size.y), Color(.024, .040, .044, .79), Color(.024, .040, .044, 0))
+	# The reading column keeps every line at or above WCAG AA on the brightest
+	# panorama (measured by tests/ui_motion_gallery.gd); beyond it the shade
+	# releases quickly so the painted site carries the right two thirds.
+	_shade(Rect2(bounds.position, Vector2(SHADE_COLUMN_END - bounds.position.x, bounds.size.y)), Color(.024, .040, .044, SHADE_EDGE), Color(.024, .040, .044, SHADE_COLUMN))
+	_shade(Rect2(SHADE_COLUMN_END, bounds.position.y, SHADE_RELEASE, bounds.size.y), Color(.024, .040, .044, SHADE_COLUMN), Color(.024, .040, .044, 0))
 	# Preserve the existing soft header shade over bright snow skies.
 	decoration.draw_polygon(PackedVector2Array([Vector2(bounds.position.x,bounds.position.y), Vector2(bounds.end.x,bounds.position.y), Vector2(bounds.end.x,190), Vector2(bounds.position.x,190)]), PackedColorArray([Color(.025,.04,.04,.50), Color(.025,.04,.04,.50), Color(.025,.04,.04,0), Color(.025,.04,.04,0)]))
 	# Local feathered shadows keep bright sky/reflections below the reading
 	# contrast without dimming the full landscape or adding a rectangular panel.
-	for shade: Rect2 in [Rect2(1030, -68, 490, 310), Rect2(814, 590, 624, 216)]:
+	for shade: Rect2 in [Rect2(1030, -68, 490, 310), Rect2(_card.get_center() - Vector2(312, 108), Vector2(624, 216))]:
 		var center := shade.get_center()
 		var radius := shade.size * .5
 		for segment in 20:
@@ -423,26 +565,85 @@ func _draw_foreground() -> void:
 			decoration.draw_polygon(PackedVector2Array([center, center + Vector2(cos(start), sin(start)) * radius, center + Vector2(cos(end), sin(end)) * radius]), PackedColorArray([Color(.025,.04,.04,.68), Color(.025,.04,.04,0), Color(.025,.04,.04,0)]))
 	# A soft foot vignette separates the roster without building another panel.
 	decoration.draw_polygon(PackedVector2Array([Vector2(bounds.position.x, 710), Vector2(bounds.end.x, 710), bounds.end, Vector2(bounds.position.x, bounds.end.y)]), PackedColorArray([Color(.025,.04,.04,0), Color(.025,.04,.04,0), Color(.025,.04,.04,.96), Color(.025,.04,.04,.96)]))
-	UiArt.text(decoration, Vector2(99, 108), "Bunker verteidigen. Gemeinsam überleben.", 16, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(100, 230), "Eine Mauer. Ein verlorenes Signal. Eure letzte Schicht.", 15, UiArt.MUTED)
+	UiArt.text(decoration, Vector2(99, 108), "Bunker verteidigen. Gemeinsam überleben.", _sz(17), UiArt.MUTED)
+	UiArt.text(decoration, Vector2(100, 230), "Eine Mauer. Ein verlorenes Signal. Eure letzte Schicht.", _sz(17), UiArt.MUTED)
+	# The focused action's description is live information, not decoration: it
+	# reads in the primary colour one step above the body size.
 	var hint := selection_hint()
-	var lines := UiArt.wrap_text(hint, 452, 15)
-	for index in lines.size(): UiArt.text(decoration, Vector2(100, 557 + index * 21), lines[index], 15, UiArt.MUTED)
-	var entry: Dictionary = environments[environment_index]
-	_landscape_text(Vector2(914, 666), "Schauplatz-Vorschau", 13)
-	var title := L.text(str(entry.title)).capitalize()
-	var title_size := 24
-	while title_size > 14 and UiArt.MENU_FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, title_size).x > 308: title_size -= 1
-	_landscape_text(Vector2(914, 705), title, title_size, UiArt.MENU_FONT)
-	UiArt.text(decoration, Vector2(100, 731), "Die Crew", 14, UiArt.MUTED)
+	var hint_size := _sz(16)
+	var lines := UiArt.wrap_text(hint, 452, hint_size)
+	for index in lines.size(): UiArt.text(decoration, Vector2(100, 557 + index * (hint_size + 6)), lines[index], hint_size, UiArt.IVORY)
+	# One hairline gathers the secondary links under the actions.
+	decoration.draw_line(Vector2(LINKS_LEFT + 16, LINK_ROWS[0] - 7), Vector2(LINKS_LEFT + 458, LINK_ROWS[0] - 7), Color(UiArt.MUTED, .22), 1)
+	_draw_preview_card()
+	# The caption rises with the figures when they are drawn at 2x, so the
+	# first helmet never runs into it.
+	# Below one real pixel per texel (the smallest windows) no whole step
+	# exists; the figures keep their former 70 px cell there.
+	var crew_side := 98.0 if UiArt.output_scale(decoration)*98.0 >= 77.0 else 70.0
+	var crew_top := UiArt.pixel_rect(decoration, Vector2(77, 77), Rect2(81, 814.0-crew_side, crew_side, crew_side)).position.y
+	UiArt.text(decoration, Vector2(100, minf(731.0, roundf(crew_top))), "Die Crew", _sz(16), UiArt.MUTED)
 	for index in CharacterCatalog.CHARACTERS.size():
 		var character: Dictionary = CharacterCatalog.CHARACTERS[index]
 		var center := Vector2(130 + index * 93, 0)
-		Portraits.draw_selection_portrait(decoration, str(character.id), Rect2(center.x - 35, 744, 70, 70), elapsed)
-		UiArt.centered(decoration, Vector2(center.x, 837), CharacterCatalog.selection_title(character.id), 14 if CharacterCatalog.is_unlocked(character.id) else 12, UiArt.IVORY if CharacterCatalog.is_unlocked(character.id) else UiArt.MUTED)
-	UiArt.text(decoration, Vector2(100, 879), "Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen", 13, UiArt.MUTED)
-	UiArt.text(decoration, Vector2(1000, 879), "Space: Solo · F2: Koop", 13, UiArt.MUTED)
+		# Whole real pixels per texel: 1x at 1080p, 2x from 1440p (a room of
+		# crew_side design px, feet on the same line as before); a missing
+		# member stands on the same line as a locked silhouette.
+		var unlocked := CharacterCatalog.is_unlocked(character.id)
+		if unlocked: Portraits.draw_portrait(decoration, str(character.id), Rect2(center.x - crew_side*0.5, 814.0-crew_side, crew_side, crew_side), elapsed)
+		else: _draw_locked_member(Vector2(center.x, 814.0))
+		# Four "VERMISST" side by side keep a gap in the smallest window too.
+		UiArt.centered(decoration, Vector2(center.x, 837), CharacterCatalog.selection_title(character.id), _sz(16) if unlocked else mini(_sz(UiArt.TEXT_NOTE), 17), UiArt.IVORY if unlocked else UiArt.MUTED)
+	UiArt.hints(decoration, Vector2(100, 879), InputLabels.navigation_hints(), InputLabels.pad_active, _sz(UiArt.TEXT_LEAD))
+	# Quick starts sit under the card's caption column (the screen corner
+	# belongs to the version badge).
+	UiArt.text(decoration, Vector2(_card.position.x + 20, 879), "Space: Solo · F2: Koop", _sz(16), UiArt.MUTED)
+
+## One shared, anonymous worker outline (helmet, shoulders, boots) in whole
+## real-pixel cells: every undiscovered member shows the same shape, so it
+## reveals nothing, and reads as a locked place in the crew, not a placeholder.
+const LOCKED_SILHOUETTE := ["....###....", "...#####...", "..#######..", ".#########.", "...#####...", "...#####...", "....###....", "..#######..", ".#########.", ".#########.", "##.#####.##", "##.#####.##", "#..#####..#", "...##.##...", "...##.##...", "...##.##...", "..###.###.."]
+## About 3.3 design pixels a cell (4 real at 1080p): as tall as the figures.
+const LOCKED_CELL := 3.34
+
+## The locked member standing on `feet` (centre of its feet): a dark steel
+## outline with a lit rim on its head and shoulders, and a padlock on its chest.
+func _draw_locked_member(feet: Vector2) -> void:
+	var pixels := UiArt.output_scale(decoration)
+	var cell := maxf(1.0, roundf(LOCKED_CELL * pixels)) / pixels if pixels > 0.0 else LOCKED_CELL
+	var extent := Vector2(LOCKED_SILHOUETTE[0].length(), LOCKED_SILHOUETTE.size()) * cell
+	var at := feet - Vector2(extent.x * 0.5, extent.y)
+	UiArt.pixel_glyph(decoration, LOCKED_SILHOUETTE, at + Vector2(0, -cell), LOCKED_CELL, Color("3e4a44"))
+	UiArt.pixel_glyph(decoration, LOCKED_SILHOUETTE, at, LOCKED_CELL, Color("1f2925"))
+	UiArt.lock_glyph(decoration, at + Vector2(extent.x * 0.5 - 6.5, extent.y * 0.47), Color(UiArt.MUTED, .9))
+
+## The location preview is one anchored card in the crew band: caption, site
+## name and the two browse arrows share the plate surface the menus use, with
+## an amber lead edge, instead of floating over the panorama.
+func _draw_preview_card() -> void:
+	var card := _card
+	UiArt.plate(decoration, card, true, .92)
+	decoration.draw_rect(Rect2(card.position + Vector2(0, card.size.y - 1), Vector2(card.size.x, 1)), Color(.01, .02, .02, .8))
+	var entry: Dictionary = environments[environment_index]
+	UiArt.text(decoration, card.position + Vector2(20, 30), "Schauplatz-Vorschau", _sz(UiArt.TEXT_NOTE), UiArt.MUTED)
+	var title := L.text(str(entry.title)).capitalize()
+	var title_size := 26
+	while title_size > 14 and UiArt.MENU_FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, title_size).x > 300: title_size -= 1
+	UiArt.text(decoration, card.position + Vector2(20, 88), title, title_size, UiArt.IVORY, UiArt.MENU_FONT)
+	var counter := preview_counter()
+	UiArt.text(decoration, Vector2(card.end.x - 20 - UiArt.FONT.get_string_size(counter, HORIZONTAL_ALIGNMENT_LEFT, -1, _sz(UiArt.TEXT_NOTE)).x, card.position.y + 30), counter, _sz(UiArt.TEXT_NOTE), UiArt.MUTED)
+
+## The preview also shows the sites only the campaign reaches. A free site
+## counts exactly like the scenario list ("02 / 09"); a campaign site counts
+## among the campaign sites and says so ("Kampagne · 01 / 04").
+func preview_counter() -> String:
+	var campaign := bool(environments[environment_index].get("campaign_only", false))
+	var group := environments.filter(func(entry: Dictionary) -> bool: return bool(entry.get("campaign_only", false)) == campaign)
+	var place := group.find(environments[environment_index]) + 1
+	if campaign: return L.format("Kampagne · %02d / %02d", [place, group.size()])
+	return L.format("%02d / %02d", [place, group.size()])
 
 func refresh_locale() -> void:
 	queue_redraw()
+	if not utility_buttons.is_empty(): _layout_links()
 	if is_instance_valid(decoration): decoration.queue_redraw()

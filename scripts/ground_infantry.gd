@@ -97,14 +97,19 @@ func spawn_motion_wreck() -> void:
 	if remains.size()>=16: remains[0].queue_free()
 	var fallen:=INFANTRY_ART.new()
 	fallen.corpse=true
-	fallen.fall_start=infantry.pose.duplicate(true)
-	fallen.fall_gun=infantry.gun
-	fallen.gun=infantry.gun
+	# The collapse starts from the drawn pose (recoil, knockback, stride), so
+	# the body never jumps between the last living frame and the first fall.
+	var drawn: Dictionary=infantry.shown if not infantry.shown.is_empty() else infantry.pose
+	var drawn_gun: Transform2D=infantry.shown_gun if not infantry.shown.is_empty() else infantry.gun
+	fallen.fall_start=drawn.duplicate(true)
+	fallen.fall_gun=drawn_gun
+	fallen.gun=drawn_gun
 	fallen.pose=fallen.fall_start.duplicate(true)
 	fallen.troop_kind=kind
 	fallen.squad_slot=squad_slot
 	fallen.gore_mask=gore_mask
 	fallen.effects=game.get("combat_gore")
+	fallen.calm=preload("res://scripts/weapon_effect_art.gd").reduced(game)
 	fallen.set_meta("combat_actor_id",str(get_meta("network_entity_id","")))
 	fallen.position=game.to_local(global_position)
 	fallen.scale=Vector2(attack_direction,1)*visual_scale
@@ -113,5 +118,5 @@ func spawn_motion_wreck() -> void:
 
 func _draw() -> void:
 	draw_rect(Rect2(-17,-1,34,3),Color(0,0,0,.26))
-	if hp<max_hp: Art.bar(self,Rect2(-17*visual_scale,(-73+stance*10)*visual_scale,34*visual_scale,3),hp/max_hp,Art.RED)
+	if hp<max_hp and not preload("res://scripts/threat_overlay.gd").covers(self): Art.bar(self,Rect2(-17*visual_scale,(-73+stance*10)*visual_scale,34*visual_scale,3),hp/max_hp,Art.RED)
 	if is_instance_valid(abilities): abilities.draw_telegraph()

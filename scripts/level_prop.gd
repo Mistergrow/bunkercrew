@@ -50,30 +50,52 @@ func _ready() -> void:
 
 func _build_artwork() -> void:
 	var texture: Texture2D = sprite_override
+	var path := ""
+	var source_size := Vector2.ZERO
 	if texture == null:
-		var index := clampi(kind_index, 0, SPRITE_RESOURCES.size() - 1)
-		if not _textures.has(index):
-			var path: String = SPRITE_RESOURCES[index]
-			if not ResourceLoader.exists(path):
-				push_warning("Industrial prop texture is missing: " + path)
-				return
-			_textures[index] = load(path)
-		texture = _textures[index]
-	var factor := minf(display_size.x / texture.get_width(), display_size.y / texture.get_height())
-	var size := texture.get_size() * factor
+		path = SPRITE_RESOURCES[clampi(kind_index, 0, SPRITE_RESOURCES.size() - 1)]
+		source_size = WorldTexels.resource_size(path)
+	if texture == null and source_size == Vector2.ZERO:
+		texture = _source_texture(path)
+		if texture == null:
+			return
+	if source_size == Vector2.ZERO:
+		source_size = texture.get_size()
+	var factor := minf(display_size.x / source_size.x, display_size.y / source_size.y)
+	var size := source_size * factor
+	# The world-texel bake of this size (tools/bake_world_density_art.py) is
+	# drawn 1:1 on whole world units; the source atlas only when none exists.
+	var baked: Texture2D = WorldTexels.resource_texture(path, Vector2i(size.round())) if texture == null else null
+	if baked != null:
+		size = baked.get_size()
+	elif texture == null:
+		texture = _source_texture(path)
+		if texture == null:
+			return
 	var top_left := Vector2(-size.x * 0.5, -size.y)
 	if anchor == Anchor.CENTER:
 		top_left.y = -size.y * 0.5
 	elif anchor == Anchor.CEILING:
 		top_left.y = 0.0
+	if baked != null:
+		top_left = top_left.round()
 	_bounds = Rect2(top_left, size)
 	artwork = Sprite2D.new()
 	artwork.name = "Artwork"
-	artwork.texture = texture
+	artwork.texture = baked if baked != null else texture
 	artwork.position = _bounds.get_center()
-	artwork.scale = Vector2.ONE * factor
+	artwork.scale = Vector2.ONE if baked != null else Vector2.ONE * factor
 	artwork.flip_h = flip_horizontal
 	add_child(artwork)
+
+func _source_texture(path: String) -> Texture2D:
+	var index := clampi(kind_index, 0, SPRITE_RESOURCES.size() - 1)
+	if not _textures.has(index):
+		if not ResourceLoader.exists(path):
+			push_warning("Industrial prop texture is missing: " + path)
+			return null
+		_textures[index] = load(path)
+	return _textures[index]
 
 func _build_moving_parts() -> void:
 	if kind_index == Kind.FAN:

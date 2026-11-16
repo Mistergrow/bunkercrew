@@ -215,7 +215,10 @@ func host_run() -> void:
 	publish("spoof")
 	if not await barrier("spoof_sent"): await finish(false,"slot spoof"); return
 	await delay(.2)
-	check(truck.ammo==before_spoof and game.players[2].get_node("WorkerWeapon").current_ammo()<p3_before_spoof,"P3 cannot redirect forged player_id2 fire input to P2 or the shared MG")
+	# An input envelope has a closed field list: the forged frames are refused
+	# whole and counted against P3's own link, which stays below the strike limit.
+	check(truck.ammo==before_spoof and game.players[2].get_node("WorkerWeapon").current_ammo()==p3_before_spoof,"P3 cannot redirect forged player_id2 fire input to P2, the shared MG or any weapon")
+	check(int(game.network._slots[3]._invalid_packets)>=8 and game.network.is_player_connected(3),"The forged frames count as invalid on P3's link without ending it")
 	for id in [3,4]:
 		var worker=game.players[id-1]
 		var weapon=worker.get_node("WorkerWeapon")

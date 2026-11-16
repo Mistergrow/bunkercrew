@@ -1,0 +1,33 @@
+{
+  "asset": "aircraft_pods_v2.png",
+  "generator": "tools/generate_aircraft_pods_v2.py",
+  "method": "Hand-placed native pixel art for five aircraft pod families and the bomb bay at world size (one texel per world unit), pods RotSprite-turned (3x Scale2x, one sample per native texel) into 48 aim keys. Replaces the striped rectangles and the flat bay of scripts/aircraft_art.gd.",
+  "license": "Original Bunkercrew project art.",
+  "families": [
+    "dart",
+    "gun",
+    "rocket",
+    "arc",
+    "heavy"
+  ],
+  "keys": 48,
+  "cell": 48,
+  "centre": [
+    24,
+    24
+  ],
+  "bay": {
+    "row": 5,
+    "column": 0
+  },
+  "size": [
+    2304,
+    288
+  ],
+  "source_sha256": {
+    "tools/generate_aircraft_pods_v2.py": "deda77b6d4da4e10bde6341bec7a2aa298298b4963fa2b5c5edc4f94a06171eb",
+    "tools/generate_infantry_parts_v2.py": "8b8707113a8eff8e920a93730b8cdadfdf84b34d078f07dbfc3761074d35bd44",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "4f18dd1f9e11610f685b66f30e871783ba96e9443d19c555cd3289a32e0c8654"
+}

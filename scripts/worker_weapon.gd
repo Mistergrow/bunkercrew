@@ -345,12 +345,59 @@ func _launch_round(direction: Vector2, damage: float) -> void:
 	shot.global_position = global_position
 
 func drawing_transform() -> Transform2D:
-	return Transform2D(aim_direction.angle(),Vector2.ZERO).scaled_local(Vector2(1,1 if aim_direction.x>=0 else -1))
+	var tx := Transform2D(aim_direction.angle(),Vector2.ZERO).scaled_local(Vector2(1,1 if aim_direction.x>=0 else -1))
+	var handling := _reload_handling(reload_progress())
+	if handling>0.0:
+		# Reloading tips the muzzle up and draws the gun in toward the chest.
+		tx = tx*Transform2D(-0.45*handling,Vector2(-3.0,1.5)*handling)
+	return tx
+
+## 0..1 through a running personal reload, -1 otherwise. Driven only by the
+## replicated reload timer and kind, so guests see the same handling.
+func reload_progress() -> float:
+	if reload_timer<=0.0 or _reload_kind.is_empty() or _personal_mount()!=null: return -1.0
+	return clampf(1.0-reload_timer/maxf(0.01,reload_duration(_reload_kind)),0.0,1.0)
+
+static func _reload_handling(progress: float) -> float:
+	if progress<0.0: return 0.0
+	return smoothstep(0.0,0.10,progress)*(1.0-smoothstep(0.86,1.0,progress))
+
+## Support hand through the reload, in this node's space: off the fore-end to
+## the magazine, pull it, to the belt pouch, a fresh magazine up into the
+## well (seated as the load sound plays), rack the bolt, back to the fore-end.
+## Shotguns feed three shells into the tube instead. INF when not reloading.
+func reload_hand(tx: Transform2D) -> Vector2:
+	var r := reload_progress()
+	if r<0.0: return Vector2.INF
+	var grip: Vector2 = tx*GRIP_POINTS[1]
+	var visual = worker.get_node_or_null("PixelVisual") if is_instance_valid(worker) else null
+	var crouched: bool = visual!=null and "crouched" in visual and bool(visual.crouched)
+	var pouch := Vector2(-12.0*float(worker.facing),9.0) if crouched else Vector2(-10.0*float(worker.facing),14.0)
+	if family_for(_reload_kind)=="shotgun":
+		var port: Vector2 = tx*Vector2(6,5)
+		if r<0.12 or r>=0.88: return grip.lerp(port,smoothstep(0.0,0.12,r) if r<0.12 else 1.0-smoothstep(0.88,1.0,r))
+		var shell := fposmod((r-0.12)/0.76*3.0,1.0)
+		return port.lerp(pouch,sin(shell*PI))
+	var well: Vector2 = tx*Vector2(0,10)
+	var below: Vector2 = tx*Vector2(0,16)
+	var handle: Vector2 = tx*Vector2(3,-6)
+	if r<0.10: return grip
+	if r<0.20: return grip.lerp(well,smoothstep(0.10,0.20,r))
+	if r<0.28: return well.lerp(tx*Vector2(0,17),smoothstep(0.20,0.28,r))
+	if r<0.36: return (tx*Vector2(0,17)).lerp(pouch,smoothstep(0.28,0.36,r))
+	if r<0.43: return pouch.lerp(below,smoothstep(0.36,0.43,r))
+	if r<0.48: return below.lerp(well,smoothstep(0.43,0.48,r))
+	if r<0.60: return well.lerp(handle,smoothstep(0.48,0.60,r))
+	if r<0.70: return handle+tx.basis_xform(Vector2(-4,0))*sin(smoothstep(0.60,0.70,r)*PI)
+	if r<0.86: return handle.lerp(grip,smoothstep(0.70,0.86,r))
+	return grip
 
 func grip_positions() -> PackedVector2Array:
 	# The receiver and foregrip travel with the same aim, mirror and recoil as
 	# the gun pixels. Body poses and foreground gloves share these contacts.
 	var tx := drawing_transform()
+	var support := reload_hand(tx)
+	if support.is_finite(): return PackedVector2Array([tx*(GRIP_POINTS[0]-Vector2(recoil,0)),support])
 	return PackedVector2Array([tx*(GRIP_POINTS[0]-Vector2(recoil,0)),tx*(GRIP_POINTS[1]-Vector2(recoil,0))])
 
 func grip_positions_for(visual: Node2D) -> PackedVector2Array:
@@ -358,48 +405,60 @@ func grip_positions_for(visual: Node2D) -> PackedVector2Array:
 	var grips := grip_positions()
 	return PackedVector2Array([tx*grips[0],tx*grips[1]])
 
+## The weapon is an authored sprite in 7.5 degree attitudes (local aim from
+## straight up to steeply down, generate_tool_turns.py), drawn upright on a
+## whole texel. Reload tilt and recoil step through those attitudes; a bare
+## receiver shows while the magazine is out of the well.
+const TOOLS := preload("res://assets/workers/tool_turns.png")
+const TURN_STEPS := 48
+const TURN_FIRST := -13
+const TURN_LAST := 10
+const TURN_CELL := 88
+const TURN_CENTRE := Vector2(44, 44)
+const TURN_TOP := 224
+const TURN_ROWS := ["rifle", "shotgun", "arcgun", "veteran_rifle", "breacher_shotgun", "storm_arcgun"]
+const BARE_ROWS := ["rifle", "veteran_rifle", "arcgun", "storm_arcgun"]
+
+## The drawn attitude: mirror (1 or -1) applied after an upright cell whose
+## rotation and texel origin in that mirrored frame are kept in `_drawn_turned`
+## (members, so drawing allocates nothing per frame).
+var _drawn_mirror := 1.0
+var _drawn_turned := Transform2D.IDENTITY
+var _drawn_step := 0
+
+func update_attitude() -> void:
+	_drawn_mirror = 1.0 if aim_direction.x >= 0 else -1.0
+	var local := atan2(aim_direction.y, absf(aim_direction.x))
+	var handling := _reload_handling(reload_progress())
+	var origin := Vector2(-3.0, 1.5).rotated(local) * handling
+	_drawn_step = clampi(roundi((local - 0.45 * handling) / TAU * TURN_STEPS), TURN_FIRST, TURN_LAST)
+	var turned := float(_drawn_step) * TAU / TURN_STEPS
+	_drawn_turned = Transform2D(turned, (origin + Vector2(-recoil, 0).rotated(turned)).round())
+
 func _draw() -> void:
 	if not aiming or not can_use():
 		return
-	draw_set_transform_matrix(drawing_transform())
-	var kick := Vector2(-recoil,0)
-	draw_rect(Rect2(Vector2(-18,-4)+kick,Vector2(13,8)),Art.INK)
-	draw_rect(Rect2(Vector2(-16,-3)+kick,Vector2(10,5)),Color("887653"))
-	draw_rect(Rect2(Vector2(-8,-6)+kick,Vector2(23,12)),Art.INK)
-	draw_rect(Rect2(Vector2(-6,-4)+kick,Vector2(20,7)),Color("5d6b64"))
-	draw_rect(Rect2(Vector2(-3,4)+kick,Vector2(5,9)),Color("242f34"))
-	draw_rect(Rect2(Vector2(5,4)+kick,Vector2(7,7)),Color("89917b"))
-	if family_for(weapon_kind) == "shotgun":
-		for y in [-3,2]:
-			draw_rect(Rect2(Vector2(12,y)+kick,Vector2(23,3)),Color("a6ab96"))
-		draw_rect(Rect2(Vector2(12,-5)+kick,Vector2(12,10)),Color("85694b"))
-	elif family_for(weapon_kind) == "arcgun":
-		draw_rect(Rect2(Vector2(11,-8)+kick,Vector2(20,16)),Color("253340"))
-		for x in [13,21,29]:
-			draw_rect(Rect2(Vector2(x,-7)+kick,Vector2(3,14)),Color("8f8ade"))
-		draw_rect(Rect2(Vector2(12,-2)+kick,Vector2(23,4)),Color("8bdff1"))
-	else:
-		draw_rect(Rect2(Vector2(13,-2)+kick,Vector2(21,4)),Color("a0a997"))
-		draw_rect(Rect2(Vector2(29,-4)+kick,Vector2(7,8)),Color("253239"))
-		draw_rect(Rect2(Vector2(-2,-8)+kick,Vector2(10,3)),Color("8b957f"))
-	_draw_material_details(kick)
-	if is_epic():
-		# Bounded native details retain the common side-on industrial material.
-		match weapon_kind:
-			"veteran_rifle":
-				draw_rect(Rect2(Vector2(-1,-12)+kick,Vector2(17,4)),Art.INK)
-				draw_rect(Rect2(Vector2(1,-11)+kick,Vector2(12,2)),Color("baa274"))
-				draw_rect(Rect2(Vector2(33,-3)+kick,Vector2(5,6)),Color("716d55"))
-			"breacher_shotgun":
-				draw_rect(Rect2(Vector2(29,-6)+kick,Vector2(8,13)),Art.INK)
-				draw_rect(Rect2(Vector2(30,-5)+kick,Vector2(6,3)),Color("b19468"))
-				for index in 3: draw_rect(Rect2(Vector2(-5+index*5,-5)+kick,Vector2(2,5)),Color("bd8857"))
-			"storm_arcgun":
-				for index in 3:
-					draw_rect(Rect2(Vector2(12+index*7,-9)+kick,Vector2(4,3)),Color("aabe9e"))
-					draw_rect(Rect2(Vector2(12+index*7,7)+kick,Vector2(4,3)),Color("85755a"))
-	WeaponEffectArt.muzzle(self,Vector2(35-recoil,0),flash,0.13 if family_for(weapon_kind)=="arcgun" else 0.08,1,0.72 if family_for(weapon_kind)=="rifle" else 1.05,_shot_index,WeaponEffectArt.reduced(game),family_for(weapon_kind)=="arcgun")
+	update_attitude()
+	var mirror := _drawn_mirror
+	var turned := _drawn_turned
+	var step := _drawn_step
+	var progress := reload_progress()
+	var magazine := _magazine_offset(progress)
+	var bare := magazine != 0.0 and BARE_ROWS.has(weapon_kind)
+	var row := TURN_ROWS.size() + BARE_ROWS.find(weapon_kind) if bare else maxi(0, TURN_ROWS.find(weapon_kind))
+	var region := Rect2(Vector2((step - TURN_FIRST) * TURN_CELL, TURN_TOP + row * TURN_CELL), Vector2.ONE * TURN_CELL)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2(mirror, 1))
+	draw_texture_rect_region(TOOLS, Rect2(turned.origin - TURN_CENTRE, region.size), region)
+	var parts := Transform2D(0.0, Vector2(mirror, 1), 0.0, Vector2.ZERO) * turned
+	draw_set_transform_matrix(parts)
+	# Moving parts of the reload in the same attitude: a magazine sliding in or
+	# out of the well and the rifle bolt racked back.
+	if bare and magazine > 0.0: draw_rect(Rect2(Vector2(-3, 4 + roundf(magazine)), Vector2(5, 9)), Color("242f34"))
+	var bolt := _bolt_travel(progress)
+	if bolt > 0.0 and family_for(weapon_kind) == "rifle": draw_rect(Rect2(Vector2(-2 - roundf(bolt), -8), Vector2(10, 3)), Color("8b957f"))
+	WeaponEffectArt.muzzle(self,Vector2(35,0),flash,0.13 if family_for(weapon_kind)=="arcgun" else 0.08,1,0.72 if family_for(weapon_kind)=="rifle" else 1.05,_shot_index,WeaponEffectArt.reduced(game),family_for(weapon_kind)=="arcgun",parts)
 	draw_set_transform(Vector2.ZERO)
+	_draw_reload_items(progress)
 	_draw_gripping_hands()
 	if aim_point != Vector2.ZERO:
 		var marker := to_local(aim_point)
@@ -407,6 +466,45 @@ func _draw() -> void:
 		tint.a = .65
 		for offset: Vector2 in [Vector2(-6,0),Vector2(6,0),Vector2(0,-6),Vector2(0,6)]:
 			draw_line(marker+offset,marker+offset*0.6,tint,1)
+
+## Magazine offset below its well during a reload (-1: out of the gun).
+static func _magazine_offset(progress: float) -> float:
+	if progress<0.20: return 0.0
+	if progress<0.28: return 7.0*smoothstep(0.20,0.28,progress)
+	if progress<0.43: return -1.0
+	if progress<0.48: return 6.0*(1.0-smoothstep(0.43,0.48,progress))
+	return 0.0
+
+static func _bolt_travel(progress: float) -> float:
+	return 4.0*sin(smoothstep(0.60,0.70,progress)*PI) if progress>=0.60 and progress<0.70 else 0.0
+
+func _draw_reload_items(progress: float) -> void:
+	if progress<0.0: return
+	var family := family_for(_reload_kind)
+	var hand := reload_hand(drawing_transform())
+	if family=="shotgun":
+		var shell := fposmod((progress-0.12)/0.76*3.0,1.0)
+		if progress>0.12 and progress<0.88 and shell>0.35 and shell<0.95:
+			draw_rect(Rect2(hand+Vector2(-2,-4),Vector2(4,7)),Art.INK)
+			draw_rect(Rect2(hand+Vector2(-1,-3),Vector2(2,4)),Color("b6493a"))
+			draw_rect(Rect2(hand+Vector2(-1,1),Vector2(2,1)),Color("c9a764"))
+		return
+	var body := Color("242f34") if family!="arcgun" else Color("3c4f6a")
+	if progress>=0.28 and progress<0.50:
+		# The spent magazine drops and tumbles in two authored attitudes.
+		var since := progress-0.28
+		var seconds := since*reload_duration(_reload_kind)
+		var start: Vector2 = drawing_transform()*Vector2(-0.5,15)
+		var at := start+Vector2(-8.0*float(worker.facing)*since*4.0,450.0*seconds*seconds)
+		var upright := int(seconds*18.0)%2==0
+		var size := Vector2(4,8) if upright else Vector2(8,4)
+		if at.y<start.y+26.0:
+			draw_rect(Rect2((at-size*0.5).round(),size),body)
+	if progress>=0.28 and progress<0.43:
+		# A fresh magazine in the glove on its way up to the well.
+		var at: Vector2 = hand+Vector2(-2,-1) if progress>=0.36 else hand
+		draw_rect(Rect2((at+Vector2(-3,-2)).round(),Vector2(5,9)),Art.INK)
+		draw_rect(Rect2((at+Vector2(-2,-1)).round(),Vector2(3,7)),body.lightened(0.18))
 
 func _draw_gripping_hands() -> void:
 	var visual := worker.get_node_or_null("PixelVisual") as WorkerVisual
@@ -428,51 +526,6 @@ func _draw_gripping_hands() -> void:
 		draw_rect(Rect2(hand+Vector2(-2,-1),Vector2(5,4)),palette.leather_light if index==1 else palette.leather)
 		draw_rect(Rect2(hand+Vector2(1,-1),Vector2(2,2)),palette.skin_light if index==1 else palette.skin)
 		draw_rect(Rect2(hand+Vector2(-2,2),Vector2(4,1)),palette.leather)
-
-func _draw_material_details(kick: Vector2) -> void:
-	# Single-pixel worn edges, receiver cutouts and fasteners share the actors'
-	# native texel scale. They stay attached through aim, mirror and recoil.
-	var edge := Color("a7ad95")
-	var recess := Color("34413e")
-	var steel := Color("78877b")
-	draw_line(Vector2(-6,-4)+kick, Vector2(12,-4)+kick, edge, 1)
-	draw_line(Vector2(-6,2)+kick, Vector2(11,2)+kick, recess, 1)
-	draw_rect(Rect2(Vector2(-4,-2)+kick,Vector2(9,3)), Color("384944"))
-	draw_rect(Rect2(Vector2(-2,-2)+kick,Vector2(5,1)), Color("8a9682"))
-	draw_rect(Rect2(Vector2(8,-2)+kick,Vector2(5,2)), Color("b3b7a0"))
-	draw_rect(Rect2(Vector2(9,-1)+kick,Vector2(3,1)), Color("566358"))
-	for point in [Vector2(-5,0), Vector2(6,-3)]:
-		draw_rect(Rect2(point+kick,Vector2.ONE), Color("c0b58e"))
-	for index in 3:
-		draw_line(Vector2(-15+index*3,-2)+kick, Vector2(-16+index*3,1)+kick, Color("63553d"),1)
-	draw_line(Vector2(-15,-3)+kick, Vector2(-9,-3)+kick, Color("b0a17c"),1)
-	draw_line(Vector2(5,5)+kick, Vector2(10,5)+kick, Color("b0b49a"),1)
-	for index in 3:
-		draw_line(Vector2(6,6+index)+kick, Vector2(9,6+index)+kick, Color("5d6c5c"),1)
-	match family_for(weapon_kind):
-		"rifle":
-			draw_line(Vector2(14,-2)+kick,Vector2(29,-2)+kick,Color("c0c4aa"),1)
-			draw_line(Vector2(14,1)+kick,Vector2(29,1)+kick,recess,1)
-			for x in [17,24]: draw_rect(Rect2(Vector2(x,-3)+kick,Vector2(2,6)),steel)
-			draw_rect(Rect2(Vector2(30,-3)+kick,Vector2(4,1)),Color("8c9480"))
-			draw_rect(Rect2(Vector2(33,-1)+kick,Vector2(2,2)),Color("101f23"))
-		"shotgun":
-			for y in [-3,2]:
-				draw_line(Vector2(25,y)+kick,Vector2(34,y)+kick,Color("c1bfa7"),1)
-				draw_line(Vector2(25,y+2)+kick,Vector2(34,y+2)+kick,recess,1)
-			for x in [14,17,20]:
-				draw_line(Vector2(x,-3)+kick,Vector2(x,2)+kick,Color("504733"),1)
-				draw_line(Vector2(x+1,-3)+kick,Vector2(x+1,2)+kick,Color("b69d70"),1)
-			draw_rect(Rect2(Vector2(24,-4)+kick,Vector2(2,9)),steel)
-		"arcgun":
-			draw_line(Vector2(12,-8)+kick,Vector2(29,-8)+kick,steel,1)
-			for x in [13,21,29]:
-				draw_rect(Rect2(Vector2(x,-6)+kick,Vector2(1,12)),Color("b5b4cf"))
-				draw_rect(Rect2(Vector2(x+2,-6)+kick,Vector2(1,12)),Color("585e86"))
-				draw_rect(Rect2(Vector2(x,-3)+kick,Vector2(3,1)),Color("7c8b89"))
-				draw_rect(Rect2(Vector2(x,3)+kick,Vector2(3,1)),Color("455557"))
-			draw_line(Vector2(13,-1)+kick,Vector2(33,-1)+kick,Color("d3ede0"),1)
-			draw_line(Vector2(13,1)+kick,Vector2(33,1)+kick,Color("438e99"),1)
 
 func reload_duration(kind: String) -> float:
 	var identity := str(worker.get("character_id")) if is_instance_valid(worker) and "character_id" in worker else "mara"

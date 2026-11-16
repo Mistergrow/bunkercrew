@@ -3,6 +3,9 @@ extends SceneTree
 ## rendered kick/rest captures are verified by menu_rave_gameplay_test.gd separately.
 const Menu := preload("res://scripts/main_menu_panel.gd")
 const Cleanup := preload("res://tests/scene_cleanup.gd")
+## Vertical room of the logo lockup in design units: below the tagline's
+## descenders (baseline 108) and above the subtitle's capitals (baseline 230).
+const TITLE_CLEARANCE := Vector2(110.0, 219.0)
 var game
 var checks := 0
 var failures := 0
@@ -53,7 +56,7 @@ func _run() -> void:
 		menu._apply_wordmark_pose(pose)
 		var current: Dictionary = menu.wordmark_state()
 		check(absf(current.center.x - original_center.x) <= Menu.WORDMARK_SWAY_DISTANCE + 0.001 and is_equal_approx(current.center.y, original_center.y), "Every heard beat phase bounds horizontal sway and preserves the vertical center")
-		check(float(current.scale) >= 1.0 and float(current.scale) <= Menu.WORDMARK_MAX_SCALE and current.rect.position.y > 128 and current.rect.end.y < 198, "The entire pulse stays inside the original title clearance")
+		check(float(current.scale) >= 1.0 and float(current.scale) <= Menu.WORDMARK_MAX_SCALE and current.rect.position.y > TITLE_CLEARANCE.x and current.rect.end.y < TITLE_CLEARANCE.y, "The entire pulse stays inside the title clearance")
 		for button: Button in menu._ordered_buttons():
 			var before: Dictionary = buttons[button.get_instance_id()]
 			check(button.get_rect() == before.rect and button.get_transform() == before.transform and not current.rect.intersects(button.get_rect()), "Beat response never moves, scales or overlaps an action hit target")
@@ -63,7 +66,7 @@ func _run() -> void:
 		var sway: Dictionary = menu.wordmark_state()
 		check(absf(sway.horizontal_offset) <= Menu.WORDMARK_SWAY_DISTANCE and sway.vertical_offset == 0.0, "Audible beat phase moves the title inside its small horizontal range")
 		check(absf(sway.center.x - original_center.x - sway.horizontal_offset) < 0.001 and is_equal_approx(sway.center.y, original_center.y), "The actual wordmark transform follows horizontal sway without shifting vertically")
-		check(sway.rect.position.y > 128.0 and sway.rect.end.y < 198.0, "Combined scaling and sway remain between the original tagline and subtitle")
+		check(sway.rect.position.y > TITLE_CLEARANCE.x and sway.rect.end.y < TITLE_CLEARANCE.y, "Combined scaling and sway remain between the tagline and subtitle")
 	var opposite: Dictionary = Menu.pose_for_menu_rhythm({"active":true, "phase":0.5}, false)
 	check(peak.horizontal_offset == -Menu.WORDMARK_SWAY_DISTANCE and opposite.horizontal_offset == Menu.WORDMARK_SWAY_DISTANCE, "The title swings from left to right between downbeat and offbeat")
 	for invalid_phase: Variant in [NAN, INF, -INF, "invalid", {}, []]:

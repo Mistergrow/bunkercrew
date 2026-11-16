@@ -66,6 +66,42 @@ def scalar_constant(path: Path, name: str) -> float:
     return float(match.group(1))
 
 
+def string_constant(path: Path, name: str) -> str:
+    match = re.search(r"const\s+" + re.escape(name) + r"(?:\s*:\s*String)?\s*(?::=|=)\s*\"([^\"\n]*)\"", path.read_text())
+    if not match:
+        raise ValueError(f"Missing string constant {path}:{name}")
+    return match.group(1)
+
+
+def convoy_recording(kind: str) -> str:
+    """Mirror scripts/convoy_audio.gd recording_path() from its own constants."""
+    script = ROOT / "scripts/convoy_audio.gd"
+    path = string_constant(script, "ENGINE_PATH") if kind == "idle" else string_constant(script, "RECORDING_PATTERN") % kind
+    return path.removeprefix("res://")
+
+
+def travel_cinematic_recordings() -> dict[str, dict]:
+    """Beds and cues preloaded by scripts/travel_cinematic_sound.gd SCENES."""
+    script = ROOT / "scripts/travel_cinematic_sound.gd"
+    if not script.exists():
+        return {}
+    text = script.read_text()
+    bank = string_constant(script, "BANK")
+    found = re.search(r"const\s+SCENES\s*:?=\s*\{", text)
+    if not found:
+        raise ValueError(f"Missing {script}:SCENES")
+    body = text[found.end():text.index("\n}", found.end())]
+    result = {}
+    for name, level in re.findall(r'"bed"\s*:\s*"([^"]+)"\s*,\s*"db"\s*:\s*([-+]?\d+(?:\.\d+)?)', body):
+        result[(bank + name + ".wav").removeprefix("res://")] = {"role": "travel_cinematic_bed", "kind": name, "source_level_db": float(level), "bus": "SFX", "loop": False, "users": ["scripts/travel_cinematic_sound.gd"]}
+    for prefix, name, level, kind in re.findall(r'"path"\s*:\s*(BANK\s*\+\s*)?"([^"]+)"\s*,\s*"db"\s*:\s*([-+]?\d+(?:\.\d+)?)\s*,\s*"kind"\s*:\s*"([^"]+)"', body):
+        path = ((bank if prefix else "") + name).removeprefix("res://")
+        result[path] = {"role": "travel_cinematic_cue", "kind": kind, "source_level_db": float(level), "bus": "SFX", "users": ["scripts/travel_cinematic_sound.gd"]}
+    if body.count('"bed"') + body.count('"path"') != len(re.findall(r'"bed"\s*:\s*"[^"]+"\s*,\s*"db"', body)) + len(re.findall(r'"path"\s*:\s*(?:BANK\s*\+\s*)?"[^"]+"\s*,\s*"db"\s*:\s*[-+]?\d+(?:\.\d+)?\s*,\s*"kind"', body)):
+        raise ValueError(f"Unrecognized bed/cue declaration in {script}:SCENES")
+    return result
+
+
 def export_filters() -> dict[str, list[str]]:
     presets = {}
     text = (ROOT / "export_presets.cfg").read_text()
@@ -123,11 +159,16 @@ def runtime_banks() -> tuple[dict[str, dict], dict[str, float]]:
             }
     for filename in ["menu_rave_v1.ogg", "menu_rave_nachtstrom_v1.ogg", "menu_rave_schichtwechsel_v1.ogg", "menu_rave_kernimpuls_v2.ogg"]:
         bank["assets/audio/" + filename] = {"role": "menu_score", "source_level_db": 0, "bus": "Music", "loop": True, "users": ["scripts/menu_music_catalog.gd"]}
+    # Paths follow the script's own recording generation (v3 today); a hard-coded
+    # generation here would report the retired bank as current after a refresh.
     effects = literal_constant(ROOT / "scripts/convoy_audio.gd", "EFFECTS")
     for kind, spec in effects.items():
-        bank[f"assets/audio/convoy_{kind}_v2.wav"] = {"role": "convoy_foley", "kind": kind, "source_level_db": spec["db"], "bus": "SFX", "users": ["scripts/convoy_audio.gd"]}
-    for kind, level in {"idle": -28, "torque": -25, "road": -29, "clatter": -33}.items():
-        bank[f"assets/audio/convoy_{kind}_v2.wav"] = {"role": "convoy_loop", "kind": kind, "source_level_db": level, "bus": "SFX", "loop": True, "users": ["scripts/convoy_audio.gd"]}
+        bank[convoy_recording(kind)] = {"role": "convoy_foley", "kind": kind, "source_level_db": spec["db"], "bus": "SFX", "users": ["scripts/convoy_audio.gd"]}
+    loop_levels = {"idle": -28, "torque": -25, "road": -29, "clatter": -33}
+    for kind in literal_constant(ROOT / "scripts/convoy_audio.gd", "LOOP_KINDS"):
+        bank[convoy_recording(kind)] = {"role": "convoy_loop", "kind": kind, "source_level_db": loop_levels[kind], "bus": "SFX", "loop": True, "users": ["scripts/convoy_audio.gd"]}
+    for path, usage in travel_cinematic_recordings().items():
+        bank.setdefault(path, usage)
     bank["assets/audio/ambience_wind.ogg"] = {"role": "ambient_loop", "source_level_db": -25, "bus": "SFX", "loop": True, "users": ["scripts/movement_audio.gd"], "gain_note": "Weather- and shelter-dependent, -25dB is an illustrative exposed steady level."}
     bank["assets/audio/air_raid_flyover_v1.wav"] = {"role": "intro_loop", "source_level_db": -9, "bus": "SFX", "loop": True, "users": ["scripts/air_raid_intro_panel.gd"], "gain_note": "Maximum approach envelope; another -4dB while dialogue is playing."}
     for locale, directory in [("de", ROOT / "assets/audio/story_voices_v2"), ("en", ROOT / "assets/audio/story_voices_v2/en")]:

@@ -4,6 +4,7 @@ extends RefCounted
 const IdentityArt := preload("res://scripts/worker_identity_art.gd")
 const Personality := preload("res://scripts/worker_personality.gd")
 const VehicleArt := preload("res://scripts/ground_vehicle_art.gd")
+const AircraftArt := preload("res://scripts/aircraft_art.gd")
 ## Read-only silhouette sampling of the original atlases, plus the exact native
 ## medical pose and leg endpoints. Weather never uses an actor's hitbox as art.
 
@@ -157,21 +158,18 @@ static func segments(actor: Node2D) -> Array[Dictionary]:
 				_segment(result,weapon,gun_tx*(Vector2(pair[0])+kick),gun_tx*(Vector2(pair[1])+kick))
 	elif actor.is_in_group("air_enemies"):
 		var size: Vector2 = actor.profile.body_size
-		_atlas_segments(result,actor.body_part,Transform2D.IDENTITY,actor.chassis_atlas,AirMachine.BODY_REGIONS[actor.profile.atlas],Rect2(-size*0.5,size))
+		# The silhouette of the drawn hull: its world-texel bake (level stance).
+		var hull := WorldTexels.level(AircraftArtCatalog.TEXTURE_PATH,AirMachine.BODY_REGIONS[actor.profile.atlas],AircraftArt.hull_texels(actor))
+		if hull != null: _atlas_segments(result,actor.body_part,Transform2D.IDENTITY,hull.atlas,hull.region,Rect2(-size*0.5,size))
 		var family: String = actor.profile.propulsion
 		for engine: Vector2 in AircraftArtCatalog.engine_points(actor.kind,size.x):
 			var span := clampf(size.x*.23,11,29) if family in ["rotor","tiltrotor","vtol"] else 3.0
 			_segment(result,actor.propulsion_part,engine+Vector2(-span,-1),engine+Vector2(span,-1))
 		_segment(result,actor.weapon_part,Vector2(-23+actor.weapon_recoil,-4),Vector2(5,-4))
 	elif actor.is_in_group("enemies"):
-		var chassis: String = actor.chassis_kind()
-		var region: Rect2 = SiegeMachine.BODY_REGIONS[chassis]
-		var width: float = actor.profile.body_size.x
-		if chassis=="colossus": width=74.0
-		elif chassis=="siege": width=79.0
-		elif chassis=="breaker": width=78.0
-		var size := Vector2(width,width*region.size.y/region.size.x)
-		_atlas_segments(result,actor.body_part,Transform2D.IDENTITY,actor.chassis_atlas,region,Rect2(Vector2(-width*0.5,-19 if chassis=="runner" else -24),size))
+		var region: Rect2 = SiegeMachine.BODY_REGIONS[actor.chassis_kind()]
+		var chassis := WorldTexels.level(SiegeMachine.CHASSIS_PATH,region,SiegeMachine.chassis_texels(actor.kind,actor.profile,actor.visual_scale))
+		if chassis != null: _atlas_segments(result,actor.body_part,Transform2D.IDENTITY,chassis.atlas,chassis.region,SiegeMachine.chassis_rect(actor.kind,actor.profile))
 		_ground_equipment(result,actor)
 	elif actor.is_in_group("medics"):
 		var bob := roundf(sin(actor.elapsed*2.2)*0.65) if not actor.climbing else 0.0

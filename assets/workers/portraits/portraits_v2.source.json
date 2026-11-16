@@ -1,0 +1,70 @@
+{
+  "asset": "portraits_v2.png",
+  "purpose": "Crew bust portraits for the menus in the in-game sprite style, drawn at whole multiples of their size.",
+  "atlas_size": [
+    640,
+    80
+  ],
+  "cell_size": [
+    80,
+    80
+  ],
+  "regions": {
+    "mara": [
+      0,
+      0,
+      80,
+      80
+    ],
+    "branko": [
+      80,
+      0,
+      80,
+      80
+    ],
+    "ivo": [
+      160,
+      0,
+      80,
+      80
+    ],
+    "nora": [
+      240,
+      0,
+      80,
+      80
+    ],
+    "levin": [
+      320,
+      0,
+      80,
+      80
+    ],
+    "selma": [
+      400,
+      0,
+      80,
+      80
+    ],
+    "oskar": [
+      480,
+      0,
+      80,
+      80
+    ],
+    "rika": [
+      560,
+      0,
+      80,
+      80
+    ]
+  },
+  "tool": "tools/build_crew_portraits.py (main_v2, Pillow)",
+  "tool_sha256": "2e869b27d859edcd2d7cc23bebd5556127468c84ce0c6724d00315d8dae47b4b",
+  "geometry": "assets/workers/generate_character_workers.py head()/torso() calls recorded by generate_crew_layers.Recorder and replayed at 2x sprite density",
+  "geometry_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
+  "construction": "Sprite geometry at 2x density in the sprite palette ramps (character_visuals.json), 1-pixel ink contours kept unscaled, a hand-set portrait pass (eyes, ears, mouth, nose shade, hair strands, braid ties, helmet light, cloth fold and collar seam) and a 1-pixel ink silhouette; chest cut at the frame edge after inking. No reference image, no generated image, no resampling, no dither.",
+  "previous": "portraits_v1.png (reduced production references, kept unchanged for comparison)",
+  "sha256": "05629a6daff87d8792de86d25a5ccba568bb3997b6cfac637311b06e30ce8da9",
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted."
+}

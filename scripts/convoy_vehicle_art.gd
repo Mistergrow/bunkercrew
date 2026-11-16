@@ -205,11 +205,12 @@ static func draw_hull(node: Node2D, vehicle: Node2D) -> void:
 		for index in 5:
 			var phase:=fposmod(vehicle.animation_time*0.8+float(index)*0.2,1.0)
 			var smoke:=Vector2(39-phase*18,-63-phase*22)
-			PixelArt.puff(node,smoke,2+phase*4,Color(0.25,0.28,0.26,(1-phase)*0.26),index,false)
+			PixelArt.smoke_puff(node,smoke,2+phase*4,Color(0.46,0.47,0.45,0.30),index,phase)
 	if vehicle.hp<vehicle.max_hp*0.35 and not reduced:
 		for index in 7:
 			var phase:=fposmod(vehicle.animation_time*0.55+float(index)/7,1)
-			PixelArt.puff(node,Vector2(77-phase*15,-35-phase*42),2+phase*7,Color(0.11,0.13,0.12,(1-phase)*0.55),index,false)
+			# Black engine smoke, warm where it leaves the damaged block.
+			PixelArt.smoke_puff(node,Vector2(77-phase*15,-35-phase*42),2+phase*7,Color(0.27,0.27,0.26,0.62),index,phase,clampf(1.0-phase*3.0,0.0,1.0)*.6)
 	node.draw_set_transform(Vector2.ZERO)
 	if is_instance_valid(driver):
 		var marker:=body_point(vehicle,Vector2(60,-84))
@@ -256,7 +257,7 @@ static func draw_weapon(node: Node2D, vehicle: Node2D) -> void:
 		var at:=Vector2(-12+index*3-feed,-1+index%2)
 		node.draw_rect(Rect2(at.round(),Vector2(2,3)),Color("b69960"))
 		node.draw_rect(Rect2((at+Vector2(0,2)).round(),Vector2(2,1)),Color("5e5944"))
-	WeaponEffectArt.muzzle(node,Vector2(47-vehicle.recoil,0),vehicle.flash,0.075,1,0.7,vehicle.flash_tick,WeaponEffectArt.reduced(vehicle.game))
+	WeaponEffectArt.muzzle(node,Vector2(47-vehicle.recoil,0),vehicle.flash,0.075,1,0.7,vehicle.flash_tick,WeaponEffectArt.reduced(vehicle.game),false,Transform2D(vehicle.aim_angle,Vector2(1,side),0.0,origin))
 	node.draw_set_transform(Vector2.ZERO)
 	var presentation:=vehicle.get_node_or_null("ConvoyPresentation")
 	if is_instance_valid(presentation): presentation.draw_weapon_debris(node)

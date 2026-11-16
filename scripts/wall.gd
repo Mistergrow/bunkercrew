@@ -286,8 +286,17 @@ func _draw() -> void:
 	else:
 		var tint: Color = Color("919485") if state == State.HARD else Color("616c65")
 		if hit_flash > 0:
-			tint = Color("d3c2a7")
+			# Lifted, not replaced: the slab keeps its shading and texture.
+			tint = tint.lightened(0.10)
 		draw_rect(Rect2(-18,-93,36,93),Art.INK)
+		if hit_flash > 0.04:
+			# The hit flashes the slab's one-texel silhouette rim; the contact
+			# itself throws the dust and chips (ImpactBurst "concrete").
+			var rim := Color(1.0,.93,.78,1.0 if hit_flash > 0.08 else .5)
+			draw_rect(Rect2(-18,-93,36,1),rim)
+			draw_rect(Rect2(-18,-1,36,1),rim)
+			draw_rect(Rect2(-18,-92,1,90),rim)
+			draw_rect(Rect2(17,-92,1,90),rim)
 		draw_rect(Rect2(-15,-90,30,90),tint)
 		draw_rect(Rect2(-15,-90,4,90),tint.lightened(0.2))
 		draw_rect(Rect2(11,-90,4,90),tint.darkened(0.3))

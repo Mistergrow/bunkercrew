@@ -39,6 +39,10 @@ var _pending_id := ""
 var _pending_deadline := 0
 var _request_notice := ""
 var _presentation_signature: Array = []
+var _marker_y := -1.0
+var _points_shown := -1.0
+var _pad_shown := false
+const InputLabels := preload("res://scripts/input_labels.gd")
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -56,7 +60,8 @@ func _ready() -> void:
 	_build()
 	_focus_initial.call_deferred()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_animate(delta)
 	SocialUiArt.layout_landscape(_landscape,hud)
 	if not _pending_id.is_empty():
 		if game.upgrades.has_upgrade(_pending_id):
@@ -77,31 +82,51 @@ func _process(_delta: float) -> void:
 		_presentation_signature = signature
 		_refresh()
 
+## Category marker, point total and input glyphs settle toward their targets;
+## the decoration repaints only while one of them is still moving.
+func _animate(delta: float) -> void:
+	if tab_buttons.is_empty() or not is_instance_valid(decoration): return
+	var marker_target: float = tab_buttons[selected_category].position.y
+	var points_target := float(game.upgrades.points)
+	if _points_shown<0.0: _points_shown = points_target
+	if _marker_y<0.0: _marker_y = marker_target
+	if is_equal_approx(_marker_y,marker_target) and is_equal_approx(_points_shown,points_target) and _pad_shown==InputLabels.pad_active: return
+	_pad_shown = InputLabels.pad_active
+	_marker_y = UiMotion.approach(_marker_y,marker_target,delta)
+	_points_shown = UiMotion.approach(_points_shown,points_target,delta,UiMotion.COUNT)
+	decoration.queue_redraw()
+
 func _draw_foreground() -> void:
 	var bounds := SocialUiArt.bounds(hud)
-	decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
-	SocialUiArt.reading_shade(decoration,bounds,420,800)
-	UiArt.text(decoration,Vector2(80,112),"Technik",36,UiArt.IVORY,UiArt.TITLE_FONT)
+	# Over the match the HUD curtain is the only dimming (see match_sheet).
+	if not bool(game.get("started")): decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
+	SocialUiArt.reading_shade(decoration,bounds,420,800,bool(game.get("started")))
+	# The research list sits between the two edge shades, directly over the live
+	# scene. It gets the same plate as every other reading surface.
+	UiArt.plate(decoration,Rect2(TREE_RECT.position.x-UiArt.SPACE_6,124,TREE_RECT.size.x+UiArt.SPACE_6*2.0,TREE_RECT.end.y-124+UiArt.SPACE_4),false,0.94)
+	UiArt.text(decoration,Vector2(80,112),"Technik",UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	var intro := UiArt.wrap_text("Freischaltungen gelten für die ganze Gruppe.",300,15)
 	for index in intro.size(): UiArt.text(decoration,Vector2(80,151+index*20),intro[index],15,UiArt.MUTED)
 	var category := tab_buttons[selected_category]
-	decoration.draw_line(Vector2(64,category.position.y+14),Vector2(64,category.position.y+category.size.y-14),UiArt.AMBER,2)
+	if _marker_y<0.0: _marker_y = category.position.y
+	decoration.draw_line(Vector2(64,_marker_y+14),Vector2(64,_marker_y+category.size.y-14),UiArt.AMBER,2)
 	UiArt.text(decoration,Vector2(480,160),UpgradeSystem.CATEGORIES[selected_category],30,UiArt.IVORY,UiArt.MENU_FONT)
-	UiArt.text(decoration,Vector2(480,195),"FORSCHUNGSPLAN",13,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(480,195),"FORSCHUNGSPLAN",UiArt.TEXT_LABEL+1,UiArt.MUTED)
 	var done := 0
 	for entry: Dictionary in _visible_entries:
 		if game.upgrades.has_upgrade(entry.id): done += 1
 	var progress := L.format("%d / %d",[done,_visible_entries.size()])
 	var progress_width := UiArt.FONT.get_string_size(progress,HORIZONTAL_ALIGNMENT_LEFT,-1,15).x
 	UiArt.text(decoration,Vector2(TREE_RECT.end.x-progress_width-20,195),progress,15,UiArt.MUTED)
-	UiArt.icon(decoration,"core",Vector2(80,530),32)
-	UiArt.text(decoration,Vector2(126,559),str(game.upgrades.points),30,UiArt.IVORY,UiArt.MENU_FONT)
+	# The points read as the same pixel cog that marks every cost in the list.
+	UiArt.pixel_glyph(decoration,UiArt.TECH_ROWS,Vector2(80,532),4.0,UiArt.AMBER)
+	UiArt.text(decoration,Vector2(126,559),str(roundi(_points_shown)),30,UiArt.IVORY,UiArt.MENU_FONT)
 	UiArt.text(decoration,Vector2(80,594),"Technikpunkte",16,UiArt.MUTED)
-	var salvage := UiArt.wrap_text("Bergung liefert Technikpunkte für die Gruppe.",290,14)
-	for index in salvage.size(): UiArt.text(decoration,Vector2(80,628+index*20),salvage[index],14,UiArt.MUTED)
+	var salvage := UiArt.wrap_text("Bergung liefert Technikpunkte für die Gruppe.",290,UiArt.TEXT_NOTE)
+	for index in salvage.size(): UiArt.text(decoration,Vector2(80,628+index*20),salvage[index],UiArt.TEXT_NOTE,UiArt.MUTED)
 	_draw_selection()
 	decoration.draw_line(Vector2(80,724),Vector2(360,724),Color(UiArt.MUTED,.22),1)
-	UiArt.text(decoration,Vector2(80,819),"Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen",13,UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(80,819),InputLabels.navigation_hints(),InputLabels.pad_active,UiArt.TEXT_BODY)
 
 func _draw_selection() -> void:
 	var entry: Dictionary = game.upgrades.node_data(selected_id)
@@ -112,10 +137,10 @@ func _draw_selection() -> void:
 	for index in title_lines.size():
 		UiArt.text(decoration,Vector2(left+76,249+index*29),title_lines[index],24,UiArt.IVORY,UiArt.MENU_FONT)
 	var scope_text := "Gilt an diesem Bunker" if selected_category==0 else "Bleibt auf der Reise erhalten"
-	UiArt.text(decoration,Vector2(left,316),scope_text,14,UiArt.AMBER)
+	UiArt.text(decoration,Vector2(left,316),scope_text,UiArt.TEXT_NOTE,UiArt.AMBER)
 	var lines := _detail_lines(str(entry.detail))
 	for index in lines.size(): UiArt.text(decoration,Vector2(left,354+index*23),lines[index],BODY_SIZE)
-	UiArt.text(decoration,Vector2(left,557),"VORAUSSETZUNG",12,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(left,557),"VORAUSSETZUNG",UiArt.TEXT_LABEL+1,UiArt.MUTED)
 	var parent: Dictionary = game.upgrades.node_data(str(entry.parent))
 	if parent.is_empty(): UiArt.text(decoration,Vector2(left,591),"Erste Forschung in diesem Zweig",15,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(left,648),L.format("Kosten: %d Technikpunkte",entry.cost),18,UiArt.AMBER)
@@ -164,7 +189,9 @@ func _build() -> void:
 		button.focus_entered.connect(_inspect_focused.bind(str(entry.id)))
 		node_buttons.append(button)
 	purchase_button = _button("",Rect2(DETAIL_RECT.position.x,746,DETAIL_RECT.size.x,48),func(): _purchase(selected_id))
-	SocialUiArt.button(purchase_button,20,"check",0)
+	# The panel's one primary action: a real button plate (frame, bevel,
+	# chevron, focus ring), unlike the quiet text rows around it.
+	SocialUiArt.action(purchase_button,20)
 	prerequisite_button = _button("",Rect2(DETAIL_RECT.position.x,568,DETAIL_RECT.size.x,48),func():
 		var entry: Dictionary = game.upgrades.node_data(selected_id)
 		if not str(entry.parent).is_empty(): _select(str(entry.parent)))
@@ -321,13 +348,16 @@ func _paint_node(button: Button,entry: Dictionary) -> void:
 	_research_icon(button,str(entry.id),Vector2(8,16),28,tint)
 	var titles := node_title_lines(entry)
 	for index in titles.size(): UiArt.text(button,Vector2(ROW_TITLE_INSET,25+index*22),titles[index],_node_title_size(str(entry.title)),ink)
-	var requirement_lines := UiArt.wrap_text(_row_requirement(entry),button.size.x-ROW_TITLE_INSET-6,14)
-	for index in requirement_lines.size(): UiArt.text(button,Vector2(ROW_TITLE_INSET,69+index*19),requirement_lines[index],14,UiArt.MUTED)
+	var requirement_lines := UiArt.wrap_text(_row_requirement(entry),button.size.x-ROW_TITLE_INSET-6,UiArt.TEXT_NOTE)
+	for index in requirement_lines.size(): UiArt.text(button,Vector2(ROW_TITLE_INSET,69+index*19),requirement_lines[index],UiArt.TEXT_NOTE,UiArt.MUTED)
 	var status := L.text("Freigeschaltet") if owned else L.format("%d TP",entry.cost)
 	var status_color := UiArt.GREEN if owned else UiArt.AMBER if available else UiArt.MUTED
-	var status_width := UiArt.FONT.get_string_size(status,HORIZONTAL_ALIGNMENT_LEFT,-1,13).x
-	UiArt.text(button,Vector2(button.size.x-status_width-23,25),status,13,status_color)
-	UiArt.icon(button,"check" if owned else "lock" if not available else "core",Vector2(button.size.x-16,12),13,status_color)
+	var status_width := UiArt.FONT.get_string_size(status,HORIZONTAL_ALIGNMENT_LEFT,-1,UiArt.TEXT_BODY).x
+	UiArt.text(button,Vector2(button.size.x-status_width-23,25),status,UiArt.TEXT_BODY,status_color)
+	# Pixel glyphs on whole real pixels: a downscaled atlas icon read as a smudge.
+	if owned: UiArt.pixel_glyph(button,UiArt.CHECK_ROWS,Vector2(button.size.x-17,15),1.6,status_color)
+	elif not available: UiArt.lock_glyph(button,Vector2(button.size.x-17,12),status_color)
+	else: UiArt.pixel_glyph(button,UiArt.TECH_ROWS,Vector2(button.size.x-17,14),1.6,status_color)
 
 func _row_requirement(entry: Dictionary) -> String:
 	var parent: Dictionary = game.upgrades.node_data(str(entry.parent))

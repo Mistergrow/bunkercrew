@@ -1,0 +1,26 @@
+{
+  "assets": {
+    "bunkercrew_logo_v1.png": {
+      "size": [
+        277,
+        50
+      ],
+      "colours": 19,
+      "sha256": "4316b5efdfd59410ce7f336990572868dc429aa83180a531e2efee905c60b5b7"
+    },
+    "bunkercrew_logo_v1_small.png": {
+      "size": [
+        130,
+        24
+      ],
+      "colours": 17,
+      "sha256": "d524ac5e2e8008aef1ad8a3e2b1c44d7a80364a54320d5afa404dafb9bfd13fc"
+    }
+  },
+  "tool": "tools/build_bunkercrew_logo.py (Pillow)",
+  "tool_sha256": "e36d7fa1aecc245d72b8e4381484ee7b46785e85781949200fd8b647aeac7ba2",
+  "construction": "Native pixel construction, no font, no image input and no generated reference: chamfered stencil plate capitals with bevel light and authored paint chips, a riveted steel nameplate, an octagonal blast-hatch emblem with a hazard rim and the crew hardhat with its lit lamp. 1-texel ink contour, hard alpha, no anti-aliasing.",
+  "palette": "Style bible \u00a74: steel #3b453d ramp, worn ivory paint (UI ivory family), hardhat amber ramp, sodium-lit plate edge, rust #8a4a2a.",
+  "use": "Title lockup and small lockup (reads at 1x within 160 px). Drawn at whole real pixels per texel (UiArt.pixel_fit). The previous title was the Signal Bold wordmark (UiArt.wordmark), which is kept unchanged as a fallback.",
+  "license": "Original Bunkercrew artwork. Distribution only together with Bunkercrew."
+}

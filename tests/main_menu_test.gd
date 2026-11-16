@@ -132,13 +132,20 @@ func _run() -> void:
 	var seen: Dictionary = {}
 	var previews_match := true
 	var preview_worlds := ScenarioCatalog.environments(true)
+	var free_worlds := ScenarioCatalog.environments()
+	var counters_match := true
 	for index in preview_worlds.size():
 		seen[menu().environment_index] = true
 		var entry: Dictionary = preview_worlds[menu().environment_index]
 		previews_match = previews_match and menu().preview.environment_id==str(entry.id) and menu().preview.panorama.texture==ScenarioCatalog.texture(str(entry.get("city_path",entry.path)))
+		# A free site counts like the scenario list; a campaign site says so.
+		var free_place := free_worlds.map(func(world: Dictionary) -> String: return str(world.id)).find(str(entry.id))
+		var expected := LocaleText.format("%02d / %02d",[free_place+1,free_worlds.size()]) if free_place>=0 else LocaleText.format("Kampagne · %02d / %02d",[menu().environment_index-free_worlds.size()+1,preview_worlds.size()-free_worlds.size()])
+		counters_match = counters_match and menu().preview_counter()==expected
 		menu().preview_next.pressed.emit()
 		await frames()
 	check(seen.size()==preview_worlds.size() and menu().environment_index==initial_index and previews_match,"Preview renders all bunker and strategic site worlds and wraps safely")
+	check(counters_match,"Preview counter matches the scenario list for free sites and names campaign sites")
 	menu().preview_previous.pressed.emit()
 	await frames()
 	check(menu().environment_index==posmod(initial_index-1,preview_worlds.size()) and game.hud.scenario_options==selected_options and game.scenario_options==world_options,"Preview arrows never overwrite the pending match setup")

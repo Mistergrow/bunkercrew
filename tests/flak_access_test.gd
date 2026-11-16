@@ -162,7 +162,15 @@ func run():
 	var side_ray:=PhysicsRayQueryParameters2D.create(Vector2(595,90),Vector2(595,49),2)
 	check(not game.get_world_2d().direct_space_state.intersect_ray(side_ray).is_empty(),"Neighboring dome glass remains physically closed")
 	var screen: Vector2=game.get_canvas_transform()*gun.global_position
-	check(screen.y>112 and screen.y<760,"The flak platform is visible between the main HUD panels")
+	# Measured against the HUD's actual panels (status strip above, the
+	# lowest-placed docks below, in the same viewport space) rather than fixed
+	# pixel rows: the compact co-op footer changed where the docks end.
+	var hud_canvas: Control=game.hud.canvas
+	var strip_end: float=hud_canvas.position.y+game.hud.status_bounds().end.y*hud_canvas.scale.y
+	var footer_top: float=game.get_viewport().get_visible_rect().size.y
+	for occupied: Rect2 in game.hud.occupied_gameplay_bounds():
+		if occupied.position.y>game.hud.screen_rect().get_center().y: footer_top=minf(footer_top,hud_canvas.position.y+occupied.position.y*hud_canvas.scale.y)
+	check(screen.y>strip_end+24 and screen.y<footer_top-24,"The flak platform is visible between the main HUD panels (%d between %d and %d)"%[roundi(screen.y),roundi(strip_end),roundi(footer_top)])
 	game.notify("PRÜFAUFBAU WELLE 16 · geschlossene Kuppel mit echter Wartungsöffnung zum Flakturm")
 	await capture("res://artifacts/flak-dome-access-live.png")
 	if "--capture" in OS.get_cmdline_user_args():

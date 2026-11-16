@@ -114,6 +114,8 @@ func refresh_locale() -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	# An opaque base: over the match nothing shows through the words.
+	draw_rect(Rect2(230,68,982,774),Color(.024,.040,.044))
 	UiArt.panel(self,Rect2(230,68,982,774),true)
 	UiArt.text(self,Vector2(270,119),"Mikrofon & Sprachchat",27)
 	UiArt.text(self,Vector2(270,150),"Gerät wählen, bewusst aktivieren und in normaler Lautstärke sprechen.",12,UiArt.MUTED)

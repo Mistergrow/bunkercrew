@@ -2,7 +2,40 @@ extends RefCounted
 ## Validate control envelopes before touching session state or allocating a world.
 const Voice := preload("res://scripts/voice_codec.gd")
 const Chat := preload("res://scripts/network_chat.gd")
+const NetInput := preload("res://scripts/network_input.gd")
 const MAX_SEQUENCE := 9007199254740991
+# Every envelope is closed: a field that no build sends is refused, so a small
+# valid-looking message cannot carry an arbitrary payload past validation.
+# Voice keeps its own closed list in voice_codec.gd.
+const LOBBY_KEYS := ["kind","characters","options","story","count","capacity","slots","names","identities","social_service","members","short_code","player_id"]
+const KEYS := {
+	"hello":["kind","version","build","world_revision","content_fingerprint","resume","invite","name","voice_member_keys"],
+	"welcome":["kind","characters","options","story","count","capacity","slots","names","identities","social_service","members","short_code","player_id","version","build","world_revision","content_fingerprint","token","voice_member_keys"],
+	"reject":["kind","message"],
+	"lobby":LOBBY_KEYS,
+	"start":["kind","characters","options","story","count","capacity","slots","names","identities","social_service","members","short_code","player_id","reset","generation","expedition"],
+	"resync":["kind","generation"],
+	"ready":["kind","generation"],
+	"snapshot_ack":["kind","generation","seq"],
+	"input":["kind","generation","seq","input"],
+	"command":["kind","generation","command","args"],
+	"snapshot":["kind","generation","seq","paused","world","achievements","music"],
+	"pause":["kind","generation","paused"],
+	"ping":["kind","at"],
+	"pong":["kind","at"],
+	"notice":["kind","message","text"],
+	"effects":["kind","generation","events"],
+	"chat_send":["kind","request","text","preset"],
+	"chat_private_send":["kind","request","recipient_id","text"],
+	"crew_identity":["kind","identity"],
+	"crew_preferences":["kind","blocked"],
+	"chat_name":["kind","name"],
+	"chat_message":["kind","message"],
+	"chat_history":["kind","messages"],
+	"chat_ack":["kind","request","accepted","error_code"],
+	"leave":["kind"],
+}
+const INPUT_KEYS := ["held","pressed","released","aim","mouse"]
 
 static func integer(value: Variant, minimum: int=0, maximum: int=MAX_SEQUENCE) -> bool:
 	return value is int and value>=minimum and value<=maximum
@@ -31,6 +64,10 @@ static func valid(message: Dictionary, host: bool) -> bool:
 	var kind:String=message.kind
 	if host and kind not in ["hello","command","ready","input","snapshot_ack","resync","pause","ping","pong","leave","voice","chat_send","chat_private_send","chat_name","crew_identity","crew_preferences"]: return false
 	if not host and kind not in ["welcome","reject","lobby","start","snapshot","pause","ping","pong","notice","effects","leave","voice","chat_message","chat_history","chat_ack"]: return false
+	if KEYS.has(kind):
+		var allowed: Array=KEYS[kind]
+		for key in message:
+			if key not in allowed: return false
 	match kind:
 		"hello":
 			return integer(message.get("version"),1,255) and string_value(message.get("build"),64) and string_value(message.get("resume"),48) and string_value(message.get("invite",""),NetworkJoinCode.SECRET_SYMBOLS) and Chat.valid_name(message.get("name",""),true)
@@ -47,7 +84,7 @@ static func valid(message: Dictionary, host: bool) -> bool:
 		"resync": return integer(message.get("generation"),1)
 		"ready": return integer(message.get("generation"),1)
 		"snapshot_ack": return integer(message.get("generation"),1) and integer(message.get("seq"),1)
-		"input": return integer(message.get("generation"),1) and integer(message.get("seq"),1) and message.get("input") is Dictionary and message.input.size()<=5
+		"input": return integer(message.get("generation"),1) and integer(message.get("seq"),1) and message.get("input") is Dictionary and _input(message.input)
 		"command": return integer(message.get("generation")) and _command(message)
 		"snapshot":
 			if message.has("music") and (not message.music is Dictionary or not preload("res://scripts/live_music.gd").valid_music_state(message.music)): return false
@@ -56,7 +93,10 @@ static func valid(message: Dictionary, host: bool) -> bool:
 		"ping","pong":
 			var at=message.get("at")
 			return (at is int or at is float) and is_finite(float(at)) and at>=0 and at<1.0e12
-		"notice": return LocaleText.valid_message_payload(message.get("message"))
+		"notice":
+			# Released hosts send a plain German "text"; the session shows either.
+			if message.has("text") and not string_value(message.text,180): return false
+			return LocaleText.valid_message_payload(message.get("message")) if message.has("message") else message.has("text")
 		"effects": return integer(message.get("generation"),1) and message.get("events") is Array and message.events.size()<=64
 		"voice": return Voice.valid(message)
 		"chat_send": return message.size()==4 and integer(message.get("request"),1) and Chat.valid_content(message.get("text"),message.get("preset"))
@@ -75,6 +115,14 @@ static func valid(message: Dictionary, host: bool) -> bool:
 		"chat_ack": return message.size()==4 and integer(message.get("request"),1) and message.get("accepted") is bool and message.get("error_code") is String and ((message.accepted and message.error_code.is_empty()) or (not message.accepted and message.error_code in Chat.ERRORS))
 		"leave": return message.size()==1
 	return false
+
+static func _input(input: Dictionary) -> bool:
+	# Shape only; network_session.sanitize_input clamps the accepted values.
+	for key in input:
+		if key not in INPUT_KEYS: return false
+	for field in ["pressed","released"]:
+		if input.has(field) and (not input[field] is Array or input[field].size()>NetInput.ACTIONS.size()): return false
+	return not input.has("held") or (input.held is Dictionary and input.held.size()<=NetInput.ACTIONS.size())
 
 static func _command(message: Dictionary) -> bool:
 	if not string_value(message.get("command"),24) or not message.get("args") is Dictionary: return false

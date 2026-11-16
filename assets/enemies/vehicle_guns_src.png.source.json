@@ -1,0 +1,24 @@
+{
+  "asset": "vehicle_guns_src.png",
+  "generator": "tools/capture_vehicle_guns.gd",
+  "method": "GroundVehicleArt.draw_weapon (procedural gun: breech, shaft, bands, finishes of MachineSurfaceDetails) rendered at 8 px per unit at rest, one 96 x 32 unit row per vehicle (scout_car, mortar_carrier, battle_tank). High-density source of vehicle_guns_world.png (tools/bake_world_density_art.py); never drawn at runtime except as the fallback for an unbaked size.",
+  "license": "Original Bunkercrew project art.",
+  "rows": [
+    "scout_car",
+    "mortar_carrier",
+    "battle_tank"
+  ],
+  "row_rect": [
+    -68,
+    -18,
+    96,
+    32
+  ],
+  "scale": 8,
+  "source_sha256": {
+    "tools/capture_vehicle_guns.gd": "9c67c5ede9e45b5c5e40e091945bc71754a2e4a1b1b4033702c73eafbc156afc",
+    "scripts/ground_vehicle_art.gd": "db22e432a6b333adf33df71638471b8cf55d42ba4a12bc3c4fe4caa27316952d",
+    "scripts/machine_surface_details.gd": "c287d84145f13cdc95f81797de891b59d6df0b966f6122b48d4f9a31fb7cd80c"
+  },
+  "sha256": "0b998b095a90002dcd7a34d33c349a79966702c9878fc031d62da85a3a7c4aff"
+}

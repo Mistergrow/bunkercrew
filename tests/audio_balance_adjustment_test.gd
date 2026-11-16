@@ -4,7 +4,7 @@ extends SceneTree
 const Catalog := preload("res://scripts/audio_catalog.gd")
 const Cleanup := preload("res://tests/scene_cleanup.gd")
 const OUTPUT := "res://artifacts/audio-balance-adjustment"
-const BOOSTED := ["shot", "enemy_shot", "shotgun", "cannon", "arc", "hit", "impact_metal", "impact_stone", "impact_wood", "glass_break", "explosion", "impact_core", "air_dart", "air_tracer", "air_rocket", "air_bomb", "air_arc", "air_crash"]
+const BOOSTED := ["shot", "enemy_shot", "shotgun", "cannon", "arc", "hit", "impact_metal", "impact_stone", "impact_wood", "glass_break", "explosion", "impact_core", "ricochet_metal", "ricochet_stone", "air_dart", "air_tracer", "air_rocket", "air_bomb", "air_arc", "air_crash"]
 var output := "res://artifacts/solo-story/audio" if "--midpoint-review" in OS.get_cmdline_user_args() else OUTPUT
 var checks := 0
 var failures := 0

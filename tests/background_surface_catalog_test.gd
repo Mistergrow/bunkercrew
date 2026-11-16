@@ -68,6 +68,20 @@ func _run() -> void:
 	Surfaces._textures=textures
 	check(not Surfaces.available("../abandoned_harbor") and not Surfaces.available("missing-map"),"Invalid or unknown mask IDs are rejected")
 	check(Surfaces.available(id) and Surfaces.enabled(id),"Valid production asset remains available after every malformed-data case")
+	# Hand-placed stack smoke (ParallaxCatalog.STACKS) sits on painted stacks:
+	# each anchor is an opaque texel of its world's nearest plate with open
+	# sky (transparent texels) a little above it.
+	for stack_world: String in Plates.STACKS:
+		var plate: Texture2D = load(Plates.paths(stack_world)[2])
+		var image := plate.get_image()
+		if image.is_compressed(): image.decompress()
+		var anchored := true
+		for stack: Array in Plates.STACKS[stack_world]:
+			var at := Vector2i(int(stack[0]),int(stack[1]))
+			var solid := false
+			for dy in range(0,6): solid = solid or image.get_pixel(at.x,at.y+dy).a > .9
+			anchored = anchored and solid and image.get_pixel(at.x,maxi(0,at.y-14)).a < .5 and int(stack[2]) in [0,1]
+		check(anchored and image.get_size()==Vector2i(1672,941),stack_world+": every stack smoke anchor sits on a painted stack top under open sky")
 	print("BACKGROUND SURFACE CATALOG: %d/%d passed"%[checks-failures,checks])
 	var report := FileAccess.open(OUTPUT+"/surface-catalog-verification.json",FileAccess.WRITE)
 	report.store_string(JSON.stringify({"checks":checks,"failures":failures,"prepared":"All13 production mask resources and their paired source metadata; malformed JSON and environment entries, missing metadata, invalid crop bounds, source mismatch; no profile changes or renderer required."},"\t"))

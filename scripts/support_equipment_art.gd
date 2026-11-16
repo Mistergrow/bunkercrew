@@ -3,7 +3,7 @@ extends RefCounted
 ## and one-pixel hardware. The caller supplies all animation and gameplay state.
 
 const Surface := preload("res://scripts/station_surface_art.gd")
-const WORKBENCH := preload("res://assets/props/workbench.tres")
+const WORKBENCH_PATH := "res://assets/props/workbench.tres"
 const INK := Color("17211f")
 const OLIVE := Color("55614d")
 const EDGE := Color("b3aa87")
@@ -13,7 +13,8 @@ static func workshop(canvas: Node2D, elapsed: float, working: bool) -> void:
 	canvas.draw_rect(Rect2(-49, -2, 98, 5), Color(0, 0, 0, 0.30))
 	# Source proportions place the vise above the tabletop and both feet on
 	# the old floor. The tools are part of the equipment, not floating UI icons.
-	canvas.draw_texture_rect(WORKBENCH, Rect2(-49, -61, 98, 61), false)
+	# Its world-texel bake at exactly this size (one texel per world unit).
+	canvas.draw_texture_rect(WorldTexels.resource_or_load(WORKBENCH_PATH, Vector2i(98, 61)), Rect2(-49, -61, 98, 61), false)
 	canvas.draw_line(Vector2(34, -36), Vector2(34, -69), INK, 5)
 	canvas.draw_line(Vector2(33, -37), Vector2(33, -68), RUST, 2)
 	canvas.draw_line(Vector2(34, -69), Vector2(12, -69), INK, 4)

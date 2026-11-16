@@ -2,6 +2,7 @@ extends SceneTree
 ## Paid AA commissioning/upgrades, finite ammunition, owner credit, collision
 ## and an actual destructible hull. The small world uses genuine physics rays.
 class TestPlayer extends Node2D:
+	var game
 	var player_id:=1
 	var inventory: Dictionary={}
 	var selected_kind:=""
@@ -47,6 +48,7 @@ class World extends Node2D:
 		add_child(body)
 		return body
 class Target extends StaticBody2D:
+	var game
 	var hp:=1000.0
 	var dead:=false
 	var flying:=true
@@ -80,6 +82,8 @@ func deposit(station,player,count):
 	for i in count: station.interact(player,Balance.TRANSFER_TIME)
 func target(world,at: Vector2,flying:=true):
 	var node:=Target.new()
+	# Real machines carry their world; the gun ignores other worlds' aircraft.
+	node.game=world
 	node.flying=flying
 	node.position=at
 	world.add_child(node)
@@ -102,6 +106,9 @@ func run():
 	var p1:=TestPlayer.new()
 	var p2:=TestPlayer.new()
 	p2.player_id=2
+	# NetInput reads the worker's world for menu and cinematic input guards.
+	p1.game=world
+	p2.game=world
 	world.add_child(p1)
 	world.add_child(p2)
 	world.players=[p1,p2]

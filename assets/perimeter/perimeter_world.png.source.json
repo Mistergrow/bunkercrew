@@ -1,0 +1,1175 @@
+{
+ "asset": "perimeter_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution; texels mostly covered by saturated accents keep the accents' mean colour, with accent palette entries",
+ "sources": [
+  {
+   "file": "assets/perimeter/components_v2.png",
+   "sha256": "0b643d6c7c95782265cab617f5d16298988beacaaa4fc06b0255d876f305962b"
+  },
+  {
+   "file": "assets/perimeter/components_v3.png",
+   "sha256": "a9596dc04835be3d2c18a3e128ee1a3c004e2442255505bfd400f6910f2c7a4f"
+  }
+ ],
+ "params": {
+  "palette": 32,
+  "alpha": 0.45,
+  "sharpen": 0.75,
+  "orphan": 0.06,
+  "contour": 0.6,
+  "accent": 0.1,
+  "accent_share": 0.28,
+  "accent_light": 0.5,
+  "accent_palette": 6
+ },
+ "ink": "#151b1e",
+ "size": [
+  256,
+  662
+ ],
+ "items": [
+  {
+   "name": "gate_1",
+   "key": "res://assets/perimeter/components_v2.png|121,94,239,374|45x70",
+   "region": [
+    48,
+    0,
+    45,
+    70
+   ]
+  },
+  {
+   "name": "gate_1_leaf",
+   "key": "res://assets/perimeter/components_v2.png|145,111,97,306|18x57",
+   "region": [
+    227,
+    0,
+    18,
+    57
+   ]
+  },
+  {
+   "name": "gate_2",
+   "key": "res://assets/perimeter/components_v2.png|504,88,240,380|44x70",
+   "region": [
+    94,
+    0,
+    44,
+    70
+   ]
+  },
+  {
+   "name": "gate_2_leaf",
+   "key": "res://assets/perimeter/components_v2.png|529,112,101,303|19x56",
+   "region": [
+    119,
+    71,
+    19,
+    56
+   ]
+  },
+  {
+   "name": "gate_3",
+   "key": "res://assets/perimeter/components_v2.png|852,85,255,383|47x70",
+   "region": [
+    0,
+    0,
+    47,
+    70
+   ]
+  },
+  {
+   "name": "gate_3_leaf",
+   "key": "res://assets/perimeter/components_v2.png|879,109,101,306|18x56",
+   "region": [
+    139,
+    71,
+    18,
+    56
+   ]
+  },
+  {
+   "name": "gate_trim",
+   "key": "res://assets/perimeter/components_v2.png|879,109,101,9|19x2",
+   "region": [
+    138,
+    636,
+    19,
+    2
+   ]
+  },
+  {
+   "name": "gate_trim",
+   "key": "res://assets/perimeter/components_v2.png|879,109,101,9|18x2",
+   "region": [
+    158,
+    636,
+    18,
+    2
+   ]
+  },
+  {
+   "name": "tower_wreck",
+   "key": "res://assets/perimeter/components_v2.png|1171,716,346,216|68x42",
+   "region": [
+    0,
+    281,
+    68,
+    42
+   ]
+  },
+  {
+   "name": "tower_base_a",
+   "key": "res://assets/perimeter/components_v3.png|27,211,348,175|52x26",
+   "region": [
+    0,
+    636,
+    52,
+    26
+   ]
+  },
+  {
+   "name": "tower_base_b",
+   "key": "res://assets/perimeter/components_v3.png|413,211,353,175|52x26",
+   "region": [
+    53,
+    636,
+    52,
+    26
+   ]
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-900",
+   "region": [
+    169,
+    0,
+    28,
+    57
+   ],
+   "offset": [
+    -14.0,
+    -28.5
+   ],
+   "angle": -90.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-880",
+   "region": [
+    139,
+    0,
+    29,
+    57
+   ],
+   "offset": [
+    -15.0,
+    -28.5
+   ],
+   "angle": -88.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-860",
+   "region": [
+    198,
+    0,
+    28,
+    57
+   ],
+   "offset": [
+    -15.0,
+    -28.5
+   ],
+   "angle": -86.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-840",
+   "region": [
+    31,
+    71,
+    29,
+    56
+   ],
+   "offset": [
+    -16.0,
+    -28.5
+   ],
+   "angle": -84.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-820",
+   "region": [
+    61,
+    71,
+    28,
+    56
+   ],
+   "offset": [
+    -16.0,
+    -28.5
+   ],
+   "angle": -82.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-800",
+   "region": [
+    189,
+    71,
+    29,
+    55
+   ],
+   "offset": [
+    -17.0,
+    -27.5
+   ],
+   "angle": -80.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-780",
+   "region": [
+    219,
+    71,
+    28,
+    55
+   ],
+   "offset": [
+    -17.0,
+    -27.5
+   ],
+   "angle": -78.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-760",
+   "region": [
+    90,
+    71,
+    28,
+    56
+   ],
+   "offset": [
+    -17.0,
+    -27.5
+   ],
+   "angle": -76.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-740",
+   "region": [
+    0,
+    71,
+    30,
+    56
+   ],
+   "offset": [
+    -18.0,
+    -27.5
+   ],
+   "angle": -74.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-720",
+   "region": [
+    158,
+    71,
+    30,
+    55
+   ],
+   "offset": [
+    -18.0,
+    -27.5
+   ],
+   "angle": -72.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-700",
+   "region": [
+    69,
+    128,
+    32,
+    54
+   ],
+   "offset": [
+    -19.0,
+    -26.5
+   ],
+   "angle": -70.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-680",
+   "region": [
+    35,
+    128,
+    33,
+    54
+   ],
+   "offset": [
+    -19.0,
+    -26.5
+   ],
+   "angle": -68.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-660",
+   "region": [
+    0,
+    128,
+    34,
+    54
+   ],
+   "offset": [
+    -19.0,
+    -26.5
+   ],
+   "angle": -66.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-640",
+   "region": [
+    140,
+    128,
+    36,
+    53
+   ],
+   "offset": [
+    -20.0,
+    -25.5
+   ],
+   "angle": -64.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-620",
+   "region": [
+    177,
+    128,
+    36,
+    53
+   ],
+   "offset": [
+    -20.0,
+    -25.5
+   ],
+   "angle": -62.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-600",
+   "region": [
+    102,
+    128,
+    37,
+    53
+   ],
+   "offset": [
+    -20.0,
+    -25.5
+   ],
+   "angle": -60.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-580",
+   "region": [
+    0,
+    183,
+    39,
+    51
+   ],
+   "offset": [
+    -21.0,
+    -24.5
+   ],
+   "angle": -58.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-560",
+   "region": [
+    214,
+    128,
+    40,
+    51
+   ],
+   "offset": [
+    -21.0,
+    -24.5
+   ],
+   "angle": -56.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-540",
+   "region": [
+    40,
+    183,
+    40,
+    50
+   ],
+   "offset": [
+    -21.0,
+    -23.5
+   ],
+   "angle": -54.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-520",
+   "region": [
+    81,
+    183,
+    41,
+    49
+   ],
+   "offset": [
+    -21.0,
+    -23.5
+   ],
+   "angle": -52.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-500",
+   "region": [
+    123,
+    183,
+    43,
+    48
+   ],
+   "offset": [
+    -22.0,
+    -22.5
+   ],
+   "angle": -50.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-480",
+   "region": [
+    167,
+    183,
+    43,
+    48
+   ],
+   "offset": [
+    -22.0,
+    -22.5
+   ],
+   "angle": -48.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-460",
+   "region": [
+    211,
+    183,
+    44,
+    46
+   ],
+   "offset": [
+    -22.0,
+    -21.5
+   ],
+   "angle": -46.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-440",
+   "region": [
+    0,
+    235,
+    45,
+    45
+   ],
+   "offset": [
+    -22.0,
+    -20.5
+   ],
+   "angle": -44.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-420",
+   "region": [
+    93,
+    235,
+    45,
+    44
+   ],
+   "offset": [
+    -22.0,
+    -20.5
+   ],
+   "angle": -42.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-400",
+   "region": [
+    187,
+    235,
+    46,
+    43
+   ],
+   "offset": [
+    -22.0,
+    -19.5
+   ],
+   "angle": -40.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-380",
+   "region": [
+    168,
+    281,
+    47,
+    42
+   ],
+   "offset": [
+    -23.0,
+    -18.5
+   ],
+   "angle": -38.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-360",
+   "region": [
+    51,
+    324,
+    48,
+    41
+   ],
+   "offset": [
+    -23.0,
+    -18.5
+   ],
+   "angle": -36.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-340",
+   "region": [
+    100,
+    324,
+    49,
+    40
+   ],
+   "offset": [
+    -24.0,
+    -17.5
+   ],
+   "angle": -34.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-320",
+   "region": [
+    150,
+    324,
+    50,
+    39
+   ],
+   "offset": [
+    -24.0,
+    -16.5
+   ],
+   "angle": -32.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-300",
+   "region": [
+    106,
+    366,
+    51,
+    38
+   ],
+   "offset": [
+    -25.0,
+    -15.5
+   ],
+   "angle": -30.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-280",
+   "region": [
+    0,
+    405,
+    51,
+    37
+   ],
+   "offset": [
+    -25.0,
+    -15.5
+   ],
+   "angle": -28.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-260",
+   "region": [
+    52,
+    405,
+    53,
+    36
+   ],
+   "offset": [
+    -26.0,
+    -14.5
+   ],
+   "angle": -26.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-240",
+   "region": [
+    55,
+    443,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": -24.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-220",
+   "region": [
+    109,
+    443,
+    53,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -13.5
+   ],
+   "angle": -22.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-200",
+   "region": [
+    160,
+    405,
+    54,
+    34
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": -20.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-180",
+   "region": [
+    163,
+    443,
+    55,
+    33
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": -18.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-160",
+   "region": [
+    0,
+    478,
+    55,
+    33
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": -16.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-140",
+   "region": [
+    169,
+    478,
+    55,
+    32
+   ],
+   "offset": [
+    -27.0,
+    -13.5
+   ],
+   "angle": -14.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-120",
+   "region": [
+    112,
+    478,
+    56,
+    32
+   ],
+   "offset": [
+    -28.0,
+    -13.5
+   ],
+   "angle": -12.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-100",
+   "region": [
+    56,
+    512,
+    56,
+    31
+   ],
+   "offset": [
+    -28.0,
+    -13.5
+   ],
+   "angle": -10.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-80",
+   "region": [
+    113,
+    512,
+    56,
+    31
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": -8.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-60",
+   "region": [
+    170,
+    512,
+    56,
+    31
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": -6.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-40",
+   "region": [
+    56,
+    545,
+    56,
+    30
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": -4.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:-20",
+   "region": [
+    113,
+    545,
+    56,
+    30
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": -2.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:0",
+   "region": [
+    170,
+    545,
+    56,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:20",
+   "region": [
+    0,
+    607,
+    56,
+    28
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": 2.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:40",
+   "region": [
+    0,
+    577,
+    56,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -15.5
+   ],
+   "angle": 4.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:60",
+   "region": [
+    57,
+    607,
+    56,
+    28
+   ],
+   "offset": [
+    -28.0,
+    -15.5
+   ],
+   "angle": 6.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:80",
+   "region": [
+    57,
+    577,
+    56,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -16.5
+   ],
+   "angle": 8.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:100",
+   "region": [
+    114,
+    607,
+    56,
+    28
+   ],
+   "offset": [
+    -28.0,
+    -16.5
+   ],
+   "angle": 10.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:120",
+   "region": [
+    114,
+    577,
+    56,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": 12.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:140",
+   "region": [
+    171,
+    607,
+    56,
+    28
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": 14.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:160",
+   "region": [
+    171,
+    577,
+    55,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": 16.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:180",
+   "region": [
+    0,
+    545,
+    55,
+    31
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": 18.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:200",
+   "region": [
+    0,
+    512,
+    55,
+    32
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": 20.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:220",
+   "region": [
+    56,
+    478,
+    55,
+    33
+   ],
+   "offset": [
+    -28.0,
+    -18.5
+   ],
+   "angle": 22.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:240",
+   "region": [
+    0,
+    443,
+    54,
+    34
+   ],
+   "offset": [
+    -28.0,
+    -19.5
+   ],
+   "angle": 24.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:260",
+   "region": [
+    106,
+    405,
+    53,
+    35
+   ],
+   "offset": [
+    -27.0,
+    -19.5
+   ],
+   "angle": 26.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:280",
+   "region": [
+    158,
+    366,
+    52,
+    37
+   ],
+   "offset": [
+    -27.0,
+    -20.5
+   ],
+   "angle": 28.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:300",
+   "region": [
+    0,
+    366,
+    52,
+    38
+   ],
+   "offset": [
+    -27.0,
+    -20.5
+   ],
+   "angle": 30.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:320",
+   "region": [
+    53,
+    366,
+    52,
+    38
+   ],
+   "offset": [
+    -27.0,
+    -20.5
+   ],
+   "angle": 32.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:340",
+   "region": [
+    201,
+    324,
+    50,
+    39
+   ],
+   "offset": [
+    -26.0,
+    -20.5
+   ],
+   "angle": 34.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:360",
+   "region": [
+    0,
+    324,
+    50,
+    41
+   ],
+   "offset": [
+    -26.0,
+    -21.5
+   ],
+   "angle": 36.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:380",
+   "region": [
+    69,
+    281,
+    49,
+    42
+   ],
+   "offset": [
+    -26.0,
+    -21.5
+   ],
+   "angle": 38.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:400",
+   "region": [
+    119,
+    281,
+    48,
+    42
+   ],
+   "offset": [
+    -25.0,
+    -21.5
+   ],
+   "angle": 40.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:420",
+   "region": [
+    139,
+    235,
+    47,
+    43
+   ],
+   "offset": [
+    -25.0,
+    -21.5
+   ],
+   "angle": 42.0
+  },
+  {
+   "name": "tower_head",
+   "key": "res://assets/perimeter/components_v3.png|808,193,351,181|56x29|turn:440",
+   "region": [
+    46,
+    235,
+    46,
+    44
+   ],
+   "offset": [
+    -25.0,
+    -21.5
+   ],
+   "angle": 44.0
+  },
+  {
+   "name": "service_case",
+   "key": "res://assets/perimeter/components_v3.png|1232,195,282,198|31x22",
+   "region": [
+    106,
+    636,
+    31,
+    22
+   ]
+  }
+ ]
+}

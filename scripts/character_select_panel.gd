@@ -10,6 +10,14 @@ const PoseArt := preload("res://scripts/worker_pose_art.gd")
 const ROW_HEIGHT := 78.0
 const LIST_RECT := Rect2(480,226,354,468)
 const DETAIL_RECT := Rect2(940,152,420,562)
+## Bust portraits (v3, tools/build_crew_portraits_v3.py: the detailed v1 busts
+## limited to a 40-colour palette each, so the shading sits in clean clusters;
+## v2, rebuilt from sprite geometry, matched the sprites but lost the portrait
+## quality): one 80 px cell per identity, drawn at whole multiples only.
+## Characters added by extension packs have no cell and keep their animated sprite.
+const BUSTS := preload("res://assets/workers/portraits/portraits_v3.png")
+const BUST_SIZE := 80
+const BUST_ORDER := ["mara","branko","ivo","nora","levin","selma","oskar","rika"]
 var game
 var hud
 var player_count := 1
@@ -321,17 +329,17 @@ func _draw_foreground() -> void:
 	var bounds := SocialUiArt.bounds(hud)
 	decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
 	SocialUiArt.reading_shade(decoration,bounds,420,800)
-	UiArt.text(decoration,Vector2(80,112),"Wähle deine Figur",36,UiArt.IVORY,UiArt.TITLE_FONT)
+	UiArt.text(decoration,Vector2(80,112),"Wähle deine Figur",UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	UiArt.text(decoration,Vector2(80,184),L.format("Lokaler Koop · %d Spieler",player_count) if player_count>1 else "Allein spielen",15,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(80,286),"Deine Crew",15,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(480,160),"Figuren",30,UiArt.IVORY,UiArt.MENU_FONT)
-	var hint := UiArt.wrap_text("Weitere Figuren werden auf der Reise gerettet.",880,13)
-	for line in hint.size(): UiArt.text(decoration,Vector2(480,190+line*18),hint[line],13,UiArt.MUTED)
+	var hint := UiArt.wrap_text("Weitere Figuren werden auf der Reise gerettet.",880,UiArt.TEXT_NOTE)
+	for line in hint.size(): UiArt.text(decoration,Vector2(480,191+line*19),hint[line],UiArt.TEXT_NOTE,UiArt.MUTED)
 	var active_button := slot_buttons[active_slot]
 	decoration.draw_line(Vector2(64,active_button.position.y+12),Vector2(64,active_button.position.y+active_button.size.y-12),UiArt.AMBER,2)
 	decoration.draw_line(Vector2(80,724),Vector2(360,724),Color(UiArt.MUTED,.22),1)
 	decoration.draw_line(Vector2(480,724),Vector2(1360,724),Color(UiArt.MUTED,.22),1)
-	UiArt.text(decoration,Vector2(80,819),"Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen",13,UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(80,819),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)
 	_draw_details()
 
 func _draw_details() -> void:
@@ -339,7 +347,12 @@ func _draw_details() -> void:
 	var entry := CharacterCatalog.data(id)
 	var available := CharacterCatalog.is_unlocked(id)
 	var accent := Color(entry.accent) if available else UiArt.MUTED
-	draw_selection_portrait(decoration,id,Rect2(DETAIL_RECT.position+Vector2(50,0),Vector2(320,320)),elapsed)
+	# The bust names the person; beside it the actual runtime figure at twice
+	# its size keeps performing the menu gestures, feet on the frame's base.
+	# Both land on whole real pixels per texel (4x and 3x at 1080p); the frame
+	# ends at y 452, clear of the 30 px name whose cap line is near y 471.
+	draw_selection_bust(decoration,id,Rect2(DETAIL_RECT.position+Vector2(0,30),Vector2(272,272)),elapsed)
+	draw_selection_portrait(decoration,id,Rect2(DETAIL_RECT.position+Vector2(272,300-196),Vector2(196,196)),elapsed)
 	UiArt.text(decoration,Vector2(940,495),CharacterCatalog.selection_title(id),30,accent,UiArt.MENU_FONT)
 	var lines := UiArt.wrap_text(CharacterCatalog.selection_detail(id),DETAIL_RECT.size.x,15)
 	for index in lines.size(): UiArt.text(decoration,Vector2(940,524+index*21),lines[index],15,UiArt.MUTED)
@@ -347,13 +360,13 @@ func _draw_details() -> void:
 		UiArt.text(decoration,Vector2(940,582),L.format("%d LP",int(entry.hp)),17)
 		UiArt.text(decoration,Vector2(1140,582),L.format("Traglast %d",int(entry.capacity)),17)
 		UiArt.text(decoration,Vector2(940,613),L.format("Tempo %d %%",roundi(float(entry.speed)*100)),15,UiArt.MUTED)
-		UiArt.text(decoration,Vector2(940,642),L.format("Arbeit %d %% · Schaden %d %%",[roundi(float(entry.work)*100),roundi(float(entry.damage)*100)]),14,UiArt.MUTED)
+		UiArt.text(decoration,Vector2(940,642),L.format("Arbeit %d %% · Schaden %d %%",[roundi(float(entry.work)*100),roundi(float(entry.damage)*100)]),UiArt.TEXT_NOTE,UiArt.MUTED)
 		if entry.has("special"):
-			var special := UiArt.wrap_text(str(entry.special),DETAIL_RECT.size.x,13)
-			for index in special.size(): UiArt.text(decoration,Vector2(940,669+index*18),special[index],13,UiArt.MUTED)
+			var special := UiArt.wrap_text(str(entry.special),DETAIL_RECT.size.x,UiArt.TEXT_NOTE)
+			for index in mini(special.size(),2): UiArt.text(decoration,Vector2(940,668+index*19),special[index],UiArt.TEXT_NOTE,UiArt.MUTED)
 	else:
 		UiArt.text(decoration,Vector2(940,593),CharacterCatalog.unlock_hint(id),15,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(940,710),_selection_caption(id),13,UiArt.AMBER if available else UiArt.MUTED)
+	UiArt.text(decoration,Vector2(940,711),_selection_caption(id),UiArt.TEXT_NOTE,UiArt.AMBER if available else UiArt.MUTED)
 
 func _selection_caption(id: String) -> String:
 	if not CharacterCatalog.is_unlocked(id): return L.text("Auf der Reise retten")
@@ -371,11 +384,11 @@ func _draw_card(card: Button, entry: Dictionary, _index: int) -> void:
 	draw_selection_portrait(card,entry.id,Rect2(8,3,66,66),elapsed)
 	UiArt.text(card,Vector2(87,28),CharacterCatalog.selection_title(entry.id),21,accent,UiArt.MENU_FONT)
 	var detail: String = L.text(str(entry.detail)).split(" · ")[0] if available else CharacterCatalog.unlock_hint(str(entry.id))
-	var lines := UiArt.wrap_text(detail,220,12)
-	for index in mini(2,lines.size()): UiArt.text(card,Vector2(87,48+index*16),lines[index],12,UiArt.MUTED)
+	var lines := UiArt.wrap_text(detail,220,UiArt.TEXT_BODY)
+	for index in mini(2,lines.size()): UiArt.text(card,Vector2(87,49+index*16),lines[index],UiArt.TEXT_BODY,UiArt.MUTED)
 	if available:
 		for slot in player_count:
-			if game.selected_characters[slot]==entry.id: UiArt.text(card,Vector2(285,28),L.format("P%d",slot+1),12,UiArt.AMBER)
+			if game.selected_characters[slot]==entry.id: UiArt.text(card,Vector2(282,28),L.format("P%d",slot+1),UiArt.TEXT_BODY,UiArt.AMBER)
 	else:
 		UiArt.icon(card,"lock",Vector2(308,18),15,UiArt.MUTED)
 
@@ -384,6 +397,37 @@ static func draw_selection_portrait(node: CanvasItem, id: String, rect: Rect2, t
 		draw_portrait(node, id, rect, time)
 	else:
 		draw_missing_portrait(node, rect)
+
+## A framed bust at the largest whole multiple that fits `rect`; the chest runs
+## out of the frame bottom. Locked identities stay anonymous.
+static func draw_selection_bust(node: CanvasItem, id: String, rect: Rect2, time: float) -> void:
+	draw_bust(node, id, rect, time, not CharacterCatalog.is_unlocked(id))
+
+## The same bust regardless of unlocks (a story encounter introduces the person).
+static func draw_bust(node: CanvasItem, id: String, rect: Rect2, time: float, anonymous: bool = false) -> void:
+	var at := BUST_ORDER.find(id)
+	if at < 0:
+		if anonymous: draw_missing_portrait(node, rect)
+		else: draw_portrait(node, id, rect, time)
+		return
+	var unlocked := not anonymous
+	# Whole real pixels per texel (UiArt.pixel_rect), inside a one-unit frame,
+	# standing on the room's floor.
+	var picture := UiArt.pixel_rect(node, Vector2(BUST_SIZE, BUST_SIZE), Rect2(rect.position + Vector2(1, 0), rect.size - Vector2(2, 2)))
+	var frame := picture.grow(1)
+	var accent := Color(CharacterCatalog.data(id).get("accent", UiArt.AMBER)) if unlocked else UiArt.MUTED
+	node.draw_rect(frame, UiArt.INK)
+	var inner := picture
+	node.draw_rect(inner, Color("18221f"))
+	# Stepped key light from the upper left, the portraits' own light side.
+	for band in 4:
+		var reach := inner.size * (1.0 - float(band) * .2)
+		node.draw_rect(Rect2(inner.position, reach.round()), Color(accent, .028))
+	if unlocked:
+		node.draw_texture_rect_region(BUSTS, picture, Rect2(at * BUST_SIZE, 0, BUST_SIZE, BUST_SIZE))
+	else:
+		draw_missing_portrait(node, inner)
+	node.draw_rect(Rect2(frame.position + Vector2(0, frame.size.y - 2), Vector2(frame.size.x, 2)), Color(accent, .85))
 
 static func draw_missing_portrait(node: CanvasItem, rect: Rect2) -> void:
 	# Every missing slot uses the same anonymous marks: no equipment, profile,
@@ -398,11 +442,12 @@ static func draw_missing_portrait(node: CanvasItem, rect: Rect2) -> void:
 
 static func draw_portrait(node: CanvasItem,id: String,rect: Rect2,time: float) -> void:
 	var performance := portrait_performance(id,time)
+	# One 77 px frame at whole real pixels per texel, feet on the room's floor.
+	var shown := UiArt.pixel_rect(node,Vector2(77,77),rect)
 	if not str(performance.gesture).is_empty():
 		var pose := PoseArt.sample(performance.gesture,float(performance.progress),0.0,Vector2(24,-13),id)
-		var scale_factor := minf(rect.size.x/77.0,rect.size.y/77.0)
-		var origin := rect.get_center()-Vector2(38.5,38.5)*scale_factor
-		node.draw_set_transform(origin+Vector2(32,73)*scale_factor,0,Vector2.ONE*scale_factor)
+		var scale_factor := shown.size.x/77.0
+		node.draw_set_transform(shown.position+Vector2(32,73)*scale_factor,0,Vector2.ONE*scale_factor)
 		PoseArt.draw_identity_pose(node,pose,id)
 		node.draw_set_transform(Vector2.ZERO)
 		return
@@ -410,8 +455,8 @@ static func draw_portrait(node: CanvasItem,id: String,rect: Rect2,time: float) -
 	var region := Rect2(frame*112+16,17,77,77)
 	# These are the exact runtime body and hand frames, including silhouette,
 	# face, clothes and headwear. Local player slots do not change identity.
-	node.draw_texture_rect_region(IdentityArt.body(id),rect,region)
-	node.draw_texture_rect_region(IdentityArt.arms(id),rect,region)
+	node.draw_texture_rect_region(IdentityArt.body(id),shown,region)
+	node.draw_texture_rect_region(IdentityArt.arms(id),shown,region)
 
 static func portrait_performance(id: String,time: float) -> Dictionary:
 	# The same authored gestures appear in the menu, selection and online lobby.

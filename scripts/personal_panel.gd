@@ -23,6 +23,9 @@ const TAB_TITLES := {"skills":"Fähigkeiten","achievements":"Erfolge","dances":"
 const ACHIEVEMENT_TITLE_WIDTH := 244.0
 const ACHIEVEMENT_DETAIL_WIDTH := 270.0
 const SKILL_ICONS := {"vitality":"helmet","combat":"rifle","engineering":"craftsmanship"}
+## Skill cards: top of the first card and the step from card to card.
+const SKILL_TOP := 446.0
+const SKILL_STEP := 110.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -50,7 +53,9 @@ func _ready() -> void:
 		tab_buttons[id] = button
 	for index in PlayerProgression.SKILL_SPECS.size():
 		var id: String = PlayerProgression.SKILL_SPECS.keys()[index]
-		var button := _button("Verbessern · 1 Punkt",Rect2(1060,512+index*107,300,40),func(): purchase(id))
+		var button := _button("Verbessern · 1 Punkt",Rect2(1088,SKILL_TOP+index*SKILL_STEP+24,256,44),func(): purchase(id))
+		# Spending a point is the row's action: a real button plate.
+		SocialUiArt.action(button,17)
 		skill_buttons[id] = button
 	close_button = _button("Zurück  ·  P / Esc / B",Rect2(80,746,300,48),hud._close_personnel)
 	SocialUiArt.button(close_button,20,"back",0)
@@ -178,7 +183,10 @@ func _refresh() -> void:
 		button.disabled = not is_instance_valid(progression) or (_online() and game.players[selected_player].player_id!=game.network.local_player_id) or progression.skill_points<=0 or int(progression.skills[id])>=PlayerProgression.MAX_SKILL_RANK
 		button.text = L.text("Maximaler Rang" if is_instance_valid(progression) and int(progression.skills[id])>=PlayerProgression.MAX_SKILL_RANK else "Verbessern · 1 Punkt")
 	for index in player_buttons.size():
-		player_buttons[index].text = L.format("Spieler %d%s" if player_buttons.size()<=2 else "P%d%s", [index+1,""])
+		# Each crew tab names its character, so the detail page below (portrait,
+		# name, values) visibly belongs to the underlined tab, not to a column.
+		var crew_title := L.text(str(CharacterCatalog.data(game.players[index].character_id).title)).capitalize() if index<game.players.size() and is_instance_valid(game.players[index]) else ""
+		player_buttons[index].text = L.format("Spieler %d%s" if player_buttons.size()<=2 else "P%d%s", [index+1,"" if crew_title.is_empty() else " · "+crew_title])
 		player_buttons[index].visible = tab!="achievements"
 		_style_tab(player_buttons[index],selected_player==index)
 	for id in tab_buttons:
@@ -303,12 +311,19 @@ func _redraw() -> void:
 func _draw_foreground() -> void:
 	if not is_instance_valid(game): return
 	var bounds := SocialUiArt.bounds(hud)
-	decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
-	SocialUiArt.reading_shade(decoration,bounds,420,800)
-	UiArt.text(decoration,Vector2(80,112),"Personalakte",36,UiArt.IVORY,UiArt.TITLE_FONT)
+	# Over the match the HUD curtain is the only dimming (see match_sheet).
+	if not bool(game.get("started")): decoration.draw_rect(bounds,Color(.01,.015,.018,.20))
+	SocialUiArt.reading_shade(decoration,bounds,420,800,bool(game.get("started")))
+	UiArt.text(decoration,Vector2(80,112),"Personalakte",UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	UiArt.text(decoration,Vector2(480,160),TAB_TITLES[tab],30,UiArt.IVORY,UiArt.MENU_FONT)
 	var category: Button = tab_buttons[tab]
 	decoration.draw_line(Vector2(64,category.position.y+14),Vector2(64,category.position.y+category.size.y-14),UiArt.AMBER,2)
+	if tab!="achievements" and selected_player<player_buttons.size():
+		# The crew strip is a tab row: one rule under all tabs, the selected one
+		# carries the amber edge that opens into its page.
+		var chosen: Button = player_buttons[selected_player]
+		decoration.draw_line(Vector2(480,chosen.position.y+chosen.size.y+4),Vector2(1360,chosen.position.y+chosen.size.y+4),Color(UiArt.MUTED,.28),1)
+		decoration.draw_rect(Rect2(chosen.position.x,chosen.position.y+chosen.size.y+3,chosen.size.x,3),UiArt.AMBER)
 	if tab=="achievements":
 		_draw_achievements()
 	elif tab=="dances":
@@ -316,8 +331,8 @@ func _draw_foreground() -> void:
 	else:
 		_draw_personal()
 	decoration.draw_line(Vector2(80,724),Vector2(360,724),Color(UiArt.MUTED,.22),1)
-	UiArt.text(decoration,Vector2(80,819),"Pfeile / Steuerkreuz: wählen · Enter / A: bestätigen",13,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(480,855),"P: Figuren · F6: Erfolge",13,UiArt.MUTED)
+	UiArt.hints(decoration,Vector2(80,819),preload("res://scripts/input_labels.gd").navigation_hints(),preload("res://scripts/input_labels.gd").pad_active,UiArt.TEXT_BODY)
+	UiArt.text(decoration,Vector2(480,855),"P: Figuren · F6: Erfolge",UiArt.TEXT_NOTE,UiArt.MUTED)
 
 func _draw_personal() -> void:
 	if game.players.is_empty():
@@ -329,7 +344,8 @@ func _draw_personal() -> void:
 	var accent := Color(character.accent)
 	UiArt.text(decoration,Vector2(480,269),L.text(str(character.title)).capitalize(),26,accent)
 	UiArt.text(decoration,Vector2(480,293),L.format("Level %d",progression.level),15,UiArt.MUTED)
-	CharacterSelectPanel.draw_portrait(decoration,player.character_id,Rect2(1160,237,190,180),elapsed)
+	# Room for 3x real pixels per texel at 1080p; the frame ends above the cards.
+	CharacterSelectPanel.draw_bust(decoration,player.character_id,Rect2(1112,236,206,206),elapsed)
 	UiArt.text(decoration,Vector2(480,325),L.format("%d / %d LP",[ceili(player.hp),roundi(player.max_hp)]),16,UiArt.GREEN)
 	UiArt.text(decoration,Vector2(660,325),L.format("Traglast  %d",player.capacity()),16,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(860,325),L.format("%d Abschüsse",progression.kills),16,UiArt.MUTED)
@@ -338,22 +354,27 @@ func _draw_personal() -> void:
 	UiArt.text(decoration,Vector2(480,407),L.format("%d Fähigkeitspunkte",progression.skill_points),18,UiArt.AMBER)
 	var armor: String = ["Arbeitskleidung","Schutzweste I","Panzerweste II"][clampi(progression.armor_tier,0,2)]
 	UiArt.text(decoration,Vector2(800,357),armor,15)
-	UiArt.text(decoration,Vector2(800,380),L.format("%d %% weniger Schaden",roundi(progression.armor_reduction()*100)),13,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(800,381),L.format("%d %% weniger Schaden",roundi(progression.armor_reduction()*100)),UiArt.TEXT_NOTE,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(800,407),L.format("Trefferserie  %d ×",progression.combo),14,UiArt.MUTED)
 	UiArt.bar(decoration,Rect2(800,419,270,4),progression.combo_time/PlayerProgression.COMBO_WINDOW,UiArt.AMBER)
+	# Each skill is one card on the plate surface: icon, name and rank pips on
+	# the left with the rank beside them, the effect in reading size below, and
+	# the spend action as a button plate on the right, so the row fills its
+	# width instead of leaving small copy beside an empty band.
 	for index in PlayerProgression.SKILL_SPECS.size():
 		var id: String = PlayerProgression.SKILL_SPECS.keys()[index]
 		var spec: Dictionary = PlayerProgression.SKILL_SPECS[id]
 		var rank := int(progression.skills[id])
-		var y := 459+index*107
-		UiArt.divider(decoration,Vector2(480,y-11),Vector2(1360,y-11))
-		UiArt.icon(decoration,SKILL_ICONS[id],Vector2(480,y+3),32)
-		UiArt.text(decoration,Vector2(528,y+25),L.text(str(spec.title)).capitalize(),21)
-		UiArt.text(decoration,Vector2(1132,y+25),L.format("Rang %d / %d",[rank,PlayerProgression.MAX_SKILL_RANK]),14,UiArt.MUTED)
+		var y := SKILL_TOP+index*SKILL_STEP
+		var card := Rect2(480,y,880,SKILL_STEP-10)
+		UiArt.plate(decoration,card,rank>0,.62)
+		UiArt.icon(decoration,SKILL_ICONS[id],Vector2(500,y+16),32)
+		UiArt.text(decoration,Vector2(548,y+33),L.text(str(spec.title)).capitalize(),22)
 		for point in PlayerProgression.MAX_SKILL_RANK:
-			decoration.draw_rect(Rect2(528+point*35,y+38,27,4),UiArt.AMBER if point<rank else Color("394039"))
-		var lines := UiArt.wrap_text(str(spec.detail),490,16)
-		for line in lines.size(): UiArt.text(decoration,Vector2(528,y+65+line*22),lines[line],16,UiArt.MUTED)
+			decoration.draw_rect(Rect2(548+point*36,y+44,30,5),UiArt.AMBER if point<rank else Color("3d463f"))
+		UiArt.text(decoration,Vector2(548+PlayerProgression.MAX_SKILL_RANK*36+10,y+50),L.format("Rang %d / %d",[rank,PlayerProgression.MAX_SKILL_RANK]),UiArt.TEXT_NOTE,UiArt.AMBER if rank>0 else UiArt.MUTED)
+		var lines := UiArt.wrap_text(str(spec.detail),520,UiArt.TEXT_LEAD+1)
+		for line in mini(lines.size(),2): UiArt.text(decoration,Vector2(548,y+76+line*20),lines[line],UiArt.TEXT_LEAD+1,UiArt.IVORY.lerp(UiArt.MUTED,.45))
 
 func _draw_achievements() -> void:
 	var records: Array = game.combat_events.records() if "combat_events" in game and is_instance_valid(game.combat_events) else []
@@ -369,17 +390,17 @@ func _draw_achievements() -> void:
 		UiArt.icon(decoration,"check" if record.unlocked else "lock",pos+Vector2(0,7),22,Color.WHITE if record.unlocked else UiArt.MUTED)
 		var titles := UiArt.wrap_text(str(record.title),ACHIEVEMENT_TITLE_WIDTH,16)
 		for line in titles.size(): UiArt.text(decoration,pos+Vector2(36,25+line*22),titles[line],16,UiArt.AMBER if record.unlocked else UiArt.MUTED)
-		var details := UiArt.wrap_text(str(record.detail),ACHIEVEMENT_DETAIL_WIDTH,13)
-		for line in details.size(): UiArt.text(decoration,pos+Vector2(0,72+line*19),details[line],13,UiArt.IVORY if record.unlocked else UiArt.MUTED)
+		var details := UiArt.wrap_text(str(record.detail),ACHIEVEMENT_DETAIL_WIDTH,UiArt.TEXT_NOTE)
+		for line in details.size(): UiArt.text(decoration,pos+Vector2(0,72+line*19),details[line],UiArt.TEXT_NOTE,UiArt.IVORY if record.unlocked else UiArt.MUTED)
 		if int(record.get("goal",0))>0 and not record.unlocked:
-			UiArt.text(decoration,pos+Vector2(0,150),L.format("%d / %d",[mini(int(record.progress),int(record.goal)),record.goal]),12,UiArt.AMBER)
+			UiArt.text(decoration,pos+Vector2(0,152),L.format("%d / %d",[mini(int(record.progress),int(record.goal)),record.goal]),UiArt.TEXT_BODY,UiArt.AMBER)
 	var public_count := 0
 	var secret_count := 0
 	for record: Dictionary in records:
 		if bool(record.get("hidden",false)): secret_count += 1
 		else: public_count += 1
-	UiArt.text(decoration,Vector2(480,794),L.format("%d öffentliche · %d geheime Erfolge",[public_count,secret_count]),13,UiArt.MUTED)
-	UiArt.centered(decoration,Vector2(1230,794),L.format("Seite %d / %d",[achievement_page+1,ceili(float(records.size())/ACHIEVEMENTS_PER_PAGE)]),13,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(480,794),L.format("%d öffentliche · %d geheime Erfolge",[public_count,secret_count]),UiArt.TEXT_NOTE,UiArt.MUTED)
+	UiArt.centered(decoration,Vector2(1230,794),L.format("Seite %d / %d",[achievement_page+1,ceili(float(records.size())/ACHIEVEMENTS_PER_PAGE)]),UiArt.TEXT_NOTE,UiArt.MUTED)
 
 func _draw_dances() -> void:
 	var player := _dance_player()
@@ -401,7 +422,7 @@ func _draw_dances() -> void:
 	UiArt.text(decoration,Vector2(480,398),"Neue Moves: Level 2, 4, 6, 8, 10",14,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(480,488),"Drei Crew-Moves · immer verfügbar",15,UiArt.MUTED)
 	UiArt.text(decoration,Vector2(480,567),"Fünf eigene Moves · durch Charakterlevel",15,UiArt.AMBER)
-	UiArt.text(decoration,Vector2(480,819),"Tanzt nur in Ruhe und zum hörbaren Beat.",13,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(480,819),"Tanzt nur in Ruhe und zum hörbaren Beat.",UiArt.TEXT_NOTE,UiArt.MUTED)
 
 func _online() -> bool:
 	return "network" in game and is_instance_valid(game.network) and game.network.active

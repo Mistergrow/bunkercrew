@@ -124,13 +124,18 @@ def main():
           "Thirty-four new sources and a complete protected baseline")
     bank, _ = runtime_banks()
     all_audio = [str(path.relative_to(ROOT)) for path in (ROOT / "assets/audio").rglob("*") if path.suffix in [".wav", ".ogg"]]
-    retired_patterns = ["assets/audio/music_rave_*_v1_*.ogg", "assets/audio/convoy_*_v1.wav"]
+    # The convoy bank was replaced by its v3 generation: its 21 v2 recordings joined
+    # the 18 v1 scores and 6 v1 vehicle sources as retired, never-exported files.
+    retired_patterns = ["assets/audio/music_rave_*_v1_*.ogg", "assets/audio/convoy_*_v1.wav", "assets/audio/convoy_*_v2.wav"]
     retired = [path for path in all_audio if any(fnmatch.fnmatchcase(path, pattern) for pattern in retired_patterns)]
-    check(len(retired) == 24 and not set(retired) & set(bank), "Exactly 24 old score/vehicle sources have no current bank reference")
+    check(len(retired) == 45 and not set(retired) & set(bank), "Exactly 45 old score/vehicle sources have no current bank reference")
+    check(all((ROOT / path).is_file() for path in bank), "Every runtime bank entry names an existing recording")
     for preset, excluded in export_filters().items():
         exported = {path for path in all_audio if not any(fnmatch.fnmatchcase(path, pattern) for pattern in excluded)}
         check(all(pattern in excluded for pattern in retired_patterns), preset + ": exact retired-source export patterns")
-        check(exported == set(bank) and len(exported) == 522, preset + ": exports every current source and no retired/raw recordings")
+        # 522 at the aircraft bank, minus 21 retired convoy v2, plus 23 convoy v3,
+        # 3 ricochets, 28 Oskar/Rika story lines (de+en) and 6 roadside scene sources.
+        check(exported == set(bank) and len(exported) == 561, preset + ": exports every current source and no retired/raw recordings")
         check("assets/audio/menu_rave_v1.ogg" in exported and "assets/audio/air_raid_flyover_v1.wav" in exported,
               preset + ": original menu and air-intro fallbacks preserved")
     report = {"checks": len(checks), "passed": sum(item["passed"] for item in checks),

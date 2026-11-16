@@ -197,6 +197,7 @@ func _build_legacy_world() -> void:
 	perimeter=preload("res://scripts/perimeter_controller.gd").new()
 	add_child(perimeter)
 	perimeter.bootstrap(self)
+	add_child(preload("res://scripts/bunker_alarm.gd").create(self))
 	_spawn_player(1)
 	medic = _entity("field_medic", Vector2(205,430))
 
@@ -277,6 +278,9 @@ func start_scenario(count: int, options: Dictionary) -> void:
 	environment_growth=preload("res://scripts/environment_growth.gd").new()
 	environment_growth.game=self
 	add_child(environment_growth)
+	var warmup:=preload("res://scripts/render_warmup.gd").new()
+	warmup.game=self
+	add_child(warmup)
 	add_child(scenario_bunker)
 	expansion=scenario_bunker
 	weather=preload("res://scripts/weather.gd").new()
@@ -285,6 +289,7 @@ func start_scenario(count: int, options: Dictionary) -> void:
 	add_child(weather)
 	weather.set_reduced_effects(keep_reduced_effects)
 	scenario_bunker.bootstrap()
+	add_child(preload("res://scripts/bunker_alarm.gd").create(self))
 	perimeter=preload("res://scripts/perimeter_controller.gd").new()
 	add_child(perimeter)
 	perimeter.bootstrap(self)

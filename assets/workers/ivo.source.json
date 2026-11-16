@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "ivo",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "ivo_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Quick light steps, restless head and tools",
     "walk_rate": 1.18,
@@ -64,7 +88,8 @@
     "ivo_torso.png",
     "ivo_head.png",
     "ivo_back_torso.png",
-    "ivo_back_head.png"
+    "ivo_back_head.png",
+    "ivo_turns.png"
   ],
   "sha256": {
     "ivo_body.png": "fb25a9fe73cebcceca855d54a6aa5cab02e815d65f2853f71543fff30652f5a0",
@@ -72,7 +97,8 @@
     "ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
     "ivo_head.png": "76a3a7e61d7a16466b57e9ba8b745219be284f7103bf0912bb9bbd8c4890c14a",
     "ivo_back_torso.png": "3ed8f164e6aff20873c3835f4a83290de928311ea1da444fa6a361b583c28fcb",
-    "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019"
+    "ivo_back_head.png": "24a71c585dd9f5a7ffa3baa03cbbeb51351e017dcaa1d784ee392b98d4a99019",
+    "ivo_turns.png": "3dbd6593d8c799659cbdaf8d67a03dc2eb87571bfbe06afdc5436fdfa4de1e13"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

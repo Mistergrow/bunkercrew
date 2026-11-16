@@ -82,6 +82,10 @@ const SCRIPTS := {
 const META := ["network_departed","final_boss","boss_phase","boss_title","scenario_front"]
 const GAME_FIELDS := "started player_count view_stage elapsed stats world_left world_right notice notice_time camera_target_zoom camera_target_center"
 
+# Per-player hold timers: a player slot (or a mapped "@player:N" owner) to the
+# seconds accumulated so far.
+const MAX_TIMERS := 16
+static var _rule_cache: Dictionary = {}
 static var _field_cache: Dictionary = {}
 static var _ref_cache: Dictionary = {}
 static var _kind_cache: Dictionary = {}
@@ -129,6 +133,68 @@ static func bounded(value,depth := 0) -> bool:
 			if not bounded(key,depth+1) or not bounded(value[key],depth+1): return false
 	return true
 
+static func rules(entity_kind: String) -> Dictionary:
+	# Inner contents of replicated containers and string enums, by entity kind
+	# and field. network_world has already checked each declared property type;
+	# these rules keep a guest from indexing, drawing or formatting a value the
+	# local scripts could never have produced. Forms:
+	#   ["enum", values]                 one of the listed values
+	#   ["counts", keys, maximum, all]   listed keys to whole numbers 0..maximum; all keys when "all"
+	#   ["flags", keys]                  listed keys to booleans
+	#   ["set", keys]                    listed keys, each exactly true
+	#   ["timers"]                       player owners to non-negative seconds
+	if _rule_cache.is_empty():
+		var resources: Array = Balance.RESOURCE_NAMES.keys()
+		var stock := ["counts", resources, 10000, false]
+		var timers := ["timers"]
+		var aid := ["enum", ["", "bandage", "splint", "revive", "resuscitate"]]
+		var upgrades: Array = []
+		for node: Dictionary in UpgradeSystem.NODES: upgrades.append(node.id)
+		var sides: Array = []
+		for side: Vector2i in MineBlock.DIRECTIONS: sides.append(side)
+		var weapons: Array = [""]
+		weapons.append_array(WorkerWeapon.WEAPONS.keys())
+		_rule_cache = {
+			"player_progression":{"skills":["counts", ["vitality", "combat", "engineering"], PlayerProgression.MAX_SKILL_RANK, true]},
+			"upgrade_system":{"owned":["set", upgrades]},
+			"station":{"transfer":timers},
+			"deep_station":{"transfer":timers, "ingredient_amounts":stock},
+			"glass_furnace":{"transfer":timers, "ingredient_amounts":stock},
+			"supply":{"transfer":timers, "deposit_transfer":timers},
+			"convoy_supply":{"transfer":timers, "deposit_transfer":timers},
+			"mine_block":{"exposed_sides":["flags", sides]},
+			"flak_station":{"materials":stock, "transfer":timers},
+			"dome_controller":{"materials":stock, "transfer":timers},
+			"worker_medical":{"state":["enum", ["healthy", "wounded", "downed", "critical"]], "recovery_kind":aid, "aid_kind":aid},
+			"wall":{"work_action":["enum", ["", "form", "reinforce", "pour", "repair", "upgrade"]]},
+			"worker_weapon":{"_reload_kind":["enum", weapons]},
+		}
+	return _rule_cache.get(entity_kind, {})
+
+static func satisfies(value, rule: Array) -> bool:
+	match rule[0]:
+		"enum": return value in rule[1]
+		"counts":
+			if not value is Dictionary or (rule[3] and value.size() != rule[1].size()): return false
+			for key in value:
+				# A campaign checkpoint read from JSON restores whole numbers as floats.
+				var amount = value[key]
+				if key not in rule[1] or not (amount is int or amount is float) or not is_finite(float(amount)) or float(amount) != floorf(float(amount)) or amount < 0 or amount > rule[2]: return false
+			return true
+		"flags", "set":
+			if not value is Dictionary: return false
+			for key in value:
+				if key not in rule[1] or not value[key] is bool or (rule[0] == "set" and not value[key]): return false
+			return true
+		"timers":
+			if not value is Dictionary or value.size() > MAX_TIMERS: return false
+			for key in value:
+				if not key is int and not (key is String and key.length() <= 16 and key.begins_with("@player:")): return false
+				var seconds = value[key]
+				if not (seconds is float or seconds is int) or not is_finite(float(seconds)) or seconds < 0: return false
+			return true
+	return false
+
 static func counters(value: Dictionary,keys: Array,maximum: int) -> bool:
 	for key in value:
 		if not key in keys or not value[key] is int or value[key]<0 or value[key]>maximum: return false
@@ -146,6 +212,9 @@ static func valid_weapon_research(state: Dictionary, owned: Dictionary) -> bool:
 
 static func valid_state(entity_kind: String,state: Dictionary) -> bool:
 	if not bounded(state): return false
+	var inner: Dictionary = rules(entity_kind)
+	for field: String in inner:
+		if state.has(field) and not satisfies(state[field], inner[field]): return false
 	if entity_kind in ["player","ground_infantry"] and (not state.get("gore_mask") is int or state.gore_mask<0 or state.gore_mask>15): return false
 	if state.has("z_index") and (state.z_index < -4096 or state.z_index>4095): return false
 	if state.has("max_hp"):

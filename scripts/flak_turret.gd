@@ -286,6 +286,6 @@ func _draw_weapon() -> void:
 	# articulated tubes alternate recoil while sharing the same physical muzzle.
 	for index in 2:
 		var kick := recoil if flash_tick%2==index else recoil*0.4
-		MachineryArt.paint(barrel,"barrel",Rect2(-20-kick,-17+index*14,84,23))
+		MachineryArt.paint_turned(barrel,"barrel",Rect2(-20-kick,-17+index*14,84,23))
 	var y := -6.0 if flash_tick%2==0 else 8.0
 	WeaponEffectArt.muzzle(barrel,Vector2(64-recoil,y),flash,0.1,1,1.3,flash_tick,WeaponEffectArt.reduced(game))

@@ -135,7 +135,9 @@ func run():
 	for pellet in 8:
 		game.combat_events.event.emit("hit",{"player_id":1,"amount":9.0,"earned":0.9,"position":Vector2(900,395)})
 	check(feedback.numbers.size()==1 and is_equal_approx(feedback.numbers[0].amount,72.0) and is_equal_approx(feedback.numbers[0].earned,7.2),"Coincident shotgun pellets merge into one exact damage/XP total")
-	check(feedback._number_text(0.1)=="0.1" and feedback._number_text(14.0)=="14","Fractional XP never displays as a falsely rounded-up whole point")
+	check(feedback._number_text(0.1)==LocaleText.decimal(0.1) and feedback._number_text(14.0)=="14","Fractional XP never displays as a falsely rounded-up whole point")
+	var kill_lines: Array[String] = feedback._number_lines({"amount":65.5,"earned":13.9,"kind":"kill"})
+	check(kill_lines[0]==LocaleText.text("ABSCHUSS") and kill_lines[1]==LocaleText.format("+%s XP",LocaleText.format("%.1f",13.9)) and feedback._number_lines({"amount":65.5,"earned":0.0,"kind":"hit"})[0]=="66","A kill reads as the word and its XP in the player's decimals; a hit as whole damage")
 	# Real normal-HP enemies and authoritative damage/XP events, with normal
 	# automatic-fire spacing. This catches the overlap from the combat gallery.
 	feedback.numbers.clear()

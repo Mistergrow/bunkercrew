@@ -6,12 +6,21 @@ changes settings, starts/stops gameplay, or performs real undo/redo actions.
 """
 import json
 import pathlib
+import socket
 import unittest
 import urllib.request
 
 
 class EditorAccess(unittest.TestCase):
     def test_readonly_editor_access_preserves_open_scene(self):
+        # The listener belongs to an editor the developer opened with the godot_mcp
+        # plugin enabled. This test never starts or configures one, so without a
+        # listener there is nothing to verify. Any answering service is tested.
+        try:
+            socket.create_connection(("127.0.0.1", 3000), timeout=3).close()
+        except (ConnectionRefusedError, socket.timeout) as error:
+            self.skipTest("No Godot editor MCP listener on 127.0.0.1:3000 (%s). Open this project in the Godot "
+                          "editor with the godot_mcp plugin enabled, then rerun; the test never starts an editor." % error)
         records = []
 
         def request(method, params):

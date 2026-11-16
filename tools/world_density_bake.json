@@ -1,0 +1,317 @@
+{
+ "_comment": "Jobs of tools/bake_world_density_art.py. Each item is a source region and every world size the game draws it at (size/sizes: explicit draw rects; fit: LevelProp display boxes, sized like LevelProp._build_artwork). New draw sizes need a line here and a re-bake; WorldTexels.missing lists sizes drawn without a bake.",
+ "atlases": [
+  {
+   "output": "assets/machinery/components_world.png",
+   "source": "assets/machinery/components.png",
+   "width": 512,
+   "params": {"palette": 28, "alpha": 0.45, "sharpen": 0.45, "orphan": 0.07, "contour": 0.8},
+   "items": [
+    {"name": "mixer_frame", "region": [55, 198, 476, 315], "size": [110, 73]},
+    {"name": "furnace", "region": [1021, 73, 480, 431], "size": [124, 111]},
+    {"name": "core", "region": [1076, 556, 360, 401], "size": [90, 100]},
+    {"name": "mixer_drum", "region": [609, 191, 322, 282], "size": [74, 65], "_what": "MixerAnimation's turning drum (shaders/mixer_drum.gdshader re-skins it per world texel)"},
+    {
+     "name": "mount",
+     "region": [583, 665, 411, 279],
+     "sizes": [[65, 44], [68, 46]],
+     "clear": [[583, 665, 27, 107]]
+    }
+   ]
+  },
+  {
+   "output": "assets/machinery/barrel_turns_world.png",
+   "source": "assets/machinery/components.png",
+   "width": 1024,
+   "params": {"palette": 20, "alpha": 0.42, "sharpen": 0.4, "orphan": 0.07, "contour": 0.8},
+   "items": [
+    {
+     "name": "barrel",
+     "region": [63, 667, 549, 198],
+     "size": [95, 34],
+     "turns": {"from": -92, "to": 66, "step": 2}
+    },
+    {
+     "name": "flak_tube",
+     "region": [63, 667, 549, 198],
+     "size": [84, 23],
+     "turns": {"from": -92, "to": 32, "step": 2}
+    }
+   ]
+  },
+  {
+   "output": "assets/props/industrial_props_world.png",
+   "source": "assets/industrial_props.png",
+   "width": 512,
+   "params": {"palette": 24, "alpha": 0.45, "sharpen": 0.45, "orphan": 0.07, "contour": 0.8},
+   "items": [
+    {
+     "name": "cabinet",
+     "tres": "assets/props/cabinet.tres",
+     "fit": [[52, 88], [29, 43]]
+    },
+    {
+     "name": "workbench",
+     "tres": "assets/props/workbench.tres",
+     "fit": [[96, 64], [85, 52], [126, 83]],
+     "sizes": [[98, 61]]
+    },
+    {
+     "name": "pipes",
+     "tres": "assets/props/pipes.tres",
+     "fit": [[72, 29], [61, 24]]
+    },
+    {
+     "name": "crate",
+     "tres": "assets/props/crate.tres",
+     "fit": [[38, 35], [40, 36], [36, 33], [41, 34], [47, 40], [26, 35]]
+    },
+    {
+     "name": "barrel",
+     "tres": "assets/props/barrel.tres",
+     "fit": [[31, 46], [29, 40], [31, 48]]
+    },
+    {
+     "name": "lamp",
+     "tres": "assets/props/lamp.tres",
+     "fit": [[24, 38], [23, 35], [23, 34], [25, 35], [21, 32], [25, 36]]
+    },
+    {
+     "name": "fan",
+     "tres": "assets/props/fan.tres",
+     "fit": [[49, 49], [43, 43], [45, 45]]
+    },
+    {
+     "name": "gas_bottles",
+     "tres": "assets/props/gas_bottles.tres",
+     "fit": [[36, 64], [29, 61], [34, 69], [33, 30]]
+    },
+    {
+     "name": "cement_sacks",
+     "tres": "assets/props/cement_sacks.tres",
+     "fit": [[55, 43]]
+    },
+    {
+     "name": "wheelbarrow",
+     "tres": "assets/props/wheelbarrow.tres",
+     "fit": [[65, 43]]
+    },
+    {
+     "name": "junction_box",
+     "tres": "assets/props/junction_box.tres",
+     "fit": [[29, 37], [29, 36]]
+    },
+    {
+     "name": "console",
+     "tres": "assets/props/console.tres",
+     "fit": [[68, 72], [38, 49]],
+     "sizes": [[60, 56], [53, 51]]
+    },
+    {
+     "name": "scrap",
+     "tres": "assets/props/scrap.tres",
+     "fit": [[68, 27], [114, 42]]
+    },
+    {
+     "name": "cable_spool",
+     "tres": "assets/props/cable_spool.tres",
+     "fit": [[38, 41]]
+    },
+    {
+     "name": "mine_brace",
+     "tres": "assets/props/mine_brace.tres",
+     "fit": [[186, 149], [190, 150]]
+    }
+   ]
+  },
+  {
+   "output": "assets/supplies/industrial_crate_world.png",
+   "source": "assets/supplies/industrial_crate.png",
+   "width": 64,
+   "params": {"palette": 20, "alpha": 0.45, "sharpen": 0.5, "orphan": 0.07, "contour": 0.8},
+   "items": [
+    {"name": "supply_crate", "region": [296, 192, 969, 622], "size": [58, 38]}
+   ]
+  },
+  {
+   "output": "assets/machinery/authored_world.png",
+   "source": "assets/machinery/components.png",
+   "width": 160,
+   "params": {"palette": 28, "alpha": 0.45, "sharpen": 0.45, "orphan": 0.07, "contour": 0.8},
+   "palettes": {
+    "ammo": {
+     "K": "#151b1e",
+     "H": "#a9ab72",
+     "L": "#7f8350",
+     "M": "#616639",
+     "D": "#454b2b",
+     "S": "#2f3521",
+     "Y": "#cdb65c",
+     "G": "#9aa093",
+     "g": "#565d55",
+     "c": "#c98552",
+     "C": "#8c4f2e",
+     "w": "#f6e3a0",
+     "B": "#d6a94e",
+     "b": "#94702f",
+     "R": "#7b4b2c"
+    }
+   },
+   "items": [
+    {
+     "name": "ammo_box",
+     "palette": "ammo",
+     "pixels": ["..c..c..c..c..c...", "..cC.cC.cC.cC.cC..", "..wB.wB.wB.wB.wB..", "KSwbSwbSwbSwbSwbSK", "KHHHHHHHHHHHHHHHHK", "KHLLLLLLLLLLLLLgGK", "KSSSSSSSSSSSSSSgSK", "KHLLLLLLLLLLLLLLMK", "KHLYYYYYYYYYYYYLMK", "KHLYKYYKYKYYKYYLMK", "KHLLLLLLLLLLLLLLMK", "KLLLLRLLLLLLLLLMDK", "KMMMMMMMMMMMMMMMDK", "KDDDDDDDDDDDDDDDSK", ".KKKKKKKKKKKKKKKK."]
+    },
+    {
+     "name": "press_frame",
+     "composite": {
+      "scale": 3.8,
+      "size": [116, 124],
+      "_origin": "station (-70,-124)",
+      "parts": [
+       {"region": [1352, 157, 23, 105], "rect": [14, 26, 6, 24], "_what": "copper riser"},
+       {"region": [1080, 262, 37, 198], "rect": [26, 32, 10, 58], "_what": "left guide column: furnace post"},
+       {"region": [1080, 262, 37, 198], "rect": [92, 32, 10, 58], "flip": true, "_what": "right guide column"},
+       {"region": [1140, 200, 212, 67], "rect": [24, 0, 88, 24], "_what": "crown: furnace cast head"},
+       {"region": [1117, 267, 260, 29], "rect": [20, 22, 96, 9], "_what": "crown girder: furnace lintel"},
+       {"region": [1117, 267, 260, 29], "rect": [20, 87, 96, 9], "_what": "bed table: furnace lintel"},
+       {"region": [1120, 905, 310, 30], "rect": [24, 95, 88, 15], "_what": "bed: cabinet plinth"},
+       {"region": [1070, 458, 46, 42], "rect": [20, 110, 14, 14], "_what": "foot"},
+       {"region": [1070, 458, 46, 42], "rect": [98, 110, 14, 14], "flip": true, "_what": "foot"},
+       {"region": [1420, 293, 72, 117], "rect": [0, 50, 20, 31], "_what": "control box: furnace side box"}
+      ]
+     }
+    },
+    {
+     "name": "press_ram",
+     "composite": {
+      "scale": 3.66,
+      "size": [41, 14],
+      "parts": [
+       {"region": [1150, 205, 150, 51], "rect": [0, 0, 41, 14], "_what": "ram: a block of the furnace's cast head"}
+      ]
+     }
+    }
+   ]
+  },
+ {
+   "output": "assets/rock_world.png",
+   "source": "assets/rock.png",
+   "width": 480,
+   "params": {"palette": 24, "alpha": 0.0, "sharpen": 0.35, "orphan": 0.05, "contour": 0.0},
+   "items": [
+    {"name": "rock", "region": [0, 0, 1254, 1254], "size": [480, 480], "_what": "tiling rock face, period 480 world units (MineBlock.TEXTURE_PERIOD, ExcavationRoomArt.PERIOD)"}
+   ]
+  },
+  {
+   "output": "assets/enemies/aircraft_hulls_world.png",
+   "source": "assets/enemies/aircraft_hulls_v2.png",
+   "width": 1024,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.65, "orphan": 0.06, "contour": 0.8, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "bomber", "region": [773, 73, 409, 219], "size": [82, 44], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "dive_bomber", "region": [407, 667, 396, 191], "size": [83, 40], "turns": {"from": -24.064227, "to": 24.064227, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.42 rad"},
+    {"name": "dive_bomber_bank", "region": [407, 667, 396, 191], "sizes": [[29, 40], [50, 40], [71, 40]], "turns": {"from": -15.46986, "to": 15.46986, "step": 5.15662}, "_what": "edge-on bank widths of a return pass (AircraftArt.BANK_KEYS), every third stance"},
+    {"name": "gunship", "region": [368, 123, 383, 167], "size": [71, 31], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "heavy_zeppelin", "region": [1193, 676, 463, 213], "size": [143, 66], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "interceptor", "region": [1211, 96, 431, 194], "size": [59, 26], "turns": {"from": -24.064227, "to": 24.064227, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.42 rad"},
+    {"name": "interceptor_bank", "region": [1211, 96, 431, 194], "sizes": [[21, 26], [35, 26], [50, 26]], "turns": {"from": -15.46986, "to": 15.46986, "step": 5.15662}, "_what": "edge-on bank widths of a return pass (AircraftArt.BANK_KEYS), every third stance"},
+    {"name": "patrol_plane", "region": [1209, 401, 424, 171], "size": [78, 32], "turns": {"from": -24.064227, "to": 24.064227, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.42 rad"},
+    {"name": "patrol_plane_bank", "region": [1209, 401, 424, 171], "sizes": [[27, 32], [47, 32], [66, 32]], "turns": {"from": -15.46986, "to": 15.46986, "step": 5.15662}, "_what": "edge-on bank widths of a return pass (AircraftArt.BANK_KEYS), every third stance"},
+    {"name": "pulse_fighter", "region": [823, 664, 348, 223], "size": [88, 57], "turns": {"from": -24.064227, "to": 24.064227, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.42 rad"},
+    {"name": "pulse_fighter_bank", "region": [823, 664, 348, 223], "sizes": [[31, 57], [53, 57], [75, 57]], "turns": {"from": -15.46986, "to": 15.46986, "step": 5.15662}, "_what": "edge-on bank widths of a return pass (AircraftArt.BANK_KEYS), every third stance"},
+    {"name": "rocket_drone", "region": [881, 406, 270, 157], "size": [61, 36], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "scout_drone", "region": [48, 137, 281, 150], "size": [48, 26], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "shield_airship", "region": [30, 385, 340, 212], "size": [105, 66], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "sky_fortress", "region": [387, 374, 434, 214], "size": [113, 56], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "tiltrotor", "region": [44, 656, 345, 211], "size": [82, 50], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "live hull, attitude stances every HULL_TILT_STEP (0.03 rad) over +-0.30 rad"},
+    {"name": "flyby_heavy_transit", "region": [1193, 676, 463, 213], "size": [128, 59], "turns": {"from": -6.875494, "to": 6.875494, "step": 1.718873}, "_what": "convoy flyby heavy_transit at its catalog width, bank stances"},
+    {"name": "flyby_jet_crossing", "region": [1211, 96, 431, 194], "size": [86, 39], "turns": {"from": -6.875494, "to": 6.875494, "step": 1.718873}, "_what": "convoy flyby jet_crossing at its catalog width, bank stances"},
+    {"name": "flyby_low_transport", "region": [44, 656, 345, 211], "size": [103, 63], "turns": {"from": -6.875494, "to": 6.875494, "step": 1.718873}, "_what": "convoy flyby low_transport at its catalog width, bank stances"},
+    {"name": "flyby_survey_pair", "region": [1209, 401, 424, 171], "size": [76, 31], "turns": {"from": -6.875494, "to": 6.875494, "step": 1.718873}, "_what": "convoy flyby survey_pair at its catalog width, bank stances"}
+   ]
+  },
+  {
+   "output": "assets/enemies/chassis_world.png",
+   "source": "assets/enemies/chassis_atlas_v2.png",
+   "width": 1024,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.65, "orphan": 0.06, "contour": 0.8, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "assault", "region": [508, 626, 442, 271], "sizes": [[53, 32], [58, 35], [54, 33], [60, 37]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of assault, sniper (each kind and its elite size), lean stances over +-0.30 rad"},
+    {"name": "colossus", "region": [47, 513, 433, 428], "sizes": [[87, 78], [95, 86], [86, 85], [95, 94]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of bastion, colossus (each kind and its elite size), lean stances over +-0.30 rad"},
+    {"name": "breaker", "region": [1012, 232, 489, 245], "sizes": [[75, 38], [82, 41], [78, 39], [86, 43]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of breaker, demolisher (each kind and its elite size), lean stances over +-0.30 rad"},
+    {"name": "runner", "region": [96, 243, 344, 198], "sizes": [[54, 31], [59, 34], [35, 20], [39, 22]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of lancer, runner (each kind and its elite size), lean stances over +-0.30 rad"},
+    {"name": "strider", "region": [558, 220, 396, 252], "sizes": [[55, 35], [60, 38], [65, 41], [71, 45]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of repair_crawler, shield_guard, strider (each kind and its elite size), lean stances over +-0.30 rad"},
+    {"name": "siege", "region": [987, 525, 530, 412], "sizes": [[88, 68], [96, 75]], "turns": {"from": -17.188734, "to": 17.188734, "step": 1.718873}, "_what": "chassis of siege (each kind and its elite size), lean stances over +-0.30 rad"}
+   ]
+  },
+  {
+   "output": "assets/enemies/vehicle_hulls_world.png",
+   "source": "assets/enemies/vehicle_hulls_v2.png",
+   "width": 256,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.65, "orphan": 0.06, "contour": 0.8, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "battle_tank", "region": [103, 556, 1393, 361], "sizes": [[111, 29], [122, 32]], "_what": "hull and elite hull; pitch is drawn as whole-texel column shear (GroundVehicleArt)"},
+    {"name": "mortar_carrier", "region": [103, 1024, 1393, 361], "sizes": [[111, 29], [122, 32]], "_what": "hull and elite hull; pitch is drawn as whole-texel column shear (GroundVehicleArt)"},
+    {"name": "scout_car", "region": [265, 130, 1055, 330], "sizes": [[99, 31], [108, 34]], "_what": "hull and elite hull; pitch is drawn as whole-texel column shear (GroundVehicleArt)"}
+   ]
+  },
+  {
+   "output": "assets/environments/walls_world.png",
+   "source": "assets/environments/wall_bastion.png",
+   "width": 640,
+   "params": {"palette": 12, "alpha": 0.0, "sharpen": 0.8, "orphan": 0.1, "contour": 0.0},
+   "items": [
+    {"name": "wall_bastion", "source": "assets/environments/wall_bastion.png", "region": [0, 0, 1774, 887], "sizes": [[630, 177], [630, 197]], "_what": "rear wall of a bastion room (ScenarioBunkerArt.draw_room inset: 640 x 185 surface room, 640 x 205 depth rooms)"},
+    {"name": "wall_workshop", "source": "assets/environments/wall_workshop.png", "region": [0, 0, 1774, 887], "sizes": [[630, 177], [630, 197]], "_what": "rear wall of a workshop room (ScenarioBunkerArt.draw_room inset: 640 x 185 surface room, 640 x 205 depth rooms)"},
+    {"name": "wall_stronghold", "source": "assets/environments/wall_stronghold.png", "region": [0, 0, 1774, 887], "sizes": [[630, 177], [630, 197]], "_what": "rear wall of a stronghold room (ScenarioBunkerArt.draw_room inset: 640 x 185 surface room, 640 x 205 depth rooms)"}
+   ]
+  },
+  {
+   "output": "assets/perimeter/perimeter_world.png",
+   "source": "assets/perimeter/components_v2.png",
+   "width": 256,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.75, "orphan": 0.06, "contour": 0.6, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "gate_1", "region": [121, 94, 239, 374], "size": [45, 70], "clear": [[145, 111, 97, 306]], "_what": "gate tier 1 without its leaf (70 units tall, PerimeterArt._baked_fence)"},
+    {"name": "gate_1_leaf", "region": [145, 111, 97, 306], "size": [18, 57], "_what": "the moving leaf of tier 1; drawn in two sections lowered by whole rows"},
+    {"name": "gate_2", "region": [504, 88, 240, 380], "size": [44, 70], "clear": [[529, 112, 101, 303]], "_what": "gate tier 2 without its leaf (70 units tall, PerimeterArt._baked_fence)"},
+    {"name": "gate_2_leaf", "region": [529, 112, 101, 303], "size": [19, 56], "_what": "the moving leaf of tier 2; drawn in two sections lowered by whole rows"},
+    {"name": "gate_3", "region": [852, 85, 255, 383], "size": [47, 70], "clear": [[879, 109, 101, 306]], "_what": "gate tier 3 without its leaf (70 units tall, PerimeterArt._baked_fence)"},
+    {"name": "gate_3_leaf", "region": [879, 109, 101, 306], "size": [18, 56], "_what": "the moving leaf of tier 3; drawn in two sections lowered by whole rows"},
+    {"name": "gate_trim", "region": [879, 109, 101, 9], "sizes": [[19, 2], [18, 2]], "params": {"contour": 0.0}, "_what": "cap of the leaf's cut edges at each tier's scale"},
+    {"name": "tower_wreck", "region": [1171, 716, 346, 216], "size": [68, 42]},
+    {"name": "tower_base_a", "source": "assets/perimeter/components_v3.png", "region": [27, 211, 348, 175], "size": [52, 26]},
+    {"name": "tower_base_b", "source": "assets/perimeter/components_v3.png", "region": [413, 211, 353, 175], "size": [52, 26]},
+    {"name": "tower_head", "source": "assets/perimeter/components_v3.png", "region": [808, 193, 351, 181], "size": [56, 29], "turns": {"from": -90, "to": 44, "step": 2}, "_what": "gun head in aim stances (WorldTexels.draw_turned; a left-side mount mirrors them)"},
+    {"name": "service_case", "source": "assets/perimeter/components_v3.png", "region": [1232, 195, 282, 198], "size": [31, 22], "_what": "courtyard service case (CourtyardArt)"}
+   ]
+  },
+  {
+   "output": "assets/courtyard/courtyard_world.png",
+   "source": "assets/courtyard/modules_v1.png",
+   "width": 256,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.75, "orphan": 0.06, "contour": 0.6, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "paving", "region": [35, 592, 570, 93], "size": [55, 9], "params": {"contour": 0.0, "alpha": 0.3}, "_what": "paving slab, 9 units deep; slabs step by its 55-unit width"},
+    {"name": "fence_field", "region": [98, 159, 446, 238], "size": [98, 53], "params": {"alpha": 0.2, "contour": 0.0, "sharpen": 0.3, "orphan": 0.0, "accent": 0}, "_what": "chain-link field: low coverage threshold so the wires survive, no ink contour on the lattice"},
+    {"name": "fence_post", "region": [543, 129, 67, 281], "size": [15, 62]},
+    {"name": "bollards", "region": [648, 958, 558, 220], "size": [43, 17]},
+    {"name": "work_lamp", "region": [240, 754, 151, 424], "size": [29, 82]},
+    {"name": "rubble", "region": [639, 546, 591, 140], "size": [63, 15], "_what": "torn fence of a ruined gate slot (PerimeterArt)"}
+   ]
+  },
+  {
+   "output": "assets/enemies/vehicle_guns_world.png",
+   "source": "assets/enemies/vehicle_guns_src.png",
+   "width": 256,
+   "params": {"palette": 32, "alpha": 0.45, "sharpen": 0.65, "orphan": 0.06, "contour": 0.8, "accent": 0.1, "accent_share": 0.28, "accent_light": 0.5, "accent_palette": 6},
+   "items": [
+    {"name": "scout_car_gun", "region": [0, 0, 768, 256], "sizes": [[84, 28], [93, 31]], "turns": {"from": -24, "to": 56, "step": 2}, "_what": "aim stances of GroundVehicleArt's gun (rendered at 8 px per unit by tools/capture_vehicle_guns.gd) at the drawn size and the elite size; aim stops -0.40 .. 0.95 rad"},
+    {"name": "mortar_carrier_gun", "region": [0, 256, 768, 256], "sizes": [[84, 28], [93, 31]], "turns": {"from": 6, "to": 78, "step": 2}, "_what": "aim stances of GroundVehicleArt's gun (rendered at 8 px per unit by tools/capture_vehicle_guns.gd) at the drawn size and the elite size; elevation 0.12 .. 1.35 rad"},
+    {"name": "battle_tank_gun", "region": [0, 512, 768, 256], "sizes": [[84, 28], [93, 31]], "turns": {"from": -24, "to": 56, "step": 2}, "_what": "aim stances of GroundVehicleArt's gun (rendered at 8 px per unit by tools/capture_vehicle_guns.gd) at the drawn size and the elite size; aim stops -0.40 .. 0.95 rad"}
+   ]
+  }
+ ]
+}

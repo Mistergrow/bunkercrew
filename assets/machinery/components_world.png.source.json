@@ -1,0 +1,87 @@
+{
+ "asset": "components_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/machinery/components.png",
+   "sha256": "a65b0c0bc2884cddc2bbed2ae8feb895c52536a77730e81f902a0c8bf7226aca"
+  }
+ ],
+ "params": {
+  "palette": 28,
+  "alpha": 0.45,
+  "sharpen": 0.45,
+  "orphan": 0.07,
+  "contour": 0.8
+ },
+ "ink": "#151b1e",
+ "size": [
+  512,
+  156
+ ],
+ "items": [
+  {
+   "name": "mixer_frame",
+   "key": "res://assets/machinery/components.png|55,198,476,315|110x73",
+   "region": [
+    216,
+    0,
+    110,
+    73
+   ]
+  },
+  {
+   "name": "furnace",
+   "key": "res://assets/machinery/components.png|1021,73,480,431|124x111",
+   "region": [
+    0,
+    0,
+    124,
+    111
+   ]
+  },
+  {
+   "name": "core",
+   "key": "res://assets/machinery/components.png|1076,556,360,401|90x100",
+   "region": [
+    125,
+    0,
+    90,
+    100
+   ]
+  },
+  {
+   "name": "mixer_drum",
+   "key": "res://assets/machinery/components.png|609,191,322,282|74x65",
+   "region": [
+    327,
+    0,
+    74,
+    65
+   ]
+  },
+  {
+   "name": "mount",
+   "key": "res://assets/machinery/components.png|583,665,411,279|65x44",
+   "region": [
+    0,
+    112,
+    65,
+    44
+   ]
+  },
+  {
+   "name": "mount",
+   "key": "res://assets/machinery/components.png|583,665,411,279|68x46",
+   "region": [
+    402,
+    0,
+    68,
+    46
+   ]
+  }
+ ]
+}

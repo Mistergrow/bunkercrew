@@ -65,52 +65,63 @@ static func wait_range(character_id: String) -> Vector2:
 	var profile: Dictionary = PROFILES[character_id]
 	return Vector2(profile.wait_min,profile.wait_max)
 
+## Relaxed standing base of each identity (pass 7A-crew). Seen from the side
+## the boots stand roughly under the hips, 6-7 texels apart, with the hip
+## sockets (hip_spread 2, as the locomotion rig draws them) a texel inside
+## each boot: the idle key's one-texel hip shift (WorkerMotionKeys) then
+## stands one leg upright under the weight while the free heel lifts, instead
+## of the earlier 14-20 texel scissor that read as a frozen stride. Hips sit
+## high enough for nearly straight legs (soft knees), the arms hang with a
+## slight bend and only each identity's own carriage stays: Ivo's hands at his
+## belt, Levin's forward lean, Nora's upright back, Branko's and Oskar's heavy
+## lower stance.
 static func stance(pose: Dictionary,character_id: String) -> Dictionary:
 	character_id = CharacterCatalog.presentation_id(character_id,"motion")
 	var result := pose.duplicate(true)
+	result.hip_spread = 2.0
 	match character_id:
 		"mara":
-			result.hip = Vector2(-1,-25)
-			result.shoulder = Vector2(0,-42)
-			result.feet = [Vector2(-7,-3),Vector2(7,-3)]
-			result.hands = [Vector2(-9,-27),Vector2(9,-31)]
+			result.hip = Vector2(0,-26)
+			result.shoulder = Vector2(1,-43)
+			result.feet = [Vector2(-3,-3),Vector2(3,-3)]
+			result.hands = [Vector2(-5,-23),Vector2(6,-22)]
 		"branko":
-			result.hip = Vector2(0,-24)
-			result.shoulder = Vector2(-1,-41)
-			result.feet = [Vector2(-10,-3),Vector2(10,-3)]
-			result.hands = [Vector2(-12,-26),Vector2(11,-27)]
+			result.hip = Vector2(0,-25)
+			result.shoulder = Vector2(0,-42)
+			result.feet = [Vector2(-3,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-7,-22),Vector2(6,-21)]
 			result.head_shift = Vector2(0,1)
 		"ivo":
 			result.hip = Vector2(0,-26)
-			result.shoulder = Vector2(3,-43)
-			result.feet = [Vector2(-5,-3),Vector2(6,-3)]
-			result.hands = [Vector2(-6,-31),Vector2(12,-34)]
+			result.shoulder = Vector2(2,-43)
+			result.feet = [Vector2(-2,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-3,-26),Vector2(8,-27)]
 			result.head_shift = Vector2(0,-1)
 		"nora":
-			result.hip = Vector2(-1,-24)
-			result.shoulder = Vector2(-3,-41)
-			result.feet = [Vector2(-9,-3),Vector2(9,-3)]
-			result.hands = [Vector2(-10,-25),Vector2(9,-29)]
+			result.hip = Vector2(0,-26)
+			result.shoulder = Vector2(-1,-43)
+			result.feet = [Vector2(-3,-3),Vector2(3,-3)]
+			result.hands = [Vector2(-7,-23),Vector2(4,-22)]
 		"levin":
 			result.hip = Vector2(1,-26)
-			result.shoulder = Vector2(6,-43)
-			result.feet = [Vector2(-8,-3),Vector2(5,-3)]
-			result.hands = [Vector2(-7,-29),Vector2(11,-38)]
+			result.shoulder = Vector2(4,-43)
+			result.feet = [Vector2(-2,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-2,-24),Vector2(9,-25)]
 		"selma":
+			result.hip = Vector2(0,-26)
+			result.shoulder = Vector2(0,-43)
+			result.feet = [Vector2(-3,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-6,-23),Vector2(6,-23)]
+		"oskar":
 			result.hip = Vector2(0,-25)
 			result.shoulder = Vector2(-1,-42)
-			result.feet = [Vector2(-6,-3),Vector2(8,-3)]
-			result.hands = [Vector2(-13,-29),Vector2(6,-31)]
-		"oskar":
-			result.hip = Vector2(-1,-24)
-			result.shoulder = Vector2(-3,-41)
-			result.feet = [Vector2(-10,-3),Vector2(9,-3)]
-			result.hands = [Vector2(-12,-26),Vector2(10,-27)]
+			result.feet = [Vector2(-3,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-8,-22),Vector2(5,-21)]
 			result.head_shift = Vector2(0,1)
 		"rika":
 			result.hip = Vector2(1,-26)
-			result.shoulder = Vector2(3,-43)
-			result.feet = [Vector2(-6,-3),Vector2(7,-3)]
-			result.hands = [Vector2(-8,-31),Vector2(12,-35)]
+			result.shoulder = Vector2(2,-43)
+			result.feet = [Vector2(-2,-3),Vector2(4,-3)]
+			result.hands = [Vector2(-4,-24),Vector2(8,-26)]
 			result.head_shift = Vector2(0,-.5)
 	return result

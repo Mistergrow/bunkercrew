@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "mara",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "mara_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Controlled stride, deliberate gear checks",
     "walk_rate": 1.0,
@@ -64,7 +88,8 @@
     "mara_torso.png",
     "mara_head.png",
     "mara_back_torso.png",
-    "mara_back_head.png"
+    "mara_back_head.png",
+    "mara_turns.png"
   ],
   "sha256": {
     "mara_body.png": "d425218a9a74c242a5e667beae51314562d33e6e9c8b13dfba4e9ecac89f1133",
@@ -72,7 +97,8 @@
     "mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
     "mara_head.png": "f3355b2660e5ca9239982ecf694bd1f624ac711374d41fd25014e3e9f661cda7",
     "mara_back_torso.png": "08a4f8879f56f2dda29c47af4cb38c1da4be09bdf5578f9b1ca1e5ccf5a35c29",
-    "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d"
+    "mara_back_head.png": "b83f0fc7eaac535958a885221272ba5ee33ba9020e352da318859b00b952753d",
+    "mara_turns.png": "3b016597242ab742bd4a17a9fb414f78e0ae0f71133dbe52331017a9e3a6493a"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",

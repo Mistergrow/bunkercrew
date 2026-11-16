@@ -43,7 +43,10 @@ var muzzle_flash := 0.0
 var body_part: Node2D
 var propulsion_part: Node2D
 var weapon_part: Node2D
+## The world-texel hull atlas (AircraftArtCatalog.WORLD_PATH), null without art.
 var chassis_atlas: Texture2D
+## Presentation only: the baked bank width the hull is drawn at.
+var hull_bank := 1.0
 var formation_phase := 0.0
 var dive_origin := Vector2.ZERO
 var _flight_facing := -1.0
@@ -68,7 +71,7 @@ func _ready() -> void:
 	shape.shape = rectangle
 	shape.name = "AircraftHull"
 	add_child(shape)
-	chassis_atlas = load(AircraftArtCatalog.TEXTURE_PATH) if ResourceLoader.exists(AircraftArtCatalog.TEXTURE_PATH) else null
+	chassis_atlas = load(AircraftArtCatalog.WORLD_PATH) if ResourceLoader.exists(AircraftArtCatalog.WORLD_PATH) else null
 	propulsion_part = _part("ArticulatedPropulsion",_draw_propulsion)
 	body_part = _part("ArmoredHull",_draw_body)
 	weapon_part = _part("AimingWeapon",_draw_weapon)
@@ -374,12 +377,19 @@ func _pose_parts(aim_override: Vector2 = Vector2.INF) -> void:
 		body_mirror = -_flight_facing
 		# A return pass narrows through an edge-on bank before its side changes.
 		turn_width = lerpf(.30,1.0,clampf(absf(flight_velocity.x)/24.0,0,1))
+	# The painted hull holds the nearest baked bank width (AircraftArt.BANK_KEYS).
+	hull_bank = AircraftArt.bank_key(turn_width)
 	for part in [body_part,propulsion_part]: part.scale = Vector2(body_mirror*turn_width,1)*size
 	weapon_part.scale = Vector2(mirror,1)*size
 	var pitch := clampf(flight_velocity.x*.0006,-.075,.075)
 	if fixed_wing:
 		pitch = clampf(-atan2(flight_velocity.y,maxf(60,absf(flight_velocity.x)))*body_mirror,-.28,.28)
-	body_part.rotation = pitch+sin(age*24)*0.025*(hit_flash/0.2)
+	# A hit knocks the airframe into a short, damped wobble about its rotor
+	# hub (the impact performance adds the push and the roll).
+	var knocked := 0.2-hit_flash if hit_flash > 0.0 else 1.0
+	var wobble := sin(knocked*34.0)*exp(-knocked*8.0)*0.12 if knocked < 0.2 else 0.0
+	if WeaponEffectArt.reduced(game): wobble *= 0.5
+	body_part.rotation = pitch+wobble
 	propulsion_part.rotation = pitch
 	body_part.position = Vector2.ZERO
 	propulsion_part.position = Vector2.ZERO
@@ -390,7 +400,15 @@ func _pose_parts(aim_override: Vector2 = Vector2.INF) -> void:
 		propulsion_part.position = offset
 		body_part.rotation += float(motion.pose.roll)*mirror
 		propulsion_part.rotation += float(motion.pose.roll)*mirror
-	body_part.modulate = Color(1.65,1.5,1.4) if hit_flash>0.1 else Color.WHITE
+	# Authored attitude steps instead of a hull resampled at a new sub-degree
+	# angle every frame (texel shimmer); the weapon keeps its exact aim.
+	body_part.rotation = snappedf(body_part.rotation,SiegeMachine.HULL_TILT_STEP)
+	propulsion_part.rotation = body_part.rotation
+	var quiet_hits := WeaponEffectArt.reduced(game)
+	var flash := SiegeMachine.machine_flash(hit_flash,quiet_hits)
+	for part in [body_part,propulsion_part,weapon_part]:
+		part.modulate = flash
+	body_part.scale *= WeaponEffectArt.hit_pop(hit_flash,quiet_hits)
 	weapon_part.position = body_part.position+Vector2(0,float(profile.body_size.y)*0.34*size)
 	if kind=="heavy_zeppelin": weapon_part.position.x += (-14 if attack_count%2==0 else 14)*mirror*size
 	if str(profile.flavor)=="bomb":
@@ -412,10 +430,10 @@ func _draw_weapon() -> void:
 func _draw() -> void:
 	var size: Vector2 = profile.get("body_size",Vector2(57,34))
 	if shield_active() or shield_flash>0:
-		var color := Color(0.45,0.83,0.96,0.5+shield_flash)
-		for side in [-1,1]:
-			draw_arc(Vector2(side*36,0),48,-PI*0.55 if side>0 else PI*0.45,PI*0.55 if side>0 else PI*1.55,14,color,2)
-	if hp<max_hp or windup>0:
+		preload("res://scripts/threat_overlay.gd").draw_shield(self,shield_flash)
+	# The plain status bar shows damage only; the attack tell is the charging
+	# weapon itself (AircraftArt._charge), not a bar popping up in the sky.
+	if hp<max_hp and not preload("res://scripts/threat_overlay.gd").covers(self):
 		Art.bar(self,Rect2(-size.x*0.45,size.y*0.5+13,size.x*0.9,3),hp/max_hp,Art.RED)
-		if show_status_labels:
+		if show_status_labels and preload("res://scripts/threat_overlay.gd").shows_name(self):
 			Art.text(self,Vector2(-size.x*0.45,size.y*0.5+29),LocaleText.text(str(profile.label)),10,Art.LIGHT)

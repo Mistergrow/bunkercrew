@@ -123,6 +123,11 @@ func run() -> void:
 	var view: Rect2 = weather.get_canvas_transform().affine_inverse()*weather.get_viewport_rect()
 	for point: Vector2 in weather.bolt: points_visible = points_visible and view.has_point(point) and weather.is_outdoors(point)
 	check(points_visible and weather.lightning_branches.size()<=3,"Ambient lightning is visible in the current camera sky with at most three bounded branches")
+	var forks_outdoors: bool = weather.lightning_forks.size() <= weather.lightning_branches.size()
+	for fork: PackedVector2Array in weather.lightning_forks:
+		forks_outdoors = forks_outdoors and fork.size() <= 3
+		for point: Vector2 in fork: forks_outdoors = forks_outdoors and weather.is_outdoors(point)
+	check(forks_outdoors,"Lightning forks stay bounded (one per branch, three points) and under the open sky")
 	check(weather.thunder_delay(Vector2(2500,250))>weather.thunder_delay(game.audio.acoustics.listener_position)+.5,"Distant thunder has a longer travel delay than a nearby strike")
 	var pending: float = weather.thunder_wait
 	check(pending>=.7 and pending<=2.4 and weather.thunder_origin==weather.bolt[-1],"Ambient thunder is queued at the visible bolt endpoint with a bounded delay")

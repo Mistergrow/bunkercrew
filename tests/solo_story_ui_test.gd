@@ -172,7 +172,9 @@ func _network_characters() -> void:
 	for index in range(1,8):
 		await joy(JOY_BUTTON_DPAD_DOWN)
 		check(panel.character_buttons[index].has_focus(),"Lobby D-pad reaches character "+str(index+1))
-	check(panel.character_scroll.scroll_vertical>0 and panel.character_scroll.get_global_rect().encloses(panel.character_buttons[7].get_global_rect()),"Lobby last identity scrolls into view above mission actions")
+	# The whole roster fits its column (no scrollbar); a longer one scrolls.
+	var roster_fits: bool = not panel.character_scroll.get_v_scroll_bar().visible
+	check((roster_fits or panel.character_scroll.scroll_vertical>0) and panel.character_scroll.get_global_rect().encloses(panel.character_buttons[7].get_global_rect()),"Lobby last identity is in view above mission actions")
 	await joy(JOY_BUTTON_DPAD_DOWN)
 	check(panel.leave_button.has_focus() or panel.start_button.has_focus(),"Lobby last identity reaches an available footer action")
 	game.network.active = false

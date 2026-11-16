@@ -1,0 +1,44 @@
+{
+  "asset": "tool_turns.png",
+  "source": "generate_tool_turns.py",
+  "source_sha256": "7417cde76265031cfd3c020dc301f9e17b67c1ca8461aced0d83269a2cc24085",
+  "turn_source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
+  "method": "Original native pixel geometry of the pick (mining_worker_pose.gd) and personal weapons (worker_weapon.gd); pick re-rasterized per attitude, weapons RotSprite-turned. No imported image.",
+  "pick": {
+    "steps": 48,
+    "cell": 112,
+    "centre": [
+      56,
+      56
+    ],
+    "rows": 2,
+    "anchor": "head centre; haft along -x (48 texels), tip at +y"
+  },
+  "guns": {
+    "steps_per_turn": 48,
+    "range": [
+      -13,
+      10
+    ],
+    "cell": 88,
+    "centre": [
+      44,
+      44
+    ],
+    "rows": [
+      "rifle",
+      "shotgun",
+      "arcgun",
+      "veteran_rifle",
+      "breacher_shotgun",
+      "storm_arcgun",
+      "rifle:no_magazine",
+      "veteran_rifle:no_magazine",
+      "arcgun:no_magazine",
+      "storm_arcgun:no_magazine"
+    ],
+    "first_row_y": 224
+  },
+  "sha256": "1321bba9efa61971bef0079d56f8f75f450c0a986f299289e1e4a1500e2d4a04",
+  "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted."
+}

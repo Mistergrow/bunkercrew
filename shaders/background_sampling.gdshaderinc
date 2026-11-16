@@ -4,6 +4,21 @@ uniform float pixel_clarity : hint_range(0.0, 1.0) = 1.0;
 uniform float detail_strength : hint_range(0.0, 1.5) = 1.0;
 uniform float sample_radius : hint_range(1.0, 3.0) = 2.25;
 uniform float contour_strength : hint_range(0.0, 0.4) = 0.22;
+// World texel blocks (style bible §1, rule 5): the plate is sampled once per
+// world unit of its own extent; world_block is the UV size of one unit (zero
+// keeps the screen-pixel sampling of background_uv). ParallaxLandscape keeps
+// the plate origin and size on whole world units, so a block is exactly one
+// world texel on screen, never smaller than a figure's pixel, and scrolling
+// moves whole blocks instead of crawling through them.
+uniform vec2 world_block = vec2(0.0);
+vec2 world_block_uv(vec2 uv) {
+	return (floor(uv / world_block) + .5) * world_block;
+}
+// Prefilter level for a block: one bilinear tap averages the 2x2 source
+// texels under a block up to two texels wide; wider blocks take mip levels.
+float world_block_lod(vec2 texel_size) {
+	return max(0.0, log2(max(world_block.x / texel_size.x, world_block.y / texel_size.y)) - 1.0);
+}
 vec2 background_uv(vec2 uv, vec2 texel_size) {
 	if (pixel_clarity <= 0.0) { return uv; }
 	vec2 pixels = uv / texel_size;

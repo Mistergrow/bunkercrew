@@ -139,7 +139,7 @@ func close() -> void:
 func _draw_report() -> void:
 	var screen: Rect2=SocialUiArt.bounds(hud)
 	draw_rect(screen,Color(.024,.040,.044,.96))
-	UiArt.text(self,Vector2(80,112),"Fehlerbericht",36,UiArt.IVORY,UiArt.TITLE_FONT)
+	UiArt.text(self,Vector2(80,112),"Fehlerbericht",UiArt.TEXT_SIGNAL,UiArt.IVORY,UiArt.TITLE_FONT)
 	UiArt.text(self,Vector2(740,112),Identity.display_text(),15,UiArt.MUTED)
 	var lines:=UiArt.wrap_text("Nur technische Angaben und ein kurzer Zustandsverlauf. Keine Namen, Chattexte, Freundesdaten, Raumcodes oder Netzwerkadressen. Es wird nichts hochgeladen.",1280,17)
 	for index in lines.size(): UiArt.text(self,Vector2(80,162+index*24),lines[index],17,UiArt.MUTED)

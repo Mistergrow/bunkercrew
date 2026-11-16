@@ -511,27 +511,27 @@ func _draw() -> void:
 func _draw_foreground() -> void:
 	SocialArt.reading_shade(decoration, SocialArt.bounds(hud), 540, 760)
 	UiArt.text(decoration,Vector2(140,114),"Freunde & Crew",34,UiArt.IVORY,UiArt.MENU_FONT)
-	UiArt.text(decoration,Vector2(141,143),"Freundescode teilen, Crew finden und gemeinsam loslegen.",12,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(140,188),"Dein Anzeigename",13,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(140,322),"Dein Freundescode",13,UiArt.AMBER)
-	UiArt.text(decoration,Vector2(140,402),"Teile diesen Code mit deinen Freunden.",12,UiArt.MUTED)
-	UiArt.text(decoration,Vector2(140,449),"Neue Freundschaft",13,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(141,145),"Freundescode teilen, Crew finden und gemeinsam loslegen.",UiArt.TEXT_NOTE,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(140,188),"Dein Anzeigename",UiArt.TEXT_NOTE,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(140,322),"Dein Freundescode",UiArt.TEXT_NOTE,UiArt.AMBER)
+	UiArt.text(decoration,Vector2(140,403),"Teile diesen Code mit deinen Freunden.",UiArt.TEXT_BODY,UiArt.MUTED)
+	UiArt.text(decoration,Vector2(140,449),"Neue Freundschaft",UiArt.TEXT_NOTE,UiArt.MUTED)
 	var state := str(social.get("connection_state")) if is_instance_valid(social) else "offline"
 	var status: String = str({"offline":"Freundesdienst ist nicht verbunden.","connecting":"Verbindung zum Freundesdienst wird aufgebaut …","online":"Mit dem Freundesdienst verbunden.","error":"Freundesdienst ist nicht erreichbar."}.get(state,"Freundesdienst ist nicht verbunden."))
 	if not is_instance_valid(social) or str(social.get("server_url")).is_empty(): status = "Trage die Adresse des Freundesdienstes ein und verbinde dich."
 	var detail := _notice
 	if detail.is_empty() and is_instance_valid(social): detail = str(social.error_message)
-	var lines := UiArt.wrap_text(str(status),406,12)
-	for index in mini(2,lines.size()): UiArt.text(decoration,Vector2(140,730+index*18),lines[index],12,UiArt.GREEN if state=="online" else UiArt.MUTED)
-	var notes := UiArt.wrap_text(detail,406,11)
-	for index in mini(2,notes.size()): UiArt.text(decoration,Vector2(140,783+index*16),notes[index],11,UiArt.AMBER)
+	var lines := UiArt.wrap_text(str(status),406,UiArt.TEXT_BODY)
+	for index in mini(2,lines.size()): UiArt.text(decoration,Vector2(140,730+index*18),lines[index],UiArt.TEXT_BODY,UiArt.GREEN if state=="online" else UiArt.MUTED)
+	var notes := UiArt.wrap_text(detail,406,UiArt.TEXT_LABEL)
+	for index in mini(2,notes.size()): UiArt.text(decoration,Vector2(140,783+index*17),notes[index],UiArt.TEXT_LABEL,UiArt.AMBER)
 	if _rows(tab).is_empty():
 		var empty := {"friends":"Noch keine Freunde. Teile deinen Code oder sende eine Anfrage.","requests":"Keine offenen Freundesanfragen.","invitations":"Keine offenen Einladungen.","blocked":"Keine blockierten Personen."}
 		var empty_lines := UiArt.wrap_text(str(empty[tab]),622,16)
 		for index in empty_lines.size(): UiArt.text(decoration,Vector2(610,271+index*25),empty_lines[index],16,UiArt.MUTED)
 	var hint := "Einladungen sind nur aus einem Gastgeber-Raum mit freien Plätzen möglich."
-	var hint_lines := UiArt.wrap_text(hint,700,12)
-	for index in mini(2,hint_lines.size()): UiArt.text(decoration,Vector2(588,783+index*18),hint_lines[index],12,UiArt.MUTED)
+	var hint_lines := UiArt.wrap_text(hint,700,UiArt.TEXT_BODY)
+	for index in mini(2,hint_lines.size()): UiArt.text(decoration,Vector2(588,783+index*18),hint_lines[index],UiArt.TEXT_BODY,UiArt.MUTED)
 
 func refresh_locale() -> void:
 	for control in [name_field,server_field,friend_field,code_field]:

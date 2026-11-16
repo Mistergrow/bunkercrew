@@ -195,7 +195,11 @@ func run() -> void:
 		return
 	print("UI stage: friends")
 	var chat: Control=game.hud.chat_panel
-	check(game.hud.main_menu_panel.friends_button.position==Vector2(552,612),"Friends utility preserves all authored menu coordinates")
+	# The secondary links are packed at their natural widths on one row (pass 5):
+	# Friends follows the third utility on the first link row.
+	var menu_panel: Control=game.hud.main_menu_panel
+	var akte: Button=menu_panel.utility_buttons[2]
+	check(menu_panel.friends_button.position==Vector2(akte.position.x+akte.size.x+menu_panel.LINK_GAP,menu_panel.LINK_ROWS[0]),"Friends utility keeps its place in the authored link row")
 	await press("friends")
 	var panel: Control=game.hud.social_panel
 	panel.bind_social(service)

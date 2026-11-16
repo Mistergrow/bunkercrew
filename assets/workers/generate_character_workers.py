@@ -17,6 +17,8 @@ import generate_workers as rig
 ROOT = Path(__file__).resolve().parent
 IDS = ("mara", "branko", "ivo", "nora", "levin", "selma", "oskar", "rika")
 PARTS = ("body", "arms", "torso", "head", "back_torso", "back_head")
+# Generated from the head/torso pieces above (see turned_sheet).
+TURN_PARTS = ("turns",)
 BASE_PALETTE = rig.C.copy()
 VISUALS = json.loads((ROOT / "character_visuals.json").read_text())
 PROFILES = deepcopy(VISUALS["identities"])
@@ -102,13 +104,13 @@ def _established_head(d, x, y, identity, blink=False, back=False):
 
 
 
-def _established_torso(d, shoulder, hip, identity, back=False):
+def _established_torso(d, shoulder, hip, identity, back=False, pack=True):
     c = rig.C
     x,y = shoulder; hx,hy = hip
     width = PROFILES[identity]["width"]
     left,right = round(-10*width),round(9*width)
     waist = 10 if identity == "branko" else (7 if identity == "ivo" else 8)
-    if not back:
+    if not back and pack:
         # Distinct pack shapes: light belt satchel, broad guard pack, tool roll.
         if identity == "mara":
             rig.polygon(d,[(x-12,y+6),(x-7,y+5),(hx-7,hy+4),(hx-14,hy+4),(x-15,y+10)],c["leather"],c["ink"])
@@ -269,15 +271,15 @@ def _reel(d, x, y, radius=9):
     rig.box(d,x-1,y-1,3,3,"#d1c4a0")
 
 
-def torso(d, shoulder, hip, identity, back=False):
+def torso(d, shoulder, hip, identity, back=False, pack=True):
     if identity in ("mara", "branko", "ivo"):
-        return _established_torso(d,shoulder,hip,identity,back)
+        return _established_torso(d,shoulder,hip,identity,back,pack)
     c=rig.C
     x,y=shoulder; hx,hy=hip
     width=PROFILES[identity]["width"]
     left,right=round(-10*width),round(9*width)
     waist=9 if identity=="oskar" else 8
-    if not back:
+    if not back and pack:
         if identity=="nora":
             rig.polygon(d,[(x-18,y-6),(x-13,y-6),(hx-12,hy+8),(hx-17,hy+8)],c["leather"],c["ink"])
             rig.line(d,(x-16,y-4),(hx-15,hy+5),"#9faeaa",2)
@@ -434,6 +436,125 @@ def worker(state, frame, identity):
     return body,foreground
 
 
+# Turned pieces: the articulated rig leans, bends and lies down. A rotated
+# texture quad at runtime samples the native texels off the pixel grid, so
+# every torso/head attitude the rig can show is authored here instead, in
+# 7.5 degree steps, and drawn upright. Each step is a RotSprite turn of the
+# authored piece (three Scale2x passes, then one sample per native texel); the
+# 0/90/180/270 degree steps are exact. No new colour enters a piece.
+TURN_STEPS = 48
+TURN_CELL = 68
+TURN_ORIGIN = (34, 34)
+BACK_TURNS = 3
+TURN_PIECES = {"torso": (48, 48), "head": (49, 33)}
+# Lying on the back is a quarter turn back (-12 steps); the pad replaces the
+# pack from three steps past it to five before it (supine_torso), which also
+# covers propping up on an elbow.
+SUPINE_STEPS = tuple(range(-15, -6))
+
+
+def _scale2x(pixels, width, height):
+    out = [None] * (width * height * 4)
+    stride = width * 2
+    for y in range(height):
+        row = y * width
+        up = max(y - 1, 0) * width
+        down = min(y + 1, height - 1) * width
+        for x in range(width):
+            centre = pixels[row + x]
+            a, d = pixels[up + x], pixels[down + x]
+            c, b = pixels[row + max(x - 1, 0)], pixels[row + min(x + 1, width - 1)]
+            e1 = e2 = e3 = e4 = centre
+            if c != b and a != d:
+                if c == a: e1 = a
+                if a == b: e2 = b
+                if d == c: e3 = c
+                if b == d: e4 = d
+            at = 2 * y * stride + 2 * x
+            out[at], out[at + 1], out[at + stride], out[at + stride + 1] = e1, e2, e3, e4
+    return out, width * 2, height * 2
+
+
+class _Turnable:
+    """An authored piece prepared once for all of its turned attitudes."""
+    def __init__(self, image, origin):
+        clear = (0, 0, 0, 0)
+        self.size = image.size
+        self.origin = origin
+        rgba = image.convert("RGBA")
+        flat = rgba.get_flattened_data() if hasattr(rgba, "get_flattened_data") else rgba.getdata()
+        self.pixels = [pixel if pixel[3] else clear for pixel in flat]
+        big, width, height = self.pixels, image.size[0], image.size[1]
+        for _ in range(3): big, width, height = _scale2x(big, width, height)
+        self.big, self.big_size = big, (width, height)
+
+
+def turned_piece(piece, step, steps=TURN_STEPS, size=TURN_CELL, centre=TURN_ORIGIN):
+    """One `size` square of the piece turned by step*360/steps about its origin,
+    which lands on `centre`. Also used by tools/bake_infantry_turns.py."""
+    (width, height), origin, source = piece.size, piece.origin, piece.pixels
+    cell = Image.new("RGBA", (size, size))
+    quarter, rest = divmod(step % steps, steps // 4)
+    if rest == 0:
+        # Exact quarter turns: every native texel keeps its own colour.
+        for y in range(size):
+            for x in range(size):
+                px, py = x - centre[0], y - centre[1]
+                for _ in range(quarter): px, py = py, -px - 1
+                u, v = px + origin[0], py + origin[1]
+                if 0 <= u < width and 0 <= v < height and source[v * width + u][3]:
+                    cell.putpixel((x, y), source[v * width + u])
+        return cell
+    pixels, (big_w, big_h) = piece.big, piece.big_size
+    angle = step * 2.0 * 3.141592653589793 / steps
+    c, s = cos(angle), sin(angle)
+    for y in range(size):
+        py = y + 0.5 - centre[1]
+        for x in range(size):
+            px = x + 0.5 - centre[0]
+            u = int((c * px + s * py + origin[0]) * 8 // 1)
+            v = int((-s * px + c * py + origin[1]) * 8 // 1)
+            if 0 <= u < big_w and 0 <= v < big_h:
+                pixel = pixels[v * big_w + u]
+                if pixel[3]: cell.putpixel((x, y), pixel)
+    return cell
+
+
+def supine_torso(identity):
+    """The coat without its pack, as worn lying on the back: the pack is pressed
+    flat under the shoulder blades, a thin leather pad behind the back edge,
+    so a downed worker rests on the floor instead of on a protruding pack."""
+    c = rig.C
+    image = Image.new("RGBA", (rig.CELL, rig.CELL))
+    draw = ImageDraw.Draw(image)
+    x, y = 0, -42
+    hx, hy = 0, -25
+    left = round(-10 * PROFILES[identity]["width"])
+    waist = 10 if identity == "branko" else 8
+    rig.polygon(draw, [(x+left-1, y-2), (x+left-4, y+4), (hx-waist-3, hy-1), (hx-waist, hy+1), (x+left-1, y+7)], c["leather"], c["ink"])
+    rig.line(draw, (x+left-3, y+4), (hx-waist-2, hy-2), c["leather_light"], 1)
+    torso(draw, (x, y), (hx, hy), identity, pack=False)
+    return image
+
+
+def turned_sheet(pieces):
+    """Front torso/head in all TURN_STEPS attitudes; rear pieces for ladder sway;
+    row 3: the supine coat (supine_torso) for the steps near lying flat."""
+    sheet = Image.new("RGBA", (TURN_CELL * TURN_STEPS, TURN_CELL * 4))
+    for row, piece in enumerate(("torso", "head")):
+        prepared = _Turnable(pieces[piece], TURN_PIECES[piece])
+        for step in range(TURN_STEPS):
+            sheet.alpha_composite(turned_piece(prepared, step), (step * TURN_CELL, row * TURN_CELL))
+    for column, piece in enumerate(("back_torso", "back_head")):
+        prepared = _Turnable(pieces[piece], TURN_PIECES[piece.removeprefix("back_")])
+        for index, step in enumerate(range(-BACK_TURNS, BACK_TURNS + 1)):
+            sheet.alpha_composite(turned_piece(prepared, step), ((column * (2 * BACK_TURNS + 1) + index) * TURN_CELL, 2 * TURN_CELL))
+    prepared = _Turnable(pieces["supine"], TURN_PIECES["torso"])
+    for index, step in enumerate(SUPINE_STEPS):
+        sheet.alpha_composite(turned_piece(prepared, step), (index * TURN_CELL, 3 * TURN_CELL))
+    return sheet
+
+
 def main(identities=None, output=None):
     """Rebuild native sprites, preserving pose/anchor files byte-for-byte.
 
@@ -466,6 +587,7 @@ def main(identities=None, output=None):
         bodies.save(destination/f"{identity}_body.png")
         arms.save(destination/f"{identity}_arms.png")
         rig.C = dict(BASE_PALETTE, **PROFILES[identity]["palette"])
+        pieces = {}
         for back in (False,True):
             for piece in ("torso","head"):
                 image = Image.new("RGBA",(rig.CELL,rig.CELL))
@@ -476,13 +598,20 @@ def main(identities=None, output=None):
                     head(draw,1,-57,identity,back=back)
                 name=f"{identity}_{'back_' if back else ''}{piece}.png"
                 image.save(destination/name)
-        names=[f"{identity}_{piece}.png" for piece in PARTS]
+                pieces[f"{'back_' if back else ''}{piece}"] = image
+        pieces["supine"] = supine_torso(identity)
+        turned_sheet(pieces).save(destination/f"{identity}_turns.png")
+        names=[f"{identity}_{piece}.png" for piece in PARTS+TURN_PARTS]
         notice={
             "source":"generate_character_workers.py", "source_sha256":source_hash,
             "rig":"generate_workers.py",
             "method":"Original source-authored pixel geometry; no imported image edits",
             "identity":identity, "states":19, "frames":110, "cell":112,
             "feet_anchor":[48,90], "head_origin":[49,33], "torso_origin":[48,48],
+            "turns":{"asset":f"{identity}_turns.png", "steps":TURN_STEPS, "cell":TURN_CELL, "origin":list(TURN_ORIGIN),
+                     "rows":["torso","head","back_torso/back_head","supine torso"], "back_steps":[-BACK_TURNS,BACK_TURNS],
+                     "supine_steps":[SUPINE_STEPS[0],SUPINE_STEPS[-1]],
+                     "method":"RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"},
             "motion":MOTION[identity], "palette":PROFILES[identity],
             "motion_frames":"character_motion_frames.json", "motion_frames_sha256":pose_hash,
             "assets":names, "sha256":{name:hashlib.sha256((destination/name).read_bytes()).hexdigest() for name in names},
@@ -493,7 +622,9 @@ def main(identities=None, output=None):
         (destination/f"{identity}.source.json").write_text(json.dumps(notice,indent=2)+"\n")
     catalog=deepcopy(VISUALS)
     catalog.update({"source":"generate_character_workers.py", "identities":PROFILES,
-                    "visual_contract":{"view":"side and rear only", "head_origin":[49,33], "torso_origin":[48,48], "parts":list(PARTS)},
+                    "visual_contract":{"view":"side and rear only", "head_origin":[49,33], "torso_origin":[48,48], "parts":list(PARTS),
+                                       "turns":{"steps":TURN_STEPS, "cell":TURN_CELL, "origin":list(TURN_ORIGIN), "back_steps":[-BACK_TURNS,BACK_TURNS],
+                                                "supine_steps":[SUPINE_STEPS[0],SUPINE_STEPS[-1]]}},
                     "source_history":"identities/source-history-20261005.json"})
     (destination/"character_visuals.json").write_text(json.dumps(catalog,indent=2)+"\n")
     print(f"Authored {len(identities)} crew identities / {len(identities)*6} sprites; all 110 original poses preserved")

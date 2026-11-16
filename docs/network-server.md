@@ -301,20 +301,66 @@ Neue Verbindungen haben je Adresse ein Budget von 2 pro Sekunde mit einem
 Startpuffer von 64. Raumbeitritte, Raumerstellung und Wiederverbindungsversuche
 teilen sich 0,2 Anfragen pro Sekunde und einen Puffer von 16. Diese Budgets
 bleiben nach einem Socketwechsel erhalten. IPv6-Adressen werden pro `/64`
-zusammengefasst. Die Tabelle enthält höchstens 4.096 Einträge; ungebundene,
-zehn Minuten unbenutzte Einträge werden entfernt. Ist sie voll, werden neue
-Adressen zunächst abgewiesen.
+zusammengefasst. Die Tabelle enthält höchstens 4.096 Einträge
+(`RELAY_MAX_ADDRESSES`); ungebundene, zehn Minuten unbenutzte Einträge werden
+entfernt. Ist sie voll, verdrängt eine neue Adresse die am längsten unbenutzten
+Einträge ohne offene Verbindung; deren Budgets beginnen danach neu. Nur wenn
+jeder Eintrag eine offene Verbindung hat, wird die neue Adresse mit 503
+abgewiesen. Ab drei Vierteln Füllstand teilen sich bisher unbekannte
+IPv6-Absender ein Budget pro `/48` statt pro `/64`.
+
+Eine Adresse darf höchstens 8 Räume gleichzeitig offen halten
+(`RELAY_MAX_ROOMS_PER_IP`); weitere `host`-Anfragen erhalten `server_full`.
+Ein nie gestarteter Raum, in dem seit 60 Minuten kein Gast sitzt, wird mit
+`room_closed` und `reason:"host_timeout"` geschlossen
+(`RELAY_LOBBY_IDLE_SECONDS`). Für gestartete Räume ohne Gast gilt dieselbe
+Regel nach 12 Stunden (`RELAY_SOLO_ROOM_SECONDS`). Der Wert 0 schaltet die
+jeweilige Frist ab. Räume mit mindestens einem Gastplatz laufen unbegrenzt.
+
+Der Freundesdienst nimmt insgesamt 256 Sitzungen an (`SOCIAL_MAX_SESSIONS`),
+davon höchstens 8 pro Adresse (`SOCIAL_MAX_SESSIONS_PER_IP`). Neue Profile sind
+zusätzlich je Adresse begrenzt: 8 als Startpuffer, danach 4 pro Stunde
+(`SOCIAL_NEW_PROFILE_BURST`, `SOCIAL_NEW_PROFILES_PER_HOUR`). Anmeldungen
+bestehender Profile zählen dabei nicht. Die Datenbank fasst 100.000 Profile
+(`SOCIAL_MAX_PROFILES`) und merkt sich je Profil die letzte Anmeldung:
+
+- Profile ohne Freunde, Anfragen und eigene Sperren werden 30 Tage nach der
+  letzten Anmeldung gelöscht (`SOCIAL_UNUSED_PROFILE_DAYS`).
+- Nur bei voller Tabelle weichen weitere Profile, die am längsten abwesenden
+  zuerst: solche ohne Beziehungen nach einem Tag Abwesenheit, solche mit
+  Freunden erst nach 180 Tagen (`SOCIAL_ACTIVE_PROFILE_DAYS`).
+- Verbundene Profile werden nie gelöscht. Findet sich kein löschbares Profil,
+  erhalten neue Profile `service_unavailable`.
+
+Meldet sich ein gelöschtes Profil mit seinem Schlüssel wieder an, erhält es
+einen neuen Freundescode und eine leere Freundesliste. Eine bestehende
+Datenbank bekommt die Spalte `seen` beim ersten Start automatisch; alle
+vorhandenen Profile gelten dann als an diesem Tag gesehen.
+
+`compose.yaml` reicht `RELAY_MAX_CONNECTIONS_PER_IP`, `RELAY_MAX_ROOMS_PER_IP`,
+`RELAY_LOBBY_IDLE_SECONDS`, `RELAY_MAX_OUTBOUND_BYTES` und
+`SOCIAL_MAX_SESSIONS_PER_IP` aus `server/.env` an den Container weiter. Die
+übrigen Variablen brauchen eine Compose-Override-Datei.
 
 Hinter einem Reverse Proxy erscheint sonst dessen Adresse als Absender.
 `RELAY_TRUSTED_PROXIES` akzeptiert deshalb optional eine kommagetrennte Liste
 exakter Proxy-Adressen oder vertrauenswürdiger CIDR-Netze. Nur von solchen
 Socket-Gegenstellen wird `X-Forwarded-For` ausgewertet, von rechts bis zum
 ersten nicht vertrauenswürdigen Hop. Ohne diese Einstellung bleiben
-Forwarding-Header unbeachtet. Die Variable bei Docker ausdrücklich an den
-Relay-Container weitergeben, beispielsweise durch eine Compose-Override-Datei.
-Keine öffentlichen Clientnetze oder `0.0.0.0/0` als Proxy eintragen. Die
-mitgelieferte Compose-Datei vertraut standardmäßig keinen Proxys; Betreiber
-müssen bei Verwendung von Caddy dessen internes Netz passend konfigurieren.
+Forwarding-Header unbeachtet. Keine öffentlichen Clientnetze oder `0.0.0.0/0`
+als Proxy eintragen.
+
+`server/compose.yaml` setzt die Variable bereits: Ohne eigenen Wert vertraut
+der Relay genau der festen Adresse des mitgelieferten Caddy
+(`RELAY_CADDY_IP`, Standard `172.30.247.3/32`). Mit dem mitgelieferten Caddy
+ist deshalb nichts einzustellen. Läuft stattdessen ein eigener TLS-Proxy auf
+dem Docker-Host und spricht den veröffentlichten Port `127.0.0.1:8765` an,
+sieht der Relay als Gegenstelle das Gateway des Compose-Netzes, also die erste
+Adresse von `RELAY_PROXY_SUBNET`. Dann in `server/.env`
+`RELAY_TRUSTED_PROXIES=172.30.247.1/32` setzen; die Caddy-Adresse wäre hier
+falsch. `server/deploy/vibechain/compose.yaml` ist ein solcher Fall und
+vertraut seinem Gateway `172.31.247.1/32`. Ein nativ gestarteter Relay ohne
+Docker vertraut ohne die Variable keinem Proxy.
 
 ### Relay-Protokoll 1
 
@@ -339,7 +385,16 @@ als ungültig. Ein fehlender Origin bleibt für native Clients zulässig.
 | `status`, `started` (Boolean, nur Host) | `status` an alle Spieler |
 | `ping`, `id` | `pong` mit derselben Kennung |
 | `leave` | `left`; Host schließt zusätzlich den Raum |
-| `kick`, `player_id` (nur Host) | Nur der bezeichnete Gast wird getrennt; dessen Platz und Wiederverbindungstoken werden freigegeben |
+| `kick`, `player_id`, optional `ban` (Boolean; nur Host) | Nur der bezeichnete Gast wird getrennt; dessen Platz und Wiederverbindungstoken werden freigegeben |
+
+Das Spiel sendet `kick` auch bei automatischen Ablehnungen, etwa nach einem
+abgelaufenen Verbindungsaufbau. Ein einzelner `kick` sperrt deshalb nicht. Nach
+dem dritten `kick` derselben Adresse im selben Raum (`RELAY_KICKS_BEFORE_BAN`)
+oder nach einem `kick` mit `"ban":true` erhält diese Adresse (IPv4 oder
+IPv6-`/64`) bei `join` für diesen Raum den Fehler `host_rejected`, bis der Raum
+geschlossen wird. Die Sperre trifft alle Spieler hinter derselben Adresse und
+gilt nicht für Loopback. Der Raum merkt sich höchstens 64 Adressen. Build
+`bunkercrew-net-20` sendet `ban` nicht.
 
 Beim Verbinden erhalten Host und Gast `peer_joined` mit `role`, `name`,
 `resumed` und `player_id`. Vor Binärnachrichten bis 512 KiB steht ein zusätzliches
@@ -354,7 +409,8 @@ Platz. Läuft die Host-Frist ab, erhalten verbundene Gäste `room_closed` mit
 
 `error` enthält `code` und eine deutsche `message`. Häufige Fehler sind
 `invalid_code`, `room_not_found`, `room_full`, `version_mismatch`,
-`host_unavailable`, `resume_expired`, `already_connected` und `server_full`.
+`host_unavailable`, `host_rejected`, `resume_expired`, `already_connected` und
+`server_full`.
 Eine ungültige Anfrage verändert keine bestehende Sitzung.
 
 Pro Verbindung sind dauerhaft 160 Spiel-/Sprachpakete und 2 MiB pro Sekunde erlaubt,
@@ -362,7 +418,7 @@ mit einem kurzen Puffer für 320 Pakete beziehungsweise 4 MiB. Der Host darf 640
 auf 12 pro Sekunde, einen Puffer von 32 und 4 KiB pro Nachricht begrenzt.
 Überschreitungen beenden die Verbindung mit Code 1008; zu große Nachrichten mit
 1009. Langsame Empfänger werden nach zwei Sekunden blockiertem Schreiben
-getrennt. Jeder Empfänger hat eine begrenzte asynchrone Warteschlange mit 64 Nachrichten beziehungsweise vier maximalen Binärnachrichten. Binär- und JSON-Nachrichten teilen dieselbe FIFO-Reihenfolge und denselben Schreiber, damit eine Abbruchmeldung die vorherige Verlassen-Nachricht nicht überholt. Ein langsamer Gast blockiert die übrigen Empfänger nicht. Ungebundene Verbindungen verfallen nach 20 Sekunden.
+getrennt. Jeder Empfänger hat eine begrenzte asynchrone Warteschlange mit 64 Nachrichten beziehungsweise vier maximalen Binärnachrichten (2 MiB). Alle Warteschlangen zusammen dürfen 64 MiB halten (`RELAY_MAX_OUTBOUND_BYTES`). Ist dieses Budget erschöpft, werden verwerfbare Sprachpakete verworfen; für ein zuverlässiges Paket trennt der Relay die Empfänger mit dem größten Rückstau (Code 1013), bis es passt. Ohne das Budget könnten 768 Verbindungen bis zu 1.536 MiB belegen, bei einem Containerlimit von 512 MiB. Nicht vom Budget erfasst sind unvollständig empfangene Nachrichten: aiohttp setzt je Verbindung bis zu 512 KiB zusammen, rechnerisch 384 MiB, wenn alle 768 Verbindungen gleichzeitig mitten in einer Nachricht anhalten. Wer auch diesen Fall abdecken will, senkt `RELAY_MAX_CONNECTIONS` oder erhöht `mem_limit`. Binär- und JSON-Nachrichten teilen dieselbe FIFO-Reihenfolge und denselben Schreiber, damit eine Abbruchmeldung die vorherige Verlassen-Nachricht nicht überholt. Ein langsamer Gast blockiert die übrigen Empfänger nicht. Ungebundene Verbindungen verfallen nach 20 Sekunden.
 WebSocket-Ping/Pong-Kontrollframes teilen das Kontrollbudget. Ein laufender
 Handshake reserviert bereits Kapazität und hat maximal drei Sekunden Zeit.
 
@@ -390,7 +446,9 @@ bleibt für Spielregeln und Fortschritt zuständig.
 Ports und verbindet mehrere unabhängige Clients. Geprüft werden unter anderem
 beidseitige Binärübertragung, Einladungen, Rollen, belegte Räume, Versionen,
 Wiederverbindung, Tokenwechsel, Zeitablauf, Größen- und Ratenlimits, erlaubte
-Ursprünge sowie die Bereinigung geschlossener Räume. Ein Test ersetzt keine
+Ursprünge, die Bereinigung geschlossener Räume, Raumlimits pro Adresse,
+verwaiste Lobbys, das gemeinsame Ausgangsbudget, die Verdrängung in der
+Adresstabelle und die Sperre nach wiederholtem `kick`. Ein Test ersetzt keine
 Verbindungsmessung zwischen zwei Internetanschlüssen.
 
 Zusätzliche lokale Prüfungen:
@@ -414,4 +472,6 @@ Der Sitzungsping erkennt ausgefallene Partner nach fünf Sekunden, während des 
 
 Gäste dekodieren begrenzte Pakete auf einem Worker-Thread und prüfen den Weltzustand vor dem Anwenden. Dauerhaft abgewiesene Snapshots lösen eine Neusynchronisationsanfrage und anschließend eine verständliche Fehlermeldung aus. Der Host erfasst und kodiert einen gemeinsamen Snapshot pro Takt. In der Pause laufen Snapshots und unveränderte Eingaben mit zwei Aktualisierungen pro Sekunde.
 
-Die mitgelieferte Compose-Konfiguration vertraut nur Caddys fester Adresse `172.30.247.3/32` im separaten Netz `172.30.247.0/29`. So gelten Verbindungslimits pro tatsächlicher Client-IP. Bei einem bereits belegten Subnetz können `RELAY_PROXY_SUBNET` und `RELAY_CADDY_IP` gemeinsam angepasst werden; die Proxy-Adresse muss im gewählten Netz liegen. Direkte Clients dürfen keine vertrauenswürdigen Weiterleitungsheader setzen.
+Die mitgelieferte Compose-Konfiguration vertraut ohne eigenes `RELAY_TRUSTED_PROXIES` nur Caddys fester Adresse `172.30.247.3/32` im separaten Netz `172.30.247.0/29`. So gelten Verbindungslimits pro tatsächlicher Client-IP. Bei einem bereits belegten Subnetz können `RELAY_PROXY_SUBNET` und `RELAY_CADDY_IP` gemeinsam angepasst werden; die Proxy-Adresse muss im gewählten Netz liegen. Direkte Clients dürfen keine vertrauenswürdigen Weiterleitungsheader setzen.
+
+Das Image installiert `server/requirements.lock`, die vollständige Abhängigkeitsliste mit Prüfsummen für Python 3.12 (`pip install --require-hashes`). `server/requirements.txt` nennt nur die direkte Abhängigkeit `aiohttp==3.14.5` und bleibt der Weg für den nativen Start. Nach einer Änderung dort die Lock-Datei wie in ihrem Kopfkommentar beschrieben neu erzeugen. Die Basisimages `python:3.12-slim` und `caddy:2.10-alpine` sind zusätzlich per Digest festgelegt; für Sicherheitsupdates der Basisimages Tag und Digest gemeinsam erneuern. Relay und Caddy laufen in `server/compose.yaml` mit schreibgeschütztem Dateisystem, ohne zusätzliche Rechte (Caddy nur mit `NET_BIND_SERVICE`), mit CPU-, Speicher- und Prozesslimit sowie auf 3 × 10 MiB begrenzten Protokollen.

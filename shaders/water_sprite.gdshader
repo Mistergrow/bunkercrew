@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// Painted backdrop: keeps its authored value under world ambient and lamps.
+render_mode unshaded;
 varying vec4 effect_tint;
 void vertex() { effect_tint=COLOR; }
 void fragment() {

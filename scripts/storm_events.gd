@@ -17,6 +17,9 @@ var replica_only := false
 var bolt := PackedVector2Array()
 var branches: Array[PackedVector2Array] = []
 var flash_columns: Array[Rect2] = []
+const LightningArt := preload("res://scripts/lightning_art.gd")
+## The drawn arc of the current strike (LightningArt.rasterise).
+var arc_art: Dictionary = {}
 var thunder_count := 0
 var _thunder_pending := false
 var _thunder_delay := THUNDER_SECONDS
@@ -55,6 +58,7 @@ func reset() -> void:
 	_suppressed = false
 	bolt.clear()
 	branches.clear()
+	arc_art = {}
 	flash_columns.clear()
 	queue_redraw()
 
@@ -121,6 +125,7 @@ func _clear_path(from: Vector2,to: Vector2) -> bool:
 func _rebuild_arc() -> void:
 	bolt.clear()
 	branches.clear()
+	arc_art = {}
 	flash_columns.clear()
 	var random := RandomNumberGenerator.new()
 	random.seed = 291031+serial*7919+target_index*137
@@ -144,6 +149,18 @@ func _rebuild_arc() -> void:
 			path.append(next.round())
 			point = next
 		if path.size()>1: branches.append(path)
+	# The drawn arc: kinked into short steps and rasterised once on the world
+	# texel grid (lightning_art.gd), never a smooth vector polyline.
+	var forks: Array[PackedVector2Array] = []
+	var jagged: Array[PackedVector2Array] = []
+	for branch in branches: jagged.append(LightningArt.jag(branch,random,7.0,2.0))
+	var trunk := LightningArt.jag(bolt,random,9.0,2.0)
+	# The kinks stay off roofs and walls like the arc itself.
+	for step in range(1,trunk.size()):
+		if not _clear_path(trunk[step-1],trunk[step]):
+			trunk = bolt
+			break
+	arc_art = LightningArt.rasterise(trunk,jagged,forks)
 	for x in range(floori(target.x)-112,floori(target.x)+112,8):
 		var top := target.y-110.0
 		var cover: float = minf(weather.rain_surface(float(x)),minf(weather.rain_surface(float(x+4)),weather.rain_surface(float(x+8))))
@@ -214,7 +231,7 @@ func _draw() -> void:
 	if strength<=0.0: return
 	var reduced := bool(weather.get("reduced_effects")) if is_instance_valid(weather) else false
 	if reduced:
-		if age<.16: draw_polyline(bolt,Color(.60,.72,.79,.38*strength),1,false)
+		if age<.16 and not arc_art.is_empty(): draw_texture_rect(arc_art.texture,Rect2(to_local(arc_art.origin),arc_art.size),false,Color(.62,.74,.82,.38*strength))
 		return
 	for rect in flash_columns:
 		var top := rect.position.y
@@ -227,10 +244,8 @@ func _draw() -> void:
 				colors.append(Color(.65,.78,.90,.15*strength*falloff*falloff))
 			draw_polygon(corners,colors)
 			top = bottom
-	draw_polyline(bolt,Color(.38,.61,.79,.15*strength),9,false)
-	draw_polyline(bolt,Color(.61,.78,.89,.40*strength),4,false)
-	draw_polyline(bolt,Color(.91,.96,1.0,.96*strength),1,false)
-	for branch in branches: draw_polyline(branch,Color(.64,.82,.94,.67*strength),1,false)
+	if not arc_art.is_empty(): draw_texture_rect(arc_art.texture,Rect2(to_local(arc_art.origin),arc_art.size),false,Color(1,1,1,strength))
+	# Sparks thrown from the struck crown, single texels stepping outward.
 	for spoke in 7:
 		var direction := Vector2.from_angle(float(spoke)*TAU/7.0)
-		draw_line(target+direction*3,target+direction*(8.0+age*24.0),Color(.88,.92,.77,.74*strength),1,false)
+		LightningArt.stepped_line(self,to_local(target+direction*(3.0+age*14.0)),to_local(target+direction*(8.0+age*24.0)),Color(.88,.92,.77,.74*strength))

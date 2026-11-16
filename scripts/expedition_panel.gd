@@ -4,6 +4,8 @@ extends Control
 ## authoritative request path in solo, local co-op and network play.
 const L := preload("res://scripts/locale_text.gd")
 const MAP_RECT := Rect2(74,185,848,457)
+## Site names on the chart: secondary text, never below the menu note size.
+const MAP_LABEL := UiArt.TEXT_NOTE
 static var LOAD_KINDS: Array[String]:
 	get: return ItemCatalog.cargo_kinds()
 var game
@@ -20,6 +22,7 @@ var refuel_button: Button
 var repair_button: Button
 var garage_button: Button
 var _refresh_clock := 0.0
+var _ring := Vector2(-1,-1)
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -31,18 +34,25 @@ func _ready() -> void:
 	for entry: Dictionary in CampaignCatalog.NODES:
 		var marker := _button("",Rect2(_map_position(entry)-Vector2(19,19),Vector2(38,38)),func(): _choose_route(entry.id))
 		marker.tooltip_text = L.text(entry.title)
+		# The marker paints its own plate and state; only the focus frame is shared.
+		for style_name in ["normal","hover","pressed","disabled"]: marker.add_theme_stylebox_override(style_name,StyleBoxEmpty.new())
+		marker.mouse_entered.connect(marker.queue_redraw)
+		marker.mouse_exited.connect(marker.queue_redraw)
 		marker.draw.connect(func(): _paint_marker(marker,entry))
 		route_buttons[entry.id] = marker
 	for index in 4:
 		var slot := index
 		var button := _button("",Rect2(980,419+index*43,366,37),func(): _choose_stop(slot))
+		# A stop is a choice: the chosen one stays marked (amber rail and type)
+		# even while the route cannot be changed.
+		button.toggle_mode = true
 		stop_buttons.append(button)
 	depart_button = _button("Abfahrt",Rect2(980,638,366,38),_depart)
 	garage_button = _button("Zur Garage · letzter Reisepunkt",Rect2(980,752,366,34),func(): _request("garage"))
 	cargo_selector = OptionButton.new()
 	cargo_selector.position = Vector2(77,717)
 	cargo_selector.size = Vector2(326,38)
-	UiArt.button(cargo_selector,12)
+	UiArt.button(cargo_selector,UiArt.TEXT_BODY)
 	for kind: String in LOAD_KINDS: cargo_selector.add_item(L.text(Balance.RESOURCE_NAMES[kind]))
 	cargo_selector.select(LOAD_KINDS.find(cargo_kind))
 	cargo_selector.item_selected.connect(func(index: int): cargo_kind=LOAD_KINDS[index]; _refresh())
@@ -65,6 +75,14 @@ func _request(action: String, args: Dictionary = {}) -> void:
 	_refresh()
 
 func _process(delta: float) -> void:
+	# The selection ring travels to the chosen site; repaint only while it moves.
+	var entry := CampaignCatalog.node(selected_id)
+	if not entry.is_empty():
+		var target := _map_position(entry)
+		if _ring.x<0.0: _ring = target
+		if not _ring.is_equal_approx(target):
+			_ring = Vector2(UiMotion.approach(_ring.x,target.x,delta,UiMotion.BASE),UiMotion.approach(_ring.y,target.y,delta,UiMotion.BASE))
+			queue_redraw()
 	_refresh_clock += delta
 	if _refresh_clock>=0.3:
 		_refresh_clock = 0.0
@@ -111,8 +129,11 @@ func _refresh() -> void:
 		var claimed: bool = state.expedition.claimed_stops.has(id)
 		var title := "Direkte Route" if index==0 else str(entry.get("title",""))
 		stop_buttons[index].visible = not state.completed.has(selected_id)
-		stop_buttons[index].text = L.text(title).capitalize() + ("  ✓" if chosen or claimed else "")
+		stop_buttons[index].text = L.text(title).capitalize() + ("  ✓" if claimed else "")
 		stop_buttons[index].disabled = not can_manage or not route_selected or claimed or state.completed.has(selected_id)
+		stop_buttons[index].set_pressed_no_signal(chosen)
+		stop_buttons[index].add_theme_color_override("font_color",UiArt.AMBER if chosen else UiArt.IVORY)
+		stop_buttons[index].add_theme_color_override("font_disabled_color",Color(UiArt.AMBER,.8) if chosen else UiArt.TEXT_DISABLED)
 		stop_buttons[index].tooltip_text = L.text("Bereits geborgen") if claimed else L.text(str(entry.get("detail","Ohne Zwischenhalt zur nächsten Basis.")))
 		if not entry.is_empty(): stop_buttons[index].tooltip_text += "\n"+L.format("%d Wachposten · Zusatzbedarf: %d Treibstoff",[entry.guards,entry.extra_fuel])
 	var cost := CampaignCatalog.route_fuel(selected_id,state.expedition.selected_stop,state.expedition.vehicle.upgrades)
@@ -142,10 +163,13 @@ func _refresh() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_rect(Rect2(0,0,1440,900),Color(0.02,0.04,0.04,0.8))
+	# Over the match the HUD curtain dims the scene; the map sheet itself is
+	# opaque, so no word on it shows the match through.
+	if not bool(game.get("started")): draw_rect(Rect2(0,0,1440,900),Color(0.02,0.04,0.04,0.8))
+	draw_rect(Rect2(44,64,1352,777),Color(.024,.040,.044))
 	UiArt.panel(self,Rect2(44,64,1352,777))
 	UiArt.text(self,Vector2(77,112),"KONVOI · EINSATZKARTE",24)
-	UiArt.text(self,Vector2(78,141),"Wähle den nächsten Bunker und einen optionalen Zwischenhalt.",12,UiArt.MUTED)
+	UiArt.text(self,Vector2(78,141),"Wähle den nächsten Bunker und einen optionalen Zwischenhalt.",UiArt.TEXT_BODY,UiArt.MUTED)
 	var state := _state()
 	if state == null: return
 	_draw_chart(state)
@@ -154,14 +178,16 @@ func _draw() -> void:
 	UiArt.divider(self,Vector2(78,682),Vector2(1345,682))
 	var vehicle: Dictionary = state.expedition.vehicle
 	var stats := CampaignCatalog.vehicle_stats(vehicle.upgrades)
-	UiArt.text(self,Vector2(79,705),L.format("LADERAUM  %d / %d",[CampaignCatalog.cargo_count(vehicle.cargo),stats.cargo_capacity]),12,UiArt.AMBER)
-	UiArt.text(self,Vector2(758,706),L.format("PANZERUNG  %d / %d",[int(vehicle.hp),stats.max_hp]),12)
-	UiArt.text(self,Vector2(1054,706),L.format("TREIBSTOFF  %.1f / %d",[float(vehicle.fuel),stats.fuel_capacity]),12)
-	UiArt.text(self,Vector2(79,789),L.format("An Bord: %d · Lager: %d",[int(vehicle.cargo.get(cargo_kind,0)),int(state.expedition.garage_stock.get(cargo_kind,0))]),12,UiArt.MUTED)
-	if not garage_button.visible: UiArt.text(self,Vector2(866,773),"Ladung unterstützt die nächste Basis.",11,UiArt.MUTED)
+	UiArt.text(self,Vector2(79,705),L.format("LADERAUM  %d / %d",[CampaignCatalog.cargo_count(vehicle.cargo),stats.cargo_capacity]),UiArt.TEXT_BODY,UiArt.AMBER)
+	UiArt.text(self,Vector2(758,706),L.format("PANZERUNG  %d / %d",[int(vehicle.hp),stats.max_hp]),UiArt.TEXT_BODY)
+	# Fuel is spent in fractions while driving: whole units read without a
+	# decimal ("12 / 30"); a "12.0" read as "120" in the pixel face.
+	UiArt.text(self,Vector2(1054,706),L.format("TREIBSTOFF  %s / %d",[L.decimal(float(vehicle.fuel)),stats.fuel_capacity]),UiArt.TEXT_BODY)
+	UiArt.text(self,Vector2(79,789),L.format("An Bord: %d · Lager: %d",[int(vehicle.cargo.get(cargo_kind,0)),int(state.expedition.garage_stock.get(cargo_kind,0))]),UiArt.TEXT_NOTE,UiArt.MUTED)
+	if not garage_button.visible: UiArt.text(self,Vector2(866,773),"Ladung unterstützt die nächste Basis.",UiArt.TEXT_NOTE,UiArt.MUTED)
 	if is_instance_valid(game.expedition):
-		var lines := UiArt.wrap_text(game.expedition.status_text(),466,11)
-		for index in mini(lines.size(),2): UiArt.text(self,Vector2(866,807+index*15 if garage_button.visible else 797+index*15),lines[index],11,UiArt.AMBER)
+		var lines := UiArt.wrap_text(game.expedition.status_text(),466,UiArt.TEXT_NOTE)
+		for index in mini(lines.size(),2): UiArt.text(self,Vector2(866,808+index*19 if garage_button.visible else 799+index*19),lines[index],UiArt.TEXT_NOTE,UiArt.AMBER)
 
 func _draw_chart(state: CampaignState) -> void:
 	draw_rect(MAP_RECT,Color("202e2b"))
@@ -178,32 +204,45 @@ func _draw_chart(state: CampaignState) -> void:
 		if str(entry.parent).is_empty(): continue
 		var from := _map_position(CampaignCatalog.node(entry.parent))
 		var to := _map_position(entry)
-		var tint := UiArt.AMBER if selected_id==entry.id else UiArt.GREEN if state.completed.has(entry.id) else Color("58634e")
-		draw_line(from,to,tint,2 if selected_id==entry.id else 1)
+		# Secured legs are solid road, the chosen leg is lit, open legs are dashed.
+		if state.completed.has(entry.id): draw_line(from,to,Color(UiArt.GREEN,0.8),2)
+		elif selected_id==entry.id: draw_line(from,to,UiArt.AMBER,2)
+		else: draw_dashed_line(from,to,Color("7a8670"),2,7.0,false)
+	if _ring.x>=0.0: draw_rect(Rect2(_ring-Vector2(22,22),Vector2(44,44)),UiArt.AMBER,false,2)
 	for entry: Dictionary in CampaignCatalog.NODES:
 		var at := _map_position(entry)
 		var title: String = L.text(entry.title).capitalize()
-		var label_lines := UiArt.wrap_text(title,134,10)
-		var color := UiArt.IVORY if selected_id==entry.id else UiArt.MUTED
+		var label_lines := UiArt.wrap_text(title,150,MAP_LABEL)
+		var color := UiArt.IVORY if selected_id==entry.id else Color("d2d0ba")
 		for index in mini(label_lines.size(),2):
-			UiArt.centered(self,at+Vector2(0,35+index*13),label_lines[index],10,color)
-	UiArt.text(self,Vector2(91,625),"● Gesichert   ◇ Nächstes Ziel",10,UiArt.MUTED)
+			var line: String = label_lines[index]
+			var width := UiArt.FONT.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,MAP_LABEL).x
+			# A small ink backing keeps names legible where a route passes under them.
+			draw_rect(Rect2(at.x-width*0.5-4,at.y+24+index*18,width+8,19),Color(0.07,0.11,0.105))
+			UiArt.centered(self,at+Vector2(0,38+index*18),line,MAP_LABEL,color)
+	# Legend drawn with the same site icons as the chart.
+	var legend := Vector2(91,626)
+	for item: Array in [["bunker","Bunker"],["outpost","Außenposten"],["check","Gesichert"],["lock","Gesperrt"]]:
+		if item[0] in ["check","lock"]: UiArt.icon(self,item[0],legend+Vector2(0,-13),16)
+		else: _site_icon(self,legend+Vector2(0,-12),str(item[0]),UiArt.MUTED,1.0)
+		UiArt.text(self,legend+Vector2(22,0),item[1],UiArt.TEXT_NOTE,UiArt.MUTED)
+		legend.x += 30+UiArt.FONT.get_string_size(L.text(item[1]),HORIZONTAL_ALIGNMENT_LEFT,-1,UiArt.TEXT_NOTE).x+UiArt.SPACE_4
 
 func _draw_details(state: CampaignState) -> void:
 	var entry := CampaignCatalog.node(selected_id)
 	if entry.is_empty(): return
 	var title_lines := UiArt.wrap_text(L.text(entry.title).capitalize(),359,21)
 	for index in mini(title_lines.size(),2): UiArt.text(self,Vector2(982,211+index*27),title_lines[index],21)
-	var detail_lines := UiArt.wrap_text(entry.detail,361,12)
-	for index in mini(detail_lines.size(),4): UiArt.text(self,Vector2(982,278+index*18),detail_lines[index],12,UiArt.MUTED)
+	var detail_lines := UiArt.wrap_text(entry.detail,361,UiArt.TEXT_NOTE)
+	for index in mini(detail_lines.size(),4): UiArt.text(self,Vector2(982,276+index*20),detail_lines[index],UiArt.TEXT_NOTE,UiArt.MUTED)
 	var route := CampaignCatalog.journey(selected_id)
 	if route.is_empty(): return
 	var status := state.route_status(selected_id)
-	UiArt.text(self,Vector2(982,372),status.reason,12,UiArt.GREEN if status.completed else UiArt.AMBER)
+	UiArt.text(self,Vector2(982,372),status.reason,UiArt.TEXT_LABEL,UiArt.GREEN if status.completed else UiArt.AMBER)
 	if status.completed:
-		var revisit_lines := UiArt.wrap_text(L.text("Sicherer Wiederbesuch · Keine neue Schicht oder Belohnung. Nimm Material für offene Crewkontakte mit."),361,12)
-		for index in mini(revisit_lines.size(),4): UiArt.text(self,Vector2(982,425+index*18),revisit_lines[index],12,UiArt.MUTED)
-	if not status.completed: UiArt.text(self,Vector2(982,405),"ZWISCHENHALT",11,UiArt.MUTED)
+		var revisit_lines := UiArt.wrap_text(L.text("Sicherer Wiederbesuch · Keine neue Schicht oder Belohnung. Nimm Material für offene Crewkontakte mit."),361,UiArt.TEXT_NOTE)
+		for index in mini(revisit_lines.size(),4): UiArt.text(self,Vector2(982,425+index*20),revisit_lines[index],UiArt.TEXT_NOTE,UiArt.MUTED)
+	if not status.completed: UiArt.text(self,Vector2(982,406),"ZWISCHENHALT",UiArt.TEXT_LABEL,UiArt.MUTED)
 	var cost := CampaignCatalog.route_fuel(selected_id,state.expedition.selected_stop if selected_id==state.pending_node else "",state.expedition.vehicle.upgrades)
 	var chosen: Dictionary = CampaignCatalog.stop(state.expedition.selected_stop) if selected_id==state.pending_node else {}
 	var reward := L.text("Ohne Zwischenhalt zur nächsten Basis.")
@@ -213,19 +252,40 @@ func _draw_details(state: CampaignState) -> void:
 			"fuel": reward = L.format("+%d Treibstoff · %d Wachposten",[chosen.fuel,chosen.guards])
 			"salvage": reward = L.format("+4 Stahl · +3 Munition · %d Wachposten",chosen.guards)
 			"weapon": reward = L.format("Episch: %s",WorkerWeapon.WEAPONS[str(chosen.weapon)].title)
-	UiArt.text(self,Vector2(982,606),reward,10,UiArt.MUTED)
-	UiArt.text(self,Vector2(982,626),L.format("Reisebedarf: %d Treibstoff",maxi(cost,0)),12,UiArt.AMBER)
+	UiArt.text(self,Vector2(982,606),reward,UiArt.TEXT_NOTE,UiArt.MUTED)
+	UiArt.text(self,Vector2(982,627),L.format("Reisebedarf: %d Treibstoff",maxi(cost,0)),UiArt.TEXT_NOTE,UiArt.AMBER)
 
 func _paint_marker(button: Button, entry: Dictionary) -> void:
 	var state := _state()
 	if state==null: return
-	var tint := UiArt.GREEN if state.completed.has(entry.id) else UiArt.AMBER if state.route_status(entry.id).can_travel else UiArt.MUTED
-	var center := Vector2(19,19)
-	if state.completed.has(entry.id):
-		button.draw_circle(center,6,tint)
-	else:
-		button.draw_polyline(PackedVector2Array([center+Vector2(0,-8),center+Vector2(8,0),center+Vector2(0,8),center+Vector2(-8,0),center+Vector2(0,-8)]),tint,2)
-	if selected_id==entry.id: button.draw_rect(Rect2(2,2,34,34),UiArt.AMBER,false,1)
+	var completed: bool = state.completed.has(entry.id)
+	var reachable: bool = completed or state.route_status(entry.id).can_travel or state.route_status(entry.id).can_unlock
+	var tint := UiArt.GREEN if completed else UiArt.AMBER if reachable else UiArt.MUTED
+	var lit: bool = button.is_hovered() or button.has_focus() or selected_id==entry.id
+	# Site plate: inked frame, state-coloured lower edge, lit when pointed at.
+	button.draw_rect(Rect2(0,0,38,38),UiArt.INK)
+	button.draw_rect(Rect2(1,1,36,36),Color("3a4a41") if lit else Color("2b3832"))
+	button.draw_rect(Rect2(1,1,36,1),Color(0.62,0.66,0.55,0.5 if reachable else 0.22))
+	button.draw_rect(Rect2(1,34,36,3),Color(tint,1.0 if reachable else 0.55))
+	var kind := "home" if str(entry.parent).is_empty() else CampaignCatalog.site_kind(str(entry.id))
+	_site_icon(button,Vector2(8,7),kind,UiArt.IVORY if reachable else Color("8d9080"),2.0)
+	if completed: UiArt.icon(button,"check",Vector2(23,-4),18)
+	elif not reachable: UiArt.icon(button,"lock",Vector2(24,-4),16)
+
+## Site pictogram on an 11x11 unit grid in the icon atlas' manner: a light
+## face, one darker shade and an ink recess. `unit` 2 fills a 22 px cell.
+func _site_icon(target: CanvasItem, at: Vector2, kind: String, tint: Color, unit: float) -> void:
+	var shade := tint.darkened(0.32)
+	var cells: Array = []
+	match kind:
+		"home":
+			cells = [[2,0,1,10,shade],[3,0,6,2,tint],[3,2,5,1,tint],[3,3,3,1,shade],[0,10,6,1,shade]]
+		"outpost":
+			cells = [[5,0,1,7,tint],[3,1,5,1,tint],[2,0,1,2,shade],[8,0,1,2,shade],[4,3,3,1,shade],[3,7,5,1,tint],[2,8,7,3,tint],[2,10,7,1,shade],[5,8,1,2,UiArt.INK]]
+		_:
+			cells = [[3,1,5,1,tint],[2,2,7,1,tint],[1,3,9,1,tint],[0,4,11,7,tint],[0,9,11,2,shade],[2,6,7,1,UiArt.INK],[5,8,1,3,UiArt.INK]]
+	for cell: Array in cells:
+		target.draw_rect(Rect2(at+Vector2(cell[0],cell[1])*unit,Vector2(cell[2],cell[3])*unit),cell[4])
 
 func _map_position(entry: Dictionary) -> Vector2:
 	return MAP_RECT.position+Vector2(10,12)+Vector2(float(entry.map[0])*(MAP_RECT.size.x-20),float(entry.map[1])*(MAP_RECT.size.y-90))
@@ -236,7 +296,7 @@ func _button(title: String, rect: Rect2, callback: Callable) -> Button:
 	button.set_meta("source_text",title)
 	button.position = rect.position
 	button.size = rect.size
-	UiArt.button(button,11)
+	UiArt.button(button,UiArt.TEXT_BODY)
 	button.pressed.connect(callback)
 	add_child(button)
 	return button

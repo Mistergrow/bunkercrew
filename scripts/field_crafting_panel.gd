@@ -19,6 +19,11 @@ var _pending_signature: Array = []
 var _pending_deadline := 0
 var _pending_index := -1
 var _notice := ""
+## Details stay left of the large plan picture (PLAN_RECT, panel space).
+const DETAIL_TEXT_WIDTH := 700.0
+const PLAN_RECT := Rect2(963,389,222,222)
+## The opaque reading sheet (panel space).
+const SHEET_RECT := Rect2(195,145,1050,620)
 
 func _ready() -> void:
 	name = "FieldCraftingPanel"
@@ -63,7 +68,9 @@ func _ready() -> void:
 	detail_canvas.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	detail_canvas.draw.connect(_draw_details)
 	detail_scroll.add_child(detail_canvas)
-	confirm_button = _button("",Rect2(620,673,570,50),_confirm)
+	confirm_button = _button("",Rect2(620,673,565,50),_confirm)
+	# The bench's one action (supply, start, collect) is a real button plate.
+	SocialUiArt.action(confirm_button,19)
 	close_button = _button("Zurück  ·  Esc / B",Rect2(225,673,300,50),hud.close_crafting)
 	get_viewport().size_changed.connect(_layout)
 	_layout()
@@ -90,6 +97,11 @@ func _style_scroll(bar: ScrollBar) -> void:
 		style.content_margin_top = 3
 		style.content_margin_bottom = 3
 		bar.add_theme_stylebox_override(state,style)
+
+## The sheet in HUD canvas space, also while the panel is still rising into
+## place: the HUD backs exactly this rectangle while the sheet fades in.
+func backing_rect() -> Rect2:
+	return Rect2(position+SHEET_RECT.position,SHEET_RECT.size)
 
 func _layout() -> void:
 	var bounds: Rect2 = hud.screen_rect()
@@ -163,8 +175,8 @@ func _refresh() -> void:
 	var locked: String = bench.recipe_lock(player,selected_index)
 	var order: Dictionary = bench.order_view(player,selected_index)
 	var recipe: Dictionary = Workshop.RECIPES[selected_index]
-	var note_lines := UiArt.wrap_text(str(recipe.note),940,16)
-	var titles := UiArt.wrap_text(str(recipe.label),940,23,UiArt.MENU_FONT)
+	var note_lines := UiArt.wrap_text(str(recipe.note),DETAIL_TEXT_WIDTH,17)
+	var titles := UiArt.wrap_text(str(recipe.label),DETAIL_TEXT_WIDTH,23,UiArt.MENU_FONT)
 	var height := 113+maxi(0,titles.size()-1)*29+maxi(0,note_lines.size()-2)*23+maxi(0,recipe.cost.size()-1)*43+32
 	detail_canvas.custom_minimum_size = Vector2(0,maxi(217,height))
 	detail_canvas.queue_redraw()
@@ -217,7 +229,9 @@ func _draw() -> void:
 	if not is_instance_valid(bench) or not is_instance_valid(player): return
 	var bounds: Rect2 = SocialUiArt.bounds(hud)
 	draw_rect(bounds,Color(.01,.015,.018,.25))
-	SocialUiArt.sheet(self,Rect2(195,145,1050,620))
+	# The bench keeps the live match around it in view, but the reading sheet is
+	# opaque: workers and name tags must not show through the plans.
+	SocialUiArt.sheet(self,SHEET_RECT,1.0)
 	UiArt.text(self,Vector2(225,199),"Feldwerkbank",28,UiArt.IVORY,UiArt.TITLE_FONT)
 	UiArt.text(self,Vector2(770,197),L.format("Persönliche Fertigung · Spieler %d",player.player_id),15,UiArt.MUTED)
 	var recipe: Dictionary = Workshop.RECIPES[selected_index]
@@ -230,34 +244,50 @@ func _draw() -> void:
 	if status.is_empty():
 		status = bench.recipe_lock(player,selected_index)
 	if status.is_empty(): status = L.format("Fertigungszeit: %.1f s",float(recipe.time))
-	var lines := UiArt.wrap_text(status,960,16)
-	for index in lines.size(): UiArt.text(self,Vector2(225,620+index*23),lines[index],16,UiArt.AMBER)
-	UiArt.text(self,Vector2(225,750),"Einzahlungen und fertige Aufträge bleiben beim Planwechsel erhalten.",13,UiArt.MUTED)
+	var lines := UiArt.wrap_text(status,DETAIL_TEXT_WIDTH,17)
+	for index in lines.size(): UiArt.text(self,Vector2(225,628+index*23),lines[index],17,UiArt.AMBER)
+	UiArt.text(self,Vector2(225,752),"Einzahlungen und fertige Aufträge bleiben beim Planwechsel erhalten.",UiArt.TEXT_NOTE,UiArt.MUTED)
+	# The chosen plan large beside its details, at whole real pixels per texel
+	# of its art (5x at 1080p), in the same inset slot as the materials: the
+	# bench shows what it is building instead of an empty band.
+	var picture := PLAN_RECT
+	UiArt.slot(self,picture,bool(order.ready))
+	CraftingCatalog.draw_picture(self,selected_index,UiArt.pixel_rect(self,_picture_size(selected_index),picture.grow(-4),true))
 
 func _draw_details() -> void:
 	if not is_instance_valid(bench) or not is_instance_valid(player): return
 	var recipe: Dictionary = Workshop.RECIPES[selected_index]
 	var order: Dictionary = bench.order_view(player,selected_index)
-	var titles := UiArt.wrap_text(str(recipe.label),940,23,UiArt.MENU_FONT)
+	var titles := UiArt.wrap_text(str(recipe.label),DETAIL_TEXT_WIDTH,23,UiArt.MENU_FONT)
 	for index in titles.size(): UiArt.text(detail_canvas,Vector2(0,17+index*29),titles[index],23,UiArt.IVORY,UiArt.MENU_FONT)
 	var title_extra := maxi(0,titles.size()-1)*29
-	var notes := UiArt.wrap_text(str(recipe.note),940,16)
-	for index in notes.size(): UiArt.text(detail_canvas,Vector2(0,49+title_extra+index*23),notes[index],16,UiArt.MUTED)
+	var notes := UiArt.wrap_text(str(recipe.note),DETAIL_TEXT_WIDTH,17)
+	for index in notes.size(): UiArt.text(detail_canvas,Vector2(0,49+title_extra+index*23),notes[index],17,UiArt.IVORY.lerp(UiArt.MUTED,.4))
 	var material_y := 95+title_extra+maxi(0,notes.size()-2)*23
-	UiArt.text(detail_canvas,Vector2(0,material_y),"MATERIAL",12,UiArt.MUTED)
+	UiArt.text(detail_canvas,Vector2(0,material_y),"MATERIAL",UiArt.TEXT_LABEL+1,UiArt.MUTED)
 	var row := 0
 	for kind: String in recipe.cost:
 		var at := Vector2(0,material_y+18+row*43)
-		UiArt.material(detail_canvas,kind,at,28)
-		UiArt.text(detail_canvas,at+Vector2(44,22),Balance.RESOURCE_NAMES.get(kind,kind),18)
+		# Materials sit in the same inset slot as the painted plans above, at a
+		# size where their sprite shading reads instead of thinning to outlines.
+		UiArt.slot(detail_canvas,Rect2(at+Vector2(0,-4),Vector2(42,42)),int(order.materials.get(kind,0))>=int(recipe.cost[kind]))
+		UiArt.material(detail_canvas,kind,at+Vector2(1,-3),40)
+		UiArt.text(detail_canvas,at+Vector2(54,22),Balance.RESOURCE_NAMES.get(kind,kind),18)
 		UiArt.text(detail_canvas,at+Vector2(255,22),L.format("Eingebaut: %d / %d",[int(order.materials.get(kind,0)),int(recipe.cost[kind])]),17,UiArt.GREEN if int(order.materials.get(kind,0))>=int(recipe.cost[kind]) else UiArt.MUTED)
 		UiArt.text(detail_canvas,at+Vector2(510,22),L.format("Bei dir: %d",int(player.inventory.get(kind,0))),17,UiArt.MUTED)
 		row += 1
 
 func _draw_recipe(button: Button,index: int) -> void:
 	var recipe: Dictionary = Workshop.RECIPES[index]
-	CraftingCatalog.draw_picture(button,index,Rect2(42,0,100,100))
+	# Whole real pixels per texel (2x at 1080p), standing on the label.
+	CraftingCatalog.draw_picture(button,index,UiArt.pixel_rect(button,_picture_size(index),Rect2(42,0,100,100)))
 	var tint := UiArt.AMBER if index==selected_index or button.has_focus() else UiArt.IVORY
 	var labels := UiArt.wrap_text(str(recipe.label),172,16)
 	for row in mini(2,labels.size()): UiArt.centered(button,Vector2(92,111 if labels.size()==1 else 101+row*17),labels[row],16,tint)
 	if index==selected_index: button.draw_line(Vector2(12,123),Vector2(172,123),Color(UiArt.AMBER,.75),1)
+
+## Source size of a plan's picture in texels.
+func _picture_size(index: int) -> Vector2:
+	var entry := CraftingCatalog.recipe(index)
+	if entry.is_empty() or not entry.get("art") is Dictionary: return Vector2(50,50)
+	return ItemCatalog.region(entry.art.region).size

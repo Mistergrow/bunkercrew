@@ -2,9 +2,21 @@ class_name ExcavationRoomArt
 extends RefCounted
 ## Construction layers use the same cutaway, piers and materials as paid rooms.
 ## Real MineBlock nodes cover the backing until their earth is actually removed.
-const ROCK := preload("res://assets/rock.png")
+const ROCK_PATH := "res://assets/rock.png"
+const ROCK_REGION := Rect2(0, 0, 1254, 1254)
 const Surface := preload("res://scripts/station_surface_art.gd")
 const PERIOD := 480.0
+## Lip, shade and lamp pools of an open dig, cached per rect and lamp layout.
+static var _depth_cache: Dictionary = {}
+const LIP_ROCK := [Color("2b2a24"), Color("4a463b"), Color("6a6250"), Color("8e8064")]
+const POOL := Color(1.0, 0.70, 0.36)
+const BAYER := [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5]
+
+## The rock face at one texel per world unit (its offline bake, see
+## tools/world_density_bake.json); the 1254 px source only as a fallback.
+static func rock_texture() -> Texture2D:
+	var baked := WorldTexels.texture(ROCK_PATH, ROCK_REGION, Vector2i(roundi(PERIOD), roundi(PERIOD)))
+	return baked if baked != null else load(ROCK_PATH) as Texture2D
 
 static func draw_room(node: Node2D, bunker: Node, index: int, elapsed: float, rear_shift: Vector2) -> void:
 	var rect: Rect2 = bunker.raw_rect(index)
@@ -21,12 +33,18 @@ static func draw_room(node: Node2D, bunker: Node, index: int, elapsed: float, re
 		return
 	node.draw_rect(rear, Color("141d1b"))
 	_draw_rock(node, rear, Color("65705e"))
+	# Depth of the dig: a broken rock lip instead of a straight cut, the lip's
+	# shadow and a floor that sinks into the dark, and warm pools around the
+	# work lamp and the cable bulbs (D17).
+	var work_lamp := Vector2(rect.position.x + 87, rear.position.y + 19)
+	_draw_depth(node, rear, rect, work_lamp)
 	# The roof is a fractured geological edge, without a rectangular ore inset.
 	_draw_ceiling(node, rear)
 	_draw_soil_footing(node, rear)
 	# One work light follows the access shaft. Permanent lights and service pipes
 	# are installed with the room, rather than appearing in unexcavated earth.
-	ScenarioBunkerArt.draw_work_lamp(node, Vector2(rect.position.x + 87, rear.position.y + 19), rect.end.y - 4, elapsed)
+	ScenarioBunkerArt.draw_work_lamp(node, work_lamp, rect.end.y - 4, elapsed)
+	_draw_festoon(node, rect)
 	if construction > 0.0:
 		_draw_wall_installation(node, rect, str(bunker.build_type), construction, rear_shift)
 	if supported or assembly > 0.0:
@@ -34,8 +52,46 @@ static func draw_room(node: Node2D, bunker: Node, index: int, elapsed: float, re
 	elif is_instance_valid(site) and not site.support_materials.is_empty():
 		_draw_material_stack(node, Vector2(rect.position.x + 135, rect.end.y), int(site.support_materials.get("steel", 0)))
 
+## Bulbs of the temporary cable run strung from the shaft across an open
+## excavation, in world space (WorldLighting gives them their glow).
+const FESTOON := [.16, .40, .64, .88]
+static func festoon_points(rect: Rect2) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var left := rect.position.x + 104.0
+	var right := rect.end.x - 26.0
+	for share: float in FESTOON:
+		var x := roundf(lerpf(left, right, share))
+		# The cable sags between its three hooks; bulbs hang below it.
+		var sag := roundf(sin(fposmod(share * 3.0, 1.0) * PI) * 6.0)
+		points.append(Vector2(x, rect.position.y + 40.0 + sag + 5.0))
+	return points
+
+## A sagging work cable with caged bulbs over the unexcavated face, so the
+## dig reads as a lit, worked site instead of a black box.
+static func _draw_festoon(node: Node2D, rect: Rect2) -> void:
+	var left := rect.position.x + 104.0
+	var right := rect.end.x - 26.0
+	var top := rect.position.y + 40.0
+	var hooks := 3
+	for hook in hooks:
+		var from := lerpf(left, right, float(hook) / float(hooks))
+		var to := lerpf(left, right, float(hook + 1) / float(hooks))
+		var steps := int((to - from) / 4.0)
+		for step in steps:
+			var t := float(step) / float(steps)
+			node.draw_rect(Rect2(roundf(from + float(step) * 4.0), roundf(top + sin(t * PI) * 6.0), 4, 1), Color("1d211c"))
+		node.draw_rect(Rect2(roundf(from) - 1, top - 2, 3, 3), Color("4e5144"))
+	node.draw_rect(Rect2(roundf(right) - 1, top - 2, 3, 3), Color("4e5144"))
+	for point in festoon_points(rect):
+		node.draw_rect(Rect2(point.x, point.y - 5, 1, 4), Color("1d211c"))
+		node.draw_rect(Rect2(point.x - 1, point.y - 1, 3, 4), Color("ffd890"))
+		node.draw_rect(Rect2(point.x, point.y, 1, 2), Color("fff6dc"))
+		node.draw_rect(Rect2(point.x - 2, point.y - 2, 5, 1), Color("3c4036"))
+		node.draw_rect(Rect2(point.x - 2, point.y + 3, 5, 1), Color("3c4036"))
+
 static func _draw_rock(node: Node2D, rect: Rect2, tint: Color) -> void:
-	var ratio := ROCK.get_size() / PERIOD
+	var rock := rock_texture()
+	var ratio := rock.get_size() / PERIOD
 	var y := rect.position.y
 	while y < rect.end.y - 0.01:
 		var source_y := fposmod(y, PERIOD)
@@ -44,13 +100,74 @@ static func _draw_rock(node: Node2D, rect: Rect2, tint: Color) -> void:
 		while x < rect.end.x - 0.01:
 			var source_x := fposmod(x, PERIOD)
 			var width := minf(rect.end.x - x, PERIOD - source_x)
-			node.draw_texture_rect_region(ROCK, Rect2(x, y, width, height), Rect2(Vector2(source_x, source_y) * ratio, Vector2(width, height) * ratio), tint)
+			node.draw_texture_rect_region(rock, Rect2(x, y, width, height), Rect2(Vector2(source_x, source_y) * ratio, Vector2(width, height) * ratio), tint)
 			x += width
 		y += height
 	# Recessed rock remains readable in an excavated bay without competing with
 	# the opaque working face drawn by real cells in front of it.
 	node.draw_rect(rect, Color(0.025, 0.04, 0.035, 0.37))
 	node.draw_rect(Rect2(rect.position, Vector2(rect.size.x, 12)), Color(0.015, 0.025, 0.02, 0.35))
+
+static func _draw_depth(node: Node2D, rear: Rect2, rect: Rect2, work_lamp: Vector2) -> void:
+	var origin := rear.position.round()
+	var size := Vector2i(rear.size.round())
+	var lamps: Array[Vector3] = [Vector3(work_lamp.x - origin.x, work_lamp.y - origin.y + 8.0, 62.0)]
+	for bulb in festoon_points(rect):
+		lamps.append(Vector3(bulb.x - origin.x, bulb.y - origin.y + 2.0, 42.0))
+	var key := "%s|%s" % [size, lamps]
+	if not _depth_cache.has(key):
+		_depth_cache[key] = _depth_texture(size, lamps)
+	node.draw_texture(_depth_cache[key], origin)
+
+## Whole texels only. The jagged lip of rock teeth (5 texels a step, 3-11 deep)
+## overhangs the dig on both sides; its inner rim catches the lamps, the void
+## beside it keeps a dark crack. Shade (lip shadow, deeper floor) and light
+## (lamp pools) are stepped by a 4x4 ordered dither, never a smooth ramp.
+static func _depth_texture(size: Vector2i, lamps: Array[Vector3]) -> ImageTexture:
+	var light := PackedFloat32Array()
+	light.resize(size.x * size.y)
+	for lamp in lamps:
+		var radius := lamp.z
+		for y in range(maxi(0, floori(lamp.y - radius)), mini(size.y, ceili(lamp.y + radius * 1.2))):
+			for x in range(maxi(0, floori(lamp.x - radius * 1.4)), mini(size.x, ceili(lamp.x + radius * 1.4))):
+				# Pools spread along the rock more than they fall.
+				var reach := Vector2((x - lamp.x) / 1.4, (y - lamp.y) * (1.0 if y < lamp.y else .85)).length() / radius
+				if reach < 1.0:
+					light[y * size.x + x] += (1.0 - reach) * (1.0 - reach) * (1.1 if radius > 50.0 else .9)
+	var lip_left := _lip_depths(size.y, 3)
+	var lip_right := _lip_depths(size.y, 11)
+	var image := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
+	for y in size.y:
+		var floor_shade := smoothstep(.45, 1.0, float(y) / float(size.y)) * .34
+		for x in size.x:
+			var lit := light[y * size.x + x]
+			var left := lip_left[y]
+			var right := size.x - lip_right[y]
+			if x < left or x >= right:
+				# Rock lip: darker toward the room edge, its inner rim lit.
+				var rim := x == left - 1 or x == right
+				var top := y > 0 and ((x < left and x >= lip_left[y - 1]) or (x >= right and x < size.x - lip_right[y - 1]))
+				var tone := 1 + (1 if rim or top else 0) + (1 if lit > .25 and (rim or top) else 0)
+				image.set_pixel(x, y, LIP_ROCK[mini(tone, 3)])
+				continue
+			var edge := mini(mini(x - left, right - 1 - x), y)
+			var shade := floor_shade + (.42 if edge == 0 else maxf(0.0, .30 - .05 * edge))
+			var value := lit * .8 - shade
+			var level := floorf(value * 6.0 + float(BAYER[(y % 4) * 4 + x % 4]) / 16.0) / 6.0
+			if level < 0.0:
+				image.set_pixel(x, y, Color(0.008, 0.012, 0.01, minf(-level, .62)))
+			elif level > 0.0:
+				image.set_pixel(x, y, Color(POOL, minf(level, .55)))
+	return ImageTexture.create_from_image(image)
+
+## Depth of the rock lip for each row: chunky teeth of five texels, 3-11 deep.
+static func _lip_depths(rows: int, salt: int) -> PackedInt32Array:
+	var depths := PackedInt32Array()
+	depths.resize(rows)
+	for y in rows:
+		var chunk := floori(y / 5.0)
+		depths[y] = 3 + posmod(chunk * 37 + salt * 11 + (chunk * chunk) % 7, 9)
+	return depths
 
 static func _draw_ceiling(node: Node2D, rect: Rect2) -> void:
 	var rng := RandomNumberGenerator.new()

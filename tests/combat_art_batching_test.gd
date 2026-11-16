@@ -16,6 +16,11 @@ class Cached extends Node2D:
 						var at := Vector2(index%Atlas.COLUMNS,floori(float(index)/Atlas.COLUMNS))*Atlas.SIZE+Atlas.origin(part)
 						Atlas.draw_part(self,Transform2D(0,at),part,kind,slot,sway)
 
+## The v2 atlas file itself, for Atlas.draw_part to reproduce tile by tile.
+class Authored extends Node2D:
+	func _draw() -> void:
+		draw_texture(load(Atlas.PATH),Vector2.ZERO)
+
 class Rectangles extends Node2D:
 	var original := false
 	func _draw() -> void:
@@ -41,27 +46,42 @@ func view(node: Node2D, size: Vector2i) -> SubViewport:
 	result.add_child(node)
 	return result
 func run() -> void:
-	if DisplayServer.get_name()=="headless":quit(2);return
-	var metadata = JSON.parse_string(FileAccess.get_file_as_string("res://assets/enemies/infantry_parts_v1.source.json"))
+	if DisplayServer.get_name()=="headless":
+		# Exit code 2 is "not run", never a pass: the comparison needs real pixels.
+		printerr("COMBAT ART BATCHING: not run, the headless display has no renderer")
+		quit(2);return
+	var metadata = JSON.parse_string(FileAccess.get_file_as_string(Atlas.LEGACY_PATH.get_basename()+".source.json"))
 	for path: String in metadata.source_sha256:
-		check(FileAccess.get_sha256("res://"+path)==metadata.source_sha256[path],"Atlas provenance matches "+path)
+		check(FileAccess.get_sha256("res://"+path)==metadata.source_sha256[path],"Legacy atlas provenance matches "+path)
+	var authored = JSON.parse_string(FileAccess.get_file_as_string(Atlas.PATH.get_basename()+".source.json"))
+	check(FileAccess.get_sha256(Atlas.PATH)==authored.sha256,"Hand-pixelled v2 atlas matches its provenance")
+	for path: String in authored.source_sha256:
+		check(FileAccess.get_sha256("res://"+path)==authored.source_sha256[path],"v2 atlas provenance matches "+path)
 	var source := view(Bake.Sheet.new(),Vector2i(1024,1024))
 	var cached := view(Cached.new(),Vector2i(1024,1024))
+	var sheet := view(Authored.new(),Vector2i(1024,1024))
 	for frame in 4:await RenderingServer.frame_post_draw
-	var expected := source.get_texture().get_image()
-	var actual := cached.get_texture().get_image()
-	var changed := 0
-	var visible := 0
-	for y in 1024:
-		for x in 1024:
-			var a := actual.get_pixel(x,y)
-			var b := expected.get_pixel(x,y)
-			if b.a>.01: visible+=1
-			if absf(a.r-b.r)+absf(a.g-b.g)+absf(a.b-b.b)+absf(a.a-b.a)>.02:changed+=1
-	check(visible>15000 and changed<visible*.005,"All 252 native parts match the source drawing (changed %d / visible %d)"%[changed,visible])
-	DirAccess.make_dir_recursive_absolute("res://artifacts/combat-performance")
-	actual.save_png("res://artifacts/combat-performance/infantry-atlas-check.png")
-	source.free();cached.free()
+	# v1 file on the CPU (as baked) against the live procedural drawing; the
+	# v2 file drawn whole against Atlas.draw_part tile by tile.
+	var legacy := Image.load_from_file(ProjectSettings.globalize_path(Atlas.LEGACY_PATH))
+	legacy.convert(Image.FORMAT_RGBA8)
+	var pairs := [[source,legacy,.005,"All 252 v1 parts still match the procedural source drawing"],[cached,sheet,0.0,"Atlas.draw_part places all 252 hand-pixelled v2 parts exactly"]]
+	for pair: Array in pairs:
+		var actual: Image = pair[0].get_texture().get_image()
+		var expected: Image = pair[1] if pair[1] is Image else pair[1].get_texture().get_image()
+		var changed := 0
+		var visible := 0
+		for y in 1024:
+			for x in 1024:
+				var a := actual.get_pixel(x,y)
+				var b := expected.get_pixel(x,y)
+				if b.a>.01: visible+=1
+				if absf(a.r-b.r)+absf(a.g-b.g)+absf(a.b-b.b)+absf(a.a-b.a)>.02:changed+=1
+		check(visible>15000 and changed<=visible*float(pair[2]),"%s (changed %d / visible %d on %s)"%[pair[3],changed,visible,RenderingServer.get_video_adapter_name()])
+		if pair[0]==cached:
+			DirAccess.make_dir_recursive_absolute("res://artifacts/combat-performance")
+			actual.save_png("res://artifacts/combat-performance/infantry-atlas-check.png")
+	source.free();cached.free();sheet.free()
 	var original := Rectangles.new()
 	original.original=true
 	var reference := view(original,Vector2i(500,500))

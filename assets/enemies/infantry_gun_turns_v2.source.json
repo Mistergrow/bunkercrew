@@ -1,0 +1,54 @@
+{
+  "asset": "infantry_gun_turns_v2.png",
+  "generator": "tools/bake_infantry_turns_v2.py",
+  "method": "RotSprite turns (3x Scale2x, one sample per native texel; quarter turns exact) of the hand-pixelled v2 field-kit parts. No new colour or shape.",
+  "license": "Original Bunkercrew project art.",
+  "steps_per_turn": 48,
+  "steps": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "cell": 104,
+  "centre": [
+    52,
+    52
+  ],
+  "roles": [
+    "rifle_guard",
+    "grenadier",
+    "scout",
+    "heavy_gunner",
+    "marksman",
+    "combat_medic"
+  ],
+  "size": [
+    2184,
+    624
+  ],
+  "source_sha256": {
+    "assets/enemies/infantry_parts_v2.png": "4c25c26e1c31650b60730f4cae9f7c2e626e9516715f7287f55f843028b896ad",
+    "tools/bake_infantry_turns_v2.py": "16b51f9566a705875ce332f9443a2b3da01895a8575cb39a4cd8eccfb3f28217",
+    "tools/bake_infantry_turns.py": "0bae60db05c8123ea6f01923e82fee2715612dbe7e32faa0a42c1570aad32193",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "8f987c36799f1bca46a17d165d3fba13f095f2086b3a7afe656f5b6cc0f63276"
+}

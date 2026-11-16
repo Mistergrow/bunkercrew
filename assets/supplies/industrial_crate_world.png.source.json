@@ -1,0 +1,37 @@
+{
+ "asset": "industrial_crate_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution",
+ "sources": [
+  {
+   "file": "assets/supplies/industrial_crate.png",
+   "sha256": "89749a26037bbdb6c5a9361a62014b3dd75e4bb6a0a365cd487850e51e7c2ac2"
+  }
+ ],
+ "params": {
+  "palette": 20,
+  "alpha": 0.45,
+  "sharpen": 0.5,
+  "orphan": 0.07,
+  "contour": 0.8
+ },
+ "ink": "#151b1e",
+ "size": [
+  64,
+  38
+ ],
+ "items": [
+  {
+   "name": "supply_crate",
+   "key": "res://assets/supplies/industrial_crate.png|296,192,969,622|58x38",
+   "region": [
+    0,
+    0,
+    58,
+    38
+   ]
+  }
+ ]
+}

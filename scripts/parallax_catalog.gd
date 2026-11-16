@@ -23,6 +23,14 @@ const PROFILES := {
 	"radar_highlands":{"mist":"#9697c5","opacity":.085,"lights":.8},
 	"buried_megafactory":{"mist":"#bc927d","opacity":.075,"lights":0.0},
 }
+## Smoke and steam over the stacks painted on a world's nearest plate
+## (landmarks), hand-placed on the plate's own source pixels (1672x941) after
+## inspecting it: [x, y, kind], kind 0 a chimney's smoke, 1 a cooling
+## tower's steam. ParallaxLandscape draws them; reduced effects freezes them.
+const STACKS := {
+	"ash_foundry":[[156,366,0],[202,432,0],[334,414,0],[1040,484,0],[1162,506,1],[1304,494,1],[1408,484,0],[1546,424,0]],
+	"sulfur_refinery":[[232,480,0],[746,436,0],[1054,452,0],[1132,414,0],[1356,310,0],[1416,310,0],[1574,426,0]],
+}
 static var _environments: Dictionary = {}
 
 static func _environment(id: String) -> Dictionary:

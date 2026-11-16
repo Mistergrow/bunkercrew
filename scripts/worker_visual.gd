@@ -12,6 +12,7 @@ const Personality := preload("res://scripts/worker_personality.gd")
 const Locomotion := preload("res://scripts/worker_locomotion.gd")
 const RhythmPose := preload("res://scripts/worker_rhythm_pose.gd")
 const RhythmPresentation := preload("res://scripts/rhythm_presentation.gd")
+const Keys := preload("res://scripts/worker_motion_keys.gd")
 ## Continuous articulated movement with native pixel clothes and equipment.
 ## Action frame metadata remains independent from the presentation rig.
 
@@ -59,6 +60,24 @@ var _limp_step := 0.0
 var _limp_lower := false
 var _identity: Node2D
 var _character_id := ""
+var _last_shield := 0.0
+var _shield_grant := 0.0
+## Tending a running production machine in focus (WorkerMotionKeys.TEND_KEYS).
+var _tending := false
+var _tend_time := 0.0
+## The look-ahead clearance probe met a wall or gate panel, not a lintel.
+var _wall_ahead := false
+## Standing special poses that take the authored hit keys on top.
+const STANDING_GESTURES := ["guard", "limp"]
+## Aid on a downed patient: the authored kneel beside the body
+## (WorkerMotionKeys.aid_pose), drawn behind the patient, then the rise;
+## bandaging a patient on their feet is done standing (treat_pose).
+const AID_KNEEL := ["aid_revive", "aid_resuscitate"]
+const AID_STANDING := ["aid_bandage"]
+var _aid_time := 0.0
+var _aid_offset := 0.0
+## Seconds into the rise after a revival; negative while there is none.
+var _aid_rise := -1.0
 
 
 func _ready() -> void:
@@ -70,6 +89,9 @@ func _ready() -> void:
 	_equipment_anchors = _armor_metadata
 	assert(not _frames.is_empty(), "Worker animation frame metadata missing")
 	_select_identity()
+	# This visual ticks the rig's hit clock every frame, also while a medical
+	# or gesture pose replaces locomotion.
+	locomotion.external_hit = true
 	_identity=Node2D.new()
 	_identity.name="WorkerIdentity"
 	_identity.draw.connect(_draw_identity)
@@ -116,6 +138,7 @@ func _physics_process(delta: float) -> void:
 		query.hit_from_inside = true
 		var space := worker.get_world_2d().direct_space_state
 		var contact := space.intersect_ray(query)
+		_wall_ahead = false
 		if absf(worker.velocity.x)>15.0:
 			# Begin ducking before the head enters the overhang. The movement
 			# collider and input stay unchanged; this is only an art clearance probe.
@@ -124,6 +147,7 @@ func _physics_process(delta: float) -> void:
 			query.to+=ahead
 			var approaching := space.intersect_ray(query)
 			if not approaching.is_empty() and (contact.is_empty() or float(approaching.position.y)>float(contact.position.y)):
+				_wall_ahead = contact.is_empty() and _reaches_floor(space, query)
 				contact=approaching
 		crouched = not contact.is_empty()
 		ceiling_height = worker.global_position.y-float(contact.position.y) if crouched else 128.0
@@ -134,12 +158,28 @@ func _process(delta: float) -> void:
 		return
 	_select_identity()
 	_time += delta
-	if "hurt_flash" in worker and worker.hurt_flash > 0.0:
-		modulate = Color(1.0,0.42,0.30)
+	locomotion.hit.tick(worker, delta)
+	var hurt: float = worker.hurt_flash if "hurt_flash" in worker else 0.0
+	# A hit reads as a red silhouette rim over a light red cast that keeps the
+	# sprite's detail, not a solid red figure (actor_wet.gdshader `struck`).
+	WeaponEffectArt.strike(self,hurt-.02,WeaponEffectArt.reduced(worker.get("game")),WeaponEffectArt.HURT_RIM,false)
+	# The replicated invulnerability timer: a fresh grant longer than the hit
+	# i-frames is the revive shield. The figure always stays opaque: a
+	# translucent blink let the layered body parts and the scenery show
+	# through each other and read as a green double image after every hit.
+	var shield: float = float(worker.invulnerability) if "invulnerability" in worker else 0.0
+	if shield > _last_shield + .05: _shield_grant = shield
+	_last_shield = shield
+	if hurt > 0.0:
+		modulate = Color(1.0,0.90,0.86)
 	elif worker.has_method("is_downed") and worker.is_downed():
 		modulate = Color(0.66,0.69,0.66)
-	elif "invulnerability" in worker and worker.invulnerability > 0.0:
-		modulate = Color(0.70,0.90,1.0,0.65) if int(_time*4)%2==0 else Color.WHITE
+	elif shield > 0.0 and _shield_grant > Balance.WORKER_IFRAMES + .05:
+		# Revive shield: a cool tint that breathes slowly (0.8 Hz, no flicker),
+		# held still with reduced effects. Hit i-frames show nothing extra: the
+		# hit reads as the short flash and the knockback.
+		var breath := 0.5 if WeaponEffectArt.reduced(worker.get("game")) else 0.5-0.5*cos(_time*TAU*.8)
+		modulate = Color.WHITE.lerp(Color(0.78,0.90,1.0),0.3+0.35*breath)
 	else:
 		modulate = Color.WHITE
 	var next_pose := _choose_pose()
@@ -196,7 +236,7 @@ func _process(delta: float) -> void:
 	locomotion_pose = {}
 	work_pose = {}
 	if special_pose.is_empty() and mining_pose.is_empty() and not _limp_lower and Locomotion.supports(pose_name):
-		if ((previous_pose.has("dance_style") or previous_pose.has("head_pivot")) and not (_safe_idle or _safe_carry_idle)) or (previous_pose.has("work_action") and pose_name!="work"):
+		if ((previous_pose.has("dance_style") or previous_pose.has("head_pivot")) and not (_safe_idle or _safe_carry_idle)) or (previous_pose.has("work_action") and pose_name!="work" and not _tending):
 			# Locomotion normally remembers its stance before cosmetic dance is
 			# applied. Start its existing short transition at the painted joints
 			# when an action interrupts floor work, rather than snapping upright.
@@ -205,6 +245,9 @@ func _process(delta: float) -> void:
 		var locomotion_state := pose_name
 		if pose_name=="work" and absf(worker.velocity.x)>15.0:
 			locomotion_state = "crouch_walk" if crouched else "carry_walk" if worker.carried_count()>0 else "walk"
+		elif pose_name=="work" and _idle_aid_focus():
+			# A held button on a crew mate who needs no more help is no work.
+			locomotion_state = "idle"
 		locomotion_pose = locomotion.advance(worker, locomotion_state, delta, not weapon_pose().is_empty(), self)
 		if locomotion_pose.has("cargo"):
 			locomotion_pose.cargo_kind = worker.last_transfer_kind if pose_name=="drop" else worker.selected_material()
@@ -214,6 +257,17 @@ func _process(delta: float) -> void:
 			work_pose = WorkPose.sample(worker,worker.focus,crouched,locomotion_pose)
 			if not work_pose.is_empty():
 				locomotion_pose = work_pose
+		elif _tending:
+			# A worker idling at the running machine in focus tends it: the
+			# authored mallet knocks and drum watch, eased in from the stance.
+			var before := _tend_time
+			_tend_time += delta
+			var tend := Keys.tend_pose(locomotion_pose, _tend_time, worker.selected_material() if worker.carried_count()>0 else "")
+			work_pose = Locomotion._blend(locomotion_pose, tend, smoothstep(0.0, 0.12, _tend_time))
+			locomotion_pose = work_pose
+			_knock_drum(before)
+		elif _aid_rise>=0.0:
+			locomotion_pose = _aid_rise_pose(locomotion_pose, delta)
 		pose_skeleton = locomotion_pose
 		pose_skeleton.splint = bool(medical_markers().splinted)
 	elif _limp_lower and not weapon_pose().is_empty():
@@ -224,7 +278,9 @@ func _process(delta: float) -> void:
 		locomotion.follow(pose_skeleton,worker)
 	elif not pose_skeleton.is_empty():
 		locomotion.follow(pose_skeleton, worker)
-	var rhythm_allowed := (_safe_idle or _safe_carry_idle) and special_pose.is_empty() and not locomotion_pose.is_empty()
+	var rhythm_allowed := (_safe_idle or _safe_carry_idle) and special_pose.is_empty() and not locomotion_pose.is_empty() and not _tending and _aid_rise<0.0
+	# The reviver kneels behind the body it treats (and rises from there).
+	z_index = -1 if special_pose in AID_KNEEL or _aid_rise>=0.0 else 0
 	if rhythm.advance(delta, rhythm_allowed, rhythm_frame) > 0.0:
 		if _safe_carry_idle:
 			rhythm.apply_carry_nod(pose_skeleton, rhythm_frame)
@@ -296,6 +352,41 @@ func idle_allowed(allow_carry: bool = false) -> bool:
 	return true
 
 
+## Presentation only: the solid the look-ahead probe met also stands on the
+## floor in front (a closed or lowering gate panel, a wall), so it is no
+## lintel to duck under. `crouched` itself (and the weapon height read from
+## it) is unchanged; only the drawn body stays upright (body_crouched).
+func _reaches_floor(space: PhysicsDirectSpaceState2D, probe: PhysicsRayQueryParameters2D) -> bool:
+	var low := PhysicsRayQueryParameters2D.create(probe.from+Vector2(0, 9), probe.from+Vector2(0, 31), probe.collision_mask)
+	low.exclude = probe.exclude
+	low.hit_from_inside = true
+	return not space.intersect_ray(low).is_empty()
+
+## Whether the drawn body crouches: the clearance probe's answer, except for a
+## wall or gate ahead while unarmed (an armed worker keeps the low gun pose).
+func body_crouched() -> bool:
+	return crouched and not (_wall_ahead and weapon_pose().is_empty())
+
+## The running production machine in focus, close enough to tend.
+func _tend_station() -> bool:
+	var station: Variant = worker.get("focus")
+	if not is_instance_valid(station) or not station is ProductionStation or station.is_queued_for_deletion(): return false
+	if not bool(station.working) or bool(worker.get("_interacting")): return false
+	return absf(station.interaction_point().x-worker.global_position.x)<48.0
+
+
+## The mallet's contact keys knock the tended drum on the frame they begin:
+## MixerAnimation jolts it and puffs dust at the mallet face. Presentation only.
+func _knock_drum(before: float) -> void:
+	var key := Keys.tend_key(_tend_time)
+	if not bool(key.get("hit", false)) or Keys.tend_key(before) == key: return
+	var station: Variant = worker.get("focus")
+	var drum: Node = station.get_node_or_null("MixerAnimation") if is_instance_valid(station) else null
+	if drum == null or not drum.has_method("knock"): return
+	var face := Transform2D(float(key.angle), Vector2(key.hand))*Keys.MALLET_FACE
+	drum.knock(to_global(face*Vector2(sprite_facing(), 1.0)), float(worker.facing))
+
+
 func _live_threat(candidate: Node) -> bool:
 	# SceneTree groups include the isolated lab's separate SubViewport too.
 	# Only live combat objects sharing this actor's physics world are threats.
@@ -313,7 +404,10 @@ func _update_special_pose(delta: float, rhythm_frame: Dictionary = {}) -> void:
 	var allowed := idle_allowed()
 	_safe_idle = allowed
 	_safe_carry_idle = pose_name=="carry_idle" and idle_allowed(true)
-	var gesture_allowed := allowed and not rhythm.follows_kicks(rhythm_frame)
+	var was_tending := _tending
+	_tending = (_safe_idle or _safe_carry_idle) and _tend_station()
+	if not _tending or not was_tending: _tend_time = 0.0
+	var gesture_allowed := allowed and not rhythm.follows_kicks(rhythm_frame) and not _tending and _aid_rise<0.0
 	var trigger := expression_clock.tick(delta,gesture_allowed,pose_name in ["mine","crouch_mine","work"],_round_phase())
 	if not trigger.is_empty():
 		idle_clock.begin(Personality.reaction(_character_id,trigger))
@@ -324,10 +418,12 @@ func _update_special_pose(delta: float, rhythm_frame: Dictionary = {}) -> void:
 	_limp_lower = false
 	_limp_step += absf(worker.velocity.x)*delta/15.0
 	var medical = medical_state()
+	var down_since := -1.0
 	if worker.is_downed():
 		special_pose = "downed"
 		var elapsed: float = medical.down_elapsed if is_instance_valid(medical) else Balance.WORKER_KO_TIME-worker.down_time
-		special_progress = clampf(elapsed/0.40,0,1)
+		special_progress = clampf(elapsed/Keys.collapse_seconds(),0,1)
+		down_since = elapsed-Keys.collapse_seconds()
 	elif pose_name=="turret" and worker.mounted_turret.has_method("operator_pose_anchors"):
 		special_pose = "mounted"
 		if worker.mounted_turret.has_method("operator_pose_skeleton"):
@@ -358,6 +454,15 @@ func _update_special_pose(delta: float, rhythm_frame: Dictionary = {}) -> void:
 	elif not idle_clock.gesture.is_empty():
 		special_pose = idle_clock.gesture
 		special_progress = idle_clock.progress()
+	if special_pose in AID_KNEEL:
+		_aid_rise = -1.0
+	elif _aid_time>0.0:
+		# The kneel has ended: get up through the rise keys when standing still
+		# or bandaging on (_aid_rise_pose), else straight into the next action.
+		if special_pose.is_empty() or special_pose in AID_STANDING:
+			if _aid_rise<0.0: _aid_rise = 0.0
+		else:
+			_end_aid_rise()
 	if not special_pose.is_empty() or _limp_lower:
 		var reach := Vector2(24,-13)
 		if is_instance_valid(medical) and is_instance_valid(medical.aid_target):
@@ -369,12 +474,81 @@ func _update_special_pose(delta: float, rhythm_frame: Dictionary = {}) -> void:
 			# put hands in empty space at the edge of the medical interaction range.
 			var chest := Vector2(near_side*7,-34)
 			if patient.has_method("is_downed") and patient.is_downed():
-				chest = Vector2((-16 if near_side==-patient.facing else -3)*float(patient.facing),-12)
+				# From the feet side the hands go past the hips to the chest, on top
+				# of it (the supine coat is about 16 texels deep), so they stay in
+				# sight over the body the reviver kneels behind (aid_offset).
+				chest = Vector2((-16 if near_side==-patient.facing else -9)*float(patient.facing),-19)
 			elif medical.aid_kind=="splint":
 				chest = Vector2(near_side*6,-10)
 			reach = worker.to_local(patient.to_global(chest))*Vector2(worker.facing,1)
-		pose_skeleton = WorkerPoseArt.sample(special_pose if not special_pose.is_empty() else "limp",special_progress,_limp_step,reach,_character_id)
+		if special_pose in AID_KNEEL:
+			_aid_time = maxf(0.001,_aid_elapsed(medical))
+			_aid_offset = Keys.aid_offset(reach)
+			pose_skeleton = Keys.aid_pose(Personality.stance(WorkerPoseArt.neutral(),_character_id),reach,_aid_time,special_pose)
+		elif special_pose in AID_STANDING:
+			pose_skeleton = Keys.treat_pose(Personality.stance(WorkerPoseArt.neutral(),_character_id),reach,_aid_elapsed(medical))
+			if _aid_rise>=0.0:
+				_aid_rise += delta
+				if _aid_rise<Keys.aid_rise_seconds(): pose_skeleton = Keys.aid_rise_pose(pose_skeleton,_aid_rise,_aid_offset,Keys.treat_offset(reach))
+				else: _end_aid_rise()
+		else:
+			pose_skeleton = WorkerPoseArt.sample(special_pose if not special_pose.is_empty() else "limp",special_progress,_limp_step,reach,_character_id)
 		pose_skeleton.splint = is_instance_valid(medical) and bool(medical.get("splinted"))
+		if down_since>=0.0: _lie_still(pose_skeleton,down_since)
+		if special_pose in STANDING_GESTURES or (not special_pose.is_empty() and idle_clock.gesture==special_pose):
+			# A hit during a guard, a limp or an idle gesture plays the same
+			# authored impact and recovery as on the locomotion rig.
+			Keys.apply_hit(pose_skeleton, Keys.hit_key(locomotion.hit.age), locomotion.hit.side, WeaponEffectArt.reduced(worker.get("game")))
+
+## The reviver gets up after the revival (WorkerMotionKeys.AID_RISE) over the
+## standing locomotion pose: off the knee, up and back to its own place. Any
+## movement or action other than the still-held interact ends it at once.
+func _aid_rise_pose(stance: Dictionary, delta: float) -> Dictionary:
+	var acting := false
+	for action_name in NetInput.ACTIONS:
+		if action_name!="interact" and NetInput.is_pressed(worker,action_name): acting = true
+	if acting or not pose_name in ["idle","work"] or absf(worker.velocity.x)>1.0 or not worker.can_act():
+		_end_aid_rise()
+		return stance
+	_aid_rise += delta
+	if _aid_rise>=Keys.aid_rise_seconds():
+		_end_aid_rise()
+		return stance
+	var pose := Keys.aid_rise_pose(stance, _aid_rise, _aid_offset)
+	# Locomotion's own short blend then leaves from the drawn rise key.
+	locomotion.follow(pose, worker)
+	return pose
+
+## Seconds of the replicated aid channel so far (its progress over the
+## patient's aid time at this crew member's medical speed): keys stay in step
+## on every peer.
+func _aid_elapsed(medical: Variant) -> float:
+	var patient: Variant = medical.aid_target
+	var duration: float = patient.medical.aid_duration() if is_instance_valid(patient) and "medical" in patient and is_instance_valid(patient.medical) else MedicalCatalog.REVIVE_TIME
+	return float(medical.aid_progress)*duration/maxf(0.1,float(CharacterCatalog.medical_speed(_character_id)))
+
+func _end_aid_rise() -> void:
+	_aid_rise = -1.0
+	_aid_time = 0.0
+
+## The held interact still rests on a crew mate's aid point that has nothing
+## left to treat (just revived or healed).
+func _idle_aid_focus() -> bool:
+	var target: Variant = worker.get("focus")
+	if not is_instance_valid(target) or not target.is_in_group("medical_targets"): return false
+	var patient_medical: Variant = target.get("medical")
+	return not is_instance_valid(patient_medical) or not patient_medical.needs_medical_help() or patient_medical.is_rising()
+
+
+## After the authored fall and floor strike (WorkerMotionKeys.COLLAPSE_KEYS)
+## the body breathes slowly while unconscious: the chest and the hand on it
+## lift one texel, the head lolls a little. Pure function of the replicated
+## down time.
+func _lie_still(pose: Dictionary, since: float) -> void:
+	var breath := roundf(maxf(0.0,sin(since*TAU*0.42-0.6)))
+	pose.shoulder = Vector2(pose.shoulder)+Vector2(0,-breath)
+	pose.head_tilt = float(pose.head_tilt)+sin(since*TAU*0.21)*0.05
+	pose.hands[1] = Vector2(pose.hands[1])+Vector2(0,-breath)
 
 
 func medical_markers() -> Dictionary:
@@ -468,7 +642,7 @@ func _choose_pose() -> String:
 	if worker.climbing:
 		return "climb"
 	var walking: bool = absf(worker.velocity.x) > 15.0
-	if crouched:
+	if body_crouched():
 		if worker.mining:
 			return "crouch_mine"
 		return "crouch_walk" if walking else "crouch"
@@ -501,7 +675,9 @@ func _draw() -> void:
 	var region := Rect2(Vector2(pose_frame * FRAME_SIZE.x, int(descriptor.row) * FRAME_SIZE.y), FRAME_SIZE)
 	# The two-part sprite gives cargo a real grip: jacket behind, glove in front.
 	var downed: bool = worker.has_method("is_downed") and worker.is_downed()
-	var flinch: float = sin(clampf(worker.hurt_flash/0.22,0.0,1.0)*PI)*-0.13 if "hurt_flash" in worker and not downed and special_pose!="mounted" and mining_pose.is_empty() else 0.0
+	# The articulated rig plays its own knockback (WorkerLocomotion._hurt); only
+	# the remaining atlas poses tilt as a whole, which would break the texel grid.
+	var flinch: float = sin(clampf(worker.hurt_flash/0.22,0.0,1.0)*PI)*-0.13 if "hurt_flash" in worker and not downed and special_pose!="mounted" and mining_pose.is_empty() and locomotion_pose.is_empty() else 0.0
 	var offset := Vector2(0,sin(absf(flinch)*8)*2)
 	draw_set_transform(offset,worker.facing*flinch,Vector2(sprite_facing(), 1))
 	var armed := weapon_pose()
@@ -554,14 +730,86 @@ func _draw_identity() -> void:
 	# shader darkens the wet clothing, helmet, armour and equipment underneath.
 	if not is_instance_valid(worker): return
 	var tint: Color = PartyConfig.player_color(worker.player_id)
+	var layout := _tag_layout()
+	var label_y: float = layout.label_y
+	_identity.draw_set_transform(layout.origin, 0.0, Vector2.ONE*float(layout.grow))
+	# The plate carries the player's colour, so at combat zoom the colour block,
+	# not the small digits, tells P1 from P2.
+	_identity.draw_rect(Rect2(-11, label_y - 13, 24, 16), Art.INK)
+	_identity.draw_rect(Rect2(-10, label_y - 12, 22, 14), tint)
+	Art.text(_identity, Vector2(-8, label_y - 1), "P%d" % worker.player_id, 11, Art.INK)
+	_identity.draw_colored_polygon(PackedVector2Array([Vector2(-4, label_y + 3), Vector2(4, label_y + 3), Vector2(0, label_y + 8)]), Art.INK)
+	_identity.draw_colored_polygon(PackedVector2Array([Vector2(-3, label_y + 3), Vector2(3, label_y + 3), Vector2(0, label_y + 7)]), tint)
+	if worker.carried_count() > 0:
+		# The load meter sits inside the coloured plate: ink on a shaded track.
+		var load_ratio := clampf(float(worker.carried_count()) / worker.capacity(), 0.0, 1.0)
+		_identity.draw_rect(Rect2(-8, label_y, 18, 2), tint.darkened(0.4))
+		_identity.draw_rect(Rect2(-8, label_y, floorf(18.0 * load_ratio), 2), Art.INK)
+	_identity.draw_set_transform(Vector2.ZERO)
+
+## Where the P tag goes: its height above the feet for the current pose, the
+## growth at the zoomed-out couch camera and the draw origin (sideways steps
+## included). The drawing and tag_bounds() share it.
+func _tag_layout() -> Dictionary:
 	var label_y := -61.0 if crouched and pose_name != "climb" else -77.0
 	if has_articulated_pose():
 		label_y = minf(-32.0,float(pose_skeleton.shoulder.y)-35.0)
-	_identity.draw_rect(Rect2(-10, label_y - 12, 22, 14), Art.INK)
-	Art.text(_identity, Vector2(-8, label_y - 1), "P%d" % worker.player_id, 11, tint)
-	_identity.draw_colored_polygon(PackedVector2Array([Vector2(-3, label_y + 4), Vector2(3, label_y + 4), Vector2(0, label_y + 8)]), tint)
-	if worker.carried_count() > 0:
-		Art.bar(_identity, Rect2(-10, label_y + 2, 22, 2), float(worker.carried_count()) / worker.capacity(), tint)
+	# At the zoomed-out couch co-op camera the tag grows around its arrow tip
+	# until its letters reach TAG_MIN_PIXELS real pixels (at most 2x).
+	var pixels := UiArt.output_scale(_identity)
+	var grow := clampf(TAG_MIN_PIXELS/(11.0*pixels),1.0,2.0) if pixels>0.0 else 1.0
+	var tip := Vector2(0, label_y + 8)
+	# A machine in focus may name a part the tag must not hide (the mixer's
+	# drum mouth): the tag then steps sideways just clear of it. Two crew at
+	# one post step apart instead of stacking their tags.
+	var shift := _tag_clearance(Rect2(-10, label_y - 12, 22, 20)) + _tag_spread(grow)
+	return {"label_y": label_y, "grow": grow, "origin": shift + tip*(1.0-grow)}
+
+## The P tag's global rect (plate and arrow); empty while it is not shown.
+## World labels and combat words placed by the HUD keep clear of it.
+func tag_bounds() -> Rect2:
+	if not is_instance_valid(worker) or not is_instance_valid(_identity) or not _identity.is_visible_in_tree(): return Rect2()
+	var layout := _tag_layout()
+	var grow: float = layout.grow
+	var shown := Rect2(Vector2(layout.origin) + Vector2(-11, float(layout.label_y) - 13)*grow, Vector2(24, 21)*grow)
+	var frame := _identity.get_global_transform()
+	return Rect2(frame*shown.position, Vector2.ZERO).expand(frame*shown.end)
+
+## Smallest height of the tag's 11-unit letters on screen, in real pixels.
+const TAG_MIN_PIXELS := 13.0
+
+## Local sideways step that keeps this tag clear of another crew member's tag
+## at the same height (two gunners on one roof gun): each moves half the
+## overlap away from the other, the one further left to the left.
+func _tag_spread(grow: float) -> Vector2:
+	var game: Variant = worker.get("game")
+	if not is_instance_valid(game) or not "players" in game: return Vector2.ZERO
+	var width := 24.0*grow+2.0
+	var shift := 0.0
+	for other: Variant in game.players:
+		if other == worker or not is_instance_valid(other) or not other is Node2D: continue
+		var delta: Vector2 = (other as Node2D).global_position-worker.global_position
+		if absf(delta.y) >= 16.0*grow or absf(delta.x) >= width: continue
+		var leftmost: bool = delta.x > 0.0 or (is_zero_approx(delta.x) and int(other.player_id) > int(worker.player_id))
+		shift += (width-absf(delta.x))*(-0.5 if leftmost else 0.5)
+	if is_zero_approx(shift): return Vector2.ZERO
+	return get_global_transform().affine_inverse().basis_xform(Vector2(roundf(shift),0.0))
+
+## Local offset of the identity tag away from the focused machine's
+## label_keepout() (a global rect), the smaller of a step left or right;
+## zero when there is nothing to clear.
+func _tag_clearance(tag: Rect2) -> Vector2:
+	var target: Variant = worker.get("focus")
+	if not is_instance_valid(target) or not target.has_method("label_keepout"): return Vector2.ZERO
+	var keepout: Rect2 = target.label_keepout()
+	if not keepout.has_area(): return Vector2.ZERO
+	var frame := get_global_transform()
+	var shown := Rect2(frame*tag.position,Vector2.ZERO).expand(frame*tag.end)
+	if not shown.intersects(keepout): return Vector2.ZERO
+	var right := keepout.end.x+1.0-shown.position.x
+	var left := keepout.position.x-1.0-shown.end.x
+	var step := right if absf(right)<=absf(left) else left
+	return frame.affine_inverse().basis_xform(Vector2(roundf(step),0.0))
 
 
 func _draw_material(descriptor: Dictionary) -> void:

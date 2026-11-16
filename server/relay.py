@@ -15,20 +15,19 @@ import logging
 import os
 import secrets
 import time
-import unicodedata
 from urllib.parse import urlsplit
 from dataclasses import dataclass, field
 
 from aiohttp import WSMsgType, web
 if __package__:
-    from .social import SOCIAL_KEY, SocialService, default_database
+    from .social import SOCIAL_KEY, SocialService, default_database, safe_name
 else:
     try:
-        from social import SOCIAL_KEY, SocialService, default_database
+        from social import SOCIAL_KEY, SocialService, default_database, safe_name
     except ModuleNotFoundError as error:
         if error.name != "social":
             raise
-        from server.social import SOCIAL_KEY, SocialService, default_database
+        from server.social import SOCIAL_KEY, SocialService, default_database, safe_name
 
 
 PROTOCOL_VERSION = 1
@@ -36,6 +35,10 @@ GAME_BUILD = "bunkercrew-net-20"
 CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 MAX_PACKET_BYTES = 512 * 1024
 MAX_WIRE_BYTES = MAX_PACKET_BYTES + 1  # Authenticated routing envelope.
+# One receiver may hold 64 messages or four maximal packets (2 MiB) in its queue.
+MAX_QUEUE_BYTES = 4 * MAX_PACKET_BYTES
+# Addresses a host may exclude from one room; the oldest record is replaced.
+MAX_ROOM_KICK_RECORDS = 64
 LOGGER = logging.getLogger("lastshift.relay")
 
 
@@ -67,9 +70,40 @@ class Settings:
     attempt_burst: float = 16.0
     handshake_timeout: float = 3.0
     trusted_proxies: tuple[str, ...] = ()
+    # One address (IPv4 or IPv6 /64) may keep this many rooms open at once.
+    max_rooms_per_ip: int = 8
+    # A room without any guest seat is closed after this long: lobby_idle for
+    # a lobby that was never started, solo_room for a started one. 0 disables.
+    lobby_idle_seconds: float = 3600.0
+    solo_room_seconds: float = 12 * 3600.0
+    # Bytes queued towards all receivers together. Worst case per process with
+    # the defaults (768 connections, 512 KiB packets, container limit 512 MiB):
+    #   outbound queues   <= max_outbound_bytes               =  64 MiB
+    #     (without this budget: 768 * MAX_QUEUE_BYTES 2 MiB   = 1536 MiB)
+    #   kernel-bound write buffers, 64 KiB high-water * 768   =  48 MiB
+    #   interpreter, aiohttp, SQLite, per-socket state        ~  80 MiB
+    # These terms total about 192 MiB. Not covered here: aiohttp reassembles one
+    # inbound message per connection up to MAX_WIRE_BYTES before the relay sees
+    # it, in theory 768 * 0.5 MiB = 384 MiB if every connection stalls
+    # mid-frame at once. Lower RELAY_MAX_CONNECTIONS or raise the container
+    # limit if that case must fit as well.
+    max_outbound_bytes: int = 64 * 1024 * 1024
+    # The game client sends "kick" for every automatic rejection, including
+    # handshake timeouts, so a single kick must leave room for a retry.
+    kicks_before_ban: int = 3
+    max_social_sessions: int = 256
+    max_social_sessions_per_ip: int = 8
+    max_profiles: int = 100000
+    new_profiles_per_hour: float = 4.0
+    new_profile_burst: float = 8.0
+    unused_profile_days: float = 30.0
+    active_profile_days: float = 180.0
 
     @classmethod
     def from_env(cls) -> "Settings":
+        def number(name: str, default: float, minimum: float) -> float:
+            return max(minimum, float(os.getenv(name) or default))
+
         return cls(
             social_db=os.getenv("SOCIAL_DB") or default_database(),
             max_rooms=max(1, int(os.getenv("RELAY_MAX_ROOMS", "256"))),
@@ -77,6 +111,21 @@ class Settings:
             max_connections_per_ip=max(
                 2, int(os.getenv("RELAY_MAX_CONNECTIONS_PER_IP", "64"))
             ),
+            max_rooms_per_ip=int(number("RELAY_MAX_ROOMS_PER_IP", 8, 1)),
+            lobby_idle_seconds=number("RELAY_LOBBY_IDLE_SECONDS", 3600, 0),
+            solo_room_seconds=number("RELAY_SOLO_ROOM_SECONDS", 12 * 3600, 0),
+            max_outbound_bytes=int(
+                number("RELAY_MAX_OUTBOUND_BYTES", 64 * 1024 * 1024, MAX_QUEUE_BYTES)
+            ),
+            kicks_before_ban=int(number("RELAY_KICKS_BEFORE_BAN", 3, 1)),
+            max_addresses=int(number("RELAY_MAX_ADDRESSES", 4096, 16)),
+            max_social_sessions=int(number("SOCIAL_MAX_SESSIONS", 256, 1)),
+            max_social_sessions_per_ip=int(number("SOCIAL_MAX_SESSIONS_PER_IP", 8, 1)),
+            max_profiles=int(number("SOCIAL_MAX_PROFILES", 100000, 1)),
+            new_profiles_per_hour=number("SOCIAL_NEW_PROFILES_PER_HOUR", 4, 0),
+            new_profile_burst=number("SOCIAL_NEW_PROFILE_BURST", 8, 1),
+            unused_profile_days=number("SOCIAL_UNUSED_PROFILE_DAYS", 30, 1),
+            active_profile_days=number("SOCIAL_ACTIVE_PROFILE_DAYS", 180, 1),
             trusted_proxies=tuple(
                 value.strip()
                 for value in os.getenv("RELAY_TRUSTED_PROXIES", "").split(",")
@@ -105,6 +154,9 @@ class Bucket:
             return False
         self.tokens -= amount
         return True
+
+    def refilled(self, now: float) -> bool:
+        return self.tokens + (now - self.updated) * self.rate >= self.capacity
 
 
 class VoiceGuard:
@@ -145,12 +197,15 @@ class Connection:
     sender: asyncio.Task | None = None
     voice: Bucket = field(default_factory=lambda: Bucket(55, 36))
     voice_guard: VoiceGuard = field(default_factory=VoiceGuard)
+    closing: bool = False
+    released: bool = False
 
 
 @dataclass
 class AddressBudget:
     handshakes: Bucket
     attempts: Bucket
+    profiles: Bucket
     active: int = 0
     pending: int = 0
     touched: float = field(default_factory=time.monotonic)
@@ -164,6 +219,7 @@ class Seat:
     room: "Room"
     connection: Connection | None
     expires: float = 0.0
+    address: str = ""
 
 
 @dataclass(eq=False)
@@ -171,6 +227,9 @@ class Room:
     code: str
     started: bool = False
     seats: dict[str, Seat] = field(default_factory=dict)
+    owner: str = ""
+    vacant_since: float = field(default_factory=time.monotonic)
+    kicks: dict[str, int] = field(default_factory=dict)
 
 
 class Relay:
@@ -183,6 +242,8 @@ class Relay:
         self.sweeper: asyncio.Task | None = None
         self.addresses: dict[str, AddressBudget] = {}
         self.pending = 0
+        self.outbound_bytes = 0
+        self.tasks: set[asyncio.Task] = set()
         self.trusted_proxies = tuple(
             ipaddress.ip_network(value, strict=False)
             for value in settings.trusted_proxies
@@ -226,19 +287,35 @@ class Relay:
             if peer.is_loopback:
                 return str(peer)
             # IPv6 privacy-address rotation must not reset admission budgets.
-            return str(ipaddress.ip_network(f"{peer}/64", strict=False))
+            key = str(ipaddress.ip_network(f"{peer}/64", strict=False))
+            if (
+                key not in self.addresses
+                and len(self.addresses) >= self.settings.max_addresses * 3 // 4
+            ):
+                # Under table pressure, unknown IPv6 sources share one budget per
+                # /48 so that rotating /64 prefixes cannot fill the table.
+                return str(ipaddress.ip_network(f"{peer}/48", strict=False))
+            return key
         return str(peer)
 
     def budget(self, address: str) -> AddressBudget:
         if address not in self.addresses:
-            self.expire_addresses()
             if len(self.addresses) >= self.settings.max_addresses:
+                self.expire_addresses()
+            if len(self.addresses) >= self.settings.max_addresses:
+                self.evict_addresses()
+            if len(self.addresses) >= self.settings.max_addresses:
+                # Every entry belongs to a live or pending connection.
                 raise web.HTTPServiceUnavailable(text="Address capacity reached")
             self.addresses[address] = AddressBudget(
                 Bucket(
                     self.settings.handshakes_per_second, self.settings.handshake_burst
                 ),
                 Bucket(self.settings.attempts_per_second, self.settings.attempt_burst),
+                Bucket(
+                    self.settings.new_profiles_per_hour / 3600.0,
+                    self.settings.new_profile_burst,
+                ),
             )
         result = self.addresses[address]
         result.touched = time.monotonic()
@@ -251,8 +328,58 @@ class Relay:
                 not budget.active
                 and not budget.pending
                 and now - budget.touched > self.settings.address_idle_seconds
+                # Forgetting an entry earlier would hand back a spent
+                # new-profile allowance.
+                and budget.profiles.refilled(now)
             ):
                 del self.addresses[address]
+
+    def evict_addresses(self) -> None:
+        # A full table must not lock out new addresses: drop the entries that
+        # have been without a connection for the longest time, in one batch so
+        # that the scan is amortised over many admissions.
+        idle = sorted(
+            (budget.touched, address)
+            for address, budget in self.addresses.items()
+            if not budget.active and not budget.pending
+        )
+        for _touched, address in idle[: max(1, self.settings.max_addresses // 16)]:
+            del self.addresses[address]
+
+    def spawn(self, work) -> None:
+        task = asyncio.create_task(work)
+        self.tasks.add(task)
+
+        def finished(done: asyncio.Task) -> None:
+            self.tasks.discard(done)
+            if not done.cancelled():
+                done.exception()
+
+        task.add_done_callback(finished)
+
+    def account(self, connection: Connection, size: int) -> None:
+        if not connection.released:
+            connection.outbound_bytes += size
+            self.outbound_bytes += size
+
+    def release(self, connection: Connection) -> None:
+        # Give back everything this receiver holds, including a message that
+        # its writer is still trying to send.
+        if connection.released:
+            return
+        while not connection.outbound.empty():
+            _payload, _size, delivered = connection.outbound.get_nowait()
+            if delivered is not None and not delivered.done():
+                delivered.set_result(False)
+        self.outbound_bytes -= connection.outbound_bytes
+        connection.outbound_bytes = 0
+        connection.released = True
+
+    def shed(self, connection: Connection, message: bytes) -> None:
+        self.release(connection)
+        if connection.sender is not None:
+            connection.sender.cancel()
+        self.spawn(connection.socket.close(code=1013, message=message))
 
     async def _drain_outbound(self, connection: Connection) -> None:
         try:
@@ -269,31 +396,53 @@ class Relay:
                 finally:
                     if delivered is not None and not delivered.done():
                         delivered.set_result(False)
-                    connection.outbound_bytes -= size
-                    connection.outbound.task_done()
+                    self.account(connection, -size)
         except (OSError, RuntimeError, asyncio.TimeoutError):
             await connection.socket.close(code=1013, message=b"Slow connection")
         except asyncio.CancelledError:
             pass
 
-    async def send(self, connection: Connection | None, payload: dict | bytes,
-                   droppable: bool = False) -> bool:
-        if connection is None or connection.socket.closed:
+    def enqueue(self, connection: Connection | None, payload: dict | bytes,
+                droppable: bool = False,
+                delivered: asyncio.Future | None = None) -> bool:
+        if connection is None or connection.socket.closed or connection.released:
             return False
         # A single writer preserves ordering between opaque game packets and
         # relay events, especially a guest's final leave and peer_left.
         size = len(payload) if isinstance(payload, bytes) else len(json.dumps(payload).encode("utf-8"))
         if (connection.outbound.full() or
-                connection.outbound_bytes + size > 4 * MAX_PACKET_BYTES):
+                connection.outbound_bytes + size > MAX_QUEUE_BYTES):
             if not droppable:
-                asyncio.create_task(connection.socket.close(
-                    code=1013, message=b"Outbound queue full"))
+                self.shed(connection, b"Outbound queue full")
             return False
-        delivered = None if isinstance(payload, bytes) else asyncio.get_running_loop().create_future()
+        if self.outbound_bytes + size > self.settings.max_outbound_bytes:
+            if droppable:
+                return False
+            # Reliable traffic keeps flowing to healthy receivers: disconnect
+            # the receivers with the largest backlog until this message fits.
+            while self.outbound_bytes + size > self.settings.max_outbound_bytes:
+                slowest = max(self.connections, key=lambda item: item.outbound_bytes,
+                              default=None)
+                if slowest is None or not slowest.outbound_bytes:
+                    return False
+                self.shed(slowest, b"Relay outbound budget")
+                if slowest is connection:
+                    return False
         connection.outbound.put_nowait((payload, size, delivered))
-        connection.outbound_bytes += size
+        self.account(connection, size)
         if connection.sender is None or connection.sender.done():
             connection.sender = asyncio.create_task(self._drain_outbound(connection))
+        return True
+
+    def post(self, connection: Connection | None, payload: dict) -> bool:
+        """Queue a relay event without waiting for a possibly clogged socket."""
+        return self.enqueue(connection, payload)
+
+    async def send(self, connection: Connection | None, payload: dict | bytes,
+                   droppable: bool = False) -> bool:
+        delivered = None if isinstance(payload, bytes) else asyncio.get_running_loop().create_future()
+        if not self.enqueue(connection, payload, droppable, delivered):
+            return False
         if delivered is None:
             return True
         try:
@@ -327,7 +476,8 @@ class Relay:
     def make_seat(
         self, room: Room, role: str, name: str, connection: Connection
     ) -> Seat:
-        seat = Seat(role, name, secrets.token_urlsafe(24), room, connection)
+        seat = Seat(role, name, secrets.token_urlsafe(24), room, connection,
+                    address=connection.address)
         room.seats[role] = seat
         self.tokens[seat.token] = seat
         connection.seat = seat
@@ -383,20 +533,25 @@ class Relay:
 
     def forget_seat(self, seat: Seat) -> None:
         self.tokens.pop(seat.token, None)
-        seat.room.seats.pop(seat.role, None)
+        # A seat that was already forgotten must not remove its successor.
+        if seat.room.seats.get(seat.role) is seat:
+            del seat.room.seats[seat.role]
         if seat.connection:
             seat.connection.seat = None
             seat.connection.created = time.monotonic()
         seat.connection = None
 
-    async def close_room(self, room: Room, reason: str) -> None:
+    def drop_room(self, room: Room) -> list[Connection | None]:
         if self.rooms.get(room.code) is not room:
-            return
+            return []
         self.rooms.pop(room.code, None)
         connections = [seat.connection for seat in room.seats.values()]
         for seat in list(room.seats.values()):
             self.forget_seat(seat)
-        for connection in connections:
+        return connections
+
+    async def close_room(self, room: Room, reason: str) -> None:
+        for connection in self.drop_room(room):
             await self.send(connection, {"op": "room_closed", "reason": reason})
 
     async def leave(self, connection: Connection) -> None:
@@ -432,6 +587,7 @@ class Relay:
             budget.active -= 1
             budget.touched = time.monotonic()
         self.connections.discard(connection)
+        self.release(connection)
         seat = connection.seat
         if not seat or seat.connection is not connection:
             return
@@ -451,18 +607,38 @@ class Relay:
                     },
                 )
 
-    async def expire(self) -> None:
+    async def idle_close(self, connection: Connection) -> None:
+        await self.error(connection, "idle_timeout", "Bitte erneut verbinden.")
+        await connection.socket.close(code=1008, message=b"Idle timeout")
+
+    def expire(self) -> None:
+        """One sweep pass. It only queues events and never waits for a socket,
+        so a clogged receiver cannot delay expiry for everybody else."""
         self.expire_addresses()
         now = time.monotonic()
         for room in list(self.rooms.values()):
             host = room.seats.get("host")
-            if not host or (not host.connection and host.expires <= now):
-                await self.close_room(room, "host_timeout")
+            if len(room.seats) > 1:
+                room.vacant_since = now
+            limit = (
+                self.settings.solo_room_seconds
+                if room.started
+                else self.settings.lobby_idle_seconds
+            )
+            if (
+                not host
+                or (not host.connection and host.expires <= now)
+                or (limit > 0 and now - room.vacant_since > limit)
+            ):
+                for connection in self.drop_room(room):
+                    self.post(
+                        connection, {"op": "room_closed", "reason": "host_timeout"}
+                    )
                 continue
             for guest in list(room.seats.values()):
                 if guest is not host and not guest.connection and guest.expires <= now:
                     self.forget_seat(guest)
-                    await self.send(
+                    self.post(
                         host.connection,
                         {
                             "op": "peer_left",
@@ -475,10 +651,11 @@ class Relay:
         for connection in list(self.connections):
             if (
                 not connection.seat
+                and not connection.closing
                 and now - connection.created > self.settings.idle_seconds
             ):
-                await self.error(connection, "idle_timeout", "Bitte erneut verbinden.")
-                await connection.socket.close(code=1008, message=b"Idle timeout")
+                connection.closing = True
+                self.spawn(self.idle_close(connection))
 
     async def sweep(self) -> None:
         try:
@@ -486,16 +663,25 @@ class Relay:
                 await asyncio.sleep(
                     min(1.0, max(0.05, self.settings.grace_seconds / 4))
                 )
-                await self.expire()
+                self.expire()
         except asyncio.CancelledError:
             pass
+
+    @staticmethod
+    def bannable(address: str) -> bool:
+        # Loopback identifies the relay's own machine, not one player.
+        try:
+            return not ipaddress.ip_address(address).is_loopback
+        except ValueError:
+            return bool(address)  # Aggregated IPv6 network.
 
     async def control(self, connection: Connection, payload: dict) -> None:
         op = payload.get("op")
         fields = {
             "ping": {"op", "id"},
             "leave": {"op"},
-            "kick": {"op", "player_id"},
+            # "ban" is optional and absent in bunkercrew-net-20 clients.
+            "kick": {"op", "player_id", "ban"},
             "status": {"op", "started"},
             "host": {"op", "version", "build", "name"},
             "join": {"op", "version", "build", "name", "code"},
@@ -540,9 +726,24 @@ class Relay:
                     connection, "invalid_request", "Ungültiger Spielerplatz."
                 )
                 return
-            guest = connection.seat.room.seats.get(self.role(slot))
+            ban = payload.get("ban", False)
+            if type(ban) is not bool:
+                await self.error(
+                    connection, "invalid_request", "Ungültige Netzwerkanfrage."
+                )
+                return
+            room = connection.seat.room
+            guest = room.seats.get(self.role(slot))
             if guest:
                 guest_connection = guest.connection
+                if self.bannable(guest.address):
+                    count = self.settings.kicks_before_ban if ban else (
+                        room.kicks.get(guest.address, 0) + 1
+                    )
+                    room.kicks.pop(guest.address, None)
+                    if len(room.kicks) >= MAX_ROOM_KICK_RECORDS:
+                        del room.kicks[next(iter(room.kicks))]
+                    room.kicks[guest.address] = count
                 self.forget_seat(guest)
                 await self.send(
                     guest_connection, {"op": "room_closed", "reason": "host_rejected"}
@@ -644,6 +845,7 @@ class Relay:
             self.tokens[seat.token] = seat
             seat.connection = connection
             seat.expires = 0
+            seat.address = connection.address
             connection.seat = seat
             self.configure_game_budgets(connection, seat.role)
             other = self.other(seat)
@@ -661,17 +863,14 @@ class Relay:
             )
             await self.announce_peer(seat, resumed=True)
             return
-        name = payload.get("name", "Spieler")
-        if (
-            not isinstance(name, str)
-            or not 1 <= len(name.strip()) <= 24
-            or any(unicodedata.category(char).startswith("C") for char in name)
-        ):
+        # Same rules as friend profile names; the relay additionally accepts
+        # surrounding spaces and removes them, as it always has.
+        name = safe_name(payload.get("name", "Spieler"), trim=True)
+        if name is None:
             await self.error(
                 connection, "invalid_name", "Der Name muss 1 bis 24 Zeichen lang sein."
             )
             return
-        name = name.strip()
         if op == "host":
             if len(self.rooms) >= self.settings.max_rooms:
                 await self.error(
@@ -680,10 +879,20 @@ class Relay:
                     "Der Server ist ausgelastet. Bitte später erneut versuchen.",
                 )
                 return
+            if (
+                sum(room.owner == connection.address for room in self.rooms.values())
+                >= self.settings.max_rooms_per_ip
+            ):
+                await self.error(
+                    connection,
+                    "server_full",
+                    "Von diesem Anschluss sind bereits zu viele Räume geöffnet.",
+                )
+                return
             code = "".join(secrets.choice(CODE_ALPHABET) for _ in range(6))
             while code in self.rooms:
                 code = "".join(secrets.choice(CODE_ALPHABET) for _ in range(6))
-            room = Room(code)
+            room = Room(code, owner=connection.address)
             self.rooms[code] = room
             seat = self.make_seat(room, "host", name, connection)
             await self.send(
@@ -721,6 +930,13 @@ class Relay:
                 connection,
                 "room_not_found",
                 "Dieser Raum wurde nicht gefunden oder ist geschlossen.",
+            )
+            return
+        if room.kicks.get(connection.address, 0) >= self.settings.kicks_before_ban:
+            await self.error(
+                connection,
+                "host_rejected",
+                "Der Gastgeber hat den Beitritt zu diesem Raum abgelehnt.",
             )
             return
         available = next(
@@ -946,6 +1162,9 @@ def create_app(settings: Settings | None = None) -> web.Application:
         relay.sweeper.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await relay.sweeper
+        for task in list(relay.tasks):
+            task.cancel()
+        await asyncio.gather(*relay.tasks, return_exceptions=True)
         await asyncio.gather(
             *(
                 connection.socket.close(code=1001, message=b"Server shutdown")

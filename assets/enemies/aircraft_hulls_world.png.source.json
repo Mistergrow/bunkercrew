@@ -1,0 +1,6091 @@
+{
+ "asset": "aircraft_hulls_world.png",
+ "tool": "tools/bake_world_density_art.py",
+ "tool_version": 1,
+ "manifest": "tools/world_density_bake.json",
+ "method": "one texel per world unit: linear-light premultiplied area average, binary silhouette, OKLab local contrast, per-object k-means palette of the source, orphan cleanup, 1-texel ink contour; rotating parts baked as stances rotated at source resolution; texels mostly covered by saturated accents keep the accents' mean colour, with accent palette entries",
+ "sources": [
+  {
+   "file": "assets/enemies/aircraft_hulls_v2.png",
+   "sha256": "8b624f9b2f407e4ddab9a6679b2593aff1388d3f976909e75525c177dcc06243"
+  }
+ ],
+ "params": {
+  "palette": 32,
+  "alpha": 0.45,
+  "sharpen": 0.65,
+  "orphan": 0.06,
+  "contour": 0.8,
+  "accent": 0.1,
+  "accent_share": 0.28,
+  "accent_light": 0.5,
+  "accent_palette": 6
+ },
+ "ink": "#151b1e",
+ "size": [
+  1024,
+  1622
+ ],
+ "items": [
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-172",
+   "region": [
+    691,
+    630,
+    75,
+    59
+   ],
+   "offset": [
+    -35.0,
+    -30.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-155",
+   "region": [
+    373,
+    691,
+    76,
+    58
+   ],
+   "offset": [
+    -36.0,
+    -29.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-138",
+   "region": [
+    249,
+    865,
+    77,
+    56
+   ],
+   "offset": [
+    -37.0,
+    -28.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-120",
+   "region": [
+    672,
+    922,
+    78,
+    55
+   ],
+   "offset": [
+    -37.0,
+    -28.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-103",
+   "region": [
+    517,
+    978,
+    79,
+    53
+   ],
+   "offset": [
+    -38.0,
+    -27.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-86",
+   "region": [
+    82,
+    1034,
+    79,
+    52
+   ],
+   "offset": [
+    -38.0,
+    -26.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-69",
+   "region": [
+    642,
+    1034,
+    80,
+    50
+   ],
+   "offset": [
+    -39.0,
+    -25.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-52",
+   "region": [
+    166,
+    1087,
+    80,
+    48
+   ],
+   "offset": [
+    -39.0,
+    -24.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-34",
+   "region": [
+    562,
+    1087,
+    81,
+    46
+   ],
+   "offset": [
+    -40.0,
+    -23.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:-17",
+   "region": [
+    83,
+    1136,
+    81,
+    44
+   ],
+   "offset": [
+    -40.0,
+    -22.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:0",
+   "region": [
+    0,
+    1181,
+    82,
+    42
+   ],
+   "offset": [
+    -41.0,
+    -21.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:17",
+   "region": [
+    302,
+    1136,
+    81,
+    43
+   ],
+   "offset": [
+    -41.0,
+    -21.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:34",
+   "region": [
+    384,
+    1136,
+    81,
+    43
+   ],
+   "offset": [
+    -41.0,
+    -20.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:52",
+   "region": [
+    466,
+    1136,
+    81,
+    43
+   ],
+   "offset": [
+    -41.0,
+    -19.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:69",
+   "region": [
+    0,
+    1136,
+    82,
+    44
+   ],
+   "offset": [
+    -42.0,
+    -20.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:86",
+   "region": [
+    479,
+    1087,
+    82,
+    46
+   ],
+   "offset": [
+    -42.0,
+    -21.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:103",
+   "region": [
+    0,
+    1087,
+    82,
+    48
+   ],
+   "offset": [
+    -42.0,
+    -22.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:120",
+   "region": [
+    83,
+    1087,
+    82,
+    48
+   ],
+   "offset": [
+    -42.0,
+    -22.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:138",
+   "region": [
+    394,
+    1034,
+    82,
+    50
+   ],
+   "offset": [
+    -42.0,
+    -23.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:155",
+   "region": [
+    845,
+    978,
+    82,
+    52
+   ],
+   "offset": [
+    -42.0,
+    -24.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|773,73,409,219|82x44|turn:172",
+   "region": [
+    928,
+    978,
+    82,
+    52
+   ],
+   "offset": [
+    -42.0,
+    -24.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-241",
+   "region": [
+    81,
+    630,
+    74,
+    60
+   ],
+   "offset": [
+    -36.0,
+    -30.5
+   ],
+   "angle": -24.064227
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-223",
+   "region": [
+    450,
+    691,
+    74,
+    58
+   ],
+   "offset": [
+    -36.0,
+    -29.5
+   ],
+   "angle": -22.345354
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-206",
+   "region": [
+    175,
+    750,
+    76,
+    57
+   ],
+   "offset": [
+    -37.0,
+    -29.5
+   ],
+   "angle": -20.626481000000002
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-189",
+   "region": [
+    909,
+    922,
+    76,
+    55
+   ],
+   "offset": [
+    -37.0,
+    -28.5
+   ],
+   "angle": -18.907608000000003
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-172",
+   "region": [
+    597,
+    978,
+    77,
+    53
+   ],
+   "offset": [
+    -38.0,
+    -27.5
+   ],
+   "angle": -17.188735000000005
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-155",
+   "region": [
+    162,
+    1034,
+    78,
+    52
+   ],
+   "offset": [
+    -38.0,
+    -27.5
+   ],
+   "angle": -15.469862000000004
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-138",
+   "region": [
+    723,
+    1034,
+    79,
+    50
+   ],
+   "offset": [
+    -39.0,
+    -26.5
+   ],
+   "angle": -13.750989000000004
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-120",
+   "region": [
+    247,
+    1087,
+    79,
+    48
+   ],
+   "offset": [
+    -39.0,
+    -25.5
+   ],
+   "angle": -12.032116000000004
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-103",
+   "region": [
+    399,
+    1087,
+    79,
+    47
+   ],
+   "offset": [
+    -39.0,
+    -24.5
+   ],
+   "angle": -10.313243000000003
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-86",
+   "region": [
+    846,
+    1087,
+    80,
+    45
+   ],
+   "offset": [
+    -40.0,
+    -23.5
+   ],
+   "angle": -8.594370000000003
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-69",
+   "region": [
+    764,
+    1087,
+    81,
+    45
+   ],
+   "offset": [
+    -40.0,
+    -23.5
+   ],
+   "angle": -6.875497000000003
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-52",
+   "region": [
+    548,
+    1136,
+    81,
+    43
+   ],
+   "offset": [
+    -40.0,
+    -22.5
+   ],
+   "angle": -5.1566240000000025
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-34",
+   "region": [
+    83,
+    1181,
+    82,
+    42
+   ],
+   "offset": [
+    -41.0,
+    -21.5
+   ],
+   "angle": -3.437751000000002
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:-17",
+   "region": [
+    0,
+    1224,
+    82,
+    40
+   ],
+   "offset": [
+    -41.0,
+    -20.5
+   ],
+   "angle": -1.7188780000000021
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:0",
+   "region": [
+    629,
+    1224,
+    81,
+    39
+   ],
+   "offset": [
+    -41.0,
+    -19.5
+   ],
+   "angle": -5.0000000020311575e-06
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:17",
+   "region": [
+    53,
+    1265,
+    82,
+    38
+   ],
+   "offset": [
+    -41.0,
+    -18.5
+   ],
+   "angle": 1.718867999999998
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:34",
+   "region": [
+    929,
+    1265,
+    82,
+    37
+   ],
+   "offset": [
+    -41.0,
+    -17.5
+   ],
+   "angle": 3.437740999999998
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:52",
+   "region": [
+    690,
+    1305,
+    81,
+    36
+   ],
+   "offset": [
+    -41.0,
+    -16.5
+   ],
+   "angle": 5.1566139999999985
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:69",
+   "region": [
+    96,
+    1380,
+    81,
+    34
+   ],
+   "offset": [
+    -41.0,
+    -15.5
+   ],
+   "angle": 6.875486999999999
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:86",
+   "region": [
+    793,
+    1380,
+    81,
+    33
+   ],
+   "offset": [
+    -41.0,
+    -14.5
+   ],
+   "angle": 8.594359999999998
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:103",
+   "region": [
+    606,
+    1416,
+    81,
+    32
+   ],
+   "offset": [
+    -41.0,
+    -13.5
+   ],
+   "angle": 10.313232999999999
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:120",
+   "region": [
+    875,
+    1380,
+    81,
+    33
+   ],
+   "offset": [
+    -41.0,
+    -14.5
+   ],
+   "angle": 12.032105999999999
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:138",
+   "region": [
+    0,
+    1416,
+    80,
+    33
+   ],
+   "offset": [
+    -41.0,
+    -14.5
+   ],
+   "angle": 13.750979
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:155",
+   "region": [
+    178,
+    1380,
+    80,
+    34
+   ],
+   "offset": [
+    -41.0,
+    -15.5
+   ],
+   "angle": 15.469852
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:172",
+   "region": [
+    259,
+    1380,
+    79,
+    34
+   ],
+   "offset": [
+    -41.0,
+    -15.5
+   ],
+   "angle": 17.188724999999998
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:189",
+   "region": [
+    772,
+    1305,
+    79,
+    36
+   ],
+   "offset": [
+    -41.0,
+    -16.5
+   ],
+   "angle": 18.907597999999997
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:206",
+   "region": [
+    136,
+    1265,
+    78,
+    38
+   ],
+   "offset": [
+    -40.0,
+    -17.5
+   ],
+   "angle": 20.626470999999995
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:223",
+   "region": [
+    83,
+    1224,
+    78,
+    40
+   ],
+   "offset": [
+    -40.0,
+    -18.5
+   ],
+   "angle": 22.345343999999994
+  },
+  {
+   "name": "dive_bomber",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|83x40|turn:241",
+   "region": [
+    166,
+    1181,
+    78,
+    42
+   ],
+   "offset": [
+    -40.0,
+    -19.5
+   ],
+   "angle": 24.064216999999992
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:-155",
+   "region": [
+    444,
+    1181,
+    28,
+    42
+   ],
+   "offset": [
+    -13.5,
+    -22.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:-103",
+   "region": [
+    876,
+    1181,
+    28,
+    41
+   ],
+   "offset": [
+    -13.5,
+    -21.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:-52",
+   "region": [
+    430,
+    1224,
+    28,
+    40
+   ],
+   "offset": [
+    -13.5,
+    -20.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:0",
+   "region": [
+    727,
+    1265,
+    29,
+    38
+   ],
+   "offset": [
+    -14.5,
+    -19.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:52",
+   "region": [
+    486,
+    1305,
+    29,
+    37
+   ],
+   "offset": [
+    -14.5,
+    -18.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:103",
+   "region": [
+    443,
+    1343,
+    30,
+    36
+   ],
+   "offset": [
+    -15.5,
+    -17.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|29x40|turn:155",
+   "region": [
+    732,
+    1380,
+    33,
+    34
+   ],
+   "offset": [
+    -16.5,
+    -16.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:-155",
+   "region": [
+    716,
+    1087,
+    47,
+    46
+   ],
+   "offset": [
+    -23.0,
+    -24.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:-103",
+   "region": [
+    900,
+    1136,
+    47,
+    43
+   ],
+   "offset": [
+    -23.0,
+    -22.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:-52",
+   "region": [
+    826,
+    1181,
+    49,
+    41
+   ],
+   "offset": [
+    -24.0,
+    -21.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:0",
+   "region": [
+    676,
+    1265,
+    50,
+    38
+   ],
+   "offset": [
+    -25.0,
+    -19.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:52",
+   "region": [
+    391,
+    1305,
+    49,
+    37
+   ],
+   "offset": [
+    -25.0,
+    -18.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:103",
+   "region": [
+    0,
+    1380,
+    49,
+    35
+   ],
+   "offset": [
+    -25.0,
+    -16.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|50x40|turn:155",
+   "region": [
+    138,
+    1450,
+    50,
+    32
+   ],
+   "offset": [
+    -26.0,
+    -14.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:-155",
+   "region": [
+    957,
+    1034,
+    67,
+    49
+   ],
+   "offset": [
+    -33.0,
+    -25.5
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:-103",
+   "region": [
+    927,
+    1087,
+    68,
+    45
+   ],
+   "offset": [
+    -34.0,
+    -23.5
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:-52",
+   "region": [
+    245,
+    1181,
+    70,
+    42
+   ],
+   "offset": [
+    -35.0,
+    -21.5
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:0",
+   "region": [
+    787,
+    1224,
+    70,
+    39
+   ],
+   "offset": [
+    -35.0,
+    -19.5
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:52",
+   "region": [
+    77,
+    1305,
+    69,
+    37
+   ],
+   "offset": [
+    -35.0,
+    -17.5
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:103",
+   "region": [
+    313,
+    1416,
+    70,
+    33
+   ],
+   "offset": [
+    -36.0,
+    -14.5
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "dive_bomber_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|407,667,396,191|71x40|turn:155",
+   "region": [
+    454,
+    1416,
+    68,
+    33
+   ],
+   "offset": [
+    -35.0,
+    -14.5
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-172",
+   "region": [
+    704,
+    1136,
+    66,
+    43
+   ],
+   "offset": [
+    -32.0,
+    -21.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-155",
+   "region": [
+    632,
+    1181,
+    66,
+    41
+   ],
+   "offset": [
+    -32.0,
+    -20.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-138",
+   "region": [
+    237,
+    1224,
+    66,
+    40
+   ],
+   "offset": [
+    -32.0,
+    -19.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-120",
+   "region": [
+    367,
+    1265,
+    67,
+    38
+   ],
+   "offset": [
+    -33.0,
+    -18.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-103",
+   "region": [
+    73,
+    1343,
+    68,
+    36
+   ],
+   "offset": [
+    -33.0,
+    -17.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-86",
+   "region": [
+    788,
+    1343,
+    69,
+    35
+   ],
+   "offset": [
+    -34.0,
+    -16.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-69",
+   "region": [
+    384,
+    1416,
+    69,
+    33
+   ],
+   "offset": [
+    -34.0,
+    -15.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-52",
+   "region": [
+    939,
+    1450,
+    69,
+    31
+   ],
+   "offset": [
+    -34.0,
+    -14.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-34",
+   "region": [
+    0,
+    1450,
+    70,
+    32
+   ],
+   "offset": [
+    -35.0,
+    -15.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:-17",
+   "region": [
+    797,
+    1450,
+    70,
+    31
+   ],
+   "offset": [
+    -35.0,
+    -15.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:0",
+   "region": [
+    288,
+    1483,
+    70,
+    30
+   ],
+   "offset": [
+    -35.0,
+    -15.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:17",
+   "region": [
+    359,
+    1483,
+    70,
+    30
+   ],
+   "offset": [
+    -35.0,
+    -15.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:34",
+   "region": [
+    868,
+    1450,
+    70,
+    31
+   ],
+   "offset": [
+    -35.0,
+    -16.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:52",
+   "region": [
+    725,
+    1450,
+    71,
+    31
+   ],
+   "offset": [
+    -35.0,
+    -16.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:69",
+   "region": [
+    506,
+    1450,
+    72,
+    31
+   ],
+   "offset": [
+    -36.0,
+    -16.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:86",
+   "region": [
+    579,
+    1450,
+    72,
+    31
+   ],
+   "offset": [
+    -36.0,
+    -16.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:103",
+   "region": [
+    652,
+    1450,
+    72,
+    31
+   ],
+   "offset": [
+    -36.0,
+    -16.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:120",
+   "region": [
+    920,
+    1416,
+    72,
+    32
+   ],
+   "offset": [
+    -36.0,
+    -16.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:138",
+   "region": [
+    491,
+    1380,
+    72,
+    34
+   ],
+   "offset": [
+    -36.0,
+    -17.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:155",
+   "region": [
+    715,
+    1343,
+    72,
+    35
+   ],
+   "offset": [
+    -36.0,
+    -17.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "gunship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|368,123,383,167|71x31|turn:172",
+   "region": [
+    0,
+    1343,
+    72,
+    36
+   ],
+   "offset": [
+    -36.0,
+    -17.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-172",
+   "region": [
+    0,
+    0,
+    137,
+    85
+   ],
+   "offset": [
+    -70.0,
+    -48.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-155",
+   "region": [
+    138,
+    0,
+    137,
+    82
+   ],
+   "offset": [
+    -70.0,
+    -46.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-138",
+   "region": [
+    276,
+    0,
+    138,
+    79
+   ],
+   "offset": [
+    -71.0,
+    -44.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-120",
+   "region": [
+    415,
+    0,
+    139,
+    78
+   ],
+   "offset": [
+    -71.0,
+    -43.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-103",
+   "region": [
+    831,
+    0,
+    140,
+    75
+   ],
+   "offset": [
+    -71.0,
+    -41.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-86",
+   "region": [
+    241,
+    86,
+    140,
+    73
+   ],
+   "offset": [
+    -71.0,
+    -39.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-69",
+   "region": [
+    840,
+    86,
+    141,
+    71
+   ],
+   "offset": [
+    -71.0,
+    -38.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-52",
+   "region": [
+    671,
+    162,
+    141,
+    69
+   ],
+   "offset": [
+    -71.0,
+    -36.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-34",
+   "region": [
+    684,
+    234,
+    141,
+    66
+   ],
+   "offset": [
+    -71.0,
+    -34.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:-17",
+   "region": [
+    663,
+    371,
+    141,
+    64
+   ],
+   "offset": [
+    -71.0,
+    -32.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:0",
+   "region": [
+    520,
+    371,
+    142,
+    64
+   ],
+   "offset": [
+    -71.0,
+    -32.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:17",
+   "region": [
+    721,
+    304,
+    142,
+    65
+   ],
+   "offset": [
+    -71.0,
+    -33.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:34",
+   "region": [
+    864,
+    304,
+    141,
+    65
+   ],
+   "offset": [
+    -70.0,
+    -33.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:52",
+   "region": [
+    826,
+    234,
+    141,
+    66
+   ],
+   "offset": [
+    -70.0,
+    -34.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:69",
+   "region": [
+    543,
+    234,
+    140,
+    67
+   ],
+   "offset": [
+    -69.0,
+    -35.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:86",
+   "region": [
+    813,
+    162,
+    140,
+    69
+   ],
+   "offset": [
+    -69.0,
+    -36.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:103",
+   "region": [
+    0,
+    162,
+    139,
+    71
+   ],
+   "offset": [
+    -68.0,
+    -37.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:120",
+   "region": [
+    382,
+    86,
+    139,
+    73
+   ],
+   "offset": [
+    -68.0,
+    -38.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:138",
+   "region": [
+    0,
+    86,
+    138,
+    75
+   ],
+   "offset": [
+    -67.0,
+    -39.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:155",
+   "region": [
+    693,
+    0,
+    137,
+    76
+   ],
+   "offset": [
+    -66.0,
+    -39.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "heavy_zeppelin",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|143x66|turn:172",
+   "region": [
+    555,
+    0,
+    137,
+    77
+   ],
+   "offset": [
+    -66.0,
+    -40.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-241",
+   "region": [
+    0,
+    1265,
+    52,
+    39
+   ],
+   "offset": [
+    -24.0,
+    -22.5
+   ],
+   "angle": -24.064227
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-223",
+   "region": [
+    622,
+    1265,
+    53,
+    38
+   ],
+   "offset": [
+    -25.0,
+    -22.5
+   ],
+   "angle": -22.345354
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-206",
+   "region": [
+    336,
+    1305,
+    54,
+    37
+   ],
+   "offset": [
+    -25.0,
+    -21.5
+   ],
+   "angle": -20.626481000000002
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-189",
+   "region": [
+    387,
+    1343,
+    55,
+    36
+   ],
+   "offset": [
+    -26.0,
+    -21.5
+   ],
+   "angle": -18.907608000000003
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-172",
+   "region": [
+    629,
+    1380,
+    55,
+    34
+   ],
+   "offset": [
+    -26.0,
+    -20.5
+   ],
+   "angle": -17.188735000000005
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-155",
+   "region": [
+    523,
+    1416,
+    55,
+    33
+   ],
+   "offset": [
+    -26.0,
+    -19.5
+   ],
+   "angle": -15.469862000000004
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-138",
+   "region": [
+    0,
+    1483,
+    55,
+    31
+   ],
+   "offset": [
+    -26.0,
+    -18.5
+   ],
+   "angle": -13.750989000000004
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-120",
+   "region": [
+    496,
+    1483,
+    56,
+    30
+   ],
+   "offset": [
+    -27.0,
+    -18.5
+   ],
+   "angle": -12.032116000000004
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-103",
+   "region": [
+    896,
+    1483,
+    57,
+    29
+   ],
+   "offset": [
+    -28.0,
+    -17.5
+   ],
+   "angle": -10.313243000000003
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-86",
+   "region": [
+    329,
+    1515,
+    57,
+    28
+   ],
+   "offset": [
+    -28.0,
+    -16.5
+   ],
+   "angle": -8.594370000000003
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-69",
+   "region": [
+    794,
+    1515,
+    57,
+    27
+   ],
+   "offset": [
+    -28.0,
+    -15.5
+   ],
+   "angle": -6.875497000000003
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-52",
+   "region": [
+    852,
+    1515,
+    57,
+    27
+   ],
+   "offset": [
+    -28.0,
+    -15.5
+   ],
+   "angle": -5.1566240000000025
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-34",
+   "region": [
+    910,
+    1515,
+    57,
+    27
+   ],
+   "offset": [
+    -28.0,
+    -14.5
+   ],
+   "angle": -3.437751000000002
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:-17",
+   "region": [
+    338,
+    1545,
+    58,
+    26
+   ],
+   "offset": [
+    -29.0,
+    -13.5
+   ],
+   "angle": -1.7188780000000021
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:0",
+   "region": [
+    890,
+    1545,
+    58,
+    25
+   ],
+   "offset": [
+    -29.0,
+    -12.5
+   ],
+   "angle": -5.0000000020311575e-06
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:17",
+   "region": [
+    524,
+    1573,
+    58,
+    24
+   ],
+   "offset": [
+    -29.0,
+    -11.5
+   ],
+   "angle": 1.718867999999998
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:34",
+   "region": [
+    770,
+    1545,
+    59,
+    25
+   ],
+   "offset": [
+    -29.0,
+    -11.5
+   ],
+   "angle": 3.437740999999998
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:52",
+   "region": [
+    404,
+    1573,
+    59,
+    24
+   ],
+   "offset": [
+    -29.0,
+    -10.5
+   ],
+   "angle": 5.1566139999999985
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:69",
+   "region": [
+    865,
+    1573,
+    59,
+    23
+   ],
+   "offset": [
+    -29.0,
+    -9.5
+   ],
+   "angle": 6.875486999999999
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:86",
+   "region": [
+    464,
+    1573,
+    59,
+    24
+   ],
+   "offset": [
+    -29.0,
+    -9.5
+   ],
+   "angle": 8.594359999999998
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:103",
+   "region": [
+    804,
+    1573,
+    60,
+    23
+   ],
+   "offset": [
+    -29.0,
+    -8.5
+   ],
+   "angle": 10.313232999999999
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:120",
+   "region": [
+    215,
+    1599,
+    60,
+    22
+   ],
+   "offset": [
+    -29.0,
+    -7.5
+   ],
+   "angle": 12.032105999999999
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:138",
+   "region": [
+    276,
+    1599,
+    60,
+    22
+   ],
+   "offset": [
+    -29.0,
+    -6.5
+   ],
+   "angle": 13.750979
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:155",
+   "region": [
+    337,
+    1599,
+    60,
+    22
+   ],
+   "offset": [
+    -29.0,
+    -6.5
+   ],
+   "angle": 15.469852
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:172",
+   "region": [
+    512,
+    1599,
+    60,
+    21
+   ],
+   "offset": [
+    -29.0,
+    -5.5
+   ],
+   "angle": 17.188724999999998
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:189",
+   "region": [
+    398,
+    1599,
+    60,
+    22
+   ],
+   "offset": [
+    -29.0,
+    -6.5
+   ],
+   "angle": 18.907597999999997
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:206",
+   "region": [
+    925,
+    1573,
+    59,
+    23
+   ],
+   "offset": [
+    -28.0,
+    -6.5
+   ],
+   "angle": 20.626470999999995
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:223",
+   "region": [
+    0,
+    1599,
+    59,
+    23
+   ],
+   "offset": [
+    -28.0,
+    -6.5
+   ],
+   "angle": 22.345343999999994
+  },
+  {
+   "name": "interceptor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|59x26|turn:241",
+   "region": [
+    830,
+    1545,
+    59,
+    25
+   ],
+   "offset": [
+    -28.0,
+    -7.5
+   ],
+   "angle": 24.064216999999992
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:-155",
+   "region": [
+    682,
+    1545,
+    20,
+    26
+   ],
+   "offset": [
+    -8.5,
+    -15.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:-103",
+   "region": [
+    638,
+    1545,
+    21,
+    26
+   ],
+   "offset": [
+    -9.5,
+    -14.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:-52",
+   "region": [
+    383,
+    1573,
+    20,
+    25
+   ],
+   "offset": [
+    -9.5,
+    -13.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:0",
+   "region": [
+    660,
+    1545,
+    21,
+    26
+   ],
+   "offset": [
+    -10.5,
+    -13.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:52",
+   "region": [
+    360,
+    1573,
+    22,
+    25
+   ],
+   "offset": [
+    -10.5,
+    -12.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:103",
+   "region": [
+    780,
+    1573,
+    23,
+    24
+   ],
+   "offset": [
+    -10.5,
+    -11.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|21x26|turn:155",
+   "region": [
+    189,
+    1599,
+    25,
+    23
+   ],
+   "offset": [
+    -11.5,
+    -10.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:-155",
+   "region": [
+    83,
+    1545,
+    33,
+    27
+   ],
+   "offset": [
+    -15.0,
+    -16.5
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:-103",
+   "region": [
+    48,
+    1545,
+    34,
+    27
+   ],
+   "offset": [
+    -16.0,
+    -15.5
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:-52",
+   "region": [
+    117,
+    1545,
+    33,
+    27
+   ],
+   "offset": [
+    -16.0,
+    -14.5
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:0",
+   "region": [
+    325,
+    1573,
+    34,
+    25
+   ],
+   "offset": [
+    -17.0,
+    -12.5
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:52",
+   "region": [
+    289,
+    1573,
+    35,
+    25
+   ],
+   "offset": [
+    -17.0,
+    -11.5
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:103",
+   "region": [
+    151,
+    1599,
+    37,
+    23
+   ],
+   "offset": [
+    -18.0,
+    -9.5
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|35x26|turn:155",
+   "region": [
+    112,
+    1599,
+    38,
+    23
+   ],
+   "offset": [
+    -18.0,
+    -8.5
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:-155",
+   "region": [
+    553,
+    1483,
+    47,
+    30
+   ],
+   "offset": [
+    -22.0,
+    -18.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:-103",
+   "region": [
+    387,
+    1515,
+    48,
+    28
+   ],
+   "offset": [
+    -23.0,
+    -17.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:-52",
+   "region": [
+    968,
+    1515,
+    47,
+    27
+   ],
+   "offset": [
+    -23.0,
+    -15.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:0",
+   "region": [
+    397,
+    1545,
+    49,
+    26
+   ],
+   "offset": [
+    -24.0,
+    -13.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:52",
+   "region": [
+    583,
+    1573,
+    51,
+    24
+   ],
+   "offset": [
+    -25.0,
+    -11.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:103",
+   "region": [
+    60,
+    1599,
+    51,
+    23
+   ],
+   "offset": [
+    -25.0,
+    -9.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "interceptor_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|50x26|turn:155",
+   "region": [
+    459,
+    1599,
+    52,
+    22
+   ],
+   "offset": [
+    -25.0,
+    -7.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-241",
+   "region": [
+    324,
+    1034,
+    69,
+    51
+   ],
+   "offset": [
+    -34.0,
+    -27.0
+   ],
+   "angle": -24.064227
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-223",
+   "region": [
+    803,
+    1034,
+    71,
+    50
+   ],
+   "offset": [
+    -35.0,
+    -27.0
+   ],
+   "angle": -22.345354
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-206",
+   "region": [
+    327,
+    1087,
+    71,
+    48
+   ],
+   "offset": [
+    -35.0,
+    -26.0
+   ],
+   "angle": -20.626481000000002
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-189",
+   "region": [
+    644,
+    1087,
+    71,
+    46
+   ],
+   "offset": [
+    -35.0,
+    -25.0
+   ],
+   "angle": -18.907608000000003
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-172",
+   "region": [
+    165,
+    1136,
+    72,
+    44
+   ],
+   "offset": [
+    -36.0,
+    -24.0
+   ],
+   "angle": -17.188735000000005
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-155",
+   "region": [
+    630,
+    1136,
+    73,
+    43
+   ],
+   "offset": [
+    -36.0,
+    -24.0
+   ],
+   "angle": -15.469862000000004
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-138",
+   "region": [
+    557,
+    1181,
+    74,
+    41
+   ],
+   "offset": [
+    -37.0,
+    -23.0
+   ],
+   "angle": -13.750989000000004
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-120",
+   "region": [
+    162,
+    1224,
+    74,
+    40
+   ],
+   "offset": [
+    -37.0,
+    -22.0
+   ],
+   "angle": -12.032116000000004
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-103",
+   "region": [
+    215,
+    1265,
+    75,
+    38
+   ],
+   "offset": [
+    -37.0,
+    -21.0
+   ],
+   "angle": -10.313243000000003
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-86",
+   "region": [
+    0,
+    1305,
+    76,
+    37
+   ],
+   "offset": [
+    -38.0,
+    -20.0
+   ],
+   "angle": -8.594370000000003
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-69",
+   "region": [
+    852,
+    1305,
+    76,
+    36
+   ],
+   "offset": [
+    -38.0,
+    -19.0
+   ],
+   "angle": -6.875497000000003
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-52",
+   "region": [
+    339,
+    1380,
+    76,
+    34
+   ],
+   "offset": [
+    -38.0,
+    -18.0
+   ],
+   "angle": -5.1566240000000025
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-34",
+   "region": [
+    159,
+    1416,
+    76,
+    33
+   ],
+   "offset": [
+    -38.0,
+    -17.0
+   ],
+   "angle": -3.437751000000002
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:-17",
+   "region": [
+    236,
+    1416,
+    76,
+    33
+   ],
+   "offset": [
+    -38.0,
+    -17.0
+   ],
+   "angle": -1.7188780000000021
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:0",
+   "region": [
+    688,
+    1416,
+    78,
+    32
+   ],
+   "offset": [
+    -39.0,
+    -16.0
+   ],
+   "angle": -5.0000000020311575e-06
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:17",
+   "region": [
+    131,
+    1483,
+    78,
+    30
+   ],
+   "offset": [
+    -39.0,
+    -15.0
+   ],
+   "angle": 1.718867999999998
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:34",
+   "region": [
+    740,
+    1483,
+    78,
+    29
+   ],
+   "offset": [
+    -39.0,
+    -14.0
+   ],
+   "angle": 3.437740999999998
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:52",
+   "region": [
+    28,
+    1515,
+    78,
+    28
+   ],
+   "offset": [
+    -39.0,
+    -13.0
+   ],
+   "angle": 5.1566139999999985
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:69",
+   "region": [
+    559,
+    1515,
+    78,
+    27
+   ],
+   "offset": [
+    -39.0,
+    -12.0
+   ],
+   "angle": 6.875486999999999
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:86",
+   "region": [
+    182,
+    1545,
+    78,
+    26
+   ],
+   "offset": [
+    -39.0,
+    -11.0
+   ],
+   "angle": 8.594359999999998
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:103",
+   "region": [
+    638,
+    1515,
+    78,
+    27
+   ],
+   "offset": [
+    -39.0,
+    -11.0
+   ],
+   "angle": 10.313232999999999
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:120",
+   "region": [
+    107,
+    1515,
+    77,
+    28
+   ],
+   "offset": [
+    -38.0,
+    -12.0
+   ],
+   "angle": 12.032105999999999
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:138",
+   "region": [
+    210,
+    1483,
+    77,
+    30
+   ],
+   "offset": [
+    -38.0,
+    -13.0
+   ],
+   "angle": 13.750979
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:155",
+   "region": [
+    767,
+    1416,
+    77,
+    32
+   ],
+   "offset": [
+    -38.0,
+    -14.0
+   ],
+   "angle": 15.469852
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:172",
+   "region": [
+    81,
+    1416,
+    77,
+    33
+   ],
+   "offset": [
+    -38.0,
+    -15.0
+   ],
+   "angle": 17.188724999999998
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:189",
+   "region": [
+    562,
+    1343,
+    77,
+    35
+   ],
+   "offset": [
+    -38.0,
+    -16.0
+   ],
+   "angle": 18.907597999999997
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:206",
+   "region": [
+    929,
+    1305,
+    75,
+    36
+   ],
+   "offset": [
+    -37.0,
+    -17.0
+   ],
+   "angle": 20.626470999999995
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:223",
+   "region": [
+    291,
+    1265,
+    75,
+    38
+   ],
+   "offset": [
+    -37.0,
+    -18.0
+   ],
+   "angle": 22.345343999999994
+  },
+  {
+   "name": "patrol_plane",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|78x32|turn:241",
+   "region": [
+    711,
+    1224,
+    75,
+    39
+   ],
+   "offset": [
+    -37.0,
+    -19.0
+   ],
+   "angle": 24.064216999999992
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:-155",
+   "region": [
+    766,
+    1380,
+    26,
+    34
+   ],
+   "offset": [
+    -12.5,
+    -18.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:-103",
+   "region": [
+    579,
+    1416,
+    26,
+    33
+   ],
+   "offset": [
+    -12.5,
+    -17.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:-52",
+   "region": [
+    326,
+    1450,
+    27,
+    32
+   ],
+   "offset": [
+    -13.5,
+    -16.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:0",
+   "region": [
+    103,
+    1483,
+    27,
+    31
+   ],
+   "offset": [
+    -13.5,
+    -15.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:52",
+   "region": [
+    0,
+    1515,
+    27,
+    29
+   ],
+   "offset": [
+    -13.5,
+    -14.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:103",
+   "region": [
+    530,
+    1515,
+    28,
+    28
+   ],
+   "offset": [
+    -13.5,
+    -13.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|27x32|turn:155",
+   "region": [
+    151,
+    1545,
+    30,
+    27
+   ],
+   "offset": [
+    -14.5,
+    -12.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:-155",
+   "region": [
+    441,
+    1305,
+    44,
+    37
+   ],
+   "offset": [
+    -22.0,
+    -20.5
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:-103",
+   "region": [
+    50,
+    1380,
+    45,
+    35
+   ],
+   "offset": [
+    -22.0,
+    -18.5
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:-52",
+   "region": [
+    685,
+    1380,
+    46,
+    34
+   ],
+   "offset": [
+    -23.0,
+    -17.5
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:0",
+   "region": [
+    56,
+    1483,
+    46,
+    31
+   ],
+   "offset": [
+    -23.0,
+    -15.5
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:52",
+   "region": [
+    954,
+    1483,
+    46,
+    29
+   ],
+   "offset": [
+    -23.0,
+    -13.5
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:103",
+   "region": [
+    0,
+    1545,
+    47,
+    27
+   ],
+   "offset": [
+    -23.0,
+    -11.5
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|47x32|turn:155",
+   "region": [
+    49,
+    1573,
+    47,
+    25
+   ],
+   "offset": [
+    -23.0,
+    -9.5
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:-155",
+   "region": [
+    304,
+    1224,
+    62,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -22.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:-103",
+   "region": [
+    147,
+    1305,
+    64,
+    37
+   ],
+   "offset": [
+    -32.0,
+    -20.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:-52",
+   "region": [
+    564,
+    1380,
+    64,
+    34
+   ],
+   "offset": [
+    -32.0,
+    -18.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:0",
+   "region": [
+    71,
+    1450,
+    66,
+    32
+   ],
+   "offset": [
+    -33.0,
+    -16.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:52",
+   "region": [
+    262,
+    1515,
+    66,
+    28
+   ],
+   "offset": [
+    -33.0,
+    -13.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:103",
+   "region": [
+    703,
+    1545,
+    66,
+    25
+   ],
+   "offset": [
+    -33.0,
+    -10.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "patrol_plane_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|66x32|turn:155",
+   "region": [
+    430,
+    1483,
+    65,
+    30
+   ],
+   "offset": [
+    -32.0,
+    -13.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-241",
+   "region": [
+    617,
+    502,
+    88,
+    63
+   ],
+   "offset": [
+    -38.0,
+    -42.5
+   ],
+   "angle": -24.064227
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-223",
+   "region": [
+    424,
+    567,
+    89,
+    61
+   ],
+   "offset": [
+    -39.0,
+    -41.5
+   ],
+   "angle": -22.345354
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-206",
+   "region": [
+    601,
+    630,
+    89,
+    59
+   ],
+   "offset": [
+    -39.0,
+    -40.5
+   ],
+   "angle": -20.626481000000002
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-189",
+   "region": [
+    112,
+    691,
+    90,
+    58
+   ],
+   "offset": [
+    -40.0,
+    -39.5
+   ],
+   "angle": -18.907608000000003
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-172",
+   "region": [
+    91,
+    808,
+    89,
+    56
+   ],
+   "offset": [
+    -40.0,
+    -38.5
+   ],
+   "angle": -17.188735000000005
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-155",
+   "region": [
+    549,
+    750,
+    90,
+    56
+   ],
+   "offset": [
+    -41.0,
+    -37.5
+   ],
+   "angle": -15.469862000000004
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-138",
+   "region": [
+    181,
+    808,
+    89,
+    56
+   ],
+   "offset": [
+    -41.0,
+    -36.5
+   ],
+   "angle": -13.750989000000004
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-120",
+   "region": [
+    640,
+    750,
+    90,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -35.5
+   ],
+   "angle": -12.032116000000004
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-103",
+   "region": [
+    271,
+    808,
+    89,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -34.5
+   ],
+   "angle": -10.313243000000003
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-86",
+   "region": [
+    361,
+    808,
+    89,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -33.5
+   ],
+   "angle": -8.594370000000003
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-69",
+   "region": [
+    541,
+    808,
+    88,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -32.5
+   ],
+   "angle": -6.875497000000003
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-52",
+   "region": [
+    630,
+    808,
+    88,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -31.5
+   ],
+   "angle": -5.1566240000000025
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-34",
+   "region": [
+    719,
+    808,
+    88,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -30.5
+   ],
+   "angle": -3.437751000000002
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:-17",
+   "region": [
+    410,
+    922,
+    87,
+    55
+   ],
+   "offset": [
+    -43.0,
+    -28.5
+   ],
+   "angle": -1.7188780000000021
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:0",
+   "region": [
+    498,
+    922,
+    86,
+    55
+   ],
+   "offset": [
+    -43.0,
+    -27.5
+   ],
+   "angle": -5.0000000020311575e-06
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:17",
+   "region": [
+    0,
+    865,
+    87,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -26.5
+   ],
+   "angle": 1.718867999999998
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:34",
+   "region": [
+    808,
+    808,
+    88,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -25.5
+   ],
+   "angle": 3.437740999999998
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:52",
+   "region": [
+    897,
+    808,
+    88,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -24.5
+   ],
+   "angle": 5.1566139999999985
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:69",
+   "region": [
+    451,
+    808,
+    89,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -23.5
+   ],
+   "angle": 6.875486999999999
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:86",
+   "region": [
+    731,
+    750,
+    90,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -22.5
+   ],
+   "angle": 8.594359999999998
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:103",
+   "region": [
+    822,
+    750,
+    90,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -21.5
+   ],
+   "angle": 10.313232999999999
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:120",
+   "region": [
+    365,
+    750,
+    91,
+    56
+   ],
+   "offset": [
+    -43.0,
+    -20.5
+   ],
+   "angle": 12.032105999999999
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:138",
+   "region": [
+    913,
+    750,
+    90,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -18.5
+   ],
+   "angle": 13.750979
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:155",
+   "region": [
+    0,
+    808,
+    90,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -17.5
+   ],
+   "angle": 15.469852
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:172",
+   "region": [
+    457,
+    750,
+    91,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -16.5
+   ],
+   "angle": 17.188724999999998
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:189",
+   "region": [
+    226,
+    922,
+    91,
+    55
+   ],
+   "offset": [
+    -42.0,
+    -15.5
+   ],
+   "angle": 18.907597999999997
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:206",
+   "region": [
+    318,
+    922,
+    91,
+    55
+   ],
+   "offset": [
+    -41.0,
+    -14.5
+   ],
+   "angle": 20.626470999999995
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:223",
+   "region": [
+    891,
+    691,
+    91,
+    57
+   ],
+   "offset": [
+    -41.0,
+    -15.5
+   ],
+   "angle": 22.345343999999994
+  },
+  {
+   "name": "pulse_fighter",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|88x57|turn:241",
+   "region": [
+    509,
+    630,
+    91,
+    59
+   ],
+   "offset": [
+    -41.0,
+    -16.5
+   ],
+   "angle": 24.064216999999992
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:-155",
+   "region": [
+    57,
+    978,
+    36,
+    55
+   ],
+   "offset": [
+    -14.0,
+    -31.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:-103",
+   "region": [
+    130,
+    978,
+    34,
+    55
+   ],
+   "offset": [
+    -14.0,
+    -30.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:-52",
+   "region": [
+    909,
+    865,
+    33,
+    56
+   ],
+   "offset": [
+    -15.0,
+    -29.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:0",
+   "region": [
+    977,
+    865,
+    30,
+    56
+   ],
+   "offset": [
+    -15.0,
+    -28.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:52",
+   "region": [
+    943,
+    865,
+    33,
+    56
+   ],
+   "offset": [
+    -15.0,
+    -27.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:103",
+   "region": [
+    94,
+    978,
+    35,
+    55
+   ],
+   "offset": [
+    -15.0,
+    -25.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|31x57|turn:155",
+   "region": [
+    393,
+    978,
+    37,
+    54
+   ],
+   "offset": [
+    -15.0,
+    -23.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:-155",
+   "region": [
+    0,
+    978,
+    56,
+    55
+   ],
+   "offset": [
+    -24.0,
+    -33.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:-103",
+   "region": [
+    690,
+    865,
+    55,
+    56
+   ],
+   "offset": [
+    -25.0,
+    -32.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:-52",
+   "region": [
+    746,
+    865,
+    54,
+    56
+   ],
+   "offset": [
+    -26.0,
+    -30.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:0",
+   "region": [
+    856,
+    865,
+    52,
+    56
+   ],
+   "offset": [
+    -26.0,
+    -28.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:52",
+   "region": [
+    801,
+    865,
+    54,
+    56
+   ],
+   "offset": [
+    -26.0,
+    -26.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:103",
+   "region": [
+    633,
+    865,
+    56,
+    56
+   ],
+   "offset": [
+    -26.0,
+    -24.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|53x57|turn:155",
+   "region": [
+    334,
+    978,
+    58,
+    54
+   ],
+   "offset": [
+    -26.0,
+    -21.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:-155",
+   "region": [
+    751,
+    922,
+    78,
+    55
+   ],
+   "offset": [
+    -35.0,
+    -36.0
+   ],
+   "angle": -15.46986
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:-103",
+   "region": [
+    327,
+    865,
+    77,
+    56
+   ],
+   "offset": [
+    -36.0,
+    -34.0
+   ],
+   "angle": -10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:-52",
+   "region": [
+    482,
+    865,
+    75,
+    56
+   ],
+   "offset": [
+    -36.0,
+    -31.0
+   ],
+   "angle": -5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:0",
+   "region": [
+    558,
+    865,
+    74,
+    56
+   ],
+   "offset": [
+    -37.0,
+    -28.0
+   ],
+   "angle": 0.0
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:52",
+   "region": [
+    405,
+    865,
+    76,
+    56
+   ],
+   "offset": [
+    -37.0,
+    -25.0
+   ],
+   "angle": 5.15662
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:103",
+   "region": [
+    170,
+    865,
+    78,
+    56
+   ],
+   "offset": [
+    -37.0,
+    -22.0
+   ],
+   "angle": 10.31324
+  },
+  {
+   "name": "pulse_fighter_bank",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|823,664,348,223|75x57|turn:155",
+   "region": [
+    830,
+    922,
+    78,
+    55
+   ],
+   "offset": [
+    -36.0,
+    -19.0
+   ],
+   "angle": 15.46986
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-172",
+   "region": [
+    238,
+    1136,
+    63,
+    44
+   ],
+   "offset": [
+    -32.0,
+    -23.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-155",
+   "region": [
+    836,
+    1136,
+    63,
+    43
+   ],
+   "offset": [
+    -32.0,
+    -23.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-138",
+   "region": [
+    316,
+    1181,
+    63,
+    42
+   ],
+   "offset": [
+    -32.0,
+    -22.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-120",
+   "region": [
+    763,
+    1181,
+    62,
+    41
+   ],
+   "offset": [
+    -31.0,
+    -22.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-103",
+   "region": [
+    367,
+    1224,
+    62,
+    40
+   ],
+   "offset": [
+    -31.0,
+    -21.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-86",
+   "region": [
+    858,
+    1224,
+    62,
+    39
+   ],
+   "offset": [
+    -31.0,
+    -20.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-69",
+   "region": [
+    498,
+    1265,
+    61,
+    38
+   ],
+   "offset": [
+    -30.0,
+    -20.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-52",
+   "region": [
+    212,
+    1305,
+    61,
+    37
+   ],
+   "offset": [
+    -30.0,
+    -19.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-34",
+   "region": [
+    204,
+    1343,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -18.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:-17",
+   "region": [
+    265,
+    1343,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -18.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:0",
+   "region": [
+    858,
+    1343,
+    60,
+    35
+   ],
+   "offset": [
+    -30.0,
+    -17.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:17",
+   "region": [
+    919,
+    1343,
+    60,
+    35
+   ],
+   "offset": [
+    -30.0,
+    -17.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:34",
+   "region": [
+    326,
+    1343,
+    60,
+    36
+   ],
+   "offset": [
+    -30.0,
+    -18.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:52",
+   "region": [
+    142,
+    1343,
+    61,
+    36
+   ],
+   "offset": [
+    -31.0,
+    -18.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:69",
+   "region": [
+    274,
+    1305,
+    61,
+    37
+   ],
+   "offset": [
+    -31.0,
+    -19.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:86",
+   "region": [
+    560,
+    1265,
+    61,
+    38
+   ],
+   "offset": [
+    -31.0,
+    -20.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:103",
+   "region": [
+    435,
+    1265,
+    62,
+    38
+   ],
+   "offset": [
+    -31.0,
+    -20.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:120",
+   "region": [
+    921,
+    1224,
+    62,
+    39
+   ],
+   "offset": [
+    -31.0,
+    -21.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:138",
+   "region": [
+    699,
+    1181,
+    63,
+    41
+   ],
+   "offset": [
+    -32.0,
+    -22.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:155",
+   "region": [
+    380,
+    1181,
+    63,
+    42
+   ],
+   "offset": [
+    -32.0,
+    -22.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "rocket_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|881,406,270,157|61x36|turn:172",
+   "region": [
+    771,
+    1136,
+    64,
+    43
+   ],
+   "offset": [
+    -32.0,
+    -23.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-172",
+   "region": [
+    281,
+    1450,
+    44,
+    32
+   ],
+   "offset": [
+    -21.0,
+    -16.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-155",
+   "region": [
+    189,
+    1450,
+    45,
+    32
+   ],
+   "offset": [
+    -22.0,
+    -16.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-138",
+   "region": [
+    235,
+    1450,
+    45,
+    32
+   ],
+   "offset": [
+    -22.0,
+    -16.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-120",
+   "region": [
+    648,
+    1483,
+    45,
+    30
+   ],
+   "offset": [
+    -22.0,
+    -15.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-103",
+   "region": [
+    694,
+    1483,
+    45,
+    30
+   ],
+   "offset": [
+    -22.0,
+    -15.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-86",
+   "region": [
+    601,
+    1483,
+    46,
+    30
+   ],
+   "offset": [
+    -23.0,
+    -15.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-69",
+   "region": [
+    436,
+    1515,
+    46,
+    28
+   ],
+   "offset": [
+    -23.0,
+    -14.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-52",
+   "region": [
+    483,
+    1515,
+    46,
+    28
+   ],
+   "offset": [
+    -23.0,
+    -14.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-34",
+   "region": [
+    591,
+    1545,
+    46,
+    26
+   ],
+   "offset": [
+    -23.0,
+    -13.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:-17",
+   "region": [
+    447,
+    1545,
+    47,
+    26
+   ],
+   "offset": [
+    -23.0,
+    -13.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:0",
+   "region": [
+    495,
+    1545,
+    47,
+    26
+   ],
+   "offset": [
+    -23.0,
+    -13.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:17",
+   "region": [
+    949,
+    1545,
+    48,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -13.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:34",
+   "region": [
+    0,
+    1573,
+    48,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -13.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:52",
+   "region": [
+    635,
+    1573,
+    48,
+    24
+   ],
+   "offset": [
+    -24.0,
+    -13.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:69",
+   "region": [
+    684,
+    1573,
+    47,
+    24
+   ],
+   "offset": [
+    -24.0,
+    -13.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:86",
+   "region": [
+    97,
+    1573,
+    47,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:103",
+   "region": [
+    732,
+    1573,
+    47,
+    24
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:120",
+   "region": [
+    145,
+    1573,
+    47,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:138",
+   "region": [
+    193,
+    1573,
+    47,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:155",
+   "region": [
+    241,
+    1573,
+    47,
+    25
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "scout_drone",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|48,137,281,150|48x26|turn:172",
+   "region": [
+    543,
+    1545,
+    47,
+    26
+   ],
+   "offset": [
+    -24.0,
+    -14.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-172",
+   "region": [
+    139,
+    86,
+    101,
+    74
+   ],
+   "offset": [
+    -52.0,
+    -41.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-155",
+   "region": [
+    522,
+    86,
+    102,
+    73
+   ],
+   "offset": [
+    -52.0,
+    -40.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-138",
+   "region": [
+    737,
+    86,
+    102,
+    72
+   ],
+   "offset": [
+    -52.0,
+    -39.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-120",
+   "region": [
+    251,
+    162,
+    102,
+    71
+   ],
+   "offset": [
+    -52.0,
+    -38.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-103",
+   "region": [
+    466,
+    162,
+    102,
+    70
+   ],
+   "offset": [
+    -52.0,
+    -37.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-86",
+   "region": [
+    336,
+    234,
+    103,
+    68
+   ],
+   "offset": [
+    -52.0,
+    -35.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-69",
+   "region": [
+    331,
+    304,
+    103,
+    66
+   ],
+   "offset": [
+    -52.0,
+    -34.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-52",
+   "region": [
+    106,
+    371,
+    103,
+    65
+   ],
+   "offset": [
+    -52.0,
+    -33.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-34",
+   "region": [
+    630,
+    437,
+    103,
+    64
+   ],
+   "offset": [
+    -52.0,
+    -32.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:-17",
+   "region": [
+    0,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -52.0,
+    -32.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:0",
+   "region": [
+    105,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -52.0,
+    -32.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:17",
+   "region": [
+    210,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -52.0,
+    -32.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:34",
+   "region": [
+    734,
+    437,
+    103,
+    64
+   ],
+   "offset": [
+    -51.0,
+    -32.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:52",
+   "region": [
+    315,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -51.0,
+    -32.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:69",
+   "region": [
+    420,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -51.0,
+    -32.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:86",
+   "region": [
+    838,
+    437,
+    103,
+    64
+   ],
+   "offset": [
+    -50.0,
+    -32.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:103",
+   "region": [
+    0,
+    502,
+    103,
+    64
+   ],
+   "offset": [
+    -50.0,
+    -32.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:120",
+   "region": [
+    314,
+    371,
+    102,
+    65
+   ],
+   "offset": [
+    -49.0,
+    -33.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:138",
+   "region": [
+    210,
+    371,
+    103,
+    65
+   ],
+   "offset": [
+    -49.0,
+    -33.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:155",
+   "region": [
+    435,
+    304,
+    102,
+    66
+   ],
+   "offset": [
+    -48.0,
+    -34.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "shield_airship",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|30,385,340,212|105x66|turn:172",
+   "region": [
+    417,
+    371,
+    102,
+    65
+   ],
+   "offset": [
+    -48.0,
+    -34.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-172",
+   "region": [
+    625,
+    86,
+    111,
+    72
+   ],
+   "offset": [
+    -54.0,
+    -35.5
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-155",
+   "region": [
+    0,
+    234,
+    111,
+    69
+   ],
+   "offset": [
+    -54.0,
+    -34.5
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-138",
+   "region": [
+    112,
+    234,
+    111,
+    68
+   ],
+   "offset": [
+    -54.0,
+    -34.5
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-120",
+   "region": [
+    0,
+    304,
+    111,
+    66
+   ],
+   "offset": [
+    -54.0,
+    -33.5
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-103",
+   "region": [
+    288,
+    502,
+    112,
+    63
+   ],
+   "offset": [
+    -55.0,
+    -32.5
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-86",
+   "region": [
+    834,
+    502,
+    112,
+    62
+   ],
+   "offset": [
+    -55.0,
+    -31.5
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-69",
+   "region": [
+    724,
+    567,
+    112,
+    60
+   ],
+   "offset": [
+    -55.0,
+    -30.5
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-52",
+   "region": [
+    283,
+    630,
+    112,
+    59
+   ],
+   "offset": [
+    -55.0,
+    -29.5
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-34",
+   "region": [
+    779,
+    691,
+    111,
+    57
+   ],
+   "offset": [
+    -55.0,
+    -28.5
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:-17",
+   "region": [
+    0,
+    922,
+    112,
+    55
+   ],
+   "offset": [
+    -56.0,
+    -27.5
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:0",
+   "region": [
+    113,
+    922,
+    112,
+    55
+   ],
+   "offset": [
+    -56.0,
+    -27.5
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:17",
+   "region": [
+    252,
+    750,
+    112,
+    56
+   ],
+   "offset": [
+    -56.0,
+    -28.5
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:34",
+   "region": [
+    0,
+    691,
+    111,
+    58
+   ],
+   "offset": [
+    -56.0,
+    -29.5
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:52",
+   "region": [
+    396,
+    630,
+    112,
+    59
+   ],
+   "offset": [
+    -57.0,
+    -29.5
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:69",
+   "region": [
+    837,
+    567,
+    112,
+    60
+   ],
+   "offset": [
+    -57.0,
+    -30.5
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:86",
+   "region": [
+    0,
+    567,
+    112,
+    62
+   ],
+   "offset": [
+    -57.0,
+    -31.5
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:103",
+   "region": [
+    401,
+    502,
+    112,
+    63
+   ],
+   "offset": [
+    -57.0,
+    -32.5
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:120",
+   "region": [
+    112,
+    304,
+    111,
+    66
+   ],
+   "offset": [
+    -57.0,
+    -33.5
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:138",
+   "region": [
+    224,
+    234,
+    111,
+    68
+   ],
+   "offset": [
+    -57.0,
+    -34.5
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:155",
+   "region": [
+    354,
+    162,
+    111,
+    70
+   ],
+   "offset": [
+    -57.0,
+    -35.5
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "sky_fortress",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|387,374,434,214|113x56|turn:172",
+   "region": [
+    140,
+    162,
+    110,
+    71
+   ],
+   "offset": [
+    -57.0,
+    -35.5
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-172",
+   "region": [
+    640,
+    304,
+    80,
+    66
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": -17.188734
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-155",
+   "region": [
+    206,
+    502,
+    81,
+    64
+   ],
+   "offset": [
+    -44.0,
+    -32.0
+   ],
+   "angle": -15.469861
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-138",
+   "region": [
+    216,
+    567,
+    80,
+    62
+   ],
+   "offset": [
+    -43.0,
+    -31.0
+   ],
+   "angle": -13.750988
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-120",
+   "region": [
+    514,
+    567,
+    81,
+    61
+   ],
+   "offset": [
+    -43.0,
+    -30.0
+   ],
+   "angle": -12.032115
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-103",
+   "region": [
+    0,
+    630,
+    80,
+    60
+   ],
+   "offset": [
+    -42.0,
+    -30.0
+   ],
+   "angle": -10.313241999999999
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-86",
+   "region": [
+    291,
+    691,
+    81,
+    58
+   ],
+   "offset": [
+    -42.0,
+    -29.0
+   ],
+   "angle": -8.594368999999999
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-69",
+   "region": [
+    88,
+    865,
+    81,
+    56
+   ],
+   "offset": [
+    -42.0,
+    -28.0
+   ],
+   "angle": -6.875495999999998
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-52",
+   "region": [
+    252,
+    978,
+    81,
+    54
+   ],
+   "offset": [
+    -41.0,
+    -27.0
+   ],
+   "angle": -5.156622999999998
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-34",
+   "region": [
+    0,
+    1034,
+    81,
+    52
+   ],
+   "offset": [
+    -41.0,
+    -26.0
+   ],
+   "angle": -3.4377499999999976
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:-17",
+   "region": [
+    560,
+    1034,
+    81,
+    50
+   ],
+   "offset": [
+    -41.0,
+    -25.0
+   ],
+   "angle": -1.7188769999999975
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:0",
+   "region": [
+    875,
+    1034,
+    81,
+    49
+   ],
+   "offset": [
+    -41.0,
+    -24.0
+   ],
+   "angle": -3.999999997450487e-06
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:17",
+   "region": [
+    477,
+    1034,
+    82,
+    50
+   ],
+   "offset": [
+    -41.0,
+    -25.0
+   ],
+   "angle": 1.7188690000000026
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:34",
+   "region": [
+    241,
+    1034,
+    82,
+    51
+   ],
+   "offset": [
+    -41.0,
+    -26.0
+   ],
+   "angle": 3.4377420000000027
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:52",
+   "region": [
+    675,
+    978,
+    84,
+    52
+   ],
+   "offset": [
+    -42.0,
+    -27.0
+   ],
+   "angle": 5.156615000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:69",
+   "region": [
+    760,
+    978,
+    84,
+    52
+   ],
+   "offset": [
+    -42.0,
+    -28.0
+   ],
+   "angle": 6.875488000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:86",
+   "region": [
+    431,
+    978,
+    85,
+    53
+   ],
+   "offset": [
+    -43.0,
+    -29.0
+   ],
+   "angle": 8.594361000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:103",
+   "region": [
+    165,
+    978,
+    86,
+    54
+   ],
+   "offset": [
+    -43.0,
+    -30.0
+   ],
+   "angle": 10.313234000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:120",
+   "region": [
+    585,
+    922,
+    86,
+    55
+   ],
+   "offset": [
+    -43.0,
+    -31.0
+   ],
+   "angle": 12.032107000000003
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:138",
+   "region": [
+    88,
+    750,
+    86,
+    57
+   ],
+   "offset": [
+    -43.0,
+    -32.0
+   ],
+   "angle": 13.750980000000004
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:155",
+   "region": [
+    0,
+    750,
+    87,
+    57
+   ],
+   "offset": [
+    -44.0,
+    -32.0
+   ],
+   "angle": 15.469853000000004
+  },
+  {
+   "name": "tiltrotor",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|82x50|turn:172",
+   "region": [
+    203,
+    691,
+    87,
+    58
+   ],
+   "offset": [
+    -44.0,
+    -33.0
+   ],
+   "angle": 17.188726000000003
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:-69",
+   "region": [
+    805,
+    371,
+    126,
+    64
+   ],
+   "offset": [
+    -64.0,
+    -33.5
+   ],
+   "angle": -6.875494
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:-52",
+   "region": [
+    706,
+    502,
+    127,
+    62
+   ],
+   "offset": [
+    -64.0,
+    -32.5
+   ],
+   "angle": -5.1566209999999995
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:-34",
+   "region": [
+    596,
+    567,
+    127,
+    60
+   ],
+   "offset": [
+    -64.0,
+    -30.5
+   ],
+   "angle": -3.437747999999999
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:-17",
+   "region": [
+    525,
+    691,
+    126,
+    57
+   ],
+   "offset": [
+    -63.0,
+    -28.5
+   ],
+   "angle": -1.718874999999999
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:0",
+   "region": [
+    652,
+    691,
+    126,
+    57
+   ],
+   "offset": [
+    -63.0,
+    -28.5
+   ],
+   "angle": -1.9999999989472883e-06
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:17",
+   "region": [
+    895,
+    630,
+    126,
+    58
+   ],
+   "offset": [
+    -63.0,
+    -29.5
+   ],
+   "angle": 1.7188710000000011
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:34",
+   "region": [
+    767,
+    630,
+    127,
+    58
+   ],
+   "offset": [
+    -63.0,
+    -29.5
+   ],
+   "angle": 3.4377440000000012
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:52",
+   "region": [
+    156,
+    630,
+    126,
+    59
+   ],
+   "offset": [
+    -62.0,
+    -30.5
+   ],
+   "angle": 5.156617000000002
+  },
+  {
+   "name": "flyby_heavy_transit",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1193,676,463,213|128x59|turn:69",
+   "region": [
+    297,
+    567,
+    126,
+    61
+   ],
+   "offset": [
+    -62.0,
+    -31.5
+   ],
+   "angle": 6.875490000000002
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:-69",
+   "region": [
+    473,
+    1181,
+    83,
+    41
+   ],
+   "offset": [
+    -41.0,
+    -23.5
+   ],
+   "angle": -6.875494
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:-52",
+   "region": [
+    905,
+    1181,
+    83,
+    40
+   ],
+   "offset": [
+    -41.0,
+    -22.5
+   ],
+   "angle": -5.1566209999999995
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:-34",
+   "region": [
+    459,
+    1224,
+    84,
+    39
+   ],
+   "offset": [
+    -42.0,
+    -21.5
+   ],
+   "angle": -3.437747999999999
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:-17",
+   "region": [
+    544,
+    1224,
+    84,
+    39
+   ],
+   "offset": [
+    -42.0,
+    -20.5
+   ],
+   "angle": -1.718874999999999
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:0",
+   "region": [
+    844,
+    1265,
+    84,
+    37
+   ],
+   "offset": [
+    -42.0,
+    -18.5
+   ],
+   "angle": -1.9999999989472883e-06
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:17",
+   "region": [
+    757,
+    1265,
+    86,
+    37
+   ],
+   "offset": [
+    -43.0,
+    -17.5
+   ],
+   "angle": 1.7188710000000011
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:34",
+   "region": [
+    516,
+    1305,
+    86,
+    36
+   ],
+   "offset": [
+    -43.0,
+    -16.5
+   ],
+   "angle": 3.4377440000000012
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:52",
+   "region": [
+    603,
+    1305,
+    86,
+    36
+   ],
+   "offset": [
+    -42.0,
+    -15.5
+   ],
+   "angle": 5.156617000000002
+  },
+  {
+   "name": "flyby_jet_crossing",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1211,96,431,194|86x39|turn:69",
+   "region": [
+    474,
+    1343,
+    87,
+    35
+   ],
+   "offset": [
+    -43.0,
+    -14.5
+   ],
+   "angle": 6.875490000000002
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:-69",
+   "region": [
+    569,
+    162,
+    101,
+    70
+   ],
+   "offset": [
+    -52.0,
+    -35.0
+   ],
+   "angle": -6.875494
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:-52",
+   "region": [
+    440,
+    234,
+    102,
+    68
+   ],
+   "offset": [
+    -52.0,
+    -34.0
+   ],
+   "angle": -5.1566209999999995
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:-34",
+   "region": [
+    538,
+    304,
+    101,
+    66
+   ],
+   "offset": [
+    -51.0,
+    -33.0
+   ],
+   "angle": -3.437747999999999
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:-17",
+   "region": [
+    104,
+    502,
+    101,
+    64
+   ],
+   "offset": [
+    -51.0,
+    -32.0
+   ],
+   "angle": -1.718874999999999
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:0",
+   "region": [
+    113,
+    567,
+    102,
+    62
+   ],
+   "offset": [
+    -51.0,
+    -31.0
+   ],
+   "angle": -1.9999999989472883e-06
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:17",
+   "region": [
+    514,
+    502,
+    102,
+    63
+   ],
+   "offset": [
+    -51.0,
+    -32.0
+   ],
+   "angle": 1.7188710000000011
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:34",
+   "region": [
+    525,
+    437,
+    104,
+    64
+   ],
+   "offset": [
+    -52.0,
+    -33.0
+   ],
+   "angle": 3.4377440000000012
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:52",
+   "region": [
+    0,
+    371,
+    105,
+    65
+   ],
+   "offset": [
+    -53.0,
+    -34.0
+   ],
+   "angle": 5.156617000000002
+  },
+  {
+   "name": "flyby_low_transport",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|44,656,345,211|103x63|turn:69",
+   "region": [
+    224,
+    304,
+    106,
+    66
+   ],
+   "offset": [
+    -53.0,
+    -35.0
+   ],
+   "angle": 6.875490000000002
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:-69",
+   "region": [
+    640,
+    1343,
+    74,
+    35
+   ],
+   "offset": [
+    -37.0,
+    -18.5
+   ],
+   "angle": -6.875494
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:-52",
+   "region": [
+    416,
+    1380,
+    74,
+    34
+   ],
+   "offset": [
+    -37.0,
+    -17.5
+   ],
+   "angle": -5.1566209999999995
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:-34",
+   "region": [
+    845,
+    1416,
+    74,
+    32
+   ],
+   "offset": [
+    -37.0,
+    -16.5
+   ],
+   "angle": -3.437747999999999
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:-17",
+   "region": [
+    431,
+    1450,
+    74,
+    31
+   ],
+   "offset": [
+    -37.0,
+    -15.5
+   ],
+   "angle": -1.718874999999999
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:0",
+   "region": [
+    354,
+    1450,
+    76,
+    31
+   ],
+   "offset": [
+    -38.0,
+    -15.5
+   ],
+   "angle": -1.9999999989472883e-06
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:17",
+   "region": [
+    819,
+    1483,
+    76,
+    29
+   ],
+   "offset": [
+    -38.0,
+    -14.5
+   ],
+   "angle": 1.7188710000000011
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:34",
+   "region": [
+    185,
+    1515,
+    76,
+    28
+   ],
+   "offset": [
+    -38.0,
+    -13.5
+   ],
+   "angle": 3.4377440000000012
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:52",
+   "region": [
+    717,
+    1515,
+    76,
+    27
+   ],
+   "offset": [
+    -38.0,
+    -12.5
+   ],
+   "angle": 5.156617000000002
+  },
+  {
+   "name": "flyby_survey_pair",
+   "key": "res://assets/enemies/aircraft_hulls_v2.png|1209,401,424,171|76x31|turn:69",
+   "region": [
+    261,
+    1545,
+    76,
+    26
+   ],
+   "offset": [
+    -38.0,
+    -11.5
+   ],
+   "angle": 6.875490000000002
+  }
+ ]
+}

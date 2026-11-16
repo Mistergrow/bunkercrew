@@ -11,6 +11,17 @@ const MAX_PACKET := 512*1024
 const MAX_DECODED := 2*1024*1024
 const MAX_ZSTD_BLOCKS := 32
 const VariantGuard := preload("res://scripts/network_variant_guard.gd")
+# A host receives only small control envelopes. The largest legitimate guest
+# messages measure 1,200 decoded bytes / 85 values (input with every action),
+# 1,084 bytes (chat) and 876 bytes (voice); a handshake stays below 700 bytes.
+# Everything a guest sends is therefore decoded under these budgets, never the
+# 2 MiB / 65,536-value allowance reserved for the host's world snapshots.
+const GUEST_DECODED := 4096
+const GUEST_NODES := 256
+const PENDING_DECODED := 2048
+const PENDING_NODES := 128
+# Worst-case Zstandard framing of an incompressible payload of that size.
+const FRAME_OVERHEAD := 64
 
 static func encode(message: Dictionary) -> PackedByteArray:
 	if not message.get("kind") is String or not _safe(message,0): return PackedByteArray()
@@ -21,6 +32,59 @@ static func encode_trusted(message: Dictionary) -> PackedByteArray:
 	var raw := var_to_bytes(message)
 	if raw.size()>MAX_DECODED:
 		return PackedByteArray()
+	return _frame(raw)
+
+static func encode_bounded(message: Dictionary) -> Dictionary:
+	# A trusted envelope still has to fit what decode() accepts on the other
+	# side. Check the receiver's own structural limits before sending, so an
+	# oversized world is reported here instead of failing on every guest.
+	var result := {"packet":PackedByteArray(),"error":""}
+	var nodes := wire_nodes(message)
+	if nodes<0: result.error="containers"
+	elif nodes>VariantGuard.MAX_NODES: result.error="nodes"
+	else:
+		var raw := var_to_bytes(message)
+		if raw.size()>MAX_DECODED: result.error="bytes"
+		else:
+			result.packet=_frame(raw)
+			if result.packet.is_empty(): result.error="packet"
+	return result
+
+static func wire_nodes(value, depth: int=0) -> int:
+	# Counts exactly like VariantGuard and _safe_value: one per value, one per
+	# element of a packed array other than bytes. Returns -1 when a container
+	# or nesting limit is exceeded. Scalars are not visited individually.
+	var count := 1
+	var kind := typeof(value)
+	if kind<TYPE_DICTIONARY or kind==TYPE_PACKED_BYTE_ARRAY: return count
+	if depth>=VariantGuard.MAX_DEPTH and not value.is_empty(): return -1
+	if kind==TYPE_DICTIONARY:
+		if value.size()>VariantGuard.MAX_DICTIONARY: return -1
+		count+=value.size()*2
+		for key in value:
+			var item = value[key]
+			if typeof(item)>=TYPE_DICTIONARY:
+				var inner := wire_nodes(item,depth+1)
+				if inner<0: return -1
+				count+=inner-1
+			if typeof(key)>=TYPE_DICTIONARY:
+				var inner_key := wire_nodes(key,depth+1)
+				if inner_key<0: return -1
+				count+=inner_key-1
+	elif kind==TYPE_ARRAY:
+		if value.size()>VariantGuard.MAX_ARRAY: return -1
+		count+=value.size()
+		for item in value:
+			if typeof(item)>=TYPE_DICTIONARY:
+				var inner := wire_nodes(item,depth+1)
+				if inner<0: return -1
+				count+=inner-1
+	else:
+		if value.size()>VariantGuard.MAX_ARRAY: return -1
+		count+=value.size()
+	return count
+
+static func _frame(raw: PackedByteArray) -> PackedByteArray:
 	var compressed := raw.compress(FileAccess.COMPRESSION_ZSTD)
 	var result := PackedByteArray([VERSION])
 	result.resize(5)
@@ -28,11 +92,13 @@ static func encode_trusted(message: Dictionary) -> PackedByteArray:
 	result.append_array(compressed)
 	return result if result.size()<=MAX_PACKET else PackedByteArray()
 
-static func decode(packet: PackedByteArray) -> Dictionary:
-	if packet.size()<6 or packet.size()>MAX_PACKET or packet[0]!=VERSION:
+static func decode(packet: PackedByteArray, decoded_limit: int=MAX_DECODED, node_limit: int=VariantGuard.MAX_NODES) -> Dictionary:
+	# The limits are checked on the declared sizes, before any decompression.
+	decoded_limit=mini(decoded_limit,MAX_DECODED)
+	if packet.size()<6 or packet.size()>mini(MAX_PACKET,5+decoded_limit+FRAME_OVERHEAD) or packet[0]!=VERSION:
 		return {}
 	var decoded_size := packet.decode_u32(1)
-	if decoded_size<8 or decoded_size>MAX_DECODED:
+	if decoded_size<8 or decoded_size>decoded_limit:
 		return {}
 	var compressed := packet.slice(5)
 	if not _zstd_frame(compressed, decoded_size): return {}
@@ -43,14 +109,14 @@ static func decode(packet: PackedByteArray) -> Dictionary:
 	if Thread.is_main_thread(): Engine.print_error_messages = false
 	var raw := compressed.decompress(decoded_size,FileAccess.COMPRESSION_ZSTD)
 	if Thread.is_main_thread(): Engine.print_error_messages = print_errors
-	if raw.size()!=decoded_size or not VariantGuard.new().validate(raw):
+	if raw.size()!=decoded_size or not VariantGuard.new().validate(raw,node_limit):
 		return {}
 	if Thread.is_main_thread(): Engine.print_error_messages = false
 	var value = bytes_to_var(raw) # Never bytes_to_var_with_objects.
 	if Thread.is_main_thread(): Engine.print_error_messages = print_errors
 	if not value is Dictionary or not value.get("kind",null) is String:
 		return {}
-	return value if _safe(value,0) else {}
+	return value if _safe_value(value,0,[mini(node_limit,VariantGuard.MAX_NODES)]) else {}
 
 static func _safe(value,depth: int) -> bool:
 	return _safe_value(value, depth, [VariantGuard.MAX_NODES])
@@ -58,7 +124,7 @@ static func _safe(value,depth: int) -> bool:
 static func _safe_value(value, depth: int, budget: Array) -> bool:
 	budget[0] -= 1
 	if budget[0] < 0: return false
-	if depth>24:
+	if depth>VariantGuard.MAX_DEPTH:
 		return false
 	if value is Object or value is Callable or value is Signal:
 		return false
@@ -75,17 +141,17 @@ static func _safe_value(value, depth: int, budget: Array) -> bool:
 	if value is String or value is StringName:
 		return value.length()<=16384
 	if value is Dictionary:
-		if value.size()>8192: return false
+		if value.size()>VariantGuard.MAX_DICTIONARY: return false
 		if value.get_typed_key_builtin() not in VariantGuard.ALLOWED or value.get_typed_value_builtin() not in VariantGuard.ALLOWED: return false
 		for key in value:
 			if not _safe_value(key,depth+1,budget) or not _safe_value(value[key],depth+1,budget): return false
 	elif value is Array:
-		if value.size()>16384: return false
+		if value.size()>VariantGuard.MAX_ARRAY: return false
 		if value.get_typed_builtin() not in VariantGuard.ALLOWED: return false
 		for item in value:
 			if not _safe_value(item,depth+1,budget): return false
 	elif value is PackedFloat32Array or value is PackedFloat64Array or value is PackedVector2Array or value is PackedColorArray or value is PackedInt32Array or value is PackedInt64Array or value is PackedStringArray:
-		if value.size()>16384: return false
+		if value.size()>VariantGuard.MAX_ARRAY: return false
 		for item in value:
 			if not _safe_value(item,depth+1,budget): return false
 	elif not (value==null or value is bool or value is int or value is Vector2i or value is Rect2i):

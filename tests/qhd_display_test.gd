@@ -164,7 +164,10 @@ func _run() -> void:
 	check(numbers.size()==1,"QHD combat damage text is placed on screen")
 	if numbers.size()==1:
 		var projected: Vector2 = overlay.get_global_transform_with_canvas()*numbers[0].position
-		check(projected.is_equal_approx(viewport_point+Vector2(-24,-38)),"Damage text stays over its target without a duplicated widescreen offset")
+		# Pass 5 lifts a fresh number 30 (was 38) design pixels above its hit,
+		# so it stays nearer the machine; the check is that no widescreen offset
+		# is added twice.
+		check(projected.is_equal_approx(viewport_point+Vector2(-24,-30)),"Damage text stays over its target without a duplicated widescreen offset")
 	overlay.numbers.clear()
 	overlay.queue_redraw()
 	if graphical:

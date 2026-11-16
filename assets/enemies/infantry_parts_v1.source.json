@@ -13,11 +13,11 @@
     "assets/workers/ivo_torso.png": "d1991226de7a60286fa7b0dbc074c4380a9f6a67781eb93b10c5a5cd433f89a7",
     "assets/workers/mara_torso.png": "30183df9d1336d61ff03a16643c06893256ef9ad07fb39f00b36279ce226ee8b",
     "scripts/canvas_quads.gd": "788e1977182c213a66b34cbdf372bc637b41a18eeefb5d822fbfd5a33bfd19d7",
-    "scripts/infantry_art_atlas.gd": "4fe287b2eb3a5f3b1bfbd21758e828807950f19a7a0a8043fc0b972f92af25d3",
-    "scripts/infantry_role_art.gd": "e5cd164a6f5165ad0f9f854f076aa4224f066769ee9c912f38b5f343cc697165",
+    "scripts/infantry_art_atlas.gd": "cc4192aa8c441338d6f0a501edc5e5ca224bb6ad89d42606cc4c30b25acc8942",
+    "scripts/infantry_role_art.gd": "2d59a8b1cea1a6043a054171a2cd0eed3b8ef6445a43854bc186b643efb5e79f",
     "scripts/machine_surface_details.gd": "c287d84145f13cdc95f81797de891b59d6df0b966f6122b48d4f9a31fb7cd80c",
-    "scripts/worker_pose_art.gd": "c71f0f8751d12297034b645791f75a333ba60a13b6f00a28584c4a9c5d182bd4",
-    "tools/bake_infantry_art.gd": "16534d77baff1db17b1242037f2438148e4d98137b596c68641cef29f153148f"
+    "scripts/worker_pose_art.gd": "ae06146cef4c126b761168aaba6f7dfc5716e3049cb61b2c3d184adc5a08667c",
+    "tools/bake_infantry_art.gd": "cfcd3d00541c94642cd304f7a233d3404d4a8a022c135f3b4a05565ac764a9d2"
   },
   "tile_size": 64.0
 }

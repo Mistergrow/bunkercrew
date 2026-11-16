@@ -3,6 +3,7 @@ extends SceneTree
 ## Warm-cache motion, mirrored/nonuniform transforms and pose changes must still
 ## follow the painted art immediately, without caching actor world positions.
 const Geometry := preload("res://scripts/actor_weather_geometry.gd")
+const AircraftArt := preload("res://scripts/aircraft_art.gd")
 const Identity := preload("res://scripts/worker_identity_art.gd")
 const Cleanup := preload("res://tests/scene_cleanup.gd")
 var checks := 0
@@ -73,21 +74,18 @@ func run() -> void:
 			if enemy is SiegeMachine: enemy.gait=phase;enemy.moving=true
 			enemy._pose_parts()
 			if enemy.has_method("uses_rolling_contacts") and enemy.uses_rolling_contacts(): continue
-			var region: Rect2
+			# The silhouette is the drawn hull's world-texel bake (level stance).
+			var hull: AtlasTexture
 			var destination: Rect2
 			if air:
-				region=AirMachine.BODY_REGIONS[enemy.profile.atlas]
+				hull=WorldTexels.level(AircraftArtCatalog.TEXTURE_PATH,AirMachine.BODY_REGIONS[enemy.profile.atlas],AircraftArt.hull_texels(enemy))
 				var size: Vector2=enemy.profile.body_size
 				destination=Rect2(-size*.5,size)
 			else:
-				var chassis: String=enemy.chassis_kind()
-				region=SiegeMachine.BODY_REGIONS[chassis]
-				var width: float=enemy.profile.body_size.x
-				if chassis=="colossus": width=74.0
-				elif chassis=="siege": width=79.0
-				elif chassis=="breaker": width=78.0
-				destination=Rect2(Vector2(-width*.5,-19 if chassis=="runner" else -24),Vector2(width,width*region.size.y/region.size.x))
-			atlas_matches(enemy.body_part,Transform2D.IDENTITY,enemy.chassis_atlas,region,destination,"metal",kind+" animated hull "+str(phase))
+				hull=WorldTexels.level(SiegeMachine.CHASSIS_PATH,SiegeMachine.BODY_REGIONS[enemy.chassis_kind()],SiegeMachine.chassis_texels(enemy.kind,enemy.profile,enemy.visual_scale))
+				destination=SiegeMachine.chassis_rect(enemy.kind,enemy.profile)
+			check(hull!=null and hull.atlas==enemy.chassis_atlas,kind+" samples the bake of the hull it draws")
+			if hull!=null: atlas_matches(enemy.body_part,Transform2D.IDENTITY,hull.atlas,hull.region,destination,"metal",kind+" animated hull "+str(phase))
 		enemy.free()
 	var segments_before: Array[Dictionary]=worker.wetness.rain_segments()
 	var images_before := Geometry._images.size()

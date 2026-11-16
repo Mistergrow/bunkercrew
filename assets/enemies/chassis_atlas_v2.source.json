@@ -1,0 +1,103 @@
+{
+  "asset": "chassis_atlas_v2.png",
+  "generator": "tools/grade_enemy_hulls.py",
+  "source": "assets/enemies/chassis_atlas.png",
+  "method": "Colour and value grade of the painted hull plate per region: per-type paint hue, S-curve value structure, lit top edge one world texel thick, ground contact shade or lighter aircraft belly, red sensor lamp on aircraft. Alpha unchanged; no generated imagery.",
+  "license": "Same as the source plate (see its source metadata).",
+  "regions": {
+    "runner": {
+      "box": [
+        96,
+        243,
+        344,
+        198
+      ],
+      "source_px_per_world_texel": 5.3,
+      "paint_hue_sat_gain": [
+        20,
+        1.3,
+        1.06
+      ]
+    },
+    "strider": {
+      "box": [
+        558,
+        220,
+        396,
+        252
+      ],
+      "source_px_per_world_texel": 5.4,
+      "paint_hue_sat_gain": [
+        78,
+        0.92,
+        1.06
+      ]
+    },
+    "breaker": {
+      "box": [
+        1012,
+        232,
+        489,
+        245
+      ],
+      "source_px_per_world_texel": 6.3,
+      "paint_hue_sat_gain": [
+        40,
+        0.4,
+        0.86
+      ]
+    },
+    "colossus": {
+      "box": [
+        47,
+        513,
+        433,
+        428
+      ],
+      "source_px_per_world_texel": 5.9,
+      "paint_hue_sat_gain": [
+        46,
+        1.0,
+        1.18
+      ]
+    },
+    "assault": {
+      "box": [
+        508,
+        626,
+        442,
+        271
+      ],
+      "source_px_per_world_texel": 6.1,
+      "paint_hue_sat_gain": [
+        104,
+        0.55,
+        1.0
+      ]
+    },
+    "siege": {
+      "box": [
+        987,
+        525,
+        530,
+        412
+      ],
+      "source_px_per_world_texel": 6.7,
+      "paint_hue_sat_gain": [
+        52,
+        0.95,
+        0.95
+      ]
+    }
+  },
+  "contrast": 1.4,
+  "size": [
+    1536,
+    1024
+  ],
+  "source_sha256": {
+    "assets/enemies/chassis_atlas.png": "382b52bb501c213ca56f003e9908a84f139870c28c608c00f6c47e1adca73aa4",
+    "tools/grade_enemy_hulls.py": "3b01f38bfa13f4785c4c37bb997dab0413e3083a990ecf10f25702158fb72f12"
+  },
+  "sha256": "ccf9d4db00d7a861f05310c8a14968bb3770373df057a96ede134819042f6862"
+}

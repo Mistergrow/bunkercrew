@@ -5,6 +5,7 @@ const Skyline:=preload("res://scripts/cloud_skyline.gd")
 const Props:=preload("res://scripts/scenario_prop_catalog.gd")
 const Wind:=preload("res://scripts/world_wind.gd")
 const Terrain:=preload("res://scripts/terrain_strata.gd")
+const Surfaces:=preload("res://scripts/background_surface_catalog.gd")
 const Cleanup:=preload("res://tests/scene_cleanup.gd")
 var checks:=0
 var failures:=0
@@ -36,8 +37,11 @@ func run() -> void:
 		check(spec.id==id and bool(spec.campaign_only),id+" resolves without default-world fallback")
 		check(ScenarioCatalog.validate({"environment":id}).environment==id,id+" is a valid campaign arrival")
 		var texture:=ScenarioCatalog.texture(str(spec.path))
-		check(texture!=null and texture.get_width()>=2000 and texture.get_height()>=700,id+" has its own full-size panorama")
+		# Catalog version 3 replaced the 2172x724 strips with continuous 16:9
+		# plates that fill the 1600x900 reference view without stitched edges.
 		var digest:=FileAccess.get_sha256(str(spec.path))
+		var source=JSON.parse_string(FileAccess.get_file_as_string(str(spec.path).get_basename()+".source.json"))
+		check(texture!=null and texture.get_width()>=1600 and texture.get_height()>=900 and Vector2i(texture.get_size())==Vector2i(int(spec.size[0]),int(spec.size[1])) and bool(spec.continuous_background) and source is Dictionary and source.get("sha256")==digest and source.get("size")==spec.size,id+" has its own full-size panorama")
 		check(not digest in hashes,id+" original panorama is distinct")
 		hashes.append(digest)
 		check(ScenarioScenery.PROFILES.has(id) and Props.PROFILES.has(id) and Wind.PROFILES.has(id) and Terrain.PROFILES.has(id),id+" has atmosphere, vegetation, wind and geological profiles")
@@ -59,7 +63,19 @@ func run() -> void:
 		check(game.scenery.cloud_layers.size()==3 and game.scenery.cloud_speed(0)<game.scenery.cloud_speed(1) and game.scenery.cloud_speed(1)<game.scenery.cloud_speed(2),id+" has three independently moving cloud depths")
 		check(not game.scenery.props_layer.entries.is_empty(),id+" places matching ground vegetation and props")
 		if id=="storm_dam":
-			check(game.scenery._has_surface and not spec.waterfall_regions.is_empty(),"Dam activates waterfall and reservoir animation")
+			# The falls are no longer catalog rectangles: each one is a reviewed
+			# "flow" mask over the landmark plate, animated by the layer shader.
+			var falls:=0
+			var tailwater:=0
+			for region in Surfaces.definition(id).get("regions",[]):
+				if region.material=="flow": falls+=1
+				elif region.material=="water": tailwater+=1
+			var depths=game.scenery.parallax_background
+			var flowing: bool=is_instance_valid(depths) and depths.surface_mask!=null and depths.surface_mask==Surfaces.texture(id) and Surfaces.enabled(id)
+			if flowing:
+				var landmark: ShaderMaterial=depths.layers[2].material
+				flowing=bool(landmark.get_shader_parameter("surface_enabled")) and landmark.get_shader_parameter("surface_mask")==depths.surface_mask
+			check(game.scenery._has_surface and not spec.water_regions.is_empty() and falls==6 and tailwater>=1 and flowing,"Dam activates waterfall and reservoir animation")
 			check(not game.scenery.distant_water.enabled,"Raised reservoir does not flood distant ground outside the dam")
 			check(game.weather.lightning_enabled,"Dam storm includes enabled lightning")
 		game.notice=""

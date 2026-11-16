@@ -3,6 +3,7 @@ extends SceneTree
 ## --capture also records the same scene with Godot's real mixed movie audio.
 const CLEANUP := preload("res://tests/scene_cleanup.gd")
 const CATALOG := preload("res://scripts/menu_music_catalog.gd")
+const MenuPanel := preload("res://scripts/main_menu_panel.gd")
 const OUTPUT := "res://artifacts/menu-rave"
 const OPTIONS := {"environment":"ash_foundry","build_type":"workshop","position":"left"}
 var game: Node
@@ -160,12 +161,13 @@ func run() -> void:
 	await await_pulse(false,"02-menu-rest")
 	var low := wordmark_state()
 	check(scale_of(low)<1.001,"The title returns to its original scale between audible kicks")
-	var original_center := Vector2(345,162.5)
+	# The logo lockup room (pass 6A-2: Rect2(92,120,520,96), was the 494x59 wordmark).
+	var original_center: Vector2 = MenuPanel.WORDMARK_RECT.get_center()
 	var high_center: Vector2 = high.get("center",Vector2.ZERO)
 	var low_center: Vector2 = low.get("center",Vector2.ZERO)
 	check(absf(high_center.x-original_center.x)<=2.3 and absf(low_center.x-original_center.x)<=2.3 and absf(high_center.y-original_center.y)<.001 and absf(low_center.y-original_center.y)<.001,"Actual audible beat moves only the title left and right while its vertical center remains fixed")
 	var rest_rect: Rect2 = low.get("rect",Rect2())
-	check(absf(rest_rect.position.x-98.0)<3.0 and absf(rest_rect.position.y-133.0)<.6 and rest_rect.size.distance_to(Vector2(494,59))<.6,"Title between kicks retains the original dimensions and menu clearance")
+	check(absf(rest_rect.position.x-MenuPanel.WORDMARK_RECT.position.x)<3.0 and absf(rest_rect.position.y-MenuPanel.WORDMARK_RECT.position.y)<.6 and rest_rect.size.distance_to(MenuPanel.WORDMARK_RECT.size)<.6,"Title between kicks retains the original dimensions and menu clearance")
 	await await_secondary()
 	check(is_zero_approx(float(wordmark_state().get("vertical_offset",0.0))) and float(wordmark_state().get("horizontal_offset",0.0))>1.5 and float(music_frame().get("secondary_pulse",0.0))>.5,"The actual recorded second bass tone accompanies the rightward sway without vertical bouncing")
 	var minimum_seconds := float(selected_track.seconds) + 3.0 if loop_enabled else (15.0 if capture_enabled else 3.0)

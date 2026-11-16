@@ -66,6 +66,9 @@ static func _mix(first: Dictionary,second: Dictionary,amount: float) -> Dictiona
 	result.foot_angles = [lerpf(float(first.foot_angles[0]),float(second.foot_angles[0]),t),lerpf(float(first.foot_angles[1]),float(second.foot_angles[1]),t)]
 	if first.has("elbows") or second.has("elbows"):
 		result.elbows = PoseArt.blend_arm_elbows(first,second,t)
+	# How much of an authored arm chain the mix holds: the groove's rigid
+	# arm lift hands over continuously (WorkerRhythmPose._apply_groove).
+	result.arm_chain = lerpf(float(first.get("arm_chain",1.0 if first.has("elbows") else 0.0)),float(second.get("arm_chain",1.0 if second.has("elbows") else 0.0)),t)
 	return result
 
 static func _shared_character(pose: Dictionary,style: String,beats: float,character_id: String) -> void:

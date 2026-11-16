@@ -210,9 +210,9 @@ func run() -> void:
 	player.focus = game.story.wall
 	var details: Dictionary = game.hud.context_details(player)
 	check(details.title==L.text("Bunkerwand") and details.action_lines.size()>0,"Interaction title and measured instructions use English")
-	check(L.format("WELLE %02d /%02d",[4,20])=="WAVE 04 /20" and L.format("%d LP",67)=="67 HP","HUD numbers use translated templates")
+	check(L.format("WELLE %02d / %02d",[4,20])=="WAVE 04 / 20" and L.format("%d LP",67)=="67 HP","HUD numbers use translated templates")
 	var number: Dictionary = {"amount":24.0,"earned":9.0,"kind":"kill"}
-	check(game.hud.combat_overlay._number_lines(number)[0]=="24 · KILL","Combat text is localized before collision measurement")
+	check(game.hud.combat_overlay._number_lines(number)[0]=="KILL" and game.hud.combat_overlay._number_lines(number)[1]=="+9 XP","Combat text is localized before collision measurement")
 	await capture("en-story-objective")
 	var combat = game.hud.combat_overlay
 	combat.handle_event("boss",{"title":"CUSTOM TRANSLATED NAME","final_boss":true})

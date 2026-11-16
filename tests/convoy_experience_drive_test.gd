@@ -99,6 +99,11 @@ func run() -> void:
 			break
 	check(launched,"Normal crew countdown, world reload and ignition launch the real road")
 	if not launched: await finish(); return
+	# The travel vignette releases every held crew action on the frame its
+	# ignition lock ends, so held ignition keys cannot become delayed shots.
+	# Like a player, the crew may only start driving after that hand-off.
+	await process_frame
+	check(not game.travel_cinematic.blocks_gameplay() and game.expedition.vehicle.driving_enabled and is_zero_approx(game.expedition.vehicle.velocity.x),"Travel vignette hands the unlocked, resting car to the crew")
 	var truck=game.expedition.vehicle
 	check(game.players.size()==4 and truck.defenders.is_empty(),"Four actual human seats have no extra solo actors")
 	var initial_x: float=truck.position.x

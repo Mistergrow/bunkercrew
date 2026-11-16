@@ -2,7 +2,12 @@ extends RefCounted
 ## Structural preflight for Godot 4.7's Variant wire format, before allocation.
 ## Object/script containers, unknown flags and trailing bytes are never accepted.
 ## Format reference: Godot core/io/marshalls.cpp (4.7).
+## These structural limits are the single definition for both directions: the
+## receiver's two walks and the sender's preflight in network_protocol.gd.
 const MAX_NODES := 65536
+const MAX_DEPTH := 24
+const MAX_DICTIONARY := 8192
+const MAX_ARRAY := 16384
 const ALLOWED := [TYPE_NIL, TYPE_BOOL, TYPE_INT, TYPE_FLOAT, TYPE_STRING, TYPE_STRING_NAME,
 	TYPE_VECTOR2, TYPE_VECTOR2I, TYPE_RECT2, TYPE_RECT2I, TYPE_COLOR, TYPE_DICTIONARY,
 	TYPE_ARRAY, TYPE_PACKED_BYTE_ARRAY, TYPE_PACKED_INT32_ARRAY, TYPE_PACKED_INT64_ARRAY,
@@ -12,10 +17,10 @@ var data: PackedByteArray
 var offset := 0
 var remaining := MAX_NODES
 
-func validate(raw: PackedByteArray) -> bool:
+func validate(raw: PackedByteArray, node_limit: int = MAX_NODES) -> bool:
 	data = raw
 	offset = 0
-	remaining = MAX_NODES
+	remaining = mini(node_limit, MAX_NODES)
 	return _value(0, TYPE_DICTIONARY) and offset == data.size()
 
 func _take(size: int) -> bool:
@@ -42,7 +47,7 @@ func _container_type(flags: int) -> int:
 
 func _value(depth: int, expected: int = TYPE_NIL) -> bool:
 	remaining -= 1
-	if depth > 24 or remaining < 0: return false
+	if depth > MAX_DEPTH or remaining < 0: return false
 	var header := _u32()
 	if header < 0: return false
 	var kind := header & 255
@@ -56,7 +61,7 @@ func _value(depth: int, expected: int = TYPE_NIL) -> bool:
 		var value_type := _container_type((flags >> 2) & 3) if kind == TYPE_DICTIONARY else TYPE_NIL
 		if key_type < 0 or value_type < 0: return false
 		var count := _u32()
-		if count < 0 or count > (8192 if kind == TYPE_DICTIONARY else 16384): return false
+		if count < 0 or count > (MAX_DICTIONARY if kind == TYPE_DICTIONARY else MAX_ARRAY): return false
 		var nodes := count * (2 if kind == TYPE_DICTIONARY else 1)
 		if nodes > remaining or nodes * 4 > data.size() - offset: return false
 		for index in count:
@@ -78,7 +83,7 @@ func _value(depth: int, expected: int = TYPE_NIL) -> bool:
 	if packed_count < 0: return false
 	if kind == TYPE_PACKED_BYTE_ARRAY:
 		return packed_count <= 2097152 and _take((packed_count + 3) & ~3)
-	if packed_count > 16384 or packed_count > remaining: return false
+	if packed_count > MAX_ARRAY or packed_count > remaining: return false
 	remaining -= packed_count
 	if kind == TYPE_PACKED_STRING_ARRAY:
 		for index in packed_count:

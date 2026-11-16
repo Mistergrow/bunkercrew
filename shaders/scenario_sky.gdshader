@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// Painted backdrop: keeps its authored value under world ambient and lamps.
+render_mode unshaded;
 // Painted architecture keeps fixed UVs. Only authored water reflection pixels
 // receive a tiny horizontal displacement; elapsed is supplied by paused logic.
 uniform float sky_cutoff=0.35;

@@ -77,7 +77,10 @@ func _run() -> void:
 		machine.queue_free()
 		player.inventory = {"ore":3,"steel":2}
 	var workshop := FieldWorkshop.new()
+	# A bench without its world is inaccessible and would reject every delta.
+	workshop.game = world
 	world.add_child(workshop)
+	check(workshop.accessible() and workshop.can_interact(player),"Workshop fixture is accessible before probing invalid deltas")
 	workshop.set_process(false)
 	workshop.set_physics_process(false)
 	player.inventory = {"steel":2}

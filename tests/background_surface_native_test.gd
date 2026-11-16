@@ -52,6 +52,10 @@ func fractional_edges(viewport: SubViewport,sprite: Sprite2D,surface: ShaderMate
 				ring.append(origin+Vector2i(x,y))
 	sprite.scale=Vector2.ONE*1.35
 	viewport.size=Vector2i(ceili(source_size.x*1.35)+2,ceili(source_size.y*1.35)+2)
+	# A fractional magnification never draws world texel blocks
+	# (ParallaxLandscape._world_blocks); update_view above left its block size
+	# on the shared material for the whole-scale plate.
+	surface.set_shader_parameter("world_block",Vector2.ZERO)
 	surface.set_shader_parameter("ice_glint",0.0)
 	var outside_changes := 0
 	var sampled_pixels := 0

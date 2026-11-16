@@ -60,7 +60,7 @@ func run() -> void:
 					verify(feet[0].distance_to(art.to_global(pose.feet[0]))<.001 and feet[1].distance_to(art.to_global(pose.feet[1]))<.001,"Rain and footsteps share the actual animated boots")
 					var rig:=Gore._rig(unit)
 					verify(Vector2(rig[1].tip).distance_to(art.to_global(pose.hands[0]))<.001 and Vector2(rig[8].tip).distance_to(feet[1])<.001,"Damage anatomy follows the same mirrored limbs")
-					verify(unit.get_node("MachineHitbox").shape.size.y==float(role.standing_height if stance==0 else role.kneeling_height),"Collision silhouette follows the role's actual standing or lowered stance")
+					verify(unit.visual_scale==float(unit.profile.scale) and is_equal_approx(unit.get_node("MachineHitbox").shape.size.y,float(role.standing_height if stance==0 else role.kneeling_height)*unit.visual_scale) and is_equal_approx(unit.get_node("MachineHitbox").position.y,-unit.get_node("MachineHitbox").shape.size.y*.5),"Collision silhouette follows the role's actual standing or lowered stance")
 					verify(unit.weather_segments().all(func(segment):return Vector2(segment.from).is_finite() and Vector2(segment.to).is_finite()),"All kit weather contacts remain finite")
 					if facing==1 and stance==0: signature+=str(pose.feet)
 		verify(not gait_signatures.has(signature),"The role has its own stride, foot lift and load-bearing rhythm")

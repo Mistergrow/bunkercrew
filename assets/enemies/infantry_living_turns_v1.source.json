@@ -1,0 +1,46 @@
+{
+  "asset": "infantry_living_turns_v1.png",
+  "generator": "tools/bake_infantry_turns.py",
+  "method": "RotSprite turns (3x Scale2x, one sample per native texel) of the baked native field-kit parts for the living soldier's attitudes. No new art design.",
+  "license": "Same as the original project art; see original asset source metadata.",
+  "steps_per_turn": 48,
+  "steps": [
+    -2,
+    -1,
+    1,
+    2,
+    3,
+    4
+  ],
+  "body_cell": 72,
+  "body_centre": [
+    36,
+    36
+  ],
+  "head_cell": 48,
+  "head_centre": [
+    24,
+    24
+  ],
+  "heads_per_row": 21,
+  "head_rows": 2,
+  "heads": 7,
+  "roles": [
+    "rifle_guard",
+    "grenadier",
+    "scout",
+    "heavy_gunner",
+    "marksman",
+    "combat_medic"
+  ],
+  "size": [
+    1008,
+    1008
+  ],
+  "source_sha256": {
+    "assets/enemies/infantry_parts_v1.png": "c2479ba95edea13405a216dc41ed5acc9386db19a8e457572bd817ca7dc5fc65",
+    "tools/bake_infantry_turns.py": "0bae60db05c8123ea6f01923e82fee2715612dbe7e32faa0a42c1570aad32193",
+    "assets/workers/generate_character_workers.py": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256"
+  },
+  "sha256": "c2881861e52861403709dacfad08ddef7056be4e1b0238c7aaf25513760c6c8b"
+}

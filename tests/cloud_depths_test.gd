@@ -49,6 +49,8 @@ func sky_frame(scenery: ScenarioScenery,seconds: float) -> Image:
 	var depths = scenery.parallax_background
 	depths.sky_traffic.hide()
 	depths.mist.hide()
+	# Stack smoke on the nearest plate moves with the scene clock too.
+	if is_instance_valid(depths.plate_smoke): depths.plate_smoke.hide()
 	depths.layers[2].material.set_shader_parameter("scene_clock",0.0)
 	depths.layers[2].material.set_shader_parameter("motion_gain",0.0)
 	return await picture()

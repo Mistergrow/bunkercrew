@@ -4,7 +4,9 @@ extends Node2D
 const Catalog := preload("res://scripts/convoy_air_encounter_catalog.gd")
 const AircraftArt := preload("res://scripts/aircraft_art.gd")
 const AircraftSound := preload("res://scripts/aircraft_audio_catalog.gd")
-const HULLS := preload("res://assets/enemies/aircraft_hulls_v1.png")
+# The world-texel hull atlas (AircraftArtCatalog.WORLD_PATH): every flyby width
+# has its own bake with bank stances, so the graded plate is never loaded here.
+const HULLS := preload("res://assets/enemies/aircraft_hulls_world.png")
 const CLOUDS := preload("res://assets/cinematics/air_clouds_top_v1.png")
 const CLOUD_SHADER := preload("res://shaders/air_intro_cloud.gdshader")
 const EXTRAPOLATION := .12
@@ -28,6 +30,8 @@ class DistantAircraft extends Node2D:
 	var kind := "patrol_plane"
 	var profile: Dictionary = {}
 	var chassis_atlas: Texture2D
+	## Drawn unscaled: the hull's world size is its catalog width.
+	var hull_unit := 1.0
 	var age := 0.0
 	var formation_phase := 0.0
 	var flight_velocity := Vector2.ZERO

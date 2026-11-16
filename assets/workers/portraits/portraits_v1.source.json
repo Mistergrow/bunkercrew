@@ -1,0 +1,142 @@
+{
+  "asset": "portraits_v1.png",
+  "purpose": "Original Bunkercrew crew bust portraits for the menus, drawn at whole multiples of their size.",
+  "atlas_size": [
+    640,
+    80
+  ],
+  "cell_size": [
+    80,
+    80
+  ],
+  "regions": {
+    "mara": [
+      0,
+      0,
+      80,
+      80
+    ],
+    "branko": [
+      80,
+      0,
+      80,
+      80
+    ],
+    "ivo": [
+      160,
+      0,
+      80,
+      80
+    ],
+    "nora": [
+      240,
+      0,
+      80,
+      80
+    ],
+    "levin": [
+      320,
+      0,
+      80,
+      80
+    ],
+    "selma": [
+      400,
+      0,
+      80,
+      80
+    ],
+    "oskar": [
+      480,
+      0,
+      80,
+      80
+    ],
+    "rika": [
+      560,
+      0,
+      80,
+      80
+    ]
+  },
+  "sources": {
+    "mara": {
+      "file": "assets/workers/identities/mara.png",
+      "sha256": "d0fcefbcbab842549e74b2ca87dbcb7dd7990e2073f9334cf4c04347d09453ec",
+      "provenance": "assets/workers/identities/prompts.json"
+    },
+    "branko": {
+      "file": "assets/workers/identities/branko.png",
+      "sha256": "2a9ee27d1c94dadf0501e6e0826f066ed6a4e42077876121e982a0b55f730b0b",
+      "provenance": "assets/workers/identities/prompts.json"
+    },
+    "ivo": {
+      "file": "assets/workers/identities/ivo.png",
+      "sha256": "a53da6161e18dca2ba456fa2b2af41c1fcfa2f68eaf20d94130d338be9e1468f",
+      "provenance": "assets/workers/identities/prompts.json"
+    },
+    "nora": {
+      "file": "assets/workers/portraits/references/nora.png",
+      "sha256": "148c96fa0ddfc5ca6c06c0841bccae6f3f7b02ed9e88f61670c7f145f869e518",
+      "generator": "Meshy image-to-image, model gpt-image-2",
+      "generated_at": "2026-11-15",
+      "task_id": "01a1dd01-3881-742c-98dc-b60a5da03fb0",
+      "reference_images": [
+        "assets/workers/identities/mara.png (style)",
+        "assets/workers/nora_body.png + nora_arms.png idle frame 0, 12x nearest (identity)"
+      ],
+      "prompt": "Game character production reference for a 2D side-view industrial bunker survival game. Draw ONE full-body worker facing right in relaxed side profile, from head to boot soles, on a plain transparent background. Match the FIRST reference image exactly in rendering style, outline weight, pixel cluster size, lighting and level of detail: restrained gritty pixel art like late-1990s detailed 2D PC games, crisp hand-placed pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, no smooth painting, no 3D. The SECOND reference image is the small in-game sprite of this exact character: copy its identity, colours, headwear and equipment faithfully. Character NORA: adult woman engineer, medium build, wide bronze-brown helmet with a broad brim and a small pale badge on the front, short dark brown bob haircut, warm light skin, calm focused expression, high-collared slate blue-grey engineer vest over a slate shirt, a small measuring gauge on the chest, dark grey-green trousers, durable brown boots, a long cream blueprint tube carried diagonally on her back and a rectangular brown document folio at her side. Unarmed, hands relaxed. Slight left-front light. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures."
+    },
+    "levin": {
+      "file": "assets/workers/portraits/references/levin.png",
+      "sha256": "6ce14af52ab2cf74d101c3b8980258a1e1d55f47ac8262fcd3b28db52d611f70",
+      "generator": "Meshy image-to-image, model gpt-image-2",
+      "generated_at": "2026-11-15",
+      "task_id": "01a1dd02-3a95-76f6-b46f-c9204d9c6849",
+      "reference_images": [
+        "assets/workers/identities/mara.png (style)",
+        "assets/workers/levin_body.png + levin_arms.png idle frame 0, 12x nearest (identity)"
+      ],
+      "prompt": "Game character production reference for a 2D side-view industrial bunker survival game. Draw ONE full-body worker facing right in relaxed side profile, from head to boot soles, on a plain transparent background. Match the FIRST reference image exactly in rendering style, outline weight, pixel cluster size, lighting and level of detail: restrained gritty pixel art like late-1990s detailed 2D PC games, crisp hand-placed pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, no smooth painting, no 3D. The SECOND reference image is the small in-game sprite of this exact character: copy its identity, colours, headwear and equipment faithfully. Character LEVIN: slim adult man scout and radio operator, a pointed olive-green hood pulled up with the side of his face exposed, short stubble, warm tan skin, alert watchful expression, a short asymmetric olive field poncho over his upper body, a muted neck scarf, slate blue-grey trousers, durable brown boots, a compact radio pack on his back with a long thin aerial rising high above his head. Unarmed, hands relaxed. Slight left-front light. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures."
+    },
+    "selma": {
+      "file": "assets/workers/portraits/references/selma.png",
+      "sha256": "ddebf1fccd0396075f862b332b14552e77a63044fa982774d465ec925883c81e",
+      "generator": "Meshy image-to-image, model gpt-image-2",
+      "generated_at": "2026-11-15",
+      "task_id": "01a1dd02-3ec9-755b-957a-f2a6f0a5e7a0",
+      "reference_images": [
+        "assets/workers/identities/mara.png (style)",
+        "assets/workers/selma_body.png + selma_arms.png idle frame 0, 12x nearest (identity)"
+      ],
+      "prompt": "Game character production reference for a 2D side-view industrial bunker survival game. Draw ONE full-body worker facing right in relaxed side profile, from head to boot soles, on a plain transparent background. Match the FIRST reference image exactly in rendering style, outline weight, pixel cluster size, lighting and level of detail: restrained gritty pixel art like late-1990s detailed 2D PC games, crisp hand-placed pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, no smooth painting, no 3D. The SECOND reference image is the small in-game sprite of this exact character: copy its identity, colours, headwear and equipment faithfully. Character SELMA: adult woman field medic, medium build, a soft rounded ivory medical cap with a small pale-green cross, short auburn bob haircut, warm light skin, composed caring expression, a long sage-green field jacket with a pale medical insignia on the sleeve, dark grey-violet trousers, durable brown boots, a large cream canvas medical bag with a pale cross carried at her back hip on a strap. Unarmed, hands relaxed. Slight left-front light. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures."
+    },
+    "oskar": {
+      "file": "assets/workers/portraits/references/oskar.png",
+      "sha256": "18a094f2a422e16db020e79be709708a5cbbd14f49a9df37e48eed7501449a2c",
+      "generator": "Meshy image-to-image, model gpt-image-2",
+      "generated_at": "2026-11-15",
+      "task_id": "01a1dd02-413d-72b3-8f2a-0a98aea1275d",
+      "reference_images": [
+        "assets/workers/identities/mara.png (style)",
+        "assets/workers/oskar_body.png + oskar_arms.png idle frame 0, 12x nearest (identity)"
+      ],
+      "prompt": "Game character production reference for a 2D side-view industrial bunker survival game. Draw ONE full-body worker facing right in relaxed side profile, from head to boot soles, on a plain transparent background. Match the FIRST reference image exactly in rendering style, outline weight, pixel cluster size, lighting and level of detail: restrained gritty pixel art like late-1990s detailed 2D PC games, crisp hand-placed pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, no smooth painting, no 3D. The SECOND reference image is the small in-game sprite of this exact character: copy its identity, colours, headwear and equipment faithfully. Character OSKAR: broad heavy-set older adult man, veteran miner, a khaki-olive dust helmet with a tall raised square headlamp on top, short greying moustache, weathered tan skin, steady stern expression, heavy grey-khaki work overalls, a long brown leather miner apron reaching to his knees, dark trousers, heavy boots, a tall squared brown dust pack on his back and a tool strap across his chest. Unarmed, hands relaxed. Slight left-front light. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures."
+    },
+    "rika": {
+      "file": "assets/workers/portraits/references/rika.png",
+      "sha256": "ae1942f1c9e6432f3cf3d8282eccf39ee0f36d160e60dc216f499443aedcbd03",
+      "generator": "Meshy image-to-image, model gpt-image-2",
+      "generated_at": "2026-11-15",
+      "task_id": "01a1dd02-4395-7508-9702-a78f51ee4e39",
+      "reference_images": [
+        "assets/workers/identities/mara.png (style)",
+        "assets/workers/rika_body.png + rika_arms.png idle frame 0, 12x nearest (identity)"
+      ],
+      "prompt": "Game character production reference for a 2D side-view industrial bunker survival game. Draw ONE full-body worker facing right in relaxed side profile, from head to boot soles, on a plain transparent background. Match the FIRST reference image exactly in rendering style, outline weight, pixel cluster size, lighting and level of detail: restrained gritty pixel art like late-1990s detailed 2D PC games, crisp hand-placed pixel clusters, dark charcoal outlines, earthy industrial palette, realistic adult proportions with a slightly enlarged readable head, no smooth painting, no 3D. The SECOND reference image is the small in-game sprite of this exact character: copy its identity, colours, headwear and equipment faithfully. Character RIKA: lean adult woman electrician, a ribbed dark slate-blue beanie, cropped dark hair, warm light skin, quick sharp expression, a copper headset with a small boom microphone over her ear, a short ochre insulated electrician jacket, dark brown-grey trousers, durable brown boots, a round copper cable reel with wound cable carried at her back hip and a small pouch for a handheld meter on her belt. Unarmed, hands relaxed. Slight left-front light. No scene, floor, cast shadow, letters, logos, panels, grid, extra poses or extra figures."
+    }
+  },
+  "references": "No third-party artwork used. The style reference is the project's own crew production art; identity references are the runtime sprites.",
+  "postprocessing": "tools/build_crew_portraits.py: eroded-silhouette head location, square bust at 34% of the figure height, premultiplied area reduction to 80 px, mild tone lift, hard alpha, re-inked 1 px outline, chest cut after inking. Full generated references preserved in references/ and excluded from export.",
+  "sha256": "b6b0640c29f583a3fa47961456a8248d1eead7853e7afdf523b2c67555e673cc"
+}

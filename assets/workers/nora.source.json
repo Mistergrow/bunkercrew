@@ -1,6 +1,6 @@
 {
   "source": "generate_character_workers.py",
-  "source_sha256": "967f3f1a7fc84b4f7beaae77f90958c28bff32cbb7afb9f07e640534bc4acd2e",
+  "source_sha256": "9cd5bc7ca0b2f44d054071834a4ae4626ceb36ca969a1b5468531ae076716256",
   "rig": "generate_workers.py",
   "method": "Original source-authored pixel geometry; no imported image edits",
   "identity": "nora",
@@ -19,6 +19,30 @@
     48,
     48
   ],
+  "turns": {
+    "asset": "nora_turns.png",
+    "steps": 48,
+    "cell": 68,
+    "origin": [
+      34,
+      34
+    ],
+    "rows": [
+      "torso",
+      "head",
+      "back_torso/back_head",
+      "supine torso"
+    ],
+    "back_steps": [
+      -3,
+      3
+    ],
+    "supine_steps": [
+      -15,
+      -7
+    ],
+    "method": "RotSprite (3x Scale2x, one sample per native texel) of the generated head/torso pieces; quarter turns exact"
+  },
   "motion": {
     "label": "Planted working stance and measured inspection",
     "walk_rate": 0.96,
@@ -64,7 +88,8 @@
     "nora_torso.png",
     "nora_head.png",
     "nora_back_torso.png",
-    "nora_back_head.png"
+    "nora_back_head.png",
+    "nora_turns.png"
   ],
   "sha256": {
     "nora_body.png": "428eab1604c2da19ea3488c6ff9f6ca7d7ea672946da39a2cea5764bb939122c",
@@ -72,7 +97,8 @@
     "nora_torso.png": "4ef57b30c6171bb881d621f78eeab813cd88fe35b81ddb7bbc52086422e155db",
     "nora_head.png": "9d939f1b590504c1699401ab81e81e0a47fd5ff2e495851d5e6f96658fc166ac",
     "nora_back_torso.png": "6ef16b54e38d8cecc8f2717da443d56305d80620663e65dbfd6554059bb1c355",
-    "nora_back_head.png": "debf3d5e28f520ab3d3e6f94ea53d2bde5ddd672618c3eaa61d99ef20fef2aac"
+    "nora_back_head.png": "debf3d5e28f520ab3d3e6f94ea53d2bde5ddd672618c3eaa61d99ef20fef2aac",
+    "nora_turns.png": "2b2261d0b7c7d85c97aa69d88a12d7848ad21917d3e69eef64ccf1d93145a0f8"
   },
   "license": "Original Bunkercrew source-authored pixel geometry. Distribution only together with Bunkercrew; standalone redistribution and use in other projects are not permitted.",
   "source_history": "identities/source-history-20261005.json",
